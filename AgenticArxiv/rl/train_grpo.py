@@ -805,7 +805,7 @@ def main(
         "num_generations": num_generations,
         "max_completion_length": max_completion_length,
         "temperature": temperature,
-        "chat_template_kwargs": {"enable_thinking": False},
+        "chat_template_kwargs": {"enable_thinking": False} if model_is_qwen35 else {},
         "seed": seed,
         "data_seed": seed,
         "logging_steps": 1,
