@@ -498,6 +498,22 @@ def _generate_single_turn_compat(trainer, prompt_ids):
     return result
 
 
+
+def _trainer_max_completion_length(trainer) -> int:
+    """Read the completion budget across TRL releases."""
+    value = getattr(trainer, "max_completion_length", None)
+    if value is None:
+        value = getattr(getattr(trainer, "args", None), "max_completion_length", None)
+    if value is None:
+        raise RuntimeError(
+            "Cannot resolve max_completion_length from TRL trainer or trainer.args"
+        )
+    value = int(value)
+    if value <= 0:
+        raise ValueError(f"max_completion_length must be positive, got {value}")
+    return value
+
+
 def make_multiturn_rollout_func(
     environment_factory,
     max_turns: int = 4,
@@ -519,6 +535,7 @@ def make_multiturn_rollout_func(
         import copy
 
         tokenizer = trainer.processing_class
+        max_completion_length = _trainer_max_completion_length(trainer)
         # 不要再按 num_generations 展开：TRL 交进来的 prompts 已经是重复过的
         # （num_generations=2 时收到的是 2 条一模一样的 prompt）。再展开一次会让
         # 返回条数变成 N*G*G，与 TRL 期望的 N*G 对不上，在 shuffle_sequence_dict
@@ -577,7 +594,7 @@ def make_multiturn_rollout_func(
         for _turn in range(max_turns):
             if not active:
                 break
-            remaining = [trainer.max_completion_length - len(completion_ids[i]) for i in active]
+            remaining = [max_completion_length - len(completion_ids[i]) for i in active]
             keep = [(i, r) for i, r in zip(active, remaining) if r > 0]
             if not keep:
                 break
@@ -588,7 +605,7 @@ def make_multiturn_rollout_func(
             )
             next_active = []
             for batch_index, index in enumerate(active):
-                budget = trainer.max_completion_length - len(completion_ids[index])
+                budget = max_completion_length - len(completion_ids[index])
                 # turn_ids 是 TRL 返回的完成 token；可能是 tensor，统一转成 int 列表，
                 # 否则下一轮拼进 full_ids 后 torch.tensor() 无法处理
                 generated = [int(t) for t in turn_ids[batch_index]]
@@ -651,18 +668,18 @@ def make_multiturn_rollout_func(
                 })
                 suffix = f"\nObservation: {observation}\nThought:"
                 suffix_ids = tokenizer(suffix, add_special_tokens=False)["input_ids"]
-                suffix_ids = list(suffix_ids)[: max(0, trainer.max_completion_length - len(completion_ids[index]))]
+                suffix_ids = list(suffix_ids)[: max(0, max_completion_length - len(completion_ids[index]))]
                 completion_ids[index].extend(suffix_ids)
                 env_masks[index].extend([0] * len(suffix_ids))
                 full_ids[index] = prompt_ids[index] + completion_ids[index]
-                if len(completion_ids[index]) < trainer.max_completion_length:
+                if len(completion_ids[index]) < max_completion_length:
                     next_active.append(index)
             active = next_active
 
         for index, history in enumerate(histories):
             last_action = str(history[-1].get("action") or "") if history else ""
             clipped = (
-                len(completion_ids[index]) >= trainer.max_completion_length
+                len(completion_ids[index]) >= max_completion_length
                 and last_action != "FINISH"
             )
             trajectory_results.append({
