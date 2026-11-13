@@ -34,6 +34,7 @@ from datasets import Dataset
 
 from rl.model_loading import (
     apply_non_thinking_chat_template,
+    assert_default_template_is_non_thinking,
     build_bf16_lora_config,
     is_qwen35_model,
     load_text_causal_lm,
@@ -352,6 +353,12 @@ def main(
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
+    model_is_qwen35 = is_qwen35_model(resolved_model)
+    if model_is_qwen35:
+        try:
+            assert_default_template_is_non_thinking(tokenizer)
+        except ValueError as exc:
+            raise SystemExit(f"❌ Qwen3.5 SFT Chat Template 不一致: {exc}") from exc
 
     train_dataset = Dataset.from_list(_load_sft_rows(train_data_path))
     if "messages" in train_dataset.column_names:
@@ -379,7 +386,6 @@ def main(
     peft_config = None
     policy = resolved_model
     lora_target_modules = list(QLORA_TARGET_MODULES)
-    model_is_qwen35 = is_qwen35_model(resolved_model)
     if qlora and bf16_lora:
         raise SystemExit("❌ --qlora 与 --bf16_lora 互斥，请只选择一种训练方式")
     if model_is_qwen35 and qlora:
@@ -497,17 +503,11 @@ def main(
         "packing": False,
         "report_to": backends,
         "run_name": run_name or out_path.name,
-        "chat_template_kwargs": {"enable_thinking": False} if model_is_qwen35 else {},
         **_precision_flags(),  # 只有 CUDA 才开混合精度
     }
     config_kwargs, dropped_config_keys = _filter_dataclass_kwargs(
         SFTConfig, config_kwargs
     )
-    if model_is_qwen35 and "chat_template_kwargs" in dropped_config_keys:
-        raise SystemExit(
-            "❌ 当前 TRL 的 SFTConfig 不支持 chat_template_kwargs；"
-            "请使用 requirements-qwen35.txt 中锁定的 TRL 版本"
-        )
     if dropped_config_keys:
         print(
             "⚠️  当前TRL版本不支持以下SFTConfig参数，已忽略: "
