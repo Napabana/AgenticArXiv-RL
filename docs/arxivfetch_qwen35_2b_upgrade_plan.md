@@ -275,6 +275,7 @@ smoke 通过后再扩大训练步数、任务集和 completion budget。若轨�
 - [x] 固定 revision 仅对 Qwen/Qwen3.5-2B 生效，避免将 2B 仓库 commit hash 错用到其他 Qwen3.5 checkpoint。
 - [x] 明确 Qwen3.5 专用环境要求 Python >=3.11、PyTorch >=2.6.0；先安装 CUDA 匹配的 torch，再安装固定直接依赖。
 - [x] 扩充 SFT / GRPO Manifest 的版本记录，覆盖 torch、transformers、trl、accelerate、datasets、huggingface_hub、tokenizers、safetensors，以及实际使用时的 peft / bitsandbytes。
+- [x] 增加 AutoDL 4090 首轮命令：SFT inspect-only、1-step SFT、1-step GRPO、rollout trace 保存和 pip freeze；命令仅作 smoke 起点，不代表已运行。
 
 ### 尚未验证
 
