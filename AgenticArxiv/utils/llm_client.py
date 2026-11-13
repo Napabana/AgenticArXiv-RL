@@ -330,7 +330,7 @@ class TransformersLLMClient:
         extra = dict(extra or {})
         stop = extra.pop("stop", []) or []
         template_kwargs = extra.pop("chat_template_kwargs", {}) or {}
-        if self.is_qwen35:
+        if getattr(self, "is_qwen35", False):
             template_kwargs.setdefault("enable_thinking", False)
         inputs, _images = self._prepare_inputs(
             messages, template_kwargs=template_kwargs
