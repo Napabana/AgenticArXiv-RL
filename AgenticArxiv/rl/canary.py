@@ -30,6 +30,7 @@ from transformers import TrainerCallback
 from benchmark.tasks import get_task_by_id
 from rl.grpo_reward import synthesize_trajectory
 from rl.reward import RewardCalculator
+from rl.model_loading import apply_non_thinking_chat_template
 
 # 默认 canary 任务：一个简单搜索 + 一个复合任务，覆盖单步和多步场景
 DEFAULT_CANARY_TASK_IDS = ["search_01", "composite_01"]
@@ -100,7 +101,8 @@ class CanaryEvaluator:
         """
         if not getattr(self.tokenizer, "chat_template", None):
             return prompt
-        return self.tokenizer.apply_chat_template(
+        return apply_non_thinking_chat_template(
+            self.tokenizer,
             [{"role": "user", "content": prompt}],
             tokenize=False,
             add_generation_prompt=True,
