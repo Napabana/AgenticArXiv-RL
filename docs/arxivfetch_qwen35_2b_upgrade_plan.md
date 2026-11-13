@@ -181,3 +181,28 @@ GRPO 继续训练 SFT Adapter 时：
 - [TRL GRPOTrainer 文档：Qwen3.5 支持列表与自定义 Rollout](https://huggingface.co/docs/trl/main/en/grpo_trainer)
 
 ---
+
+
+## 9. 本分支实施记录（2026-11-13）
+
+### 已提交到本分支的代码
+
+- [x] 新增 `rl/model_loading.py`：按 `model_type` 显式选择 `Qwen3_5ForCausalLM`，支持从 PEFT adapter 配置解析基座模型，并提供文本模型/Tokenizer 加载接口。
+- [x] 新增 Qwen3.5 混合注意力 LoRA 目标扫描：覆盖 Gated DeltaNet、Full Attention 和 MLP 的 Linear 投影；缺少任一必需模块时失败退出。
+- [x] SFT 新增显式 `--bf16_lora`，与 `--qlora` 互斥；Qwen3.5 不允许误走 QLoRA 或全参数微调分支。
+- [x] GRPO 新增 BF16 LoRA 策略加载，可从 SFT Adapter 恢复并保持仅 LoRA 参数可训练。
+- [x] GRPO 多轮生成适配 TRL 0.29.x 与 1.x 的 `_generate_single_turn` 参数差异；TRL 1.x 对已经展开的每条 prompt 显式生成 1 条 completion。
+- [x] SFT、GRPO、Canary、StageVerifier 和本地推理统一传入非 Thinking Chat Template 参数。
+- [x] StageVerifier 与本地 Benchmark 支持加载 PEFT Adapter 目录，而不是把 adapter 目录误当成完整模型权重。
+- [x] 新增 `requirements-qwen35.txt`，单独锁定 Transformers 5.22.2 / TRL 1.17.1 / PEFT 0.21.2 / Accelerate 1.15.0 / Datasets 5.2.0；不覆盖 AutoDL 已安装的 CUDA PyTorch。
+- [x] 新增 `tests/test_model_loading.py`，覆盖模型识别、adapter 基座解析、混合注意力 LoRA 覆盖、非 Thinking 模板和 TRL rollout API 兼容。
+
+### 尚未验证
+
+- [ ] GitHub Actions 全量 CI 通过。
+- [ ] AutoDL RTX 4090 上 Qwen3.5-2B 文本类加载和生成。
+- [ ] BF16 LoRA SFT 1–3 step smoke、Adapter 保存/重载。
+- [ ] 多轮 GRPO 至少 1 次 optimizer step，确认 LoRA 权重变化且非 LoRA 参数不变。
+- [ ] 实测 peak VRAM、step time、训练曲线和 Base/SFT/GRPO 指标。
+
+**重要：** 当前提交只表示代码适配已实现，不表示 Qwen3.5 已在本项目上成功训练。所有训练与性能指标仍待实测。
