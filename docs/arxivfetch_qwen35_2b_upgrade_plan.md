@@ -61,7 +61,7 @@ Qwen3.5 要求 Transformers v5。上游现有依赖下限 `transformers>=4.45.0`
 实施时：
 1. 使用 Python >=3.11。TRL 1.17.1 的包元数据要求 Python >=3.11。
 2. 使用 CUDA 匹配的 PyTorch >=2.6.0。TRL 1.17.1 的运行依赖要求 torch>=2.6.0；先在 AutoDL 镜像中核对 torch/CUDA 组合，不要让安装训练依赖时意外替换现有 CUDA wheel。
-3. 先建立独立环境，锁定一组已验证版本，不污染用户其他项目。
+3. 先建立独立环境，不污染用户其他项目；在首次成功运行前不宣称环境已验证。
 4. Transformers 至少使用包含 Qwen3.5 文本模型实现的 v5 版本；正式环境记录确切版本。
 5. TRL 选择保留 `GRPOTrainer(rollout_func=...)` API 的版本；先检查当前构造函数、`env_mask` 和自定义 Rollout 返回结构，再冻结版本。
 6. PEFT 版本必须支持 Transformers v5 和 Qwen3.5 文本模型；使用已验证的精确版本。
@@ -226,7 +226,7 @@ GRPO 继续训练 SFT Adapter 时：
 ### 本轮新增保护
 
 - [x] 新增 `assert_grpo_reference_adapter`：训练器初始化后检查 `default/ref` 均存在、`default` 仍为 active policy、ref 与初始 policy 权重逐张量相同、ref 不可训练。
-- [x] GRPO 训练启动时执行上述检查；beta 非零而 reference adapter 不符合预期时立即失败，不允许静默地用 base model 代替 SFT reference。
+- [x] 仅对 Qwen3.5 BF16 LoRA GRPO 启动时执行上述检查；beta 非零而 reference adapter 不符合预期时立即失败，不允许静默地用 base model 代替 SFT reference。
 - [x] 新增 7 个单元测试覆盖 beta=0、reference 缺失、权重不一致、reference 未冻结、active adapter 错误，以及 revision 只绑定 Qwen3.5-2B。
 - [x] 固定 revision 仅对 Qwen/Qwen3.5-2B 生效，避免将 2B 仓库 commit hash 错用到其他 Qwen3.5 checkpoint。
 - [x] 明确 Qwen3.5 专用环境要求 Python >=3.11、PyTorch >=2.6.0；先安装 CUDA 匹配的 torch，再安装固定直接依赖。
