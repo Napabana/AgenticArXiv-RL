@@ -6,7 +6,9 @@ Run from AgenticArxiv:
 from __future__ import annotations
 
 import json
+import sys
 import tempfile
+import types
 import unittest
 from pathlib import Path
 
@@ -19,6 +21,7 @@ from rl.model_loading import (
     apply_non_thinking_chat_template,
     get_model_type,
     is_qwen35_model,
+    load_text_causal_lm,
     resolve_base_model_ref,
     resolve_lora_target_modules,
     trainable_parameter_fingerprint,
@@ -79,6 +82,26 @@ class TestQwen35ModelDetection(unittest.TestCase):
             )
             self.assertEqual(resolve_base_model_ref(adapter), str(base))
             self.assertTrue(is_qwen35_model(adapter))
+
+    def test_qwen35_uses_text_only_model_class(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "config.json").write_text(
+                json.dumps({"model_type": "qwen3_5"}), encoding="utf-8"
+            )
+
+            class TextOnlyModel:
+                @classmethod
+                def from_pretrained(cls, model_ref, **kwargs):
+                    return ("text-only", str(model_ref), kwargs)
+
+            fake_transformers = types.ModuleType("transformers")
+            fake_transformers.Qwen3_5ForCausalLM = TextOnlyModel
+            with unittest.mock.patch.dict(sys.modules, {"transformers": fake_transformers}):
+                result = load_text_causal_lm(root, dtype="bf16")
+            self.assertEqual(result[0], "text-only")
+            self.assertEqual(result[1], str(root))
+            self.assertEqual(result[2], {"dtype": "bf16"})
 
 
 class TestQwen35LoRATargets(unittest.TestCase):
