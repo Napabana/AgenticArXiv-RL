@@ -10,6 +10,7 @@ import sys
 import tempfile
 import types
 import unittest
+from unittest import mock
 from pathlib import Path
 
 import torch
@@ -97,7 +98,7 @@ class TestQwen35ModelDetection(unittest.TestCase):
 
             fake_transformers = types.ModuleType("transformers")
             fake_transformers.Qwen3_5ForCausalLM = TextOnlyModel
-            with unittest.mock.patch.dict(sys.modules, {"transformers": fake_transformers}):
+            with mock.patch.dict(sys.modules, {"transformers": fake_transformers}):
                 result = load_text_causal_lm(root, dtype="bf16")
             self.assertEqual(result[0], "text-only")
             self.assertEqual(result[1], str(root))
