@@ -1,0 +1,19 @@
+# ArxivFetch-RL Qwen3.5-2B BF16-LoRA environment.
+# Install the CUDA-matched PyTorch build separately (use the AutoDL image's
+# preinstalled torch when possible). Do not let pip silently replace its CUDA build.
+#
+# Install after the repository's base requirements:
+#   pip install -r requirements.txt
+#   pip install -r requirements-qwen35.txt
+
+transformers==5.22.2
+trl==1.17.1
+peft==0.21.2
+accelerate==1.15.0
+datasets==5.2.0
+
+# Qwen3.5 BF16 LoRA does not require bitsandbytes.
+# Optional Gated DeltaNet acceleration packages (install only after checking
+# the exact torch/CUDA wheel compatibility on the target AutoDL image):
+#   causal-conv1d
+#   flash-linear-attention
