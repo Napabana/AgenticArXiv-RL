@@ -450,6 +450,7 @@ def main(
             require_qwen35_coverage=model_is_qwen35,
         )
         policy = get_peft_model(policy, peft_config)
+        policy.config.use_cache = False
         print(
             "🪶 BF16 LoRA: full BF16 text backbone + trainable LoRA adapters | "
             f"r={lora_r}, alpha={lora_alpha}, dropout={lora_dropout}\n"
