@@ -468,6 +468,36 @@ def require_rollout_func_support() -> None:
         )
 
 
+
+def _generate_single_turn_compat(trainer, prompt_ids):
+    """Call TRL's private single-turn generator across supported API versions.
+
+    TRL 1.x adds a required num_generations argument. Prompts passed to the
+    custom rollout are already expanded by GRPOTrainer, so each row must
+    generate exactly one completion here.
+    """
+    import inspect
+
+    signature = inspect.signature(trainer._generate_single_turn)
+    kwargs = (
+        {"num_generations": 1}
+        if "num_generations" in signature.parameters
+        else {}
+    )
+    result = trainer._generate_single_turn(
+        prompt_ids,
+        None,
+        {},
+        **kwargs,
+    )
+    if not isinstance(result, tuple) or len(result) != 3:
+        raise RuntimeError(
+            "Unsupported TRL _generate_single_turn return contract: "
+            f"expected a 3-tuple, got {type(result).__name__}"
+        )
+    return result
+
+
 def make_multiturn_rollout_func(
     environment_factory,
     max_turns: int = 4,
@@ -553,23 +583,8 @@ def make_multiturn_rollout_func(
                 break
             active = [i for i, _ in keep]
 
-            # TRL 0.29.x and 1.x expose different private helper signatures.
-            # In current TRL, num_generations is required; prompts have already
-            # been expanded by GRPOTrainer, so each active row must generate 1
-            # completion here (not another G completions).
-            import inspect
-
-            generate_signature = inspect.signature(trainer._generate_single_turn)
-            generate_kwargs = (
-                {"num_generations": 1}
-                if "num_generations" in generate_signature.parameters
-                else {}
-            )
-            turn_ids, _, _ = trainer._generate_single_turn(
-                [full_ids[i] for i in active],
-                None,
-                {},
-                **generate_kwargs,
+            turn_ids, _, _ = _generate_single_turn_compat(
+                trainer, [full_ids[i] for i in active]
             )
             next_active = []
             for batch_index, index in enumerate(active):
