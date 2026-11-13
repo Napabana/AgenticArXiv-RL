@@ -190,6 +190,7 @@ def validate_qwen35_lora_targets(target_modules) -> list[str]:
 def trainable_parameter_fingerprint(model) -> str:
     """Hash trainable tensors to verify an optimizer step changed the adapter."""
     import hashlib
+    import torch
 
     digest = hashlib.sha256()
     seen = 0
@@ -198,7 +199,7 @@ def trainable_parameter_fingerprint(model) -> str:
             continue
         seen += 1
         digest.update(name.encode("utf-8"))
-        tensor = parameter.detach().to(device="cpu", dtype=__import__("torch").float32).contiguous()
+        tensor = parameter.detach().to(device="cpu", dtype=torch.float32).contiguous()
         digest.update(tensor.numpy().tobytes())
     if not seen:
         raise ValueError("Model has no trainable parameters to fingerprint")
