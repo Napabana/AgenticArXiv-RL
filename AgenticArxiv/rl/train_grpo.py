@@ -963,9 +963,35 @@ def main(
         stop_reason = "trainer_stopped_early"
     else:
         stop_reason = "max_steps_or_epochs_completed"
+    peft_configs = getattr(trainer.model, "peft_config", {}) or {}
+    active_peft_config = next(iter(peft_configs.values()), None) if isinstance(peft_configs, dict) else None
+    raw_target_modules = getattr(active_peft_config, "target_modules", []) or []
+    if isinstance(raw_target_modules, (set, tuple)):
+        lora_target_modules = sorted(str(x) for x in raw_target_modules)
+    elif isinstance(raw_target_modules, list):
+        lora_target_modules = [str(x) for x in raw_target_modules]
+    else:
+        lora_target_modules = [str(raw_target_modules)] if raw_target_modules else []
+
     manifest = {
         "stage": "grpo_qlora" if qlora else "grpo_bf16_lora" if bf16_lora else "grpo_full",
         "training_method": "qlora" if qlora else "bf16_lora" if bf16_lora else "full_finetune",
+        "model_type": "qwen3_5" if is_qwen35_model(resolved) else "auto",
+        "model_class": "Qwen3_5ForCausalLM" if is_qwen35_model(resolved) else "AutoModelForCausalLM",
+        "weight_dtype": "bfloat16" if qlora or bf16_lora else "checkpoint_default",
+        "lora": {
+            "enabled": qlora or bf16_lora,
+            "method": "qlora" if qlora else "bf16_lora" if bf16_lora else None,
+            "r": lora_r if qlora or bf16_lora else None,
+            "alpha": lora_alpha if qlora or bf16_lora else None,
+            "dropout": lora_dropout if qlora or bf16_lora else None,
+            "target_modules": lora_target_modules,
+        },
+        "versions": {
+            package: version(package)
+            for package in ("torch", "transformers", "trl", "peft", "bitsandbytes")
+            if package not in ("peft", "bitsandbytes") or qlora or bf16_lora
+        },
         "source_model": resolved,
         "base_model": base_model,
         "task_set": task_set,
