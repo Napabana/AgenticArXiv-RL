@@ -153,6 +153,23 @@ def resolve_lora_target_modules(
     return targets
 
 
+
+def apply_non_thinking_chat_template(tokenizer, messages, **kwargs):
+    """Render the project's ReAct messages without a model-generated thinking block."""
+    try:
+        return tokenizer.apply_chat_template(
+            messages,
+            enable_thinking=False,
+            **kwargs,
+        )
+    except TypeError as exc:
+        # Older tokenizer templates may not expose enable_thinking. Preserve
+        # compatibility for legacy baselines; Qwen3.5 uses the explicit path.
+        if "enable_thinking" not in str(exc):
+            raise
+        return tokenizer.apply_chat_template(messages, **kwargs)
+
+
 def build_bf16_lora_config(
     model,
     *,
