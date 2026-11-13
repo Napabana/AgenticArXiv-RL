@@ -497,7 +497,7 @@ def main(
         "packing": False,
         "report_to": backends,
         "run_name": run_name or out_path.name,
-        "chat_template_kwargs": {"enable_thinking": False},
+        "chat_template_kwargs": {"enable_thinking": False} if model_is_qwen35 else {},
         **_precision_flags(),  # 只有 CUDA 才开混合精度
     }
     config_kwargs, dropped_config_keys = _filter_dataclass_kwargs(
