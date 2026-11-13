@@ -20,9 +20,13 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
 
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, PreTrainedModel, PreTrainedTokenizer
+from transformers import PreTrainedModel, PreTrainedTokenizer
 
 from rl.grpo_reward import parse_react_action
+from rl.model_loading import (
+    apply_non_thinking_chat_template,
+    load_text_model_and_tokenizer,
+)
 from rl.reward import RewardCalculator
 
 # 工具导入（触发注册）
@@ -66,16 +70,18 @@ def _load_verification_model(
     generations that way takes tens of minutes per stage, slow enough that
     running the gate by default stopped being defensible.
     """
-    if torch.cuda.is_available():
-        model = AutoModelForCausalLM.from_pretrained(model_path)
-        model = model.to("cuda")
-    else:
-        model = AutoModelForCausalLM.from_pretrained(model_path)
+    from rl.precision import trainable_model_dtype
 
+    load_kwargs = {"dtype": trainable_model_dtype()}
+    if torch.cuda.is_available():
+        load_kwargs["device_map"] = {"": 0}
+    model, loaded_tokenizer = load_text_model_and_tokenizer(
+        model_path, **load_kwargs
+    )
     if tokenizer is None:
-        tokenizer = AutoTokenizer.from_pretrained(model_path)
-        if tokenizer.pad_token is None:
-            tokenizer.pad_token = tokenizer.eos_token
+        tokenizer = loaded_tokenizer
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
 
     return model, tokenizer
 
@@ -309,7 +315,8 @@ class StageVerifier:
 
         if tokenizer is not None and getattr(tokenizer, "chat_template", None):
             prompts = [
-                tokenizer.apply_chat_template(
+                apply_non_thinking_chat_template(
+                    tokenizer,
                     [{"role": "user", "content": prompt}],
                     tokenize=False,
                     add_generation_prompt=True,
