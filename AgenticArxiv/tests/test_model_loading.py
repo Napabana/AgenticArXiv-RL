@@ -16,7 +16,10 @@ from pathlib import Path
 import torch
 from torch import nn
 
-from rl.grpo_reward import _generate_single_turn_compat
+from rl.grpo_reward import (
+    _generate_single_turn_compat,
+    _trainer_max_completion_length,
+)
 from rl.model_loading import (
     QWEN35_REQUIRED_LORA_SUFFIXES,
     apply_non_thinking_chat_template,
@@ -187,6 +190,22 @@ class TestAdapterFingerprint(unittest.TestCase):
 
 
 class TestTRLGenerationCompatibility(unittest.TestCase):
+    def test_max_completion_length_legacy_and_current_attribute_locations(self):
+        class LegacyTrainer:
+            max_completion_length = 128
+
+        class CurrentTrainer:
+            class Args:
+                max_completion_length = 256
+            args = Args()
+
+        self.assertEqual(_trainer_max_completion_length(LegacyTrainer()), 128)
+        self.assertEqual(_trainer_max_completion_length(CurrentTrainer()), 256)
+
+    def test_missing_completion_budget_fails_clearly(self):
+        with self.assertRaisesRegex(RuntimeError, "Cannot resolve max_completion_length"):
+            _trainer_max_completion_length(object())
+
     def test_current_trl_signature_receives_one_generation_per_expanded_prompt(self):
         class CurrentTrainer:
             def _generate_single_turn(
