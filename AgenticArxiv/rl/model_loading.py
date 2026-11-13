@@ -180,12 +180,17 @@ def assert_default_template_is_non_thinking(tokenizer) -> None:
         tokenize=False,
         add_generation_prompt=True,
     )
-    explicit = apply_non_thinking_chat_template(
-        tokenizer,
-        sample,
-        tokenize=False,
-        add_generation_prompt=True,
-    )
+    try:
+        explicit = tokenizer.apply_chat_template(
+            sample,
+            tokenize=False,
+            add_generation_prompt=True,
+            enable_thinking=False,
+        )
+    except TypeError as exc:
+        raise ValueError(
+            "Tokenizer does not accept enable_thinking=False"
+        ) from exc
     if default != explicit:
         raise ValueError(
             "The tokenizer default chat template differs from enable_thinking=False. "
