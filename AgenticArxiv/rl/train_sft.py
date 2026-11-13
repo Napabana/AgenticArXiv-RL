@@ -452,12 +452,12 @@ def main(
             optim = "adamw_torch_fused"
     else:
         print("⚠️  --no-qlora：加载完整模型；该运行属于全参数微调，不是 BF16 LoRA")
-        from rl.precision import trainable_model_load_kwargs
+        from rl.precision import trainable_model_dtype
 
         policy = load_text_causal_lm(
             resolved_model,
             local_files_only=Path(model).exists(),
-            **trainable_model_load_kwargs(load_text_causal_lm),
+            dtype=trainable_model_dtype(),
         )
         if optim == "paged_adamw_8bit":
             optim = "adamw_torch_fused"
@@ -598,6 +598,8 @@ def main(
             "target_modules": lora_target_modules if qlora or bf16_lora else [],
         },
         "model_type": "qwen3_5" if model_is_qwen35 else "auto",
+        "model_class": "Qwen3_5ForCausalLM" if model_is_qwen35 else "AutoModelForCausalLM",
+        "weight_dtype": "bfloat16" if qlora or bf16_lora else str(getattr(policy, "dtype", "checkpoint_default")),
         "versions": {
             package: version(package)
             for package in ("torch", "transformers", "trl", "peft", "bitsandbytes")
