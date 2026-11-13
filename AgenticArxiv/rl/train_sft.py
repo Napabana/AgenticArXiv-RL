@@ -38,6 +38,7 @@ from rl.model_loading import (
     build_bf16_lora_config,
     is_qwen35_model,
     load_text_causal_lm,
+    resolve_model_revision,
     trainable_parameter_fingerprint,
 )
 from rl.observability import describe_logging, resolve_report_to
@@ -299,6 +300,7 @@ def _check_lengths(tokenizer, dataset, max_length: int):
 
 def main(
     model: str = "Qwen/Qwen2.5-1.5B-Instruct",
+    model_revision: str = None,
     data: str = None,
     data_manifest: str = None,
     output_dir: str = "outputs/sft_qlora",
@@ -348,12 +350,21 @@ def main(
         print("⚠️  已跳过数据manifest校验；该运行不能作为正式可复现实验")
 
     resolved_model = str(Path(model).resolve()) if Path(model).exists() else model
-    print(f"📦 加载 tokenizer: {resolved_model}")
-    tokenizer = AutoTokenizer.from_pretrained(resolved_model, local_files_only=Path(model).exists())
+    model_is_qwen35 = is_qwen35_model(resolved_model, revision=model_revision)
+    model_revision = resolve_model_revision(
+        resolved_model, revision=model_revision
+    )
+    print(
+        f"📦 加载 tokenizer: {resolved_model}"
+        + (f" @ {model_revision}" if model_revision else "")
+    )
+    tokenizer_kwargs = {"local_files_only": Path(model).exists()}
+    if model_revision:
+        tokenizer_kwargs["revision"] = model_revision
+    tokenizer = AutoTokenizer.from_pretrained(resolved_model, **tokenizer_kwargs)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
-    model_is_qwen35 = is_qwen35_model(resolved_model)
     if model_is_qwen35:
         try:
             assert_default_template_is_non_thinking(tokenizer)
@@ -417,6 +428,7 @@ def main(
 
         policy = load_text_causal_lm(
             resolved_model,
+            revision=model_revision,
             quantization_config=quantization_config,
             device_map={"": 0},
             dtype=torch.bfloat16,
@@ -437,6 +449,7 @@ def main(
         torch.cuda.reset_peak_memory_stats()
         policy = load_text_causal_lm(
             resolved_model,
+            revision=model_revision,
             dtype=torch.bfloat16,
             device_map={"": 0},
             low_cpu_mem_usage=True,
@@ -464,6 +477,7 @@ def main(
 
         policy = load_text_causal_lm(
             resolved_model,
+            revision=model_revision,
             local_files_only=Path(model).exists(),
             dtype=trainable_model_dtype(),
         )
@@ -626,6 +640,8 @@ def main(
             "target_modules": lora_target_modules if qlora or bf16_lora else [],
         },
         "model_type": "qwen3_5" if model_is_qwen35 else "auto",
+        "model_revision": model_revision,
+        "tokenizer_revision": getattr(tokenizer, "init_kwargs", {}).get("_commit_hash"),
         "model_class": "Qwen3_5ForCausalLM" if model_is_qwen35 else "AutoModelForCausalLM",
         "weight_dtype": "bfloat16" if qlora or bf16_lora else str(getattr(policy, "dtype", "checkpoint_default")),
         "versions": {
@@ -666,6 +682,7 @@ def main(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="SFT / 单卡4-bit QLoRA训练")
     parser.add_argument("--model", default="Qwen/Qwen2.5-1.5B-Instruct")
+    parser.add_argument("--model_revision", default=None)
     parser.add_argument("--data", default=None)
     parser.add_argument("--data_manifest", default=None)
     parser.add_argument("--output_dir", default="outputs/sft_qlora")
