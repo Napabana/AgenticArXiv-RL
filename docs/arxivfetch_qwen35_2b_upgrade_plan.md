@@ -151,6 +151,50 @@ GRPO 继续训练 SFT Adapter 时：
 - [ ] 对比 GRPO 与 GRPO+Safety 的攻击成功率及正常任务成功率。
 - [ ] 使用独立攻击模板留出集，避免训练/测试泄漏。
 
+### AutoDL RTX 4090 首轮执行命令
+
+以下命令从仓库根目录执行，只用于 smoke，不代表正式训练配置已经验证。
+
+**前置检查：**
+- 使用 Python >=3.11 和 CUDA 匹配的 PyTorch >=2.6.0。
+- 先安装仓库基础依赖，再安装根目录的 `requirements-qwen35.txt`。
+- 默认 SFT 数据为 `data/sft/sft_v3_train_mix.jsonl`，并要求同名 `.manifest.json`。如果该文件不存在，只有在原始数据、parametric 数据及各自 manifest 都已准备好时，才运行 `python scripts/build_sft_train_mix.py`。
+- 默认 GRPO 离线快照为 `data/mock_arxiv_snapshot.json`；缺失时运行 `python -m AgenticArxiv.rl.build_snapshot`。
+
+**1. 先做不加载模型的 SFT 数据预检：**
+
+```bash
+python -m AgenticArxiv.rl.train_sft --model Qwen/Qwen3.5-2B --no-qlora --bf16_lora --inspect_only --max_length 1024
+```
+
+该命令检查数据 manifest、样本长度和 Qwen3.5 Chat Template，不加载模型、不开始训练。
+
+**2. SFT 单步 smoke：**
+
+```bash
+python -m AgenticArxiv.rl.train_sft --model Qwen/Qwen3.5-2B --no-qlora --bf16_lora --max_steps 1 --batch_size 1 --grad_accum 1 --max_length 1024 --output_dir outputs/qwen35_sft_smoke --no-verify
+```
+
+通过条件：完成至少一个 optimizer step、loss 有限、Adapter fingerprint 变化、Adapter 文件和 Manifest 成功保存。
+
+**3. GRPO 单步 smoke：**
+
+```bash
+python -m AgenticArxiv.rl.train_grpo --model outputs/qwen35_sft_smoke/final --no-qlora --bf16_lora --max_steps 1 --batch_size 4 --grad_accum 1 --num_generations 4 --max_completion_length 256 --max_turns 4 --output_dir outputs/qwen35_grpo_smoke --canary_steps 0 --no-verify --save_rollout_traces
+```
+
+这里 `batch_size=4`、`num_generations=4` 对应一个 prompt 的 4 条 rollout；不要把 batch_size 改成 1，否则无法满足 GRPO 的 generation group 约束。检查输出中的 reference adapter 校验信息、optimizer step、Adapter fingerprint、reward 方差和 rollout traces。
+
+**4. 保存完整环境信息：**
+
+```bash
+python -m pip freeze > outputs/qwen35_environment.freeze.txt
+```
+
+smoke 通过后再扩大训练步数、任务集和 completion budget。若轨迹频繁被截断，先检查 `rollout_traces.jsonl` 中 Observation 与 FINISH 是否因总 completion budget 不足而丢失，不要直接增加训练步数。
+
+---
+
 ## 6. 风险与回退条件
 
 | 风险 | 判定信号 | 处理 |
