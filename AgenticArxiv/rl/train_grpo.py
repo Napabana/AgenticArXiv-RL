@@ -1017,7 +1017,11 @@ def main(
         "versions": {
             package: version(package)
             for package in ("torch", "transformers", "trl", "peft", "bitsandbytes")
-            if package not in ("peft", "bitsandbytes") or qlora or bf16_lora
+            if (
+                package not in ("peft", "bitsandbytes")
+                or (package == "peft" and (qlora or bf16_lora))
+                or (package == "bitsandbytes" and qlora)
+            )
         },
         "source_model": resolved,
         "base_model": base_model,
