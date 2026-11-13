@@ -21,6 +21,8 @@ from rl.model_loading import (
     is_qwen35_model,
     resolve_base_model_ref,
     resolve_lora_target_modules,
+    trainable_parameter_fingerprint,
+    validate_qwen35_lora_targets,
 )
 
 
@@ -94,6 +96,13 @@ class TestQwen35LoRATargets(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "missed required"):
             resolve_lora_target_modules(model, require_qwen35_coverage=True)
 
+    def test_saved_adapter_target_list_is_validated(self):
+        model = _HybridTextModel()
+        targets = resolve_lora_target_modules(model, require_qwen35_coverage=True)
+        self.assertEqual(validate_qwen35_lora_targets(targets), targets)
+        with self.assertRaisesRegex(ValueError, "does not cover"):
+            validate_qwen35_lora_targets(["q_proj", "k_proj", "v_proj"])
+
 
 class TestNonThinkingTemplate(unittest.TestCase):
     def test_passes_enable_thinking_false(self):
@@ -121,6 +130,16 @@ class TestNonThinkingTemplate(unittest.TestCase):
             ),
             "legacy",
         )
+
+
+class TestAdapterFingerprint(unittest.TestCase):
+    def test_fingerprint_changes_when_trainable_parameter_changes(self):
+        model = nn.Linear(4, 4, bias=False)
+        before = trainable_parameter_fingerprint(model)
+        with torch.no_grad():
+            model.weight.add_(0.25)
+        after = trainable_parameter_fingerprint(model)
+        self.assertNotEqual(before, after)
 
 
 class TestTRLGenerationCompatibility(unittest.TestCase):
