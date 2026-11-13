@@ -168,7 +168,7 @@ def _assert_lora_only_trainable(
     ]
     if unexpected:
         raise SystemExit(
-            "❌ QLoRA中出现非LoRA可训练参数，例如: " + ", ".join(unexpected[:5])
+            "❌ LoRA运行中出现非LoRA可训练参数，例如: " + ", ".join(unexpected[:5])
         )
     stats = _trainable_parameter_stats(model)
     if stats[0] == 0:
@@ -408,7 +408,7 @@ def main(
         torch.cuda.reset_peak_memory_stats()
         from peft import get_peft_model, prepare_model_for_kbit_training
 
-        policy = AutoModelForCausalLM.from_pretrained(
+        policy = load_text_causal_lm(
             resolved_model,
             quantization_config=quantization_config,
             device_map={"": 0},
@@ -502,6 +502,11 @@ def main(
     config_kwargs, dropped_config_keys = _filter_dataclass_kwargs(
         SFTConfig, config_kwargs
     )
+    if model_is_qwen35 and "chat_template_kwargs" in dropped_config_keys:
+        raise SystemExit(
+            "❌ 当前 TRL 的 SFTConfig 不支持 chat_template_kwargs；"
+            "请使用 requirements-qwen35.txt 中锁定的 TRL 版本"
+        )
     if dropped_config_keys:
         print(
             "⚠️  当前TRL版本不支持以下SFTConfig参数，已忽略: "
