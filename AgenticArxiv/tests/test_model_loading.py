@@ -20,6 +20,7 @@ from rl.grpo_reward import _generate_single_turn_compat
 from rl.model_loading import (
     QWEN35_REQUIRED_LORA_SUFFIXES,
     apply_non_thinking_chat_template,
+    assert_default_template_is_non_thinking,
     get_model_type,
     is_qwen35_model,
     load_text_causal_lm,
@@ -154,6 +155,25 @@ class TestNonThinkingTemplate(unittest.TestCase):
             ),
             "legacy",
         )
+
+    def test_qwen35_default_matches_explicit_non_thinking(self):
+        class Tokenizer:
+            def apply_chat_template(self, messages, tokenize=False,
+                                    add_generation_prompt=False,
+                                    enable_thinking=False):
+                return "thinking" if enable_thinking else "non-thinking"
+
+        assert_default_template_is_non_thinking(Tokenizer())
+
+    def test_qwen35_default_mismatch_fails_before_sft(self):
+        class Tokenizer:
+            def apply_chat_template(self, messages, tokenize=False,
+                                    add_generation_prompt=False,
+                                    enable_thinking=True):
+                return "thinking" if enable_thinking else "non-thinking"
+
+        with self.assertRaisesRegex(ValueError, "differs from enable_thinking=False"):
+            assert_default_template_is_non_thinking(Tokenizer())
 
 
 class TestAdapterFingerprint(unittest.TestCase):
