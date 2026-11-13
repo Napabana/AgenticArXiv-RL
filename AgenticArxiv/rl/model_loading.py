@@ -282,6 +282,81 @@ def trainable_parameter_fingerprint(model) -> str:
     return digest.hexdigest()
 
 
+
+def assert_grpo_reference_adapter(model, *, beta: float) -> dict[str, Any]:
+    """Verify TRL copied a pretrained PEFT policy into a frozen ref adapter.
+
+    TRL 1.17.x creates this adapter when a PEFT model is passed with beta > 0.
+    This matters when GRPO starts from an SFT adapter: disabling the policy
+    adapter would otherwise reference the pre-SFT base model.
+    """
+    if float(beta) == 0.0:
+        return {"required": False, "reason": "beta=0"}
+
+    peft_configs = getattr(model, "peft_config", None)
+    if not isinstance(peft_configs, dict) or not {"default", "ref"}.issubset(peft_configs):
+        raise RuntimeError(
+            "GRPO beta is non-zero, but TRL did not create both 'default' and "
+            "'ref' PEFT adapters. The reference policy would not be the initial "
+            "SFT adapter; check the pinned TRL/PEFT versions."
+        )
+
+    active = getattr(model, "active_adapter", None)
+    active_names = {active} if isinstance(active, str) else set(active or [])
+    if active_names and active_names != {"default"}:
+        raise RuntimeError(
+            f"Expected the trainable policy adapter 'default' to be active, got {sorted(active_names)}"
+        )
+
+    parameters = dict(model.named_parameters())
+    default_parameters = {
+        name: parameter
+        for name, parameter in parameters.items()
+        if ".default." in name and "lora_" in name
+    }
+    ref_parameters = {
+        name: parameter
+        for name, parameter in parameters.items()
+        if ".ref." in name and "lora_" in name
+    }
+    if not default_parameters or len(default_parameters) != len(ref_parameters):
+        raise RuntimeError(
+            "GRPO reference adapter parameter set is incomplete: "
+            f"default={len(default_parameters)}, ref={len(ref_parameters)}"
+        )
+
+    import torch
+
+    for name, parameter in default_parameters.items():
+        ref_name = name.replace(".default.", ".ref.", 1)
+        reference = parameters.get(ref_name)
+        if reference is None:
+            raise RuntimeError(f"GRPO reference adapter is missing parameter: {ref_name}")
+        if parameter.shape != reference.shape or not torch.equal(
+            parameter.detach(), reference.detach()
+        ):
+            raise RuntimeError(
+                "GRPO reference adapter is not an exact initial copy of the policy "
+                f"adapter: {name}"
+            )
+
+    trainable_reference = [
+        name for name, parameter in ref_parameters.items() if parameter.requires_grad
+    ]
+    if trainable_reference:
+        raise RuntimeError(
+            "GRPO reference adapter must remain frozen; trainable reference "
+            f"parameters include: {trainable_reference[:5]}"
+        )
+
+    return {
+        "required": True,
+        "active_policy_adapter": "default",
+        "reference_adapter": "ref",
+        "matched_parameter_tensors": len(default_parameters),
+        "reference_frozen": True,
+    }
+
 def build_bf16_lora_config(
     model,
     *,
