@@ -601,6 +601,8 @@ def main(
         "stage": "sft_qlora" if qlora else "sft_bf16_lora" if bf16_lora else "sft_full",
         "training_method": "qlora" if qlora else "bf16_lora" if bf16_lora else "full_finetune",
         "base_model": resolved_model,
+        "model_revision": model_revision,
+        "tokenizer_revision": getattr(tokenizer, "init_kwargs", {}).get("_commit_hash"),
         "data": str(train_data_path),
         "data_sha256": _sha256_file(train_data_path),
         "data_manifest_kind": manifest.get("kind") if manifest else None,
