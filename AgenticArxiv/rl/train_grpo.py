@@ -84,6 +84,7 @@ from rl.train_sft import (
     _trainable_parameter_stats,
 )
 from rl.model_loading import (
+    assert_grpo_reference_adapter,
     build_bf16_lora_config,
     is_qwen35_model,
     load_text_causal_lm,
@@ -888,6 +889,19 @@ def main(
         processing_class=tokenizer,
         rollout_func=rollout_func,
     )
+    if qlora or bf16_lora:
+        reference_model = trainer.accelerator.unwrap_model(trainer.model)
+        reference_report = assert_grpo_reference_adapter(
+            reference_model, beta=float(config.beta)
+        )
+        if reference_report["required"]:
+            print(
+                "🧷 GRPO reference adapter verified: "
+                f"policy={reference_report['active_policy_adapter']}, "
+                f"reference={reference_report['reference_adapter']}, "
+                f"tensors={reference_report['matched_parameter_tensors']}, "
+                f"frozen={reference_report['reference_frozen']}"
+            )
     # 必须在 trainer 建好之后接线。即使 report_to=none，TRL 仍会把 _metrics
     # 汇总到控制台；report_to 只控制是否转发到 TensorBoard/wandb，不应决定
     # 是否采集指标。此前的条件绑定还会让 _pending 在长训练中持续增长。
