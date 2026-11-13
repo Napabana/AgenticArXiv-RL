@@ -30,6 +30,7 @@ from rl.model_loading import (
     load_text_causal_lm,
     resolve_base_model_ref,
     resolve_lora_target_modules,
+    resolve_model_revision,
     trainable_parameter_fingerprint,
     validate_qwen35_lora_targets,
 )
@@ -88,6 +89,24 @@ class TestQwen35ModelDetection(unittest.TestCase):
             )
             self.assertEqual(resolve_base_model_ref(adapter), str(base))
             self.assertTrue(is_qwen35_model(adapter))
+
+    def test_pins_only_the_qwen35_2b_repository_revision(self):
+        class FakeConfig:
+            model_type = "qwen3_5"
+
+        class FakeAutoConfig:
+            @classmethod
+            def from_pretrained(cls, model_ref, **kwargs):
+                return FakeConfig()
+
+        fake_transformers = types.ModuleType("transformers")
+        fake_transformers.AutoConfig = FakeAutoConfig
+        with mock.patch.dict(sys.modules, {"transformers": fake_transformers}):
+            self.assertEqual(
+                resolve_model_revision("Qwen/Qwen3.5-2B"),
+                "15852e8c16360a2fea060d615a32b45270f8a8fc",
+            )
+            self.assertIsNone(resolve_model_revision("Qwen/Qwen3.5-9B"))
 
     def test_qwen35_uses_text_only_model_class(self):
         with tempfile.TemporaryDirectory() as tmp:
