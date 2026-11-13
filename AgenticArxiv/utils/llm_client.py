@@ -279,23 +279,30 @@ class TransformersLLMClient:
         offset = int.from_bytes(digest[:8], "big") % (2**31)
         self._stream_seed = self.seed + offset
 
-    def _prepare_inputs(self, messages: List[Dict[str, Any]]):
-        """构造 generate 的输入；VLM 且消息带图片部件时走图文路径。"""
+    def _prepare_inputs(
+        self,
+        messages: List[Dict[str, Any]],
+        template_kwargs: Optional[Dict[str, Any]] = None,
+    ):
+        """构造 generate 输入，确保 Qwen3 的 enable_thinking 等模板参数生效。"""
         import torch
         from PIL import Image
 
+        template_kwargs = template_kwargs or {}
         if self.is_vlm:
             normalized, images = _split_image_parts(messages)
             if images:
                 prompt = self.processor.apply_chat_template(
-                    normalized, tokenize=False, add_generation_prompt=True
+                    normalized, tokenize=False, add_generation_prompt=True,
+                    **template_kwargs,
                 )
                 inputs = self.processor(
                     text=[prompt], images=images, return_tensors="pt"
                 )
                 return inputs, images
         prompt = self.tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
+            messages, tokenize=False, add_generation_prompt=True,
+            **template_kwargs,
         )
         inputs = self.tokenizer(prompt, return_tensors="pt")
         return inputs, []
@@ -316,7 +323,9 @@ class TransformersLLMClient:
         extra = dict(extra or {})
         stop = extra.pop("stop", []) or []
         template_kwargs = extra.pop("chat_template_kwargs", {}) or {}
-        inputs, _images = self._prepare_inputs(messages)
+        inputs, _images = self._prepare_inputs(
+            messages, template_kwargs=template_kwargs
+        )
         target = next(self.model.parameters()).device
         inputs = {key: value.to(target) if hasattr(value, "to") else value for key, value in inputs.items()}
         do_sample = temperature is not None and temperature > 0
