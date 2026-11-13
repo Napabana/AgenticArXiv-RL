@@ -1,8 +1,10 @@
 # ArxivFetch-RL Qwen3.5-2B BF16-LoRA environment.
-# Install the CUDA-matched PyTorch build separately (use the AutoDL image's
-# preinstalled torch when possible). Do not let pip silently replace its CUDA build.
+# Requires Python >=3.11 and PyTorch >=2.6.0 (TRL 1.17.1 package requirements).
+# Install a CUDA-matched PyTorch >=2.6.0 build separately first; verify the AutoDL
+# image's torch/CUDA pairing before installing this file so pip does not replace it.
 #
-# Install after the repository's base requirements:
+# Install after creating a Python >=3.11 environment and installing a compatible
+# CUDA-matched torch>=2.6.0 build, then install the repository's base requirements:
 #   pip install -r requirements.txt
 #   pip install -r requirements-qwen35.txt
 
