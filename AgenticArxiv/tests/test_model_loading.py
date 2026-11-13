@@ -23,6 +23,7 @@ from rl.grpo_reward import (
 from rl.model_loading import (
     QWEN35_REQUIRED_LORA_SUFFIXES,
     apply_non_thinking_chat_template,
+    assert_grpo_reference_adapter,
     assert_default_template_is_non_thinking,
     get_model_type,
     is_qwen35_model,
@@ -187,6 +188,57 @@ class TestAdapterFingerprint(unittest.TestCase):
             model.weight.add_(0.25)
         after = trainable_parameter_fingerprint(model)
         self.assertNotEqual(before, after)
+
+
+class TestGRPOReferenceAdapter(unittest.TestCase):
+    class FakePeftModel:
+        def __init__(self, *, copy_reference=True, freeze_reference=True, active="default"):
+            self.peft_config = {"default": object(), "ref": object()}
+            self.active_adapter = active
+            self.default = nn.Parameter(torch.tensor([1.0, 2.0]))
+            self.reference = nn.Parameter(torch.tensor([1.0, 2.0] if copy_reference else [3.0, 4.0]))
+            self.reference.requires_grad_(not freeze_reference)
+
+        def named_parameters(self):
+            return iter([
+                ("base_model.layer.lora_A.default.weight", self.default),
+                ("base_model.layer.lora_A.ref.weight", self.reference),
+            ])
+
+    def test_beta_zero_does_not_require_reference_adapter(self):
+        result = assert_grpo_reference_adapter(object(), beta=0.0)
+        self.assertFalse(result["required"])
+
+    def test_pretrained_reference_is_an_exact_frozen_copy(self):
+        result = assert_grpo_reference_adapter(
+            self.FakePeftModel(), beta=0.04
+        )
+        self.assertTrue(result["reference_frozen"])
+        self.assertEqual(result["matched_parameter_tensors"], 1)
+
+    def test_missing_reference_adapter_fails(self):
+        model = self.FakePeftModel()
+        model.peft_config.pop("ref")
+        with self.assertRaisesRegex(RuntimeError, "did not create"):
+            assert_grpo_reference_adapter(model, beta=0.04)
+
+    def test_reference_must_match_initial_policy_weights(self):
+        with self.assertRaisesRegex(RuntimeError, "not an exact initial copy"):
+            assert_grpo_reference_adapter(
+                self.FakePeftModel(copy_reference=False), beta=0.04
+            )
+
+    def test_reference_adapter_must_be_frozen(self):
+        with self.assertRaisesRegex(RuntimeError, "must remain frozen"):
+            assert_grpo_reference_adapter(
+                self.FakePeftModel(freeze_reference=False), beta=0.04
+            )
+
+    def test_policy_adapter_must_remain_active(self):
+        with self.assertRaisesRegex(RuntimeError, "Expected the trainable policy"):
+            assert_grpo_reference_adapter(
+                self.FakePeftModel(active="ref"), beta=0.04
+            )
 
 
 class TestTRLGenerationCompatibility(unittest.TestCase):
