@@ -889,7 +889,7 @@ def main(
         processing_class=tokenizer,
         rollout_func=rollout_func,
     )
-    if qlora or bf16_lora:
+    if model_is_qwen35 and bf16_lora:
         reference_model = trainer.accelerator.unwrap_model(trainer.model)
         reference_report = assert_grpo_reference_adapter(
             reference_model, beta=float(config.beta)
