@@ -12,6 +12,8 @@ from typing import Any
 
 
 QWEN35_MODEL_TYPES = {"qwen3_5", "qwen3_5_text"}
+# Frozen Hugging Face model-repository commit used for reproducible experiments.
+QWEN35_DEFAULT_REVISION = "15852e8c16360a2fea060d615a32b45270f8a8fc"
 QWEN35_REQUIRED_LORA_SUFFIXES = {
     # Gated DeltaNet (linear-attention) projections.
     "in_proj_qkv",
@@ -61,6 +63,7 @@ def get_model_type(
     model_ref: str | Path,
     *,
     base_model: str | Path | None = None,
+    revision: str | None = None,
 ) -> str:
     """Read model_type locally when possible; otherwise resolve via AutoConfig."""
     base_ref = resolve_base_model_ref(model_ref, base_model=base_model)
@@ -73,6 +76,7 @@ def get_model_type(
 
     config = AutoConfig.from_pretrained(
         base_ref,
+        revision=revision,
         trust_remote_code=False,
         local_files_only=Path(base_ref).expanduser().exists(),
     )
@@ -83,19 +87,61 @@ def is_qwen35_model(
     model_ref: str | Path,
     *,
     base_model: str | Path | None = None,
+    revision: str | None = None,
 ) -> bool:
-    return get_model_type(model_ref, base_model=base_model) in QWEN35_MODEL_TYPES
+    return get_model_type(
+        model_ref, base_model=base_model, revision=revision
+    ) in QWEN35_MODEL_TYPES
+
+
+def resolve_model_revision(
+    model_ref: str | Path,
+    *,
+    revision: str | None = None,
+    base_model: str | Path | None = None,
+) -> str | None:
+    """Resolve an explicit revision, saved adapter metadata, or Qwen3.5 pin."""
+    if revision:
+        return revision
+
+    candidate = Path(model_ref).expanduser()
+    if is_adapter_directory(candidate):
+        metadata_path = candidate / "adapter_manifest.json"
+        if metadata_path.is_file():
+            metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+            saved_revision = metadata.get("base_revision")
+            if saved_revision:
+                return str(saved_revision)
+        adapter_config = json.loads(
+            (candidate / "adapter_config.json").read_text(encoding="utf-8")
+        )
+        saved_revision = adapter_config.get("revision")
+        if saved_revision:
+            return str(saved_revision)
+
+    base_ref = resolve_base_model_ref(model_ref, base_model=base_model)
+    if Path(base_ref).expanduser().exists():
+        return None
+    if get_model_type(base_ref, revision=revision) in QWEN35_MODEL_TYPES:
+        return QWEN35_DEFAULT_REVISION
+    return None
 
 
 def load_text_causal_lm(
     model_ref: str | Path,
     *,
     base_model: str | Path | None = None,
+    revision: str | None = None,
     **from_pretrained_kwargs: Any,
 ):
     """Load a text-only causal LM, selecting Qwen3.5's explicit text model class."""
     base_ref = resolve_base_model_ref(model_ref, base_model=base_model)
-    model_type = get_model_type(base_ref)
+    resolved_revision = resolve_model_revision(
+        base_ref, revision=revision, base_model=base_model
+    )
+    model_type = get_model_type(base_ref, revision=resolved_revision)
+    if resolved_revision:
+        from_pretrained_kwargs.setdefault("revision", resolved_revision)
 
     if model_type in QWEN35_MODEL_TYPES:
         try:
@@ -264,6 +310,7 @@ def load_text_model_and_tokenizer(
     *,
     adapter_path: str | Path | None = None,
     base_model: str | Path | None = None,
+    revision: str | None = None,
     **from_pretrained_kwargs: Any,
 ):
     """Load a text model plus tokenizer, optionally attaching a saved PEFT adapter."""
@@ -280,21 +327,30 @@ def load_text_model_and_tokenizer(
         str(base_model) if base_model else str(model_ref)
     )
 
+    resolved_revision = resolve_model_revision(
+        model_ref,
+        revision=revision,
+        base_model=base_model,
+    )
     tokenizer_ref = (
         resolved_adapter
         if resolved_adapter and (Path(resolved_adapter) / "tokenizer_config.json").is_file()
         else resolved_base
     )
-    tokenizer = AutoTokenizer.from_pretrained(
-        tokenizer_ref,
-        local_files_only=Path(tokenizer_ref).expanduser().exists(),
-        trust_remote_code=False,
-    )
+    tokenizer_kwargs = {
+        "local_files_only": Path(tokenizer_ref).expanduser().exists(),
+        "trust_remote_code": False,
+    }
+    if resolved_revision:
+        tokenizer_kwargs["revision"] = resolved_revision
+    tokenizer = AutoTokenizer.from_pretrained(tokenizer_ref, **tokenizer_kwargs)
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token = tokenizer.eos_token
 
     model = load_text_causal_lm(
         resolved_base,
+        base_model=base_model,
+        revision=resolved_revision,
         **from_pretrained_kwargs,
     )
     if resolved_adapter:
