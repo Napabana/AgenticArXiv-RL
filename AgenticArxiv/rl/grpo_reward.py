@@ -29,6 +29,7 @@ from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence
 
 from benchmark.metrics import NON_TOOL_ACTIONS
 from rl.reward import RewardCalculator
+from rl.model_loading import apply_non_thinking_chat_template
 
 # 与 agents/agent_engine.py 的解析规则保持一致
 _THOUGHT_RE = re.compile(r"Thought:\s*(.*?)(?=\nAction:|$)", re.DOTALL)
@@ -510,8 +511,11 @@ def make_multiturn_rollout_func(
             if isinstance(prompt, list):
                 # transformers>=5 的 apply_chat_template(tokenize=True) 返回
                 # BatchEncoding（含 "input_ids" 键），旧版返回纯 int 列表；统一取 token 序列。
-                encoded = tokenizer.apply_chat_template(
-                    prompt, tokenize=True, add_generation_prompt=True,
+                encoded = apply_non_thinking_chat_template(
+                    tokenizer,
+                    prompt,
+                    tokenize=True,
+                    add_generation_prompt=True,
                 )
                 if "input_ids" in encoded:
                     ids = encoded["input_ids"]
@@ -549,8 +553,23 @@ def make_multiturn_rollout_func(
                 break
             active = [i for i, _ in keep]
 
+            # TRL 0.29.x and 1.x expose different private helper signatures.
+            # In current TRL, num_generations is required; prompts have already
+            # been expanded by GRPOTrainer, so each active row must generate 1
+            # completion here (not another G completions).
+            import inspect
+
+            generate_signature = inspect.signature(trainer._generate_single_turn)
+            generate_kwargs = (
+                {"num_generations": 1}
+                if "num_generations" in generate_signature.parameters
+                else {}
+            )
             turn_ids, _, _ = trainer._generate_single_turn(
-                [full_ids[i] for i in active], None, {}
+                [full_ids[i] for i in active],
+                None,
+                {},
+                **generate_kwargs,
             )
             next_active = []
             for batch_index, index in enumerate(active):
