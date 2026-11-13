@@ -214,20 +214,13 @@ class TransformersLLMClient:
         self.seed = seed
         self._stream_seed = seed
         self._calls = 0
-        self.is_vlm = _is_vlm_model_path(model)
-        if self.is_vlm:
-            from transformers import AutoModelForImageTextToText, AutoProcessor
 
-            self.processor = AutoProcessor.from_pretrained(model)
-            self.tokenizer = self.processor.tokenizer
-            model_cls = AutoModelForImageTextToText
-        else:
-            from transformers import AutoModelForCausalLM, AutoTokenizer
+        from rl.model_loading import is_qwen35_model, load_text_model_and_tokenizer
 
-            self.tokenizer = AutoTokenizer.from_pretrained(model)
-            model_cls = AutoModelForCausalLM
-        if self.tokenizer.pad_token_id is None:
-            self.tokenizer.pad_token = self.tokenizer.eos_token
+        # Qwen3.5 checkpoint 顶层包含 vision_config，但 ArxivFetch 工具链是
+        # 纯文本；显式加载 Qwen3_5ForCausalLM，避免不必要的视觉塔。
+        self.is_qwen35 = is_qwen35_model(model)
+        self.is_vlm = _is_vlm_model_path(model) and not self.is_qwen35
 
         dtype_map = {
             "auto": "auto",
@@ -241,17 +234,31 @@ class TransformersLLMClient:
         self.device = device
         if device == "auto":
             load_kwargs["device_map"] = "auto"
-        self.model = model_cls.from_pretrained(model, **load_kwargs)
+
+        adapter_path = os.getenv("VLM_ADAPTER_PATH", "").strip() or None
+        if self.is_vlm:
+            from transformers import AutoModelForImageTextToText, AutoProcessor
+
+            self.processor = AutoProcessor.from_pretrained(model)
+            self.tokenizer = self.processor.tokenizer
+            self.model = AutoModelForImageTextToText.from_pretrained(
+                model, **load_kwargs
+            )
+            if adapter_path:
+                from peft import PeftModel
+
+                self.model = PeftModel.from_pretrained(self.model, adapter_path)
+        else:
+            self.model, self.tokenizer = load_text_model_and_tokenizer(
+                model,
+                adapter_path=adapter_path,
+                **load_kwargs,
+            )
+        if self.tokenizer.pad_token_id is None:
+            self.tokenizer.pad_token = self.tokenizer.eos_token
         if device != "auto":
             self.model.to(device)
         self.model.eval()
-        # 评测挂 LoRA 而不合并权重（27B 级 merge 会在宿主重组权重，必爆 cgroup）
-        adapter_path = os.getenv("VLM_ADAPTER_PATH", "").strip()
-        if adapter_path:
-            from peft import PeftModel
-
-            self.model = PeftModel.from_pretrained(self.model, adapter_path)
-            self.model.eval()
         try:  # 权重 page cache 计入宿主 cgroup 配额（本机 64GiB 墙），读完立逐
             import sys as _sys
             from pathlib import Path as _Path
@@ -323,6 +330,8 @@ class TransformersLLMClient:
         extra = dict(extra or {})
         stop = extra.pop("stop", []) or []
         template_kwargs = extra.pop("chat_template_kwargs", {}) or {}
+        if self.is_qwen35:
+            template_kwargs.setdefault("enable_thinking", False)
         inputs, _images = self._prepare_inputs(
             messages, template_kwargs=template_kwargs
         )
