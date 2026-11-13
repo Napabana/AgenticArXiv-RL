@@ -87,6 +87,7 @@ from rl.model_loading import (
     build_bf16_lora_config,
     is_qwen35_model,
     load_text_causal_lm,
+    resolve_model_revision,
     trainable_parameter_fingerprint,
     validate_qwen35_lora_targets,
 )
@@ -186,6 +187,7 @@ def _load_policy(
     qlora: bool,
     bf16_lora: bool,
     base_model: Optional[str],
+    model_revision: Optional[str],
     lora_r: int,
     lora_alpha: int,
     lora_dropout: float,
@@ -203,7 +205,7 @@ def _load_policy(
     )
     from utils.llm_client import _is_vlm_model_path
 
-    is_qwen35 = is_qwen35_model(str(arch_model))
+    is_qwen35 = is_qwen35_model(str(arch_model), revision=model_revision)
     is_vlm = _is_vlm_model_path(str(arch_model)) and not is_qwen35
     if qlora and bf16_lora:
         raise SystemExit("❌ --qlora 与 --bf16_lora 互斥")
@@ -236,6 +238,7 @@ def _load_policy(
         torch.cuda.reset_peak_memory_stats()
         base = load_text_causal_lm(
             source,
+            revision=model_revision,
             dtype=torch.bfloat16,
             device_map={"": 0},
             low_cpu_mem_usage=True,
@@ -304,7 +307,7 @@ def _load_policy(
         print("⚠️  --no-qlora：加载完整精度策略，不属于单张4090冻结方案")
         print("⚠️  --no-qlora：加载完整精度策略，不属于单张4090冻结方案")
         policy = load_text_causal_lm(
-            model_path, local_files_only=local.exists()
+            model_path, revision=model_revision, local_files_only=local.exists()
         )
         policy.config.use_cache = False
         return policy
@@ -333,6 +336,7 @@ def _load_policy(
         device_map={"": 0},
         dtype=torch.bfloat16,
         low_cpu_mem_usage=True,
+        revision=model_revision,
         local_files_only=source_path.exists(),
     )
     base = prepare_model_for_kbit_training(
@@ -489,6 +493,7 @@ def resolve_dynamic_sampling_option(
 
 def main(
     model: str = "outputs/dpo/final",
+    model_revision: str = None,
     output_dir: str = "outputs/grpo",
     epochs: int = 1,
     max_steps: int = -1,
@@ -601,6 +606,11 @@ def main(
             f"请先运行 train_sft / train_dpo，或用 --model 指定其它检查点"
         )
 
+    model_is_qwen35 = is_qwen35_model(resolved, revision=model_revision)
+    model_revision = resolve_model_revision(
+        resolved, revision=model_revision
+    )
+
     # 先验证任务与快照，再加载模型。语义标准答案损坏时应在占用显存前失败。
     tasks = _load_tasks(task_set, split)
     snapshot_path = Path(snapshot) if snapshot else DEFAULT_SNAPSHOT
@@ -661,9 +671,10 @@ def main(
     print(f"📚 任务数: {len(tasks)}（GRPO 为在线算法，无需预生成轨迹数据）")
 
     print(f"📦 加载 tokenizer: {resolved}")
-    tokenizer = AutoTokenizer.from_pretrained(
-        resolved, local_files_only=Path(resolved).exists()
-    )
+    tokenizer_kwargs = {"local_files_only": Path(resolved).exists()}
+    if model_revision:
+        tokenizer_kwargs["revision"] = model_revision
+    tokenizer = AutoTokenizer.from_pretrained(resolved, **tokenizer_kwargs)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
@@ -672,6 +683,7 @@ def main(
         qlora=qlora,
         bf16_lora=bf16_lora,
         base_model=base_model,
+        model_revision=model_revision,
         lora_r=lora_r,
         lora_alpha=lora_alpha,
         lora_dropout=lora_dropout,
@@ -790,7 +802,6 @@ def main(
         batch_size = num_generations
         print(f"  调整 per_device_train_batch_size = {batch_size}（需被 num_generations 整除）")
 
-    model_is_qwen35 = is_qwen35_model(resolved)
     cfg_kwargs = {
         "output_dir": str(REPO_ROOT / output_dir),
         "num_train_epochs": epochs,
@@ -1005,6 +1016,8 @@ def main(
         "stage": "grpo_qlora" if qlora else "grpo_bf16_lora" if bf16_lora else "grpo_full",
         "training_method": "qlora" if qlora else "bf16_lora" if bf16_lora else "full_finetune",
         "model_type": "qwen3_5" if model_is_qwen35 else "auto",
+        "model_revision": model_revision,
+        "tokenizer_revision": getattr(tokenizer, "init_kwargs", {}).get("_commit_hash"),
         "model_class": "Qwen3_5ForCausalLM" if model_is_qwen35 else "AutoModelForCausalLM",
         "weight_dtype": "bfloat16" if qlora or bf16_lora else "checkpoint_default",
         "lora": {
@@ -1131,6 +1144,7 @@ def main(
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description="GRPO 训练")
     p.add_argument("--model", default="outputs/dpo/final")
+    p.add_argument("--model_revision", default=None)
     p.add_argument("--output_dir", default="outputs/grpo")
     p.add_argument("--epochs", type=int, default=1)
     p.add_argument("--max_steps", type=int, default=-1)
