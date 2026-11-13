@@ -106,12 +106,13 @@ def resolve_model_revision(
 
     candidate = Path(model_ref).expanduser()
     if is_adapter_directory(candidate):
-        metadata_path = candidate / "adapter_manifest.json"
-        if metadata_path.is_file():
-            metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
-            saved_revision = metadata.get("base_revision")
-            if saved_revision:
-                return str(saved_revision)
+        for metadata_name in ("adapter_manifest.json", "training_manifest.json"):
+            metadata_path = candidate / metadata_name
+            if metadata_path.is_file():
+                metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+                saved_revision = metadata.get("model_revision") or metadata.get("base_revision")
+                if saved_revision:
+                    return str(saved_revision)
         adapter_config = json.loads(
             (candidate / "adapter_config.json").read_text(encoding="utf-8")
         )
