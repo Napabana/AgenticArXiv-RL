@@ -1044,7 +1044,10 @@ def main(
         },
         "versions": {
             package: version(package)
-            for package in ("torch", "transformers", "trl", "accelerate", "datasets", "huggingface_hub", "tokenizers", "safetensors", "peft", "bitsandbytes")
+            for package in (
+                "torch", "transformers", "trl", "accelerate", "datasets",
+                "huggingface_hub", "tokenizers", "safetensors", "peft", "bitsandbytes",
+            )
             if (
                 package not in ("peft", "bitsandbytes")
                 or (package == "peft" and (qlora or bf16_lora))
