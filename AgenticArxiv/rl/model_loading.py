@@ -170,6 +170,41 @@ def apply_non_thinking_chat_template(tokenizer, messages, **kwargs):
         return tokenizer.apply_chat_template(messages, **kwargs)
 
 
+
+def validate_qwen35_lora_targets(target_modules) -> list[str]:
+    """Fail if a saved Qwen3.5 adapter omits any hybrid-attention/MLP path."""
+    if isinstance(target_modules, str):
+        targets = [target_modules]
+    else:
+        targets = [str(name) for name in (target_modules or [])]
+    suffixes = {name.rsplit(".", 1)[-1] for name in targets}
+    missing = sorted(QWEN35_REQUIRED_LORA_SUFFIXES - suffixes)
+    if missing:
+        raise ValueError(
+            "Saved Qwen3.5 LoRA adapter does not cover all hybrid-attention/MLP "
+            f"projections; missing={missing}"
+        )
+    return targets
+
+
+def trainable_parameter_fingerprint(model) -> str:
+    """Hash trainable tensors to verify an optimizer step changed the adapter."""
+    import hashlib
+
+    digest = hashlib.sha256()
+    seen = 0
+    for name, parameter in model.named_parameters():
+        if not parameter.requires_grad:
+            continue
+        seen += 1
+        digest.update(name.encode("utf-8"))
+        tensor = parameter.detach().to(device="cpu", dtype=__import__("torch").float32).contiguous()
+        digest.update(tensor.numpy().tobytes())
+    if not seen:
+        raise ValueError("Model has no trainable parameters to fingerprint")
+    return digest.hexdigest()
+
+
 def build_bf16_lora_config(
     model,
     *,
