@@ -88,6 +88,9 @@ def main():
         model_cls = None
         import_errors = {}
         for module_name, class_name in (
+            # Text-only path first: this arXiv environment never supplies image/video inputs.
+            ("transformers", "AutoModelForCausalLM"),
+            # Fallbacks are useful to diagnose installations exposing only the multimodal AutoClass.
             ("transformers", "AutoModelForImageTextToText"),
             ("transformers", "AutoModelForMultimodalLM"),
         ):
