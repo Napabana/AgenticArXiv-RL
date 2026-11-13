@@ -29,9 +29,15 @@ sys.path.insert(0, str(PACKAGE_ROOT))
 # 先做旧 torch 的 trl 兼容（torch<2.6 时兜底 FSDPModule），再 import trl
 from rl import trl_compat  # noqa: F401
 from trl import SFTConfig, SFTTrainer
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoTokenizer
 from datasets import Dataset
 
+from rl.model_loading import (
+    apply_non_thinking_chat_template,
+    build_bf16_lora_config,
+    is_qwen35_model,
+    load_text_causal_lm,
+)
 from rl.observability import describe_logging, resolve_report_to
 from rl.stage_verifier import StageVerifier
 
@@ -153,7 +159,9 @@ def _trainable_parameter_stats(model) -> tuple[int, int, float]:
     return trainable, total, ratio
 
 
-def _assert_lora_only_trainable(model) -> tuple[int, int, float]:
+def _assert_lora_only_trainable(
+    model, *, require_4bit: bool = True
+) -> tuple[int, int, float]:
     unexpected = [
         name for name, param in model.named_parameters()
         if param.requires_grad and "lora_" not in name
@@ -165,9 +173,25 @@ def _assert_lora_only_trainable(model) -> tuple[int, int, float]:
     stats = _trainable_parameter_stats(model)
     if stats[0] == 0:
         raise SystemExit("❌ 没有任何可训练LoRA参数")
-    if not getattr(model, "is_loaded_in_4bit", False):
+    if require_4bit and not getattr(model, "is_loaded_in_4bit", False):
         raise SystemExit("❌ 模型没有以4-bit加载，拒绝把全参数训练误称为QLoRA")
     return stats
+
+
+def _bf16_lora_runtime_guard() -> None:
+    """Check single-GPU BF16 support without requiring bitsandbytes."""
+    import torch
+    from rl.precision import cuda_supports_bf16
+
+    if not torch.cuda.is_available():
+        raise SystemExit("❌ BF16 LoRA 需要 CUDA；当前 torch.cuda.is_available()=False")
+    if not cuda_supports_bf16():
+        raise SystemExit("❌ 当前 GPU 不支持原生 BF16；Qwen3.5 BF16 LoRA 需要 Ampere 或更新架构")
+    free, total = torch.cuda.mem_get_info()
+    print(
+        f"🎮 BF16 LoRA GPU: {torch.cuda.get_device_name(0)} | "
+        f"空闲 {free / 2**30:.2f} / {total / 2**30:.2f} GiB"
+    )
 
 
 def _precision_flags():
@@ -238,7 +262,9 @@ def _to_prompt_completion(row):
 def _token_length(tokenizer, messages) -> int:
     # 先渲染成字符串再计数：apply_chat_template(tokenize=True) 在 transformers 5.x
     # 返回 BatchEncoding，len() 数到的是字段数而不是 token 数。
-    text = tokenizer.apply_chat_template(messages, tokenize=False)
+    text = apply_non_thinking_chat_template(
+        tokenizer, messages, tokenize=False
+    )
     return len(tokenizer(text)["input_ids"])
 
 
@@ -281,6 +307,7 @@ def main(
     max_length: int = 4096,
     max_steps: int = -1,
     qlora: bool = True,
+    bf16_lora: bool = False,
     lora_r: int = 16,
     lora_alpha: int = 32,
     lora_dropout: float = 0.05,
@@ -350,6 +377,20 @@ def main(
     quantization_config = None
     peft_config = None
     policy = resolved_model
+    lora_target_modules = list(QLORA_TARGET_MODULES)
+    model_is_qwen35 = is_qwen35_model(resolved_model)
+    if qlora and bf16_lora:
+        raise SystemExit("❌ --qlora 与 --bf16_lora 互斥，请只选择一种训练方式")
+    if model_is_qwen35 and qlora:
+        raise SystemExit(
+            "❌ Qwen3.5 第一版不使用 4-bit QLoRA。请显式传入 "
+            "--no-qlora --bf16_lora；参见 docs/arxivfetch_qwen35_2b_upgrade_plan.md"
+        )
+    if model_is_qwen35 and not bf16_lora:
+        raise SystemExit(
+            "❌ Qwen3.5 第一版必须使用 --no-qlora --bf16_lora；"
+            "拒绝意外进入全参数微调路径"
+        )
     from rl.precision import assert_quantization_is_single_process
 
     assert_quantization_is_single_process(qlora)
@@ -381,18 +422,42 @@ def main(
             policy, use_gradient_checkpointing=False
         )
         policy = get_peft_model(policy, peft_config)
+    elif bf16_lora:
+        _bf16_lora_runtime_guard()
+        from peft import get_peft_model
+
+        torch.cuda.empty_cache()
+        torch.cuda.reset_peak_memory_stats()
+        policy = load_text_causal_lm(
+            resolved_model,
+            dtype=torch.bfloat16,
+            device_map={"": 0},
+            low_cpu_mem_usage=True,
+            local_files_only=Path(model).exists(),
+        )
+        peft_config, lora_target_modules = build_bf16_lora_config(
+            policy,
+            r=lora_r,
+            alpha=lora_alpha,
+            dropout=lora_dropout,
+            require_qwen35_coverage=model_is_qwen35,
+        )
+        policy = get_peft_model(policy, peft_config)
+        print(
+            "🪶 BF16 LoRA: full BF16 text backbone + trainable LoRA adapters | "
+            f"r={lora_r}, alpha={lora_alpha}, dropout={lora_dropout}\n"
+            f"   target_modules={len(lora_target_modules)}"
+        )
+        if optim == "paged_adamw_8bit":
+            optim = "adamw_torch_fused"
     else:
-        print("⚠️  --no-qlora：将加载完整模型；该运行不属于本项目冻结的4090方案")
-        # 权重精度跟随 _precision_flags：bf16 训练器配 bf16 权重，fp16 回退
-        # （T4 / V100 等 pre-Ampere 卡）和 CPU 配 fp32 权重。不显式指定时
-        # Transformers 5 按 checkpoint 原始精度加载，Qwen2.5 是 bf16，在不支持
-        # bf16 的卡上第一步 matmul 就崩（见 rl/precision.py）。
+        print("⚠️  --no-qlora：加载完整模型；该运行属于全参数微调，不是 BF16 LoRA")
         from rl.precision import trainable_model_load_kwargs
 
-        policy = AutoModelForCausalLM.from_pretrained(
+        policy = load_text_causal_lm(
             resolved_model,
             local_files_only=Path(model).exists(),
-            **trainable_model_load_kwargs(AutoModelForCausalLM.from_pretrained),
+            **trainable_model_load_kwargs(load_text_causal_lm),
         )
         if optim == "paged_adamw_8bit":
             optim = "adamw_torch_fused"
@@ -431,6 +496,7 @@ def main(
         "packing": False,
         "report_to": backends,
         "run_name": run_name or out_path.name,
+        "chat_template_kwargs": {"enable_thinking": False},
         **_precision_flags(),  # 只有 CUDA 才开混合精度
     }
     config_kwargs, dropped_config_keys = _filter_dataclass_kwargs(
@@ -460,8 +526,10 @@ def main(
     trainer = SFTTrainer(**trainer_kwargs)
 
     trainable, total, ratio = _trainable_parameter_stats(trainer.model)
-    if qlora:
-        trainable, total, ratio = _assert_lora_only_trainable(trainer.model)
+    if qlora or bf16_lora:
+        trainable, total, ratio = _assert_lora_only_trainable(
+            trainer.model, require_4bit=qlora
+        )
     print(
         f"🔧 参数统计: trainable={trainable:,}, model_parameters={total:,}, "
         f"trainable_ratio={ratio:.4f}%"
@@ -477,20 +545,22 @@ def main(
     final_output_dir = out_path / "final"
     trainer.save_model(str(final_output_dir))
     tokenizer.save_pretrained(str(final_output_dir))
-    if qlora:
+    if qlora or bf16_lora:
         required_adapter_files = (
             final_output_dir / "adapter_config.json",
             final_output_dir / "adapter_model.safetensors",
         )
         missing = [str(path) for path in required_adapter_files if not path.exists()]
         if missing:
-            raise SystemExit(f"❌ QLoRA训练结束但适配器文件缺失: {missing}")
+            method = "QLoRA" if qlora else "BF16 LoRA"
+            raise SystemExit(f"❌ {method}训练结束但适配器文件缺失: {missing}")
 
     peak_vram = (
         torch.cuda.max_memory_allocated() / 2**30 if torch.cuda.is_available() else None
     )
     training_manifest = {
-        "stage": "sft_qlora" if qlora else "sft_full",
+        "stage": "sft_qlora" if qlora else "sft_bf16_lora" if bf16_lora else "sft_full",
+        "training_method": "qlora" if qlora else "bf16_lora" if bf16_lora else "full_finetune",
         "base_model": resolved_model,
         "data": str(train_data_path),
         "data_sha256": _sha256_file(train_data_path),
@@ -510,20 +580,23 @@ def main(
         "model_parameters_seen_by_trainer": total,
         "trainable_ratio_percent": ratio,
         "peak_vram_gib": peak_vram,
-        "qlora": {
+        "lora": {
+            "enabled": qlora or bf16_lora,
+            "method": "qlora" if qlora else "bf16_lora" if bf16_lora else None,
             "load_in_4bit": qlora,
             "quant_type": "nf4" if qlora else None,
             "double_quant": qlora,
-            "compute_dtype": "bfloat16" if qlora else None,
-            "r": lora_r if qlora else None,
-            "alpha": lora_alpha if qlora else None,
-            "dropout": lora_dropout if qlora else None,
-            "target_modules": list(QLORA_TARGET_MODULES) if qlora else [],
+            "compute_dtype": "bfloat16" if qlora or bf16_lora else None,
+            "r": lora_r if qlora or bf16_lora else None,
+            "alpha": lora_alpha if qlora or bf16_lora else None,
+            "dropout": lora_dropout if qlora or bf16_lora else None,
+            "target_modules": lora_target_modules if qlora or bf16_lora else [],
         },
+        "model_type": "qwen3_5" if model_is_qwen35 else "auto",
         "versions": {
             package: version(package)
             for package in ("torch", "transformers", "trl", "peft", "bitsandbytes")
-            if qlora or package not in ("peft", "bitsandbytes")
+            if package not in ("peft", "bitsandbytes") or qlora or bf16_lora
         },
     }
     final_output_dir.mkdir(parents=True, exist_ok=True)
@@ -572,7 +645,11 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--qlora", action=argparse.BooleanOptionalAction, default=True,
-        help="默认启用4-bit QLoRA；--no-qlora是全参数路径，不属于冻结的4090方案",
+        help="默认启用4-bit QLoRA；--no-qlora 不等于 LoRA",
+    )
+    parser.add_argument(
+        "--bf16_lora", action="store_true",
+        help="显式启用 BF16 LoRA（Qwen3.5 推荐）；需同时传 --no-qlora",
     )
     parser.add_argument("--lora_r", type=int, default=16)
     parser.add_argument("--lora_alpha", type=int, default=32)
