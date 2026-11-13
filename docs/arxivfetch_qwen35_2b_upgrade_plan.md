@@ -167,7 +167,7 @@ GRPO 继续训练 SFT Adapter 时：
 python -m AgenticArxiv.rl.train_sft --model Qwen/Qwen3.5-2B --no-qlora --bf16_lora --inspect_only --max_length 1024
 ```
 
-该命令检查数据 manifest、样本长度和 Qwen3.5 Chat Template，不加载模型、不开始训练。
+该命令检查数据 manifest、样本长度和 Qwen3.5 Chat Template，不加载模型、不开始训练。 如果长度守卫提示样本超过 1024 tokens，应提高 `--max_length`（例如 2048）后重新预检，不要跳过数据检查。
 
 **2. SFT 单步 smoke：**
 
