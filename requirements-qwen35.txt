@@ -5,7 +5,7 @@
 #
 # Install after creating a Python >=3.11 environment and installing a compatible
 # CUDA-matched torch>=2.6.0 build, then install the repository's base requirements:
-#   pip install -r requirements.txt
+#   pip install -r AgenticArxiv/requirements.txt
 #   pip install -r requirements-qwen35.txt
 
 transformers==5.22.2
