@@ -124,7 +124,11 @@ def resolve_model_revision(
     if Path(base_ref).expanduser().exists():
         return None
     if get_model_type(base_ref, revision=revision) in QWEN35_MODEL_TYPES:
-        return QWEN35_DEFAULT_REVISION
+        # This commit hash belongs specifically to Qwen/Qwen3.5-2B. Do not
+        # apply it to other Qwen3.5 checkpoints, whose repositories have
+        # independent revision histories.
+        if base_ref.rstrip("/") == "Qwen/Qwen3.5-2B":
+            return QWEN35_DEFAULT_REVISION
     return None
 
 
