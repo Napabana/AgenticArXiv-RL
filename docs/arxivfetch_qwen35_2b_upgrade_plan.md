@@ -227,7 +227,8 @@ GRPO 继续训练 SFT Adapter 时：
 
 - [x] 新增 `assert_grpo_reference_adapter`：训练器初始化后检查 `default/ref` 均存在、`default` 仍为 active policy、ref 与初始 policy 权重逐张量相同、ref 不可训练。
 - [x] GRPO 训练启动时执行上述检查；beta 非零而 reference adapter 不符合预期时立即失败，不允许静默地用 base model 代替 SFT reference。
-- [x] 新增 6 个单元测试覆盖 beta=0、reference 缺失、权重不一致、reference 未冻结和 active adapter 错误。
+- [x] 新增 7 个单元测试覆盖 beta=0、reference 缺失、权重不一致、reference 未冻结、active adapter 错误，以及 revision 只绑定 Qwen3.5-2B。
+- [x] 固定 revision 仅对 Qwen/Qwen3.5-2B 生效，避免将 2B 仓库 commit hash 错用到其他 Qwen3.5 checkpoint。
 - [x] 明确 Qwen3.5 专用环境要求 Python >=3.11、PyTorch >=2.6.0；先安装 CUDA 匹配的 torch，再安装锁定依赖。
 
 ### 尚未验证
