@@ -303,7 +303,7 @@ def assert_grpo_reference_adapter(model, *, beta: float) -> dict[str, Any]:
 
     active = getattr(model, "active_adapter", None)
     active_names = {active} if isinstance(active, str) else set(active or [])
-    if active_names and active_names != {"default"}:
+    if active_names != {"default"}:
         raise RuntimeError(
             f"Expected the trainable policy adapter 'default' to be active, got {sorted(active_names)}"
         )
