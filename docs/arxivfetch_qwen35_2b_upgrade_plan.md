@@ -62,11 +62,11 @@ Qwen3.5 要求 Transformers v5。上游现有依赖下限 `transformers>=4.45.0`
 1. 使用 Python >=3.11。TRL 1.17.1 的包元数据要求 Python >=3.11。
 2. 使用 CUDA 匹配的 PyTorch >=2.6.0。TRL 1.17.1 的运行依赖要求 torch>=2.6.0；先在 AutoDL 镜像中核对 torch/CUDA 组合，不要让安装训练依赖时意外替换现有 CUDA wheel。
 3. 先建立独立环境，锁定一组已验证版本，不污染用户其他项目。
-2. Transformers 至少使用包含 Qwen3.5 文本模型实现的 v5 版本；正式环境记录确切版本。
-3. TRL 选择保留 `GRPOTrainer(rollout_func=...)` API 的版本；先检查当前构造函数、`env_mask` 和自定义 Rollout 返回结构，再冻结版本。
-4. PEFT 版本必须支持 Transformers v5 和 Qwen3.5 文本模型；记录精确版本。
-5. Gated DeltaNet 的 `causal_conv1d` / `flash-linear-attention` 属于性能依赖。缺少时 Transformers 可能回退到更慢、显存更高的 PyTorch 实现；首轮先验证功能，再决定是否安装加速依赖。
-6. 不在本次无差别升级所有依赖。使用独立 requirements/lock 文件，确认通过后再决定是否合并到主 requirements。
+4. Transformers 至少使用包含 Qwen3.5 文本模型实现的 v5 版本；正式环境记录确切版本。
+5. TRL 选择保留 `GRPOTrainer(rollout_func=...)` API 的版本；先检查当前构造函数、`env_mask` 和自定义 Rollout 返回结构，再冻结版本。
+6. PEFT 版本必须支持 Transformers v5 和 Qwen3.5 文本模型；使用已验证的精确版本。
+7. Gated DeltaNet 的 `causal_conv1d` / `flash-linear-attention` 属于性能依赖。缺少时 Transformers 可能回退到更慢、显存更高的 PyTorch 实现；首轮先验证功能，再决定是否安装加速依赖。
+8. 不在本次无差别升级所有依赖。使用独立 requirements/lock 文件，确认通过后再决定是否合并到主 requirements。
 
 ## 4. 代码改造范围
 
@@ -181,6 +181,8 @@ GRPO 继续训练 SFT Adapter 时：
 - [Transformers Qwen3.5 文档：文本模型与多模态模型类](https://huggingface.co/docs/transformers/main/model_doc/qwen3_5)
 - [Unsloth Qwen3.5 Fine-tuning Guide：BF16 LoRA、显存参考与 QLoRA 注意事项](https://unsloth.ai/docs/models/qwen3.5/fine-tune)
 - [TRL GRPOTrainer 文档：Qwen3.5 支持列表与自定义 Rollout](https://huggingface.co/docs/trl/main/en/grpo_trainer)
+- [TRL v1.17.1 GRPOTrainer 源码：预训练 PEFT Adapter 的 ref 副本与 rollout_func 实现](https://github.com/huggingface/trl/blob/v1.17.1/trl/trainer/grpo_trainer.py)
+- [PEFT v0.21.2 源码：add_adapter 不自动激活新 Adapter](https://github.com/huggingface/peft/blob/v0.21.2/src/peft/peft_model.py)
 
 ---
 
@@ -209,3 +211,29 @@ GRPO 继续训练 SFT Adapter 时：
 - [ ] 实测 peak VRAM、step time、训练曲线和 Base/SFT/GRPO 指标。
 
 **重要：** 当前提交只表示代码适配已实现，不表示 Qwen3.5 已在本项目上成功训练。所有训练与性能指标仍待实测。
+
+
+## 10. 本轮代码审查与修正（2026-11-14）
+
+### 已核对的上游接口事实
+
+- [x] 核对 Qwen3.5-2B 固定模型 revision：`15852e8c16360a2fea060d615a32b45270f8a8fc` 可解析；官方 Transformers 文档明确提供 `Qwen3_5ForCausalLM` 文本加载路径。
+- [x] 核对 Qwen3.5-2B 的 chat template：`enable_thinking` 未定义或显式为 false 时，generation prompt 都写入空的 think 区块；因此当前 SFT 的默认模板一致性预检有明确依据。
+- [x] 核对 TRL 1.17.1：训练 sampler 已按 `num_generations` 重复数据行；`rollout_func` 收到的是这些展开后的行。自定义 Rollout 内每行调用 `_generate_single_turn(..., num_generations=1)` 是正确的。
+- [x] 核对 TRL 1.17.1 的 `env_mask`：1 表示策略生成 token，0 表示环境 token；loss mask 会与 completion mask 相乘，当前 Observation mask 方向正确。
+- [x] 核对 TRL 1.17.1 + PEFT >=0.20.0：当传入已有 PEFT Adapter 且 beta 非零时，TRL 会创建名为 `ref` 的 Adapter，并复制初始 `default` 权重；PEFT 新增的非活动 Adapter 保持冻结。
+
+### 本轮新增保护
+
+- [x] 新增 `assert_grpo_reference_adapter`：训练器初始化后检查 `default/ref` 均存在、`default` 仍为 active policy、ref 与初始 policy 权重逐张量相同、ref 不可训练。
+- [x] GRPO 训练启动时执行上述检查；beta 非零而 reference adapter 不符合预期时立即失败，不允许静默地用 base model 代替 SFT reference。
+- [x] 新增 6 个单元测试覆盖 beta=0、reference 缺失、权重不一致、reference 未冻结和 active adapter 错误。
+- [x] 明确 Qwen3.5 专用环境要求 Python >=3.11、PyTorch >=2.6.0；先安装 CUDA 匹配的 torch，再安装锁定依赖。
+
+### 尚未验证
+
+- [ ] GitHub Actions 当前没有返回任何 workflow run；本轮尚无 CI 通过证据。
+- [ ] 本地执行环境没有安装 Transformers / TRL / PEFT / Datasets，且当前容器无法连接 GitHub，因此不能在此环境执行完整仓库测试。
+- [ ] AutoDL RTX 4090 的模型加载、SFT smoke、GRPO optimizer-step 和显存数据仍待实测。
+
+**本轮结论：** 代码审查确认了 TRL 1.17.1 自定义 Rollout 和 reference adapter 的接口契约，并增加了 reference adapter 的启动期硬校验；这仍然只是代码级兼容性修正，不代表已完成训练验证。
