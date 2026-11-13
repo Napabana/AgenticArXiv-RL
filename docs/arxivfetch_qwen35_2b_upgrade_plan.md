@@ -59,7 +59,9 @@ Unsloth 官方 Qwen3.5 Fine-tuning Guide 给出 2B BF16 LoRA 约 5GB 的参考�
 Qwen3.5 要求 Transformers v5。上游现有依赖下限 `transformers>=4.45.0`、`trl>=0.28.0` 过于宽松，不能保证 Qwen3.5 与自定义 rollout API 兼容。
 
 实施时：
-1. 先建立独立环境，锁定一组已验证版本，不污染用户其他项目。
+1. 使用 Python >=3.11。TRL 1.17.1 的包元数据要求 Python >=3.11。
+2. 使用 CUDA 匹配的 PyTorch >=2.6.0。TRL 1.17.1 的运行依赖要求 torch>=2.6.0；先在 AutoDL 镜像中核对 torch/CUDA 组合，不要让安装训练依赖时意外替换现有 CUDA wheel。
+3. 先建立独立环境，锁定一组已验证版本，不污染用户其他项目。
 2. Transformers 至少使用包含 Qwen3.5 文本模型实现的 v5 版本；正式环境记录确切版本。
 3. TRL 选择保留 `GRPOTrainer(rollout_func=...)` API 的版本；先检查当前构造函数、`env_mask` 和自定义 Rollout 返回结构，再冻结版本。
 4. PEFT 版本必须支持 Transformers v5 和 Qwen3.5 文本模型；记录精确版本。
@@ -95,7 +97,7 @@ GRPO 继续训练 SFT Adapter 时：
 2. 用 BF16 加载 Qwen3.5 文本模型；
 3. 用 `PeftModel.from_pretrained(..., is_trainable=True)` 加载 SFT Adapter；
 4. 确认仅 LoRA 参数可训练；
-5. Beta/reference adapter 行为需通过实际 TRL + PEFT 版本测试；
+5. 当 beta > 0 且传入已训练 PEFT Adapter 时，TRL 1.17.1 应复制 default Adapter 为冻结的 ref Adapter；这样 KL reference 才是初始 SFT policy，而不是未经过 SFT 的 base model。PEFT 版本必须 >=0.20.0。训练器初始化后检查 ref 是否存在、是否与 default 权重逐张量相同、是否冻结，以及 default 是否仍为 active policy。
 6. 训练一步后确认 Adapter 权重发生变化、非 LoRA 参数未变化。
 
 ## 5. 分阶段实施与验收
@@ -191,6 +193,7 @@ GRPO 继续训练 SFT Adapter 时：
 - [x] 新增 Qwen3.5 混合注意力 LoRA 目标扫描：覆盖 Gated DeltaNet、Full Attention 和 MLP 的 Linear 投影；缺少任一必需模块时失败退出。
 - [x] SFT 新增显式 `--bf16_lora`，与 `--qlora` 互斥；Qwen3.5 不允许误走 QLoRA 或全参数微调分支。
 - [x] GRPO 新增 BF16 LoRA 策略加载，可从 SFT Adapter 恢复并保持仅 LoRA 参数可训练。
+- [x] GRPO 初始化后校验 TRL 创建的冻结 ref Adapter：要求其与初始 default/SFT Adapter 逐张量相同、保持冻结，并确保 default 仍是 active policy；beta=0 时不要求 reference Adapter。
 - [x] GRPO 多轮生成适配 TRL 0.29.x 与 1.x 的 `_generate_single_turn` 参数差异及 `max_completion_length` 属性迁移；TRL 1.x 对已经展开的每条 prompt 显式生成 1 条 completion。
 - [x] 统一非 Thinking 模式：GRPO、Canary、StageVerifier 和本地推理显式传入 `enable_thinking=False`；SFT 通过预检断言 TRL 默认模板与显式关闭 Thinking 的输出一致。
 - [x] StageVerifier 与本地 Benchmark 支持加载 PEFT Adapter 目录，而不是把 adapter 目录误当成完整模型权重。
