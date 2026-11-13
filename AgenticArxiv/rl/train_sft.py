@@ -642,8 +642,6 @@ def main(
             "target_modules": lora_target_modules if qlora or bf16_lora else [],
         },
         "model_type": "qwen3_5" if model_is_qwen35 else "auto",
-        "model_revision": model_revision,
-        "tokenizer_revision": getattr(tokenizer, "init_kwargs", {}).get("_commit_hash"),
         "model_class": "Qwen3_5ForCausalLM" if model_is_qwen35 else "AutoModelForCausalLM",
         "weight_dtype": "bfloat16" if qlora or bf16_lora else str(getattr(policy, "dtype", "checkpoint_default")),
         "versions": {
