@@ -114,7 +114,7 @@ GRPO 继续训练 SFT Adapter 时：
 ### P1：BF16 LoRA SFT
 
 - [ ] 复用原始 SFT 数据和 Manifest；检查样本、长度与数据 hash。
-- [ ] 显式应用 `enable_thinking=False`。
+- [ ] 验证 SFTTrainer 默认模板与显式 `enable_thinking=False` 输出一致（不假设 SFTConfig 支持该参数）。
 - [ ] 运行 1–3 step smoke，确认 loss 有限、反向传播成功。
 - [ ] 保存 Adapter、Tokenizer、Manifest；重新加载 Adapter 并生成合法 ReAct Action。
 - [ ] 再执行 30-step smoke，检查 peak VRAM、step time 和训练曲线。
@@ -192,7 +192,7 @@ GRPO 继续训练 SFT Adapter 时：
 - [x] SFT 新增显式 `--bf16_lora`，与 `--qlora` 互斥；Qwen3.5 不允许误走 QLoRA 或全参数微调分支。
 - [x] GRPO 新增 BF16 LoRA 策略加载，可从 SFT Adapter 恢复并保持仅 LoRA 参数可训练。
 - [x] GRPO 多轮生成适配 TRL 0.29.x 与 1.x 的 `_generate_single_turn` 参数差异；TRL 1.x 对已经展开的每条 prompt 显式生成 1 条 completion。
-- [x] SFT、GRPO、Canary、StageVerifier 和本地推理统一传入非 Thinking Chat Template 参数。
+- [x] 统一非 Thinking 模式：GRPO、Canary、StageVerifier 和本地推理显式传入 `enable_thinking=False`；SFT 通过预检断言 TRL 默认模板与显式关闭 Thinking 的输出一致。
 - [x] StageVerifier 与本地 Benchmark 支持加载 PEFT Adapter 目录，而不是把 adapter 目录误当成完整模型权重。
 - [x] 新增 `requirements-qwen35.txt`，单独锁定 Transformers 5.22.2 / TRL 1.17.1 / PEFT 0.21.2 / Accelerate 1.15.0 / Datasets 5.2.0；不覆盖 AutoDL 已安装的 CUDA PyTorch。
 - [x] 新增 `tests/test_model_loading.py`，覆盖模型识别、adapter 基座解析、混合注意力 LoRA 覆盖、非 Thinking 模板和 TRL rollout API 兼容。
