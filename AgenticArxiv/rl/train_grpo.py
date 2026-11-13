@@ -790,6 +790,7 @@ def main(
         batch_size = num_generations
         print(f"  调整 per_device_train_batch_size = {batch_size}（需被 num_generations 整除）")
 
+    model_is_qwen35 = is_qwen35_model(resolved)
     cfg_kwargs = {
         "output_dir": str(REPO_ROOT / output_dir),
         "num_train_epochs": epochs,
@@ -849,7 +850,7 @@ def main(
     # GRPOConfig 的字段在 TRL 各版本间有增删，按实际安装版本过滤，
     # 避免因为一个参数名不存在就整个训练起不来
     valid = {f.name for f in dataclasses.fields(GRPOConfig)}
-    if is_qwen35_model(resolved) and "chat_template_kwargs" not in valid:
+    if model_is_qwen35 and "chat_template_kwargs" not in valid:
         raise SystemExit(
             "❌ 当前 TRL 的 GRPOConfig 不支持 chat_template_kwargs；"
             "请使用 requirements-qwen35.txt 中锁定的 TRL 版本"
@@ -1003,8 +1004,8 @@ def main(
     manifest = {
         "stage": "grpo_qlora" if qlora else "grpo_bf16_lora" if bf16_lora else "grpo_full",
         "training_method": "qlora" if qlora else "bf16_lora" if bf16_lora else "full_finetune",
-        "model_type": "qwen3_5" if is_qwen35_model(resolved) else "auto",
-        "model_class": "Qwen3_5ForCausalLM" if is_qwen35_model(resolved) else "AutoModelForCausalLM",
+        "model_type": "qwen3_5" if model_is_qwen35 else "auto",
+        "model_class": "Qwen3_5ForCausalLM" if model_is_qwen35 else "AutoModelForCausalLM",
         "weight_dtype": "bfloat16" if qlora or bf16_lora else "checkpoint_default",
         "lora": {
             "enabled": qlora or bf16_lora,
