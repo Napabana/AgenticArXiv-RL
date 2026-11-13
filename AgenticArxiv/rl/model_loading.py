@@ -171,6 +171,30 @@ def apply_non_thinking_chat_template(tokenizer, messages, **kwargs):
 
 
 
+
+def assert_default_template_is_non_thinking(tokenizer) -> None:
+    """Ensure a model's default SFT template matches explicit no-thinking mode."""
+    sample = [{"role": "user", "content": "Return one short ReAct action."}]
+    default = tokenizer.apply_chat_template(
+        sample,
+        tokenize=False,
+        add_generation_prompt=True,
+    )
+    explicit = apply_non_thinking_chat_template(
+        tokenizer,
+        sample,
+        tokenize=False,
+        add_generation_prompt=True,
+    )
+    if default != explicit:
+        raise ValueError(
+            "The tokenizer default chat template differs from enable_thinking=False. "
+            "This TRL SFTConfig version cannot forward chat_template_kwargs; "
+            "use a tokenizer/template that defaults to non-thinking or add explicit "
+            "SFT preprocessing before training."
+        )
+
+
 def validate_qwen35_lora_targets(target_modules) -> list[str]:
     """Fail if a saved Qwen3.5 adapter omits any hybrid-attention/MLP path."""
     if isinstance(target_modules, str):
