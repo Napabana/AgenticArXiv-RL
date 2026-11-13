@@ -37,6 +37,7 @@ from rl.model_loading import (
     build_bf16_lora_config,
     is_qwen35_model,
     load_text_causal_lm,
+    trainable_parameter_fingerprint,
 )
 from rl.observability import describe_logging, resolve_report_to
 from rl.stage_verifier import StageVerifier
@@ -542,7 +543,25 @@ def main(
     if torch.cuda.is_available():
         print(f"   Trainer初始化显存: {torch.cuda.memory_allocated() / 2**30:.2f} GiB")
 
+    adapter_fingerprint_before = (
+        trainable_parameter_fingerprint(trainer.model)
+        if qlora or bf16_lora else None
+    )
     train_result = trainer.train()
+    optimizer_steps = int(getattr(trainer.state, "global_step", 0) or 0)
+    adapter_fingerprint_after = (
+        trainable_parameter_fingerprint(trainer.model)
+        if qlora or bf16_lora else None
+    )
+    adapter_updated = (
+        adapter_fingerprint_before != adapter_fingerprint_after
+        if adapter_fingerprint_before is not None else None
+    )
+    if (qlora or bf16_lora) and optimizer_steps > 0 and not adapter_updated:
+        raise SystemExit(
+            "❌ SFT 已完成 optimizer step，但可训练 Adapter 参数没有变化；"
+            "检查 labels mask、学习率、梯度和训练数据"
+        )
     train_loss = float(train_result.training_loss)
     if not math.isfinite(train_loss):
         raise SystemExit(f"❌ training_loss不是有限数: {train_loss}")
@@ -581,6 +600,14 @@ def main(
         "optimizer": optim,
         "seed": seed,
         "train_loss": train_loss,
+        "optimizer_steps": optimizer_steps,
+        "adapter_updated": adapter_updated,
+        "adapter_fingerprint_before": (
+            adapter_fingerprint_before[:16] if adapter_fingerprint_before else None
+        ),
+        "adapter_fingerprint_after": (
+            adapter_fingerprint_after[:16] if adapter_fingerprint_after else None
+        ),
         "trainable_parameters": trainable,
         "model_parameters_seen_by_trainer": total,
         "trainable_ratio_percent": ratio,
