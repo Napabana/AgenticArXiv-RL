@@ -87,6 +87,8 @@ from rl.model_loading import (
     build_bf16_lora_config,
     is_qwen35_model,
     load_text_causal_lm,
+    trainable_parameter_fingerprint,
+    validate_qwen35_lora_targets,
 )
 
 DEFAULT_SNAPSHOT = REPO_ROOT / "data" / "mock_arxiv_snapshot.json"
@@ -241,6 +243,9 @@ def _load_policy(
         )
         if is_adapter:
             policy = PeftModel.from_pretrained(base, model_path, is_trainable=True)
+            if is_qwen35:
+                active_config = next(iter(policy.peft_config.values()))
+                validate_qwen35_lora_targets(active_config.target_modules)
         else:
             fresh_lora, targets = build_bf16_lora_config(
                 base,
@@ -875,6 +880,10 @@ def main(
     # 汇总到控制台；report_to 只控制是否转发到 TensorBoard/wandb，不应决定
     # 是否采集指标。此前的条件绑定还会让 _pending 在长训练中持续增长。
     tracker.bind(trainer)
+    adapter_fingerprint_before = (
+        trainable_parameter_fingerprint(trainer.model)
+        if qlora or bf16_lora else None
+    )
 
     # --- Canary 回调：每 N 步在固定任务上评估，检测性能退化 ---
     canary_cb = None
@@ -954,6 +963,24 @@ def main(
             raise SystemExit(f"❌ GRPO完成但{method} adapter文件缺失: {missing}")
     import torch
     actual_steps = int(getattr(trainer.state, "global_step", 0) or 0)
+    adapter_fingerprint_after = (
+        trainable_parameter_fingerprint(trainer.model)
+        if qlora or bf16_lora else None
+    )
+    adapter_updated = (
+        adapter_fingerprint_before != adapter_fingerprint_after
+        if adapter_fingerprint_before is not None else None
+    )
+    if (
+        (qlora or bf16_lora)
+        and lr > 0
+        and actual_steps > 0
+        and not adapter_updated
+    ):
+        raise SystemExit(
+            "❌ GRPO 已完成 optimizer step，但 Adapter 参数没有变化；"
+            "检查 reward variance、advantage、梯度和学习率"
+        )
     stopped_early = max_steps > 0 and actual_steps < max_steps
     if guard is not None and guard.converged:
         stop_reason = "reward_variance_window_saturated"
@@ -1055,6 +1082,13 @@ def main(
         "resumed_from_checkpoint": resolved_resume_checkpoint,
         "peak_vram_gib": (
             torch.cuda.max_memory_allocated() / 2**30 if torch.cuda.is_available() else 0.0
+        ),
+        "adapter_updated": adapter_updated,
+        "adapter_fingerprint_before": (
+            adapter_fingerprint_before[:16] if adapter_fingerprint_before else None
+        ),
+        "adapter_fingerprint_after": (
+            adapter_fingerprint_after[:16] if adapter_fingerprint_after else None
         ),
     }
     trainable, model_parameters, trainable_ratio = _trainable_parameter_stats(trainer.model)
