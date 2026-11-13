@@ -66,7 +66,7 @@ Qwen3.5 要求 Transformers v5。上游现有依赖下限 `transformers>=4.45.0`
 5. TRL 选择保留 `GRPOTrainer(rollout_func=...)` API 的版本；先检查当前构造函数、`env_mask` 和自定义 Rollout 返回结构，再冻结版本。
 6. PEFT 版本必须支持 Transformers v5 和 Qwen3.5 文本模型；使用已验证的精确版本。
 7. Gated DeltaNet 的 `causal_conv1d` / `flash-linear-attention` 属于性能依赖。缺少时 Transformers 可能回退到更慢、显存更高的 PyTorch 实现；首轮先验证功能，再决定是否安装加速依赖。
-8. 不在本次无差别升级所有依赖。使用独立 requirements/lock 文件，确认通过后再决定是否合并到主 requirements。
+8. 不在本次无差别升级所有依赖。使用独立 requirements 文件固定直接依赖；首次环境验证通过后，额外保存完整 pip freeze（含传递依赖）作为实验锁文件，再决定是否合并到主 requirements。
 
 ## 4. 代码改造范围
 
@@ -79,7 +79,7 @@ Qwen3.5 要求 Transformers v5。上游现有依赖下限 `transformers>=4.45.0`
 | `AgenticArxiv/utils/llm_client.py` | Qwen3.5 识别为文本策略，加载 `Qwen3_5ForCausalLM` + AutoTokenizer；不误走 VLM Processor |
 | `AgenticArxiv/rl/canary.py`、`stage_verifier.py` | 与训练和 Benchmark 使用一致的模板参数 |
 | `AgenticArxiv/tests/` | 模型类选择、LoRA target、Adapter 加载、模板参数和 rollout 接口回归测试 |
-| 新增独立依赖锁文件 | 固定 Transformers/TRL/PEFT/PyTorch/CUDA 兼容版本 |
+| 新增 `requirements-qwen35.txt` | 固定直接训练依赖版本；首次环境验证后再生成完整 freeze 锁文件 |
 
 ### 4.1 训练接口约束
 
@@ -199,7 +199,7 @@ GRPO 继续训练 SFT Adapter 时：
 - [x] GRPO 多轮生成适配 TRL 0.29.x 与 1.x 的 `_generate_single_turn` 参数差异及 `max_completion_length` 属性迁移；TRL 1.x 对已经展开的每条 prompt 显式生成 1 条 completion。
 - [x] 统一非 Thinking 模式：GRPO、Canary、StageVerifier 和本地推理显式传入 `enable_thinking=False`；SFT 通过预检断言 TRL 默认模板与显式关闭 Thinking 的输出一致。
 - [x] StageVerifier 与本地 Benchmark 支持加载 PEFT Adapter 目录，而不是把 adapter 目录误当成完整模型权重。
-- [x] 新增 `requirements-qwen35.txt`，单独锁定 Transformers 5.22.2 / TRL 1.17.1 / PEFT 0.21.2 / Accelerate 1.15.0 / Datasets 5.2.0；不覆盖 AutoDL 已安装的 CUDA PyTorch。
+- [x] 新增 `requirements-qwen35.txt`，固定 Transformers 5.22.2 / TRL 1.17.1 / PEFT 0.21.2 / Accelerate 1.15.0 / Datasets 5.2.0 等直接依赖；不覆盖 AutoDL 已安装的 CUDA PyTorch。完整传递依赖 freeze 待首次环境验证后生成。
 - [x] 新增 `tests/test_model_loading.py`，覆盖模型识别、adapter 基座解析、混合注意力 LoRA 覆盖、非 Thinking 模板、TRL rollout API/长度预算兼容和 adapter fingerprint。
 
 ### 尚未验证
@@ -229,7 +229,8 @@ GRPO 继续训练 SFT Adapter 时：
 - [x] GRPO 训练启动时执行上述检查；beta 非零而 reference adapter 不符合预期时立即失败，不允许静默地用 base model 代替 SFT reference。
 - [x] 新增 7 个单元测试覆盖 beta=0、reference 缺失、权重不一致、reference 未冻结、active adapter 错误，以及 revision 只绑定 Qwen3.5-2B。
 - [x] 固定 revision 仅对 Qwen/Qwen3.5-2B 生效，避免将 2B 仓库 commit hash 错用到其他 Qwen3.5 checkpoint。
-- [x] 明确 Qwen3.5 专用环境要求 Python >=3.11、PyTorch >=2.6.0；先安装 CUDA 匹配的 torch，再安装锁定依赖。
+- [x] 明确 Qwen3.5 专用环境要求 Python >=3.11、PyTorch >=2.6.0；先安装 CUDA 匹配的 torch，再安装固定直接依赖。
+- [x] 扩充 SFT / GRPO Manifest 的版本记录，覆盖 torch、transformers、trl、accelerate、datasets、huggingface_hub、tokenizers、safetensors，以及实际使用时的 peft / bitsandbytes。
 
 ### 尚未验证
 
