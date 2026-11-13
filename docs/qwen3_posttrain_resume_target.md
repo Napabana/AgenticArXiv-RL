@@ -1,3 +1,5 @@
+> **已被新方案取代。** 当前项目目标、模型选择和实施状态以 [docs/arxivfetch_qwen35_2b_upgrade_plan.md](arxivfetch_qwen35_2b_upgrade_plan.md) 为准。本文件保留此前 Qwen3-1.7B 方案的历史记录，不再作为执行依据。
+
 # ArxivFetch-RL：以可验证简历成果为目标的 arXiv Agent 后训练与安全评测
 
 > 状态：**目标设计，尚未完成训练或实验**。所有结果均须来自本 Fork 的实际运行产物；禁止将上游作者结果或预期指标当成本人成果。
