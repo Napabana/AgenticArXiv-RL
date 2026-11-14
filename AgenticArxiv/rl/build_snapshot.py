@@ -436,10 +436,14 @@ def _snapshot_translated_content(
     paper; a paper whose translated PDF already exists hits the tool's cache.
     Every page is recorded so that any valid ``page`` replays offline.
     """
-    if not max_ref:
+    if pool_refs is None and not max_ref:
         print("  [WARN] 已关闭译文页录制（--translate-max-ref 0）：读译文任务（translation_reading）将无法离线回放")
         return 0, 0
-    print(f"  翻译并录制译文页（每池前 {max_ref} 篇，需要 pdf2zh 与在线翻译服务）")
+    if pool_refs is not None:
+        scope = ", ".join(f"{aspect}={count}" for aspect, count in pool_refs.items())
+        print(f"  翻译并录制指定论文池译文（{scope}，需要 pdf2zh 与在线翻译服务）")
+    else:
+        print(f"  翻译并录制译文页（每池前 {max_ref} 篇，需要 pdf2zh 与在线翻译服务）")
     session_id = "__snapshot_translated_content__"
     ok = fail = 0
     papers = (
