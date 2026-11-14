@@ -35,6 +35,19 @@ For a full pass over the selected split:
 GRPO_MAX_STEPS=-1 OUTPUT_DIR=outputs/qwen35_grpo_full GRPO_SPLIT=data/splits/qwen35_grpo_train.json:rl_train SFT_ADAPTER=outputs/qwen35_sft_full/final bash scripts/run_qwen35_grpo.sh
 ```
 
+## CPU-side code and manifest checks
+
+Run these before switching to a GPU instance:
+
+```bash
+cd AgenticArxiv
+python -m unittest tests.test_prepare_sft_dataset tests.test_sft_v4_manifest_validation tests.test_training_guards
+bash -n ../scripts/run_qwen35_sft.sh
+bash -n ../scripts/run_qwen35_grpo.sh
+```
+
+The unit tests cover source-chain versus unique-derived-task accounting, filtered-row arithmetic, SHA256/row/schema validation, and existing SFT training guards. These tests do not load the model or require CUDA.
+
 ## Dependencies and prerequisites
 
 Install the base project requirements and the pinned Qwen3.5 requirements as
