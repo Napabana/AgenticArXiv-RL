@@ -22,17 +22,17 @@ SFT_MAX_STEPS=-1 SFT_EPOCHS=1 OUTPUT_DIR=outputs/qwen35_sft_full bash scripts/ru
 ## GRPO
 
 ```bash
-SFT_ADAPTER=outputs/qwen35_sft_smoke/final bash scripts/run_qwen35_grpo.sh
+GRPO_SPLIT=data/splits/qwen35_grpo_train.json:rl_train SFT_ADAPTER=outputs/qwen35_sft_smoke/final bash scripts/run_qwen35_grpo.sh
 ```
 
-Defaults: the expanded task set restricted to the frozen `rl_train` split,
+Defaults: the expanded task set restricted to a Qwen3.5-specific frozen-policy `rl_train` split (the split must be supplied explicitly),
 four generations per prompt, BF16 LoRA, 20 optimizer steps, reward curriculum
 disabled from step zero, TensorBoard and full rollout audit enabled.
 
 For a full pass over the selected split:
 
 ```bash
-GRPO_MAX_STEPS=-1 OUTPUT_DIR=outputs/qwen35_grpo_full SFT_ADAPTER=outputs/qwen35_sft_full/final bash scripts/run_qwen35_grpo.sh
+GRPO_MAX_STEPS=-1 OUTPUT_DIR=outputs/qwen35_grpo_full GRPO_SPLIT=data/splits/qwen35_grpo_train.json:rl_train SFT_ADAPTER=outputs/qwen35_sft_full/final bash scripts/run_qwen35_grpo.sh
 ```
 
 ## Dependencies and prerequisites
@@ -44,7 +44,7 @@ described in `requirements-qwen35.txt`. Install TensorBoard separately:
 pip install tensorboard
 ```
 
-GRPO additionally requires the offline MockArxiv snapshot at
+Before formal GRPO, run a frozen-policy reward-variance probe using the Qwen3.5 SFT adapter and create a model-specific train split. Do not reuse `v4_grpo_train.json` (explicitly invalidated) or the v5/v6 splits selected with older policies. Set `GRPO_SPLIT=path/to/qwen35_grpo_train.json:rl_train` when launching GRPO.\n\nGRPO additionally requires the offline MockArxiv snapshot at
 `data/mock_arxiv_snapshot.json`. The snapshot is deliberately not stored in
 Git because it contains cached tool results and paper content. Build and
 validate it in the persistent ModelScope workspace before launching GRPO.
