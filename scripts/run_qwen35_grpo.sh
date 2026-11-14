@@ -9,7 +9,7 @@ cd "$REPO_ROOT"
 BASE_MODEL="${MODEL_PATH:-/mnt/workspace/models/Qwen3.5-2B}"
 SFT_ADAPTER="${SFT_ADAPTER:-outputs/qwen35_sft_smoke/final}"
 SNAPSHOT="${SNAPSHOT:-data/mock_arxiv_snapshot.json}"
-SPLIT="${GRPO_SPLIT:-data/splits/v4_grpo_train.json:rl_train}"
+SPLIT="${GRPO_SPLIT:-}"
 OUTPUT_DIR="${OUTPUT_DIR:-outputs/qwen35_grpo_smoke}"
 MAX_STEPS="${GRPO_MAX_STEPS:-20}"
 SEED="${SEED:-42}"
@@ -18,6 +18,11 @@ RUN_NAME="${RUN_NAME:-qwen35_grpo_$(date +%Y%m%d_%H%M%S)}"
 [[ -d "$BASE_MODEL" ]] || { echo "Base model directory not found: $BASE_MODEL" >&2; exit 2; }
 [[ -f "$SFT_ADAPTER/adapter_config.json" ]] || { echo "SFT LoRA adapter not found: $SFT_ADAPTER" >&2; exit 2; }
 [[ -f "$SNAPSHOT" ]] || { echo "Offline environment snapshot not found: $SNAPSHOT. Build it before starting GRPO." >&2; exit 2; }
+if [[ -z "$SPLIT" ]]; then
+  echo "GRPO_SPLIT is required: create a model-specific split from the frozen Qwen3.5 SFT reward-variance probe first." >&2
+  echo "Do not reuse v4_grpo_train.json (invalidated) or v5/v6 splits (selected with older policies) as formal Qwen3.5 training data." >&2
+  exit 2
+fi
 [[ -f "${SPLIT%%:*}" ]] || { echo "GRPO split file not found: ${SPLIT%%:*}" >&2; exit 2; }
 
 mkdir -p "$OUTPUT_DIR"
