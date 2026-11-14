@@ -70,38 +70,178 @@ def _sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _verify_data_manifest(data_path: Path, manifest_path: Path | None = None) -> dict:
-    """冻结训练输入：行数、类型与 SHA256 任一漂移都拒绝训练。"""
-    manifest_path = manifest_path or data_path.with_suffix(data_path.suffix + ".manifest.json")
+# def _verify_data_manifest(data_path: Path, manifest_path: Path | None = None) -> dict:
+#     """冻结训练输入：行数、类型与 SHA256 任一漂移都拒绝训练。"""
+#     manifest_path = manifest_path or data_path.with_suffix(data_path.suffix + ".manifest.json")
+#     if not manifest_path.exists():
+#         raise SystemExit(
+#             f"❌ 缺少训练数据 manifest: {manifest_path}\n"
+#             "   正式 QLoRA 默认只接受 build_sft_train_mix.py 生成的可审计数据；"
+#             "临时实验可显式传 --skip_data_manifest_check"
+#         )
+#     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+#     if manifest.get("kind") != "qlora_sft_train_mix":
+#         raise SystemExit(f"❌ 训练数据 manifest kind 错误: {manifest.get('kind')!r}")
+#     actual_hash = _sha256_file(data_path)
+#     if manifest.get("output_sha256") != actual_hash:
+#         raise SystemExit(
+#             "❌ 训练数据 SHA256 与 manifest 不一致，文件可能在冻结后被修改\n"
+#             f"   manifest={manifest.get('output_sha256')}\n   actual={actual_hash}"
+#         )
+#     actual_rows = sum(1 for line in data_path.open("r", encoding="utf-8") if line.strip())
+#     if manifest.get("output_rows") != actual_rows:
+#         raise SystemExit(
+#             f"❌ 训练数据行数不一致: manifest={manifest.get('output_rows')}, "
+#             f"actual={actual_rows}"
+#         )
+#     if manifest.get("unique_sample_fingerprints") != actual_rows:
+#         raise SystemExit("❌ manifest 显示训练集中存在重复样本")
+#     print(
+#         f"🔒 数据审计通过: rows={actual_rows}, "
+#         f"semantic_tasks={manifest.get('semantic_task_instances')}, sha256={actual_hash[:12]}…"
+#     )
+#     return manifest
+def _verify_data_manifest(
+    data_path: Path,
+    manifest_path: Path | None = None,
+) -> dict:
+    """验证 SFT 数据文件与 Manifest。
+
+    支持两种数据格式：
+    1. qlora_sft_train_mix：原有混合 SFT 数据
+    2. sft_v4_multiturn：多轮 Agent 轨迹数据
+    """
+    manifest_path = (
+        manifest_path
+        or data_path.with_suffix(data_path.suffix + ".manifest.json")
+    )
+
     if not manifest_path.exists():
         raise SystemExit(
-            f"❌ 缺少训练数据 manifest: {manifest_path}\n"
-            "   正式 QLoRA 默认只接受 build_sft_train_mix.py 生成的可审计数据；"
-            "临时实验可显式传 --skip_data_manifest_check"
+            f"❌ 缺少训练数据 manifest: {manifest_path}"
         )
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    if manifest.get("kind") != "qlora_sft_train_mix":
-        raise SystemExit(f"❌ 训练数据 manifest kind 错误: {manifest.get('kind')!r}")
-    actual_hash = _sha256_file(data_path)
-    if manifest.get("output_sha256") != actual_hash:
-        raise SystemExit(
-            "❌ 训练数据 SHA256 与 manifest 不一致，文件可能在冻结后被修改\n"
-            f"   manifest={manifest.get('output_sha256')}\n   actual={actual_hash}"
-        )
-    actual_rows = sum(1 for line in data_path.open("r", encoding="utf-8") if line.strip())
-    if manifest.get("output_rows") != actual_rows:
-        raise SystemExit(
-            f"❌ 训练数据行数不一致: manifest={manifest.get('output_rows')}, "
-            f"actual={actual_rows}"
-        )
-    if manifest.get("unique_sample_fingerprints") != actual_rows:
-        raise SystemExit("❌ manifest 显示训练集中存在重复样本")
-    print(
-        f"🔒 数据审计通过: rows={actual_rows}, "
-        f"semantic_tasks={manifest.get('semantic_task_instances')}, sha256={actual_hash[:12]}…"
-    )
-    return manifest
 
+    manifest = json.loads(
+        manifest_path.read_text(encoding="utf-8")
+    )
+
+    kind = manifest.get("kind")
+
+    supported_kinds = {
+        "qlora_sft_train_mix",
+        "sft_v4_multiturn",
+    }
+
+    if kind not in supported_kinds:
+        raise SystemExit(
+            f"❌ 不支持的训练数据 manifest kind: {kind!r}"
+        )
+
+    # 1. 验证文件 SHA256
+    actual_hash = _sha256_file(data_path)
+    expected_hash = manifest.get("output_sha256")
+
+    if expected_hash != actual_hash:
+        raise SystemExit(
+            "❌ 训练数据 SHA256 与 manifest 不一致\n"
+            f"   manifest={expected_hash}\n"
+            f"   actual={actual_hash}"
+        )
+
+    # 2. 根据 Manifest 类型读取预期样本数
+    if kind == "qlora_sft_train_mix":
+        expected_rows = manifest.get("output_rows")
+    else:
+        expected_rows = (manifest.get("summary") or {}).get("rows")
+
+    # 3. 逐行读取并验证 JSONL
+    actual_rows = 0
+
+    with data_path.open("r", encoding="utf-8") as handle:
+        for line_no, line in enumerate(handle, start=1):
+            line = line.strip()
+            if not line:
+                continue
+
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError as exc:
+                raise SystemExit(
+                    f"❌ JSONL 第 {line_no} 行格式错误: {exc}"
+                ) from exc
+
+            actual_rows += 1
+
+            if kind == "sft_v4_multiturn":
+                messages = row.get("messages")
+
+                if not isinstance(messages, list) or len(messages) != 2:
+                    raise SystemExit(
+                        f"❌ 第 {line_no} 行 messages 格式错误"
+                    )
+
+                roles = [
+                    message.get("role")
+                    for message in messages
+                ]
+
+                if roles != ["user", "assistant"]:
+                    raise SystemExit(
+                        f"❌ 第 {line_no} 行消息角色错误: {roles}"
+                    )
+
+                if not row.get("derived_task_id"):
+                    raise SystemExit(
+                        f"❌ 第 {line_no} 行缺少 derived_task_id"
+                    )
+
+                if row.get("source") != "v4_multiturn":
+                    raise SystemExit(
+                        f"❌ 第 {line_no} 行 source 错误"
+                    )
+
+                if not isinstance(row.get("trajectory_step"), int):
+                    raise SystemExit(
+                        f"❌ 第 {line_no} 行 trajectory_step 错误"
+                    )
+
+    # 4. 验证样本数量
+    if expected_rows != actual_rows:
+        raise SystemExit(
+            f"❌ 训练数据行数不一致: "
+            f"manifest={expected_rows}, actual={actual_rows}"
+        )
+
+    # 5. 原有混合数据集的唯一性检查
+    # v4 Manifest 没有 unique_sample_fingerprints 字段，
+    # 因此不能对它应用原有的检查规则。
+    if kind == "qlora_sft_train_mix":
+        if manifest.get("unique_sample_fingerprints") != actual_rows:
+            raise SystemExit(
+                "❌ manifest 显示训练集中存在重复样本"
+            )
+
+    # 6. 输出审计结果
+    print(
+        f"🔒 数据审计通过: "
+        f"kind={kind}, "
+        f"rows={actual_rows}, "
+        f"sha256={actual_hash[:12]}…"
+    )
+
+    if kind == "qlora_sft_train_mix":
+        print(
+            f"   semantic_tasks="
+            f"{manifest.get('semantic_task_instances')}"
+        )
+    else:
+        summary = manifest.get("summary", {})
+        print(
+            f"   chains={summary.get('chains')}, "
+            f"truncated_chains={summary.get('truncated_chains')}"
+        )
+
+    return manifest
 
 def _qlora_runtime_guard() -> None:
     """在加载3GB模型前检查GPU和关键依赖，避免晚失败。"""
