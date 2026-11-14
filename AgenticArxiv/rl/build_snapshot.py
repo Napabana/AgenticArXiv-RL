@@ -127,6 +127,82 @@ def _validate_reference_pools(env: MockArxivEnv) -> None:
 
 
 
+def _parse_pool_refs(values) -> dict[str, int] | None:
+    """Parse CLI selections such as ['AI=2', 'CV=5'] into per-aspect limits."""
+    if values is None:
+        return None
+    parsed: dict[str, int] = {}
+    for value in values:
+        aspect, separator, raw_limit = str(value).partition("=")
+        aspect = aspect.strip()
+        if not separator or not aspect:
+            raise ValueError(
+                f"论文池范围格式错误: {value!r}；应使用 ASPECT=N，例如 AI=2"
+            )
+        try:
+            limit = int(raw_limit)
+        except ValueError as exc:
+            raise ValueError(f"论文池数量必须为正整数: {value!r}") from exc
+        if limit <= 0:
+            raise ValueError(f"论文池数量必须为正整数: {value!r}")
+        if aspect in parsed:
+            raise ValueError(f"论文池重复指定: {aspect}")
+        parsed[aspect] = limit
+    return parsed
+
+
+def _unique_snapshot_papers_for_pools(
+    env: MockArxivEnv,
+    refs_by_aspect: dict[str, int],
+) -> dict:
+    """Select only the requested 1-based prefixes from recent-search pools.
+
+    This avoids downloading/extracting every paper in every search pool when
+    the benchmark only references a small, known set of ordinals. Missing pools
+    or insufficient result counts fail early instead of producing a snapshot
+    that silently lacks required paper content.
+    """
+    pools = env.snapshot.get("get_recently_submitted_cs_papers", {})
+    selected: dict = {}
+
+    for aspect, limit in refs_by_aspect.items():
+        candidates = []
+        for entry in pools.values():
+            args = entry.get("args") or {}
+            if str(args.get("aspect", "*")) == aspect:
+                candidates.extend(entry.get("result") or [])
+
+        deduplicated = []
+        seen_ids = set()
+        for item in candidates:
+            if not isinstance(item, dict) or not item.get("id"):
+                continue
+            paper_id = str(item["id"])
+            if paper_id in seen_ids:
+                continue
+            seen_ids.add(paper_id)
+            deduplicated.append(item)
+
+        if len(deduplicated) < limit:
+            raise RuntimeError(
+                f"快照论文池不足: aspect={aspect}, requested_refs={limit}, "
+                f"available={len(deduplicated)}"
+            )
+
+        for item in deduplicated[:limit]:
+            selected[str(item["id"])] = item
+
+    missing_aspects = set(refs_by_aspect) - {
+        str((entry.get("args") or {}).get("aspect", "*"))
+        for entry in pools.values()
+    }
+    if missing_aspects:
+        raise RuntimeError(
+            f"快照缺少指定论文池: {sorted(missing_aspects)}"
+        )
+    return selected
+
+
 def _unique_snapshot_papers(env: MockArxivEnv, max_ref: int = 0) -> dict:
     """Collect every distinct paper referenced by a recorded search pool.
 
@@ -257,9 +333,17 @@ def _prefetch_pdfs(
     return counters["downloaded"], counters["cached"], counters["failed"]
 
 
-def _snapshot_paper_content(env: MockArxivEnv, max_ref: int = 0) -> tuple[int, int]:
-    """Download each unique snapshotted paper once and pre-extract readable sections."""
-    unique = _unique_snapshot_papers(env, max_ref=max_ref)
+def _snapshot_paper_content(
+    env: MockArxivEnv,
+    max_ref: int = 0,
+    pool_refs: dict[str, int] | None = None,
+) -> tuple[int, int]:
+    """Download selected papers once and pre-extract readable sections."""
+    unique = (
+        _unique_snapshot_papers_for_pools(env, pool_refs)
+        if pool_refs is not None
+        else _unique_snapshot_papers(env, max_ref=max_ref)
+    )
 
     session_id = "__snapshot_paper_content__"
     ok = fail = 0
@@ -338,7 +422,11 @@ def _snapshot_paper_content(env: MockArxivEnv, max_ref: int = 0) -> tuple[int, i
     return ok, fail
 
 
-def _snapshot_translated_content(env: MockArxivEnv, max_ref: int) -> tuple[int, int]:
+def _snapshot_translated_content(
+    env: MockArxivEnv,
+    max_ref: int,
+    pool_refs: dict[str, int] | None = None,
+) -> tuple[int, int]:
     """Translate the first ``max_ref`` papers of each pool and record every page.
 
     The translation_reading tasks only reference the first paper of each pool,
@@ -354,7 +442,12 @@ def _snapshot_translated_content(env: MockArxivEnv, max_ref: int) -> tuple[int, 
     print(f"  翻译并录制译文页（每池前 {max_ref} 篇，需要 pdf2zh 与在线翻译服务）")
     session_id = "__snapshot_translated_content__"
     ok = fail = 0
-    for item in _unique_snapshot_papers(env, max_ref=max_ref).values():
+    papers = (
+        _unique_snapshot_papers_for_pools(env, pool_refs)
+        if pool_refs is not None
+        else _unique_snapshot_papers(env, max_ref=max_ref)
+    )
+    for item in papers.values():
         clean = {k: v for k, v in item.items() if not str(k).startswith("_")}
         try:
             store.set_last_papers(session_id, [Paper(**clean)])
@@ -391,6 +484,8 @@ def build(
     prefetch_budget: int = DEFAULT_PREFETCH_BUDGET_S,
     skip_prefetch: bool = False,
     translate_max_ref: int = 1,
+    content_pool_refs: dict[str, int] | None = None,
+    translate_pool_refs: dict[str, int] | None = None,
 ) -> None:
     # 快照要覆盖全部工具，否则回放时缺哪一类工具就少哪一类的记录，
     # 而缺的那部分会以「replay 模式下快照缺失」的形式在训练时才炸出来。
@@ -450,8 +545,17 @@ def build(
         _pin_reference_papers(env)
         _validate_reference_pools(env)
 
-    unique_papers = _unique_snapshot_papers(env, max_ref=content_max_ref)
-    scope = f"每池前 {content_max_ref} 篇" if content_max_ref else "全部论文"
+    unique_papers = (
+        _unique_snapshot_papers_for_pools(env, content_pool_refs)
+        if content_pool_refs is not None
+        else _unique_snapshot_papers(env, max_ref=content_max_ref)
+    )
+    if content_pool_refs is not None:
+        scope = "指定论文池引用范围 " + ", ".join(
+            f"{aspect}={count}" for aspect, count in content_pool_refs.items()
+        )
+    else:
+        scope = f"每池前 {content_max_ref} 篇" if content_max_ref else "全部论文"
     if skip_prefetch:
         # PDF 已经在磁盘上时（例如上一次构建下完但中途失败），并行预取这一步
         # 只是重复劳动，而且 arXiv 的间歇性挂起恰好发生在这一阶段。直接进内容
@@ -465,10 +569,14 @@ def build(
         print(f"  PDF: 新下载 {fetched} / 已缓存 {cached} / 失败 {failed}")
 
     print("  抽取快照论文文本与图表")
-    content_ok, content_fail = _snapshot_paper_content(env, max_ref=content_max_ref)
+    content_ok, content_fail = _snapshot_paper_content(
+        env, max_ref=content_max_ref, pool_refs=content_pool_refs
+    )
     print(f"  content: {content_ok} 成功 / {content_fail} 失败")
 
-    _snapshot_translated_content(env, max_ref=translate_max_ref)
+    _snapshot_translated_content(
+        env, max_ref=translate_max_ref, pool_refs=translate_pool_refs
+    )
 
     env.save_snapshot()
     total = sum(len(v) for v in env.snapshot.values())
@@ -521,6 +629,22 @@ def main():
              "把范围压到任务真正会用到的 ref 上可以省掉绝大部分下载",
     )
     parser.add_argument(
+        "--content-pool-refs",
+        nargs="+",
+        default=None,
+        metavar="ASPECT=N",
+        help="只为指定最近论文池的前 N 篇下载正文并抽取图表，例如 AI=4 CV=5 CL=3 LG=1 RO=2 CR=2；"
+             "设置后优先于 --content-max-ref，未列出的池不做正文/图表预取",
+    )
+    parser.add_argument(
+        "--translate-pool-refs",
+        nargs="+",
+        default=None,
+        metavar="ASPECT=N",
+        help="只翻译指定最近论文池的前 N 篇，例如 AI=2 CV=1 CL=3 RO=1 LG=10；"
+             "设置后优先于 --translate-max-ref，未列出的池不翻译",
+    )
+    parser.add_argument(
         "--translate-max-ref",
         type=int,
         default=1,
@@ -543,6 +667,8 @@ def main():
         prefetch_budget=args.prefetch_budget,
         skip_prefetch=args.skip_prefetch,
         translate_max_ref=args.translate_max_ref,
+        content_pool_refs=_parse_pool_refs(args.content_pool_refs),
+        translate_pool_refs=_parse_pool_refs(args.translate_pool_refs),
     )
 
 
