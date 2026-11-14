@@ -577,10 +577,20 @@ def build(
         env, max_ref=content_max_ref, pool_refs=content_pool_refs
     )
     print(f"  content: {content_ok} 成功 / {content_fail} 失败")
+    if content_pool_refs is not None and content_fail:
+        raise RuntimeError(
+            f"指定正文/图表论文有 {content_fail} 篇处理失败；"
+            "拒绝保存不完整的 Qwen3.5 实验快照。检查日志后可用 --skip-prefetch 重试。"
+        )
 
-    _snapshot_translated_content(
+    translation_ok, translation_fail = _snapshot_translated_content(
         env, max_ref=translate_max_ref, pool_refs=translate_pool_refs
     )
+    if translate_pool_refs is not None and translation_fail:
+        raise RuntimeError(
+            f"指定译文论文有 {translation_fail} 篇翻译或译文页录制失败；"
+            "拒绝保存不完整的 Qwen3.5 实验快照。检查 pdf2zh 服务后重试。"
+        )
 
     env.save_snapshot()
     total = sum(len(v) for v in env.snapshot.values())
