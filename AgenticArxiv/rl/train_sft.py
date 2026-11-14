@@ -156,6 +156,7 @@ def _verify_data_manifest(
 
     # 3. 逐行读取并验证 JSONL
     actual_rows = 0
+    derived_task_ids = set()
 
     with data_path.open("r", encoding="utf-8") as handle:
         for line_no, line in enumerate(handle, start=1):
@@ -180,6 +181,11 @@ def _verify_data_manifest(
                         f"❌ 第 {line_no} 行 messages 格式错误"
                     )
 
+                if not all(isinstance(message, dict) for message in messages):
+                    raise SystemExit(
+                        f"❌ 第 {line_no} 行 messages 必须全部为对象"
+                    )
+
                 roles = [
                     message.get("role")
                     for message in messages
@@ -190,19 +196,22 @@ def _verify_data_manifest(
                         f"❌ 第 {line_no} 行消息角色错误: {roles}"
                     )
 
-                if not row.get("derived_task_id"):
+                derived_task_id = row.get("derived_task_id")
+                if not isinstance(derived_task_id, str) or not derived_task_id.strip():
                     raise SystemExit(
-                        f"❌ 第 {line_no} 行缺少 derived_task_id"
+                        f"❌ 第 {line_no} 行缺少有效 derived_task_id"
                     )
+                derived_task_ids.add(derived_task_id)
 
                 if row.get("source") != "v4_multiturn":
                     raise SystemExit(
                         f"❌ 第 {line_no} 行 source 错误"
                     )
 
-                if not isinstance(row.get("trajectory_step"), int):
+                trajectory_step = row.get("trajectory_step")
+                if type(trajectory_step) is not int or trajectory_step < 0:
                     raise SystemExit(
-                        f"❌ 第 {line_no} 行 trajectory_step 错误"
+                        f"❌ 第 {line_no} 行 trajectory_step 必须为非负整数"
                     )
 
     # 4. 验证样本数量
@@ -211,6 +220,25 @@ def _verify_data_manifest(
             f"❌ 训练数据行数不一致: "
             f"manifest={expected_rows}, actual={actual_rows}"
         )
+
+    # 4b. 多轮数据集的来源统计必须与实际行数/唯一任务 ID 一致。
+    # 注意：summary.chains 是源轨迹数，不等于过滤后保留的 derived_task_id 数。
+    if kind == "sft_v4_multiturn":
+        summary = manifest.get("summary") or {}
+        declared_unique_ids = summary.get("unique_derived_task_ids")
+        if declared_unique_ids is not None and declared_unique_ids != len(derived_task_ids):
+            raise SystemExit(
+                "❌ Manifest unique_derived_task_ids 与数据不一致: "
+                f"manifest={declared_unique_ids}, actual={len(derived_task_ids)}"
+            )
+        original_rows = summary.get("original_rows")
+        excluded_rows = summary.get("excluded_rows")
+        if original_rows is not None and excluded_rows is not None:
+            if original_rows - excluded_rows != actual_rows:
+                raise SystemExit(
+                    "❌ Manifest 过滤行数不一致: "
+                    f"original={original_rows}, excluded={excluded_rows}, actual={actual_rows}"
+                )
 
     # 5. 原有混合数据集的唯一性检查
     # v4 Manifest 没有 unique_sample_fingerprints 字段，
