@@ -19,6 +19,27 @@ For a full one-epoch pass:
 SFT_MAX_STEPS=-1 SFT_EPOCHS=1 OUTPUT_DIR=outputs/qwen35_sft_full bash scripts/run_qwen35_sft.sh
 ```
 
+## MockArxiv snapshot (CPU + network; no GPU)
+
+The Qwen3.5 experiment uses the 86-task expanded benchmark split. Do not use the snapshot builder's defaults blindly: `--content-max-ref 0` means process every paper in every pool, while `--translate-max-ref 1` does not cover the train task that translates the 10th LG paper or the AI/CL translation chains.
+
+The targeted selector records search pools for the full task set, but downloads/extracts content only for paper ordinals referenced by reading, summary, and figure tasks, and translates only ordinals referenced by translation tasks:
+
+```bash
+python -m AgenticArxiv.rl.build_snapshot \
+  --max_results 50 \
+  --days 30 \
+  --content-pool-refs AI=4 CV=5 CL=3 LG=1 RO=2 CR=2 \
+  --translate-pool-refs AI=2 CV=1 CL=3 RO=1 LG=10 \
+  --content-workers 4 \
+  --prefetch-budget 900 \
+  2>&1 | tee outputs/build_snapshot_qwen35.log
+```
+
+This is CPU-side preparation but it requires network access to arXiv and the configured PDF translation service. Translation requires the `pdf2zh` executable (`pip install pdf2zh` if absent) and a working configured service. Do not continue to the frozen-policy probe if the translation stage reports failures: the snapshot would be incomplete for tasks that read translated pages. Figure analysis and paper summaries default to deterministic extractive backends; no VLM GPU is required for snapshot construction.
+
+The resulting `data/mock_arxiv_snapshot.json` is intentionally not committed to Git. Keep it in the persistent ModelScope workspace and record its SHA256 with the experiment artifacts.
+
 ## GRPO
 
 ```bash
@@ -63,7 +84,9 @@ described in `requirements-qwen35.txt`. Install TensorBoard separately:
 pip install tensorboard
 ```
 
-Before formal GRPO, run a frozen-policy reward-variance probe using the Qwen3.5 SFT adapter and create a model-specific train split. Do not reuse `v4_grpo_train.json` (explicitly invalidated) or the v5/v6 splits selected with older policies. Set `GRPO_SPLIT=path/to/qwen35_grpo_train.json:rl_train` when launching GRPO. The launcher verifies that the split is not invalidated, declares `task_set=expanded`, was produced by a frozen-policy probe (`policy_frozen=true`, `learning_rate=0`), and records the same SFT adapter path passed to the current run.\n\nGRPO additionally requires the offline MockArxiv snapshot at
+Before formal GRPO, run a frozen-policy reward-variance probe using the Qwen3.5 SFT adapter and create a model-specific train split. Do not reuse `v4_grpo_train.json` (explicitly invalidated) or the v5/v6 splits selected with older policies. Set `GRPO_SPLIT=path/to/qwen35_grpo_train.json:rl_train` when launching GRPO. The launcher verifies that the split is not invalidated, declares `task_set=expanded`, was produced by a frozen-policy probe (`policy_frozen=true`, `learning_rate=0`), and records the same SFT adapter path passed to the current run.
+
+GRPO additionally requires the offline MockArxiv snapshot at
 `data/mock_arxiv_snapshot.json`. The snapshot is deliberately not stored in
 Git because it contains cached tool results and paper content. Build and
 validate it in the persistent ModelScope workspace before launching GRPO.
