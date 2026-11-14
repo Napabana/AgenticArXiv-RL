@@ -68,7 +68,8 @@ Run these before switching to a GPU instance:
 
 ```bash
 cd AgenticArxiv
-python -m unittest tests.test_prepare_sft_dataset tests.test_sft_v4_manifest_validation tests.test_training_guards
+python -m py_compile rl/build_snapshot.py tests/test_build_snapshot.py
+python -m unittest tests.test_build_snapshot tests.test_prepare_sft_dataset tests.test_sft_v4_manifest_validation tests.test_training_guards
 bash -n ../scripts/run_qwen35_sft.sh
 bash -n ../scripts/run_qwen35_grpo.sh
 ```
