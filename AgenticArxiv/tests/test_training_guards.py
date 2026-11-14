@@ -759,8 +759,13 @@ class ToolRegistrationCoverageTest(unittest.TestCase):
             with self.subTest(module=module):
                 __import__(module)
 
-        register_all_tools()
-        self.assertEqual(missing_tools(), [])
+        failures = register_all_tools()
+        missing = missing_tools()
+        self.assertEqual(
+            missing,
+            [],
+            msg=f"missing tools={missing}; tool import failures={failures}",
+        )
 
     def test_entry_points_do_not_hand_list_tool_modules(self):
         """手写模块清单本身就是这个 bug 的成因，别再长回来。"""
@@ -807,12 +812,10 @@ class PpoAvailabilityTest(unittest.TestCase):
 
 
 class VerificationModelDeviceTest(unittest.TestCase):
-    """阶段验证必须在训练设备上生成。
+    """阶段验证模型应在加载阶段映射到训练设备。
 
-    `StageVerifier` 里的三个 verify_* 原本用裸 `from_pretrained` 加载产物模型，
-    模型落在 CPU；`CanaryEvaluator` 又是从参数上读设备，于是整道闸门在 CPU 上
-    做生成。1.5B 模型跑 8×256 token 要几十分钟一个阶段 —— 闸门慢到这个程度就
-    没人愿意留着它，这正是它当初被默认关掉的原因之一。
+    当前实现通过 load_text_model_and_tokenizer(device_map=...) 放置模型，
+    而不是先调用裸 from_pretrained 再执行 model.to(...)。
     """
 
     def _loaded(self, cuda: bool):
@@ -825,28 +828,31 @@ class VerificationModelDeviceTest(unittest.TestCase):
         tokenizer.pad_token = None
         tokenizer.eos_token = "</s>"
 
-        with patch.object(stage_verifier.torch.cuda, "is_available", return_value=cuda), \
-             patch.object(
-                 stage_verifier.AutoModelForCausalLM, "from_pretrained", return_value=model
-             ), patch.object(
-                 stage_verifier.AutoTokenizer, "from_pretrained", return_value=tokenizer
-             ):
+        with patch.object(
+            stage_verifier.torch.cuda, "is_available", return_value=cuda
+        ), patch.object(
+            stage_verifier,
+            "load_text_model_and_tokenizer",
+            return_value=(model, tokenizer),
+        ) as loader:
             loaded_model, loaded_tokenizer = stage_verifier._load_verification_model(
                 "/tmp/fake-model"
             )
-        # 助手返回的是 .to() 的结果，断言要看被调用的那个对象
-        return model, loaded_model, loaded_tokenizer
 
-    def test_model_is_moved_to_the_cuda_device_when_available(self):
-        loaded, _moved, _tokenizer = self._loaded(cuda=True)
-        loaded.to.assert_called_once_with("cuda")
+        return model, loaded_model, loaded_tokenizer, loader
 
-    def test_cpu_only_environment_does_not_try_to_move(self):
-        loaded, _moved, _tokenizer = self._loaded(cuda=False)
-        loaded.to.assert_not_called()
+    def test_model_is_loaded_on_cuda_when_available(self):
+        model, loaded_model, _tokenizer, loader = self._loaded(cuda=True)
+        self.assertIs(loaded_model, model)
+        self.assertEqual(loader.call_args.kwargs.get("device_map"), {"": 0})
+
+    def test_cpu_only_environment_does_not_set_cuda_device_map(self):
+        model, loaded_model, _tokenizer, loader = self._loaded(cuda=False)
+        self.assertIs(loaded_model, model)
+        self.assertNotIn("device_map", loader.call_args.kwargs)
 
     def test_missing_pad_token_falls_back_to_eos(self):
-        _loaded, _moved, tokenizer = self._loaded(cuda=True)
+        _model, _loaded_model, tokenizer, _loader = self._loaded(cuda=True)
         self.assertEqual(tokenizer.pad_token, tokenizer.eos_token)
 
 
