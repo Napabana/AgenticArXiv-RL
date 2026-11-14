@@ -25,6 +25,44 @@ if [[ -z "$SPLIT" ]]; then
 fi
 [[ -f "${SPLIT%%:*}" ]] || { echo "GRPO split file not found: ${SPLIT%%:*}" >&2; exit 2; }
 
+python - "$SPLIT" "$SFT_ADAPTER" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+split_spec, adapter_arg = sys.argv[1:]
+split_path, _, split_name = split_spec.partition(":")
+if not split_name:
+    raise SystemExit("GRPO_SPLIT must use the form path/to/split.json:rl_train")
+payload = json.loads(Path(split_path).read_text(encoding="utf-8"))
+status = str(payload.get("status", ""))
+if status.startswith("invalidated"):
+    raise SystemExit(f"Refusing invalidated GRPO split: status={status}")
+if payload.get("task_set") != "expanded":
+    raise SystemExit("GRPO split must declare task_set=expanded")
+selected = (payload.get("split") or {}).get(split_name)
+if not isinstance(selected, list) or not selected:
+    raise SystemExit(f"GRPO split has no non-empty split named {split_name!r}")
+
+source = payload.get("source") or {}
+if source.get("policy_frozen") is not True or float(source.get("learning_rate", -1)) != 0.0:
+    raise SystemExit("GRPO split must come from a frozen-policy probe (policy_frozen=true, learning_rate=0)")
+source_model = source.get("model")
+if not source_model:
+    raise SystemExit("GRPO split must record source.model for model-specific provenance")
+
+def resolved(value):
+    path = Path(value)
+    return (Path.cwd() / path).resolve() if not path.is_absolute() else path.resolve()
+
+if resolved(source_model) != resolved(adapter_arg):
+    raise SystemExit(
+        "GRPO split was selected with a different policy: "
+        f"split source.model={source_model!r}, current SFT_ADAPTER={adapter_arg!r}"
+    )
+print(f"GRPO split validated: {split_path}:{split_name} ({len(selected)} tasks; source={source_model})")
+PY
+
 mkdir -p "$OUTPUT_DIR"
 git rev-parse HEAD > "$OUTPUT_DIR/git_commit.txt"
 python --version > "$OUTPUT_DIR/python_version.txt" 2>&1
