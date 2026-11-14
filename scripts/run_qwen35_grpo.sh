@@ -66,6 +66,8 @@ PY
 mkdir -p "$OUTPUT_DIR"
 git rev-parse HEAD > "$OUTPUT_DIR/git_commit.txt"
 python --version > "$OUTPUT_DIR/python_version.txt" 2>&1
+python -m pip freeze > "$OUTPUT_DIR/environment.freeze.txt"
+if command -v nvidia-smi >/dev/null 2>&1; then nvidia-smi -q > "$OUTPUT_DIR/nvidia_smi.txt"; fi
 python -c 'import torch; print("torch", torch.__version__); print("cuda", torch.version.cuda); print("cuda_available", torch.cuda.is_available()); print("device", torch.cuda.get_device_name(0) if torch.cuda.is_available() else "CPU")' > "$OUTPUT_DIR/device_info.txt"
 
 if ! python -c 'import tensorboard' >/dev/null 2>&1; then
