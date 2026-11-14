@@ -36,7 +36,7 @@ python -m AgenticArxiv.rl.build_snapshot \
   2>&1 | tee outputs/build_snapshot_qwen35.log
 ```
 
-This is CPU-side preparation but it requires network access to arXiv and the configured PDF translation service. Translation requires the `pdf2zh` executable (`pip install pdf2zh` if absent) and a working configured service. Do not continue to the frozen-policy probe if the translation stage reports failures: the snapshot would be incomplete for tasks that read translated pages. Figure analysis and paper summaries default to deterministic extractive backends; no VLM GPU is required for snapshot construction.
+This is CPU-side preparation but it requires network access to arXiv and the configured PDF translation service. Translation requires the `pdf2zh` executable (`pip install pdf2zh` if absent) and a working configured service. With the targeted selectors, any selected-paper content/figure failure or selected translation/page-recording failure now aborts before the snapshot is saved. Fix the reported paper/download/pdf2zh issue and rerun; if PDFs were already downloaded, `--skip-prefetch` avoids repeating the parallel prefetch stage. Figure analysis and paper summaries default to deterministic extractive backends; no VLM GPU is required for snapshot construction.
 
 The resulting `data/mock_arxiv_snapshot.json` is intentionally not committed to Git. Keep it in the persistent ModelScope workspace and record its SHA256 with the experiment artifacts.
 
