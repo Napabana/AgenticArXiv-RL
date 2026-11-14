@@ -22,8 +22,6 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from transformers import AutoTokenizer
-
 from AgenticArxiv.rl.model_loading import (
     apply_non_thinking_chat_template,
     assert_default_template_is_non_thinking,
@@ -182,6 +180,10 @@ def build_filtered_manifest(
 
 
 def main():
+    # Keep manifest/schema helpers importable in the lightweight CPU data
+    # environment. Tokenizer dependencies are needed only for the CLI path.
+    from transformers import AutoTokenizer
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
