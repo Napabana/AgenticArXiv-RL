@@ -214,20 +214,13 @@ class TransformersLLMClient:
         self.seed = seed
         self._stream_seed = seed
         self._calls = 0
-        self.is_vlm = _is_vlm_model_path(model)
-        if self.is_vlm:
-            from transformers import AutoModelForImageTextToText, AutoProcessor
 
-            self.processor = AutoProcessor.from_pretrained(model)
-            self.tokenizer = self.processor.tokenizer
-            model_cls = AutoModelForImageTextToText
-        else:
-            from transformers import AutoModelForCausalLM, AutoTokenizer
+        from rl.model_loading import is_qwen35_model, load_text_model_and_tokenizer
 
-            self.tokenizer = AutoTokenizer.from_pretrained(model)
-            model_cls = AutoModelForCausalLM
-        if self.tokenizer.pad_token_id is None:
-            self.tokenizer.pad_token = self.tokenizer.eos_token
+        # Qwen3.5 checkpoint 顶层包含 vision_config，但 ArxivFetch 工具链是
+        # 纯文本；显式加载 Qwen3_5ForCausalLM，避免不必要的视觉塔。
+        self.is_qwen35 = is_qwen35_model(model)
+        self.is_vlm = _is_vlm_model_path(model) and not self.is_qwen35
 
         dtype_map = {
             "auto": "auto",
@@ -241,17 +234,31 @@ class TransformersLLMClient:
         self.device = device
         if device == "auto":
             load_kwargs["device_map"] = "auto"
-        self.model = model_cls.from_pretrained(model, **load_kwargs)
+
+        adapter_path = os.getenv("VLM_ADAPTER_PATH", "").strip() or None
+        if self.is_vlm:
+            from transformers import AutoModelForImageTextToText, AutoProcessor
+
+            self.processor = AutoProcessor.from_pretrained(model)
+            self.tokenizer = self.processor.tokenizer
+            self.model = AutoModelForImageTextToText.from_pretrained(
+                model, **load_kwargs
+            )
+            if adapter_path:
+                from peft import PeftModel
+
+                self.model = PeftModel.from_pretrained(self.model, adapter_path)
+        else:
+            self.model, self.tokenizer = load_text_model_and_tokenizer(
+                model,
+                adapter_path=adapter_path,
+                **load_kwargs,
+            )
+        if self.tokenizer.pad_token_id is None:
+            self.tokenizer.pad_token = self.tokenizer.eos_token
         if device != "auto":
             self.model.to(device)
         self.model.eval()
-        # 评测挂 LoRA 而不合并权重（27B 级 merge 会在宿主重组权重，必爆 cgroup）
-        adapter_path = os.getenv("VLM_ADAPTER_PATH", "").strip()
-        if adapter_path:
-            from peft import PeftModel
-
-            self.model = PeftModel.from_pretrained(self.model, adapter_path)
-            self.model.eval()
         try:  # 权重 page cache 计入宿主 cgroup 配额（本机 64GiB 墙），读完立逐
             import sys as _sys
             from pathlib import Path as _Path
@@ -279,23 +286,30 @@ class TransformersLLMClient:
         offset = int.from_bytes(digest[:8], "big") % (2**31)
         self._stream_seed = self.seed + offset
 
-    def _prepare_inputs(self, messages: List[Dict[str, Any]]):
-        """构造 generate 的输入；VLM 且消息带图片部件时走图文路径。"""
+    def _prepare_inputs(
+        self,
+        messages: List[Dict[str, Any]],
+        template_kwargs: Optional[Dict[str, Any]] = None,
+    ):
+        """构造 generate 输入，确保 Qwen3 的 enable_thinking 等模板参数生效。"""
         import torch
         from PIL import Image
 
+        template_kwargs = template_kwargs or {}
         if self.is_vlm:
             normalized, images = _split_image_parts(messages)
             if images:
                 prompt = self.processor.apply_chat_template(
-                    normalized, tokenize=False, add_generation_prompt=True
+                    normalized, tokenize=False, add_generation_prompt=True,
+                    **template_kwargs,
                 )
                 inputs = self.processor(
                     text=[prompt], images=images, return_tensors="pt"
                 )
                 return inputs, images
         prompt = self.tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
+            messages, tokenize=False, add_generation_prompt=True,
+            **template_kwargs,
         )
         inputs = self.tokenizer(prompt, return_tensors="pt")
         return inputs, []
@@ -316,7 +330,11 @@ class TransformersLLMClient:
         extra = dict(extra or {})
         stop = extra.pop("stop", []) or []
         template_kwargs = extra.pop("chat_template_kwargs", {}) or {}
-        inputs, _images = self._prepare_inputs(messages)
+        if getattr(self, "is_qwen35", False):
+            template_kwargs.setdefault("enable_thinking", False)
+        inputs, _images = self._prepare_inputs(
+            messages, template_kwargs=template_kwargs
+        )
         target = next(self.model.parameters()).device
         inputs = {key: value.to(target) if hasattr(value, "to") else value for key, value in inputs.items()}
         do_sample = temperature is not None and temperature > 0

@@ -64,7 +64,7 @@ def _base_id(value: str) -> str:
 def _pin_reference_papers(env: MockArxivEnv) -> None:
     """Fetch and prepend the fixed papers required by offline benchmark tasks."""
     import arxiv
-    from tools.arxiv_tool import _paper_info
+    from tools.arxiv_tool import _network_timeout, _paper_info
 
     wanted = list(dict.fromkeys(
         paper_id
@@ -72,8 +72,21 @@ def _pin_reference_papers(env: MockArxivEnv) -> None:
         for paper_id in ids
     ))
     client = arxiv.Client()
-    results = client.results(arxiv.Search(id_list=wanted, max_results=len(wanted)))
+    print(
+        f"  查询固定 benchmark 锚点论文（{len(wanted)} 篇，"
+        f"ARXIV_NETWORK_TIMEOUT={os.getenv('ARXIV_NETWORK_TIMEOUT', '45')}s）",
+        flush=True,
+    )
+    # Keep this direct arxiv.Client call under the same socket timeout as the
+    # registered arXiv tools. Previously this path bypassed _network_timeout,
+    # so a stalled export.arxiv.org response could block snapshot construction
+    # indefinitely even though normal search calls had a timeout.
+    with _network_timeout():
+        results = list(
+            client.results(arxiv.Search(id_list=wanted, max_results=len(wanted)))
+        )
     fetched = {_base_id(paper["id"]): paper for paper in map(_paper_info, results)}
+    print(f"  固定锚点论文获取完成：{len(fetched)}/{len(wanted)}", flush=True)
 
     missing = [paper_id for paper_id in wanted if _base_id(paper_id) not in fetched]
     if missing:
@@ -125,6 +138,82 @@ def _validate_reference_pools(env: MockArxivEnv) -> None:
     if failures:
         raise RuntimeError("快照与固定评测任务不一致: " + "; ".join(failures))
 
+
+
+def _parse_pool_refs(values) -> dict[str, int] | None:
+    """Parse CLI selections such as ['AI=2', 'CV=5'] into per-aspect limits."""
+    if values is None:
+        return None
+    parsed: dict[str, int] = {}
+    for value in values:
+        aspect, separator, raw_limit = str(value).partition("=")
+        aspect = aspect.strip()
+        if not separator or not aspect:
+            raise ValueError(
+                f"论文池范围格式错误: {value!r}；应使用 ASPECT=N，例如 AI=2"
+            )
+        try:
+            limit = int(raw_limit)
+        except ValueError as exc:
+            raise ValueError(f"论文池数量必须为正整数: {value!r}") from exc
+        if limit <= 0:
+            raise ValueError(f"论文池数量必须为正整数: {value!r}")
+        if aspect in parsed:
+            raise ValueError(f"论文池重复指定: {aspect}")
+        parsed[aspect] = limit
+    return parsed
+
+
+def _unique_snapshot_papers_for_pools(
+    env: MockArxivEnv,
+    refs_by_aspect: dict[str, int],
+) -> dict:
+    """Select only the requested 1-based prefixes from recent-search pools.
+
+    This avoids downloading/extracting every paper in every search pool when
+    the benchmark only references a small, known set of ordinals. Missing pools
+    or insufficient result counts fail early instead of producing a snapshot
+    that silently lacks required paper content.
+    """
+    pools = env.snapshot.get("get_recently_submitted_cs_papers", {})
+    selected: dict = {}
+
+    for aspect, limit in refs_by_aspect.items():
+        candidates = []
+        for entry in pools.values():
+            args = entry.get("args") or {}
+            if str(args.get("aspect", "*")) == aspect:
+                candidates.extend(entry.get("result") or [])
+
+        deduplicated = []
+        seen_ids = set()
+        for item in candidates:
+            if not isinstance(item, dict) or not item.get("id"):
+                continue
+            paper_id = str(item["id"])
+            if paper_id in seen_ids:
+                continue
+            seen_ids.add(paper_id)
+            deduplicated.append(item)
+
+        if len(deduplicated) < limit:
+            raise RuntimeError(
+                f"快照论文池不足: aspect={aspect}, requested_refs={limit}, "
+                f"available={len(deduplicated)}"
+            )
+
+        for item in deduplicated[:limit]:
+            selected[str(item["id"])] = item
+
+    missing_aspects = set(refs_by_aspect) - {
+        str((entry.get("args") or {}).get("aspect", "*"))
+        for entry in pools.values()
+    }
+    if missing_aspects:
+        raise RuntimeError(
+            f"快照缺少指定论文池: {sorted(missing_aspects)}"
+        )
+    return selected
 
 
 def _unique_snapshot_papers(env: MockArxivEnv, max_ref: int = 0) -> dict:
@@ -257,9 +346,17 @@ def _prefetch_pdfs(
     return counters["downloaded"], counters["cached"], counters["failed"]
 
 
-def _snapshot_paper_content(env: MockArxivEnv, max_ref: int = 0) -> tuple[int, int]:
-    """Download each unique snapshotted paper once and pre-extract readable sections."""
-    unique = _unique_snapshot_papers(env, max_ref=max_ref)
+def _snapshot_paper_content(
+    env: MockArxivEnv,
+    max_ref: int = 0,
+    pool_refs: dict[str, int] | None = None,
+) -> tuple[int, int]:
+    """Download selected papers once and pre-extract readable sections."""
+    unique = (
+        _unique_snapshot_papers_for_pools(env, pool_refs)
+        if pool_refs is not None
+        else _unique_snapshot_papers(env, max_ref=max_ref)
+    )
 
     session_id = "__snapshot_paper_content__"
     ok = fail = 0
@@ -338,7 +435,11 @@ def _snapshot_paper_content(env: MockArxivEnv, max_ref: int = 0) -> tuple[int, i
     return ok, fail
 
 
-def _snapshot_translated_content(env: MockArxivEnv, max_ref: int) -> tuple[int, int]:
+def _snapshot_translated_content(
+    env: MockArxivEnv,
+    max_ref: int,
+    pool_refs: dict[str, int] | None = None,
+) -> tuple[int, int]:
     """Translate the first ``max_ref`` papers of each pool and record every page.
 
     The translation_reading tasks only reference the first paper of each pool,
@@ -348,13 +449,22 @@ def _snapshot_translated_content(env: MockArxivEnv, max_ref: int) -> tuple[int, 
     paper; a paper whose translated PDF already exists hits the tool's cache.
     Every page is recorded so that any valid ``page`` replays offline.
     """
-    if not max_ref:
+    if pool_refs is None and not max_ref:
         print("  [WARN] 已关闭译文页录制（--translate-max-ref 0）：读译文任务（translation_reading）将无法离线回放")
         return 0, 0
-    print(f"  翻译并录制译文页（每池前 {max_ref} 篇，需要 pdf2zh 与在线翻译服务）")
+    if pool_refs is not None:
+        scope = ", ".join(f"{aspect}={count}" for aspect, count in pool_refs.items())
+        print(f"  翻译并录制指定论文池译文（{scope}，需要 pdf2zh 与在线翻译服务）")
+    else:
+        print(f"  翻译并录制译文页（每池前 {max_ref} 篇，需要 pdf2zh 与在线翻译服务）")
     session_id = "__snapshot_translated_content__"
     ok = fail = 0
-    for item in _unique_snapshot_papers(env, max_ref=max_ref).values():
+    papers = (
+        _unique_snapshot_papers_for_pools(env, pool_refs)
+        if pool_refs is not None
+        else _unique_snapshot_papers(env, max_ref=max_ref)
+    )
+    for item in papers.values():
         clean = {k: v for k, v in item.items() if not str(k).startswith("_")}
         try:
             store.set_last_papers(session_id, [Paper(**clean)])
@@ -391,6 +501,8 @@ def build(
     prefetch_budget: int = DEFAULT_PREFETCH_BUDGET_S,
     skip_prefetch: bool = False,
     translate_max_ref: int = 1,
+    content_pool_refs: dict[str, int] | None = None,
+    translate_pool_refs: dict[str, int] | None = None,
 ) -> None:
     # 快照要覆盖全部工具，否则回放时缺哪一类工具就少哪一类的记录，
     # 而缺的那部分会以「replay 模式下快照缺失」的形式在训练时才炸出来。
@@ -401,12 +513,13 @@ def build(
     path = Path(snapshot_path)
     env = MockArxivEnv(snapshot_path=path, mode="record", offline_download=False)
 
-    print(f"生成 MockEnv 快照 → {path}")
-    print(f"  aspects={aspects} keyword_queries={keyword_queries}")
-    print(f"  max_results={max_results} days={days}")
+    print(f"生成 MockEnv 快照 → {path}", flush=True)
+    print(f"  aspects={aspects} keyword_queries={keyword_queries}", flush=True)
+    print(f"  max_results={max_results} days={days}", flush=True)
 
     ok, fail = 0, 0
     for aspect in aspects:
+        print(f"  [RUN] aspect={aspect}", flush=True)
         try:
             papers = env.execute_tool(
                 "get_recently_submitted_cs_papers",
@@ -417,13 +530,14 @@ def build(
                     "save_to_file": False,
                 },
             )
-            print(f"  [OK]   aspect={aspect:<3} → {len(papers)} 篇")
+            print(f"  [OK]   aspect={aspect:<3} → {len(papers)} 篇", flush=True)
             ok += 1
         except Exception as e:
-            print(f"  [FAIL] aspect={aspect:<3} → {e}")
+            print(f"  [FAIL] aspect={aspect:<3} → {e}", flush=True)
             fail += 1
 
     for query in keyword_queries:
+        print(f"  [RUN] keyword query={query!r}", flush=True)
         try:
             papers = env.execute_tool(
                 "search_arxiv_papers",
@@ -433,10 +547,10 @@ def build(
                     "max_results": max_results,
                 },
             )
-            print(f"  [OK]   query={query!r} → {len(papers)} 篇")
+            print(f"  [OK]   query={query!r} → {len(papers)} 篇", flush=True)
             ok += 1
         except Exception as e:
-            print(f"  [FAIL] query={query!r} → {e}")
+            print(f"  [FAIL] query={query!r} → {e}", flush=True)
             fail += 1
 
     if fail and not allow_partial:
@@ -446,12 +560,21 @@ def build(
         )
 
     if pin_references:
-        print("  固定并校验 benchmark 锚点论文")
+        print("  固定并校验 benchmark 锚点论文", flush=True)
         _pin_reference_papers(env)
         _validate_reference_pools(env)
 
-    unique_papers = _unique_snapshot_papers(env, max_ref=content_max_ref)
-    scope = f"每池前 {content_max_ref} 篇" if content_max_ref else "全部论文"
+    unique_papers = (
+        _unique_snapshot_papers_for_pools(env, content_pool_refs)
+        if content_pool_refs is not None
+        else _unique_snapshot_papers(env, max_ref=content_max_ref)
+    )
+    if content_pool_refs is not None:
+        scope = "指定论文池引用范围 " + ", ".join(
+            f"{aspect}={count}" for aspect, count in content_pool_refs.items()
+        )
+    else:
+        scope = f"每池前 {content_max_ref} 篇" if content_max_ref else "全部论文"
     if skip_prefetch:
         # PDF 已经在磁盘上时（例如上一次构建下完但中途失败），并行预取这一步
         # 只是重复劳动，而且 arXiv 的间歇性挂起恰好发生在这一阶段。直接进内容
@@ -464,11 +587,25 @@ def build(
         )
         print(f"  PDF: 新下载 {fetched} / 已缓存 {cached} / 失败 {failed}")
 
-    print("  抽取快照论文文本与图表")
-    content_ok, content_fail = _snapshot_paper_content(env, max_ref=content_max_ref)
+    print("  抽取快照论文文本与图表", flush=True)
+    content_ok, content_fail = _snapshot_paper_content(
+        env, max_ref=content_max_ref, pool_refs=content_pool_refs
+    )
     print(f"  content: {content_ok} 成功 / {content_fail} 失败")
+    if content_pool_refs is not None and content_fail:
+        raise RuntimeError(
+            f"指定正文/图表论文有 {content_fail} 篇处理失败；"
+            "拒绝保存不完整的 Qwen3.5 实验快照。检查日志后可用 --skip-prefetch 重试。"
+        )
 
-    _snapshot_translated_content(env, max_ref=translate_max_ref)
+    translation_ok, translation_fail = _snapshot_translated_content(
+        env, max_ref=translate_max_ref, pool_refs=translate_pool_refs
+    )
+    if translate_pool_refs is not None and translation_fail:
+        raise RuntimeError(
+            f"指定译文论文有 {translation_fail} 篇翻译或译文页录制失败；"
+            "拒绝保存不完整的 Qwen3.5 实验快照。检查 pdf2zh 服务后重试。"
+        )
 
     env.save_snapshot()
     total = sum(len(v) for v in env.snapshot.values())
@@ -521,6 +658,22 @@ def main():
              "把范围压到任务真正会用到的 ref 上可以省掉绝大部分下载",
     )
     parser.add_argument(
+        "--content-pool-refs",
+        nargs="+",
+        default=None,
+        metavar="ASPECT=N",
+        help="只为指定最近论文池的前 N 篇下载正文并抽取图表，例如 AI=4 CV=5 CL=3 LG=1 RO=2 CR=2；"
+             "设置后优先于 --content-max-ref，未列出的池不做正文/图表预取",
+    )
+    parser.add_argument(
+        "--translate-pool-refs",
+        nargs="+",
+        default=None,
+        metavar="ASPECT=N",
+        help="只翻译指定最近论文池的前 N 篇，例如 AI=2 CV=1 CL=3 RO=1 LG=10；"
+             "设置后优先于 --translate-max-ref，未列出的池不翻译",
+    )
+    parser.add_argument(
         "--translate-max-ref",
         type=int,
         default=1,
@@ -543,6 +696,8 @@ def main():
         prefetch_budget=args.prefetch_budget,
         skip_prefetch=args.skip_prefetch,
         translate_max_ref=args.translate_max_ref,
+        content_pool_refs=_parse_pool_refs(args.content_pool_refs),
+        translate_pool_refs=_parse_pool_refs(args.translate_pool_refs),
     )
 
 

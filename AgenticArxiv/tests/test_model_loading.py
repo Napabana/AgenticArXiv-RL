@@ -1,0 +1,306 @@
+"""Qwen3.5 text-only loading, LoRA coverage and TRL rollout compatibility tests.
+
+Run from AgenticArxiv:
+    python -m unittest tests.test_model_loading -v
+"""
+from __future__ import annotations
+
+import json
+import sys
+import tempfile
+import types
+import unittest
+from unittest import mock
+from pathlib import Path
+
+import torch
+from torch import nn
+
+from rl.grpo_reward import (
+    _generate_single_turn_compat,
+    _trainer_max_completion_length,
+)
+from rl.model_loading import (
+    QWEN35_REQUIRED_LORA_SUFFIXES,
+    apply_non_thinking_chat_template,
+    assert_grpo_reference_adapter,
+    assert_default_template_is_non_thinking,
+    get_model_type,
+    is_qwen35_model,
+    load_text_causal_lm,
+    resolve_base_model_ref,
+    resolve_lora_target_modules,
+    resolve_model_revision,
+    trainable_parameter_fingerprint,
+    validate_qwen35_lora_targets,
+)
+
+
+class _HybridLayer(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.linear_attn = nn.Module()
+        for name in ("in_proj_qkv", "in_proj_z", "in_proj_b", "in_proj_a", "out_proj"):
+            setattr(self.linear_attn, name, nn.Linear(8, 8, bias=False))
+        self.self_attn = nn.Module()
+        for name in ("q_proj", "k_proj", "v_proj", "o_proj"):
+            setattr(self.self_attn, name, nn.Linear(8, 8, bias=False))
+        self.mlp = nn.Module()
+        for name in ("gate_proj", "up_proj", "down_proj"):
+            setattr(self.mlp, name, nn.Linear(8, 8, bias=False))
+
+
+class _HybridTextModel(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.model = nn.Module()
+        self.model.embed_tokens = nn.Embedding(16, 8)
+        self.model.layers = nn.ModuleList([_HybridLayer()])
+        self.lm_head = nn.Linear(8, 16, bias=False)
+
+
+class TestQwen35ModelDetection(unittest.TestCase):
+    def test_detects_qwen35_from_local_config(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "config.json").write_text(
+                json.dumps({
+                    "model_type": "qwen3_5",
+                    "architectures": ["Qwen3_5ForConditionalGeneration"],
+                    "vision_config": {"hidden_size": 16},
+                }),
+                encoding="utf-8",
+            )
+            self.assertEqual(get_model_type(root), "qwen3_5")
+            self.assertTrue(is_qwen35_model(root))
+
+    def test_resolves_base_model_from_adapter_config(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            base = root / "base"
+            adapter = root / "adapter"
+            base.mkdir()
+            adapter.mkdir()
+            (base / "config.json").write_text(
+                json.dumps({"model_type": "qwen3_5"}), encoding="utf-8"
+            )
+            (adapter / "adapter_config.json").write_text(
+                json.dumps({"base_model_name_or_path": str(base)}), encoding="utf-8"
+            )
+            self.assertEqual(resolve_base_model_ref(adapter), str(base))
+            self.assertTrue(is_qwen35_model(adapter))
+
+    def test_pins_only_the_qwen35_2b_repository_revision(self):
+        class FakeConfig:
+            model_type = "qwen3_5"
+
+        class FakeAutoConfig:
+            @classmethod
+            def from_pretrained(cls, model_ref, **kwargs):
+                return FakeConfig()
+
+        fake_transformers = types.ModuleType("transformers")
+        fake_transformers.AutoConfig = FakeAutoConfig
+        with mock.patch.dict(sys.modules, {"transformers": fake_transformers}):
+            self.assertEqual(
+                resolve_model_revision("Qwen/Qwen3.5-2B"),
+                "15852e8c16360a2fea060d615a32b45270f8a8fc",
+            )
+            self.assertIsNone(resolve_model_revision("Qwen/Qwen3.5-9B"))
+
+    def test_qwen35_uses_text_only_model_class(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "config.json").write_text(
+                json.dumps({"model_type": "qwen3_5"}), encoding="utf-8"
+            )
+
+            class TextOnlyModel:
+                @classmethod
+                def from_pretrained(cls, model_ref, **kwargs):
+                    return ("text-only", str(model_ref), kwargs)
+
+            fake_transformers = types.ModuleType("transformers")
+            fake_transformers.Qwen3_5ForCausalLM = TextOnlyModel
+            with mock.patch.dict(sys.modules, {"transformers": fake_transformers}):
+                result = load_text_causal_lm(root, dtype="bf16")
+            self.assertEqual(result[0], "text-only")
+            self.assertEqual(result[1], str(root))
+            self.assertEqual(result[2], {"dtype": "bf16"})
+
+
+class TestQwen35LoRATargets(unittest.TestCase):
+    def test_targets_cover_gated_deltanet_attention_and_mlp(self):
+        model = _HybridTextModel()
+        targets = resolve_lora_target_modules(model, require_qwen35_coverage=True)
+        suffixes = {name.rsplit(".", 1)[-1] for name in targets}
+        self.assertTrue(QWEN35_REQUIRED_LORA_SUFFIXES.issubset(suffixes))
+        self.assertFalse(any(name.endswith("lm_head") for name in targets))
+        self.assertFalse(any("embed_tokens" in name for name in targets))
+
+    def test_missing_hybrid_projection_fails_loudly(self):
+        model = _HybridTextModel()
+        del model.model.layers[0].linear_attn.in_proj_qkv
+        with self.assertRaisesRegex(ValueError, "missed required"):
+            resolve_lora_target_modules(model, require_qwen35_coverage=True)
+
+    def test_saved_adapter_target_list_is_validated(self):
+        model = _HybridTextModel()
+        targets = resolve_lora_target_modules(model, require_qwen35_coverage=True)
+        self.assertEqual(validate_qwen35_lora_targets(targets), targets)
+        with self.assertRaisesRegex(ValueError, "does not cover"):
+            validate_qwen35_lora_targets(["q_proj", "k_proj", "v_proj"])
+
+
+class TestNonThinkingTemplate(unittest.TestCase):
+    def test_passes_enable_thinking_false(self):
+        class Tokenizer:
+            def apply_chat_template(self, messages, **kwargs):
+                self.kwargs = kwargs
+                return "rendered"
+
+        tokenizer = Tokenizer()
+        result = apply_non_thinking_chat_template(
+            tokenizer, [{"role": "user", "content": "hello"}], tokenize=False
+        )
+        self.assertEqual(result, "rendered")
+        self.assertIs(tokenizer.kwargs["enable_thinking"], False)
+
+    def test_falls_back_for_legacy_template_without_keyword(self):
+        class LegacyTokenizer:
+            def apply_chat_template(self, messages, tokenize=False):
+                return "legacy"
+
+        self.assertEqual(
+            apply_non_thinking_chat_template(
+                LegacyTokenizer(), [{"role": "user", "content": "hello"}],
+                tokenize=False,
+            ),
+            "legacy",
+        )
+
+    def test_qwen35_default_matches_explicit_non_thinking(self):
+        class Tokenizer:
+            def apply_chat_template(self, messages, tokenize=False,
+                                    add_generation_prompt=False,
+                                    enable_thinking=False):
+                return "thinking" if enable_thinking else "non-thinking"
+
+        assert_default_template_is_non_thinking(Tokenizer())
+
+    def test_qwen35_default_mismatch_fails_before_sft(self):
+        class Tokenizer:
+            def apply_chat_template(self, messages, tokenize=False,
+                                    add_generation_prompt=False,
+                                    enable_thinking=True):
+                return "thinking" if enable_thinking else "non-thinking"
+
+        with self.assertRaisesRegex(ValueError, "differs from enable_thinking=False"):
+            assert_default_template_is_non_thinking(Tokenizer())
+
+
+class TestAdapterFingerprint(unittest.TestCase):
+    def test_fingerprint_changes_when_trainable_parameter_changes(self):
+        model = nn.Linear(4, 4, bias=False)
+        before = trainable_parameter_fingerprint(model)
+        with torch.no_grad():
+            model.weight.add_(0.25)
+        after = trainable_parameter_fingerprint(model)
+        self.assertNotEqual(before, after)
+
+
+class TestGRPOReferenceAdapter(unittest.TestCase):
+    class FakePeftModel:
+        def __init__(self, *, copy_reference=True, freeze_reference=True, active="default"):
+            self.peft_config = {"default": object(), "ref": object()}
+            self.active_adapter = active
+            self.default = nn.Parameter(torch.tensor([1.0, 2.0]))
+            self.reference = nn.Parameter(torch.tensor([1.0, 2.0] if copy_reference else [3.0, 4.0]))
+            self.reference.requires_grad_(not freeze_reference)
+
+        def named_parameters(self):
+            return iter([
+                ("base_model.layer.lora_A.default.weight", self.default),
+                ("base_model.layer.lora_A.ref.weight", self.reference),
+            ])
+
+    def test_beta_zero_does_not_require_reference_adapter(self):
+        result = assert_grpo_reference_adapter(object(), beta=0.0)
+        self.assertFalse(result["required"])
+
+    def test_pretrained_reference_is_an_exact_frozen_copy(self):
+        result = assert_grpo_reference_adapter(
+            self.FakePeftModel(), beta=0.04
+        )
+        self.assertTrue(result["reference_frozen"])
+        self.assertEqual(result["matched_parameter_tensors"], 1)
+
+    def test_missing_reference_adapter_fails(self):
+        model = self.FakePeftModel()
+        model.peft_config.pop("ref")
+        with self.assertRaisesRegex(RuntimeError, "did not create"):
+            assert_grpo_reference_adapter(model, beta=0.04)
+
+    def test_reference_must_match_initial_policy_weights(self):
+        with self.assertRaisesRegex(RuntimeError, "not an exact initial copy"):
+            assert_grpo_reference_adapter(
+                self.FakePeftModel(copy_reference=False), beta=0.04
+            )
+
+    def test_reference_adapter_must_be_frozen(self):
+        with self.assertRaisesRegex(RuntimeError, "must remain frozen"):
+            assert_grpo_reference_adapter(
+                self.FakePeftModel(freeze_reference=False), beta=0.04
+            )
+
+    def test_policy_adapter_must_remain_active(self):
+        with self.assertRaisesRegex(RuntimeError, "Expected the trainable policy"):
+            assert_grpo_reference_adapter(
+                self.FakePeftModel(active="ref"), beta=0.04
+            )
+
+
+class TestTRLGenerationCompatibility(unittest.TestCase):
+    def test_max_completion_length_legacy_and_current_attribute_locations(self):
+        class LegacyTrainer:
+            max_completion_length = 128
+
+        class CurrentTrainer:
+            class Args:
+                max_completion_length = 256
+            args = Args()
+
+        self.assertEqual(_trainer_max_completion_length(LegacyTrainer()), 128)
+        self.assertEqual(_trainer_max_completion_length(CurrentTrainer()), 256)
+
+    def test_missing_completion_budget_fails_clearly(self):
+        with self.assertRaisesRegex(RuntimeError, "Cannot resolve max_completion_length"):
+            _trainer_max_completion_length(object())
+
+    def test_current_trl_signature_receives_one_generation_per_expanded_prompt(self):
+        class CurrentTrainer:
+            def _generate_single_turn(
+                self, prompt_ids, images, multimodal_fields, num_generations,
+                has_tool_images=False,
+            ):
+                self.received = (prompt_ids, images, multimodal_fields, num_generations)
+                return [[1, 2]], None, None
+
+        trainer = CurrentTrainer()
+        result = _generate_single_turn_compat(trainer, [[9, 8]])
+        self.assertEqual(trainer.received, ([[9, 8]], None, {}, 1))
+        self.assertEqual(result[0], [[1, 2]])
+
+    def test_legacy_trl_signature_does_not_receive_num_generations(self):
+        class LegacyTrainer:
+            def _generate_single_turn(self, prompt_ids, images, generation_kwargs):
+                self.received = (prompt_ids, images, generation_kwargs)
+                return [[3]], None, None
+
+        trainer = LegacyTrainer()
+        _generate_single_turn_compat(trainer, [[7]])
+        self.assertEqual(trainer.received, ([[7]], None, {}))
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

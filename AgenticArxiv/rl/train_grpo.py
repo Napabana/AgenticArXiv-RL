@@ -42,7 +42,7 @@ os.environ.setdefault("STORE_BACKEND", "memory")
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 from datasets import Dataset
-from transformers import AutoModelForCausalLM, AutoTokenizer, TrainerCallback
+from transformers import AutoTokenizer, TrainerCallback
 from rl import trl_compat  # noqa: F401  (torch<2.6 时兜底 FSDPModule，须在 trl 之前)
 from trl import GRPOConfig, GRPOTrainer
 
@@ -78,9 +78,19 @@ from rl.reward import RewardCalculator
 from rl.stage_verifier import StageVerifier
 from rl.train_sft import (
     _assert_lora_only_trainable,
+    _bf16_lora_runtime_guard,
     _build_qlora_configs,
     _qlora_runtime_guard,
     _trainable_parameter_stats,
+)
+from rl.model_loading import (
+    assert_grpo_reference_adapter,
+    build_bf16_lora_config,
+    is_qwen35_model,
+    load_text_causal_lm,
+    resolve_model_revision,
+    trainable_parameter_fingerprint,
+    validate_qwen35_lora_targets,
 )
 
 DEFAULT_SNAPSHOT = REPO_ROOT / "data" / "mock_arxiv_snapshot.json"
@@ -176,7 +186,9 @@ def _load_policy(
     model_path: str,
     *,
     qlora: bool,
+    bf16_lora: bool,
     base_model: Optional[str],
+    model_revision: Optional[str],
     lora_r: int,
     lora_alpha: int,
     lora_dropout: float,
@@ -194,10 +206,70 @@ def _load_policy(
     )
     from utils.llm_client import _is_vlm_model_path
 
-    is_vlm = _is_vlm_model_path(str(arch_model))
+    is_qwen35 = is_qwen35_model(str(arch_model), revision=model_revision)
+    is_vlm = _is_vlm_model_path(str(arch_model)) and not is_qwen35
+    if qlora and bf16_lora:
+        raise SystemExit("❌ --qlora 与 --bf16_lora 互斥")
+    if is_qwen35 and qlora:
+        raise SystemExit(
+            "❌ Qwen3.5 第一版不使用 4-bit QLoRA；请传 --no-qlora --bf16_lora"
+        )
+    if is_qwen35 and not bf16_lora:
+        raise SystemExit(
+            "❌ Qwen3.5 GRPO 必须使用 --no-qlora --bf16_lora，拒绝全参数微调路径"
+        )
     if is_vlm and qlora:
         print("⚠️ VLM 策略在 DCU 上没有可用的 bitsandbytes（das 构建），改走 bf16 LoRA")
         qlora = False
+    if bf16_lora:
+        _bf16_lora_runtime_guard()
+        from peft import PeftModel, get_peft_model
+
+        source = _adapter_base_model(local, base_model) if is_adapter else (
+            str(Path(base_model).resolve()) if base_model and Path(base_model).exists()
+            else base_model or model_path
+        )
+        source_path = Path(source)
+        print(
+            "🪶 GRPO BF16 LoRA: full BF16 text backbone\n"
+            f"   base={source}\n"
+            f"   adapter={model_path if is_adapter else '(new)'}"
+        )
+        torch.cuda.empty_cache()
+        torch.cuda.reset_peak_memory_stats()
+        base = load_text_causal_lm(
+            source,
+            revision=model_revision,
+            dtype=torch.bfloat16,
+            device_map={"": 0},
+            low_cpu_mem_usage=True,
+            local_files_only=source_path.exists(),
+        )
+        if is_adapter:
+            policy = PeftModel.from_pretrained(base, model_path, is_trainable=True)
+            if is_qwen35:
+                active_config = next(iter(policy.peft_config.values()))
+                validate_qwen35_lora_targets(active_config.target_modules)
+        else:
+            fresh_lora, targets = build_bf16_lora_config(
+                base,
+                r=lora_r,
+                alpha=lora_alpha,
+                dropout=lora_dropout,
+                require_qwen35_coverage=is_qwen35,
+            )
+            policy = get_peft_model(base, fresh_lora)
+            print(f"🎯 BF16 LoRA target modules: {len(targets)}")
+        policy.config.use_cache = False
+        trainable, total, ratio = _assert_lora_only_trainable(
+            policy, require_4bit=False
+        )
+        print(
+            f"🔧 参数统计: trainable={trainable:,}, model_parameters={total:,}, "
+            f"trainable_ratio={ratio:.4f}%"
+        )
+        return policy
+
     if not qlora:
         if is_vlm:
             # 27B 级 VLM 单卡装不下，双卡 device_map；LoRA 目标必须含视觉-语言投影层
@@ -235,8 +307,8 @@ def _load_policy(
             return policy
         print("⚠️  --no-qlora：加载完整精度策略，不属于单张4090冻结方案")
         print("⚠️  --no-qlora：加载完整精度策略，不属于单张4090冻结方案")
-        policy = AutoModelForCausalLM.from_pretrained(
-            model_path, local_files_only=local.exists()
+        policy = load_text_causal_lm(
+            model_path, revision=model_revision, local_files_only=local.exists()
         )
         policy.config.use_cache = False
         return policy
@@ -259,12 +331,13 @@ def _load_policy(
     )
     torch.cuda.empty_cache()
     torch.cuda.reset_peak_memory_stats()
-    base = AutoModelForCausalLM.from_pretrained(
+    base = load_text_causal_lm(
         source,
         quantization_config=quantization,
         device_map={"": 0},
         dtype=torch.bfloat16,
         low_cpu_mem_usage=True,
+        revision=model_revision,
         local_files_only=source_path.exists(),
     )
     base = prepare_model_for_kbit_training(
@@ -421,6 +494,7 @@ def resolve_dynamic_sampling_option(
 
 def main(
     model: str = "outputs/dpo/final",
+    model_revision: str = None,
     output_dir: str = "outputs/grpo",
     epochs: int = 1,
     max_steps: int = -1,
@@ -455,6 +529,7 @@ def main(
     report_to: str = "none",
     run_name: str = None,
     qlora: bool = True,
+    bf16_lora: bool = False,
     base_model: str = None,
     lora_r: int = 16,
     lora_alpha: int = 32,
@@ -532,6 +607,11 @@ def main(
             f"请先运行 train_sft / train_dpo，或用 --model 指定其它检查点"
         )
 
+    model_is_qwen35 = is_qwen35_model(resolved, revision=model_revision)
+    model_revision = resolve_model_revision(
+        resolved, revision=model_revision
+    )
+
     # 先验证任务与快照，再加载模型。语义标准答案损坏时应在占用显存前失败。
     tasks = _load_tasks(task_set, split)
     snapshot_path = Path(snapshot) if snapshot else DEFAULT_SNAPSHOT
@@ -592,15 +672,19 @@ def main(
     print(f"📚 任务数: {len(tasks)}（GRPO 为在线算法，无需预生成轨迹数据）")
 
     print(f"📦 加载 tokenizer: {resolved}")
-    tokenizer = AutoTokenizer.from_pretrained(
-        resolved, local_files_only=Path(resolved).exists()
-    )
+    tokenizer_kwargs = {"local_files_only": Path(resolved).exists()}
+    if model_revision:
+        tokenizer_kwargs["revision"] = model_revision
+    tokenizer = AutoTokenizer.from_pretrained(resolved, **tokenizer_kwargs)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "left"
     policy = _load_policy(
         resolved,
         qlora=qlora,
+        bf16_lora=bf16_lora,
         base_model=base_model,
+        model_revision=model_revision,
         lora_r=lora_r,
         lora_alpha=lora_alpha,
         lora_dropout=lora_dropout,
@@ -721,6 +805,7 @@ def main(
 
     cfg_kwargs = {
         "output_dir": str(REPO_ROOT / output_dir),
+        "logging_dir": logging_dir,
         "num_train_epochs": epochs,
         "max_steps": max_steps,
         "per_device_train_batch_size": batch_size,
@@ -734,6 +819,7 @@ def main(
         "num_generations": num_generations,
         "max_completion_length": max_completion_length,
         "temperature": temperature,
+        "chat_template_kwargs": {"enable_thinking": False} if model_is_qwen35 else {},
         "seed": seed,
         "data_seed": seed,
         "logging_steps": 1,
@@ -777,6 +863,11 @@ def main(
     # GRPOConfig 的字段在 TRL 各版本间有增删，按实际安装版本过滤，
     # 避免因为一个参数名不存在就整个训练起不来
     valid = {f.name for f in dataclasses.fields(GRPOConfig)}
+    if model_is_qwen35 and "chat_template_kwargs" not in valid:
+        raise SystemExit(
+            "❌ 当前 TRL 的 GRPOConfig 不支持 chat_template_kwargs；"
+            "请使用 requirements-qwen35.txt 中锁定的 TRL 版本"
+        )
     dropped = sorted(k for k in cfg_kwargs if k not in valid)
     if dropped:
         print(f"  提示：当前 TRL 不支持这些 GRPOConfig 参数，已忽略 -> {dropped}")
@@ -799,10 +890,27 @@ def main(
         processing_class=tokenizer,
         rollout_func=rollout_func,
     )
+    if model_is_qwen35 and bf16_lora:
+        reference_model = trainer.accelerator.unwrap_model(trainer.model)
+        reference_report = assert_grpo_reference_adapter(
+            reference_model, beta=float(config.beta)
+        )
+        if reference_report["required"]:
+            print(
+                "🧷 GRPO reference adapter verified: "
+                f"policy={reference_report['active_policy_adapter']}, "
+                f"reference={reference_report['reference_adapter']}, "
+                f"tensors={reference_report['matched_parameter_tensors']}, "
+                f"frozen={reference_report['reference_frozen']}"
+            )
     # 必须在 trainer 建好之后接线。即使 report_to=none，TRL 仍会把 _metrics
     # 汇总到控制台；report_to 只控制是否转发到 TensorBoard/wandb，不应决定
     # 是否采集指标。此前的条件绑定还会让 _pending 在长训练中持续增长。
     tracker.bind(trainer)
+    adapter_fingerprint_before = (
+        trainable_parameter_fingerprint(trainer.model)
+        if qlora or bf16_lora else None
+    )
 
     # --- Canary 回调：每 N 步在固定任务上评估，检测性能退化 ---
     canary_cb = None
@@ -871,16 +979,35 @@ def main(
     final_dir = REPO_ROOT / output_dir / "final"
     trainer.save_model(str(final_dir))
     tokenizer.save_pretrained(str(final_dir))
-    if qlora:
+    if qlora or bf16_lora:
         required_adapter_files = (
             final_dir / "adapter_config.json",
             final_dir / "adapter_model.safetensors",
         )
         missing = [str(path) for path in required_adapter_files if not path.exists()]
         if missing:
-            raise SystemExit(f"❌ GRPO完成但adapter文件缺失: {missing}")
+            method = "QLoRA" if qlora else "BF16 LoRA"
+            raise SystemExit(f"❌ GRPO完成但{method} adapter文件缺失: {missing}")
     import torch
     actual_steps = int(getattr(trainer.state, "global_step", 0) or 0)
+    adapter_fingerprint_after = (
+        trainable_parameter_fingerprint(trainer.model)
+        if qlora or bf16_lora else None
+    )
+    adapter_updated = (
+        adapter_fingerprint_before != adapter_fingerprint_after
+        if adapter_fingerprint_before is not None else None
+    )
+    if (
+        (qlora or bf16_lora)
+        and lr > 0
+        and actual_steps > 0
+        and not adapter_updated
+    ):
+        raise SystemExit(
+            "❌ GRPO 已完成 optimizer step，但 Adapter 参数没有变化；"
+            "检查 reward variance、advantage、梯度和学习率"
+        )
     stopped_early = max_steps > 0 and actual_steps < max_steps
     if guard is not None and guard.converged:
         stop_reason = "reward_variance_window_saturated"
@@ -890,8 +1017,44 @@ def main(
         stop_reason = "trainer_stopped_early"
     else:
         stop_reason = "max_steps_or_epochs_completed"
+    peft_configs = getattr(trainer.model, "peft_config", {}) or {}
+    active_peft_config = next(iter(peft_configs.values()), None) if isinstance(peft_configs, dict) else None
+    raw_target_modules = getattr(active_peft_config, "target_modules", []) or []
+    if isinstance(raw_target_modules, (set, tuple)):
+        lora_target_modules = sorted(str(x) for x in raw_target_modules)
+    elif isinstance(raw_target_modules, list):
+        lora_target_modules = [str(x) for x in raw_target_modules]
+    else:
+        lora_target_modules = [str(raw_target_modules)] if raw_target_modules else []
+
     manifest = {
-        "stage": "grpo_qlora" if qlora else "grpo_full",
+        "stage": "grpo_qlora" if qlora else "grpo_bf16_lora" if bf16_lora else "grpo_full",
+        "training_method": "qlora" if qlora else "bf16_lora" if bf16_lora else "full_finetune",
+        "model_type": "qwen3_5" if model_is_qwen35 else "auto",
+        "model_revision": model_revision,
+        "tokenizer_revision": getattr(tokenizer, "init_kwargs", {}).get("_commit_hash"),
+        "model_class": "Qwen3_5ForCausalLM" if model_is_qwen35 else "AutoModelForCausalLM",
+        "weight_dtype": "bfloat16" if qlora or bf16_lora else "checkpoint_default",
+        "lora": {
+            "enabled": qlora or bf16_lora,
+            "method": "qlora" if qlora else "bf16_lora" if bf16_lora else None,
+            "r": lora_r if qlora or bf16_lora else None,
+            "alpha": lora_alpha if qlora or bf16_lora else None,
+            "dropout": lora_dropout if qlora or bf16_lora else None,
+            "target_modules": lora_target_modules,
+        },
+        "versions": {
+            package: version(package)
+            for package in (
+                "torch", "transformers", "trl", "accelerate", "datasets",
+                "huggingface_hub", "tokenizers", "safetensors", "peft", "bitsandbytes",
+            )
+            if (
+                package not in ("peft", "bitsandbytes")
+                or (package == "peft" and (qlora or bf16_lora))
+                or (package == "bitsandbytes" and qlora)
+            )
+        },
         "source_model": resolved,
         "base_model": base_model,
         "task_set": task_set,
@@ -956,6 +1119,13 @@ def main(
         "peak_vram_gib": (
             torch.cuda.max_memory_allocated() / 2**30 if torch.cuda.is_available() else 0.0
         ),
+        "adapter_updated": adapter_updated,
+        "adapter_fingerprint_before": (
+            adapter_fingerprint_before[:16] if adapter_fingerprint_before else None
+        ),
+        "adapter_fingerprint_after": (
+            adapter_fingerprint_after[:16] if adapter_fingerprint_after else None
+        ),
     }
     trainable, model_parameters, trainable_ratio = _trainable_parameter_stats(trainer.model)
     manifest.update({
@@ -992,6 +1162,7 @@ def main(
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description="GRPO 训练")
     p.add_argument("--model", default="outputs/dpo/final")
+    p.add_argument("--model_revision", default=None)
     p.add_argument("--output_dir", default="outputs/grpo")
     p.add_argument("--epochs", type=int, default=1)
     p.add_argument("--max_steps", type=int, default=-1)
@@ -1078,7 +1249,11 @@ if __name__ == "__main__":
     )
     p.add_argument(
         "--qlora", action=argparse.BooleanOptionalAction, default=True,
-        help="使用4-bit QLoRA继续训练SFT adapter（单4090默认方案）",
+        help="使用4-bit QLoRA；Qwen3.5 不使用该模式",
+    )
+    p.add_argument(
+        "--bf16_lora", action="store_true",
+        help="显式启用 BF16 LoRA（Qwen3.5 推荐）；需同时传 --no-qlora",
     )
     p.add_argument(
         "--base_model", default=None,

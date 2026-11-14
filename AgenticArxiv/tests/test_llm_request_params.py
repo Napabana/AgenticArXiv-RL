@@ -152,7 +152,11 @@ class TestTransformersClientResponse(unittest.TestCase):
         class Tokenizer:
             pad_token_id = 0
 
+            def __init__(self):
+                self.template_kwargs = None
+
             def apply_chat_template(self, messages, **kwargs):
+                self.template_kwargs = kwargs
                 return "prompt"
 
             def __call__(self, prompt, return_tensors=None):
@@ -181,7 +185,10 @@ class TestTransformersClientResponse(unittest.TestCase):
         response = client.chat_completions(
             model="local",
             messages=[{"role": "user", "content": "x"}],
-            extra={"stop": ["Observation:"]},
+            extra={
+                "stop": ["Observation:"],
+                "chat_template_kwargs": {"enable_thinking": False},
+            },
         )
         self.assertEqual(
             response["choices"][0]["message"]["content"],
@@ -191,6 +198,8 @@ class TestTransformersClientResponse(unittest.TestCase):
         self.assertEqual(response["usage"]["completion_tokens"], 3)
         self.assertEqual(client.model.generation_kwargs["stop_strings"], ["Observation:"])
         self.assertIs(client.model.generation_kwargs["tokenizer"], client.tokenizer)
+        self.assertIs(client.tokenizer.template_kwargs["enable_thinking"], False)
+        self.assertNotIn("chat_template_kwargs", client.model.generation_kwargs)
 
 
 if __name__ == "__main__":

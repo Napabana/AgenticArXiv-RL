@@ -1,0 +1,33 @@
+{
+  "kind": "sft_v4_multiturn",
+  "version": 2,
+  "seed_data": "data/sft/sft_v3_t5_parametric_linguistic.jsonl",
+  "seed_sha256": "83189debcbef3c5522aaab31b26f9b55de3033545d4cbcb41d0c1ef68a6815cf",
+  "snapshot": "data/mock_arxiv_snapshot.json",
+  "snapshot_sha256": "dcde74d7f86da03d544b6a7e27fee3e07df078be85f1b1c39d8f47e81c34aa3f",
+  "output": "data/sft/sft_v4_multiturn_6144.jsonl",
+  "output_sha256": "b425c85ff729ee7e56fb633f2bcbd8b5175308f2fa0a0aa90c716fa31fb48c22",
+  "summary": {
+    "chains": 1032,
+    "rows": 2496,
+    "truncated_chains": null,
+    "note": "user 内容 = runner 同款 build_messages（含会话状态块与 Observation 历史），与推理逐字节同分布",
+    "original_rows": 2508,
+    "excluded_rows": 12,
+    "unique_derived_task_ids": 86,
+    "source_truncated_chains_reported": 1032
+  },
+  "parent_dataset": "data/sft/sft_v4_multiturn.jsonl",
+  "parent_sha256": "a053590e3e9efa5afa1ee038263cf5b64330f49c8daf6199d70d0b43fa24bdec",
+  "transformation": {
+    "name": "token_length_filter",
+    "max_length": 6144,
+    "tokenizer": "/mnt/workspace/models/Qwen3.5-2B",
+    "token_count_method": "apply_non_thinking_chat_template followed by tokenizer",
+    "original_rows": 2508,
+    "kept_rows": 2496,
+    "excluded_rows": 12,
+    "excluded_file": "data/sft/sft_v4_multiturn_6144.jsonl.excluded.jsonl",
+    "length_audit_file": "data/sft/sft_v4_multiturn_6144.jsonl.lengths.jsonl"
+  }
+}
