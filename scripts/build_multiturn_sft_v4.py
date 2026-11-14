@@ -182,8 +182,16 @@ def advance_gold_decision(
     return kind, observation
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description="多轮 SFT v4 数据构建")
+def main(default_dataset_version: int = 4) -> None:
+    """Build multi-turn SFT data; the manifest schema version remains 2."""
+    if default_dataset_version not in (4, 5):
+        raise ValueError("default_dataset_version must be 4 or 5")
+    parser = argparse.ArgumentParser(description="多轮 SFT 数据构建")
+    parser.add_argument(
+        "--dataset-version", type=int, choices=(4, 5),
+        default=default_dataset_version,
+        help="数据集命名版本；Manifest schema 仍使用 version=2",
+    )
     parser.add_argument("--seed-data", default="data/sft/sft_v3_t5_parametric_linguistic.jsonl")
     parser.add_argument(
         "--task-manifest",
@@ -191,7 +199,7 @@ def main() -> None:
         help="派生任务 seed manifest；默认从语言扩增 manifest 的 input_manifest 解析",
     )
     parser.add_argument("--snapshot", default="data/mock_arxiv_snapshot.json")
-    parser.add_argument("--output", default="data/sft/sft_v4_multiturn.jsonl")
+    parser.add_argument("--output", default=None, help="输出 JSONL；默认按 dataset-version 命名")
     args = parser.parse_args()
 
     from tools.bootstrap import register_all_tools
@@ -265,7 +273,7 @@ def main() -> None:
         spec = task_map[derived_task_id]
 
         env = MockArxivEnv(snapshot_path=snapshot_path, mode="replay")
-        session_id = f"v4_{gi}"
+        session_id = f"v{args.dataset_version}_{gi}"
         agent.session_id = session_id
         agent.env = env
         # setup 既要真实铺设 session 状态，也要按 benchmark 契约渲染为可见上下文。
@@ -282,7 +290,7 @@ def main() -> None:
             out_rows.append({
                 "messages": [{"role": "user", "content": msgs[0]["content"]},
                              {"role": "assistant", "content": decision}],
-                "source": "v4_multiturn",
+                "source": f"v{args.dataset_version}_multiturn",
                 "derived_task_id": row.get("derived_task_id"),
                 "trajectory_step": row.get("trajectory_step"),
             })
@@ -335,15 +343,16 @@ def main() -> None:
         if (gi + 1) % 25 == 0:
             print(f"  [{gi+1}/{len(groups)}] 链 {chains_total} | 样本 {steps_total} | 截断链 {truncated}", flush=True)
 
-    output_path = Path(args.output)
+    output_path = Path(args.output or f"data/sft/sft_v{args.dataset_version}_multiturn.jsonl")
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", encoding="utf-8") as handle:
         for row in out_rows:
             handle.write(json.dumps(row, ensure_ascii=False) + "\n")
 
     manifest = {
-        "kind": "sft_v4_multiturn",
+        "kind": f"sft_v{args.dataset_version}_multiturn",
         "version": 2,
+        "dataset_version": args.dataset_version,
         "seed_data": Path(args.seed_data).as_posix(),
         "seed_sha256": sha256_file(Path(args.seed_data)),
         "task_manifest": task_manifest_path.as_posix(),
@@ -363,7 +372,7 @@ def main() -> None:
     }
     manifest_path = output_path.with_suffix(output_path.suffix + ".manifest.json")
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print("SFT_V4_MULTITURN_OK")
+    print(f"SFT_V{args.dataset_version}_MULTITURN_OK")
     print(
         f"chains: {chains_total} | rows: {len(out_rows)} | "
         f"completed: {completed} | truncated: {truncated}"

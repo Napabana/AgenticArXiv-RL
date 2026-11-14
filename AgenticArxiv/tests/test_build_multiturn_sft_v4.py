@@ -262,5 +262,18 @@ class BuilderIntegrationTest(unittest.TestCase):
         self.assertEqual(manifest["summary"]["failure_counts"], {})
 
 
+
+class V5EntrypointTest(unittest.TestCase):
+    def test_v5_entrypoint_reuses_p0_builder_with_v5_identity(self):
+        from scripts import build_multiturn_sft_v5
+
+        with mock.patch.object(build_multiturn_sft_v5._builder, "main") as builder_main:
+            build_multiturn_sft_v5.main()
+
+        builder_main.assert_called_once_with(default_dataset_version=5)
+
+
+
+
 if __name__ == "__main__":
     unittest.main()
