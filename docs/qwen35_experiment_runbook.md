@@ -1,0 +1,59 @@
+# Qwen3.5-2B experiment launchers
+
+The launchers are intentionally explicit and default to short smoke runs.
+
+## SFT
+
+```bash
+bash scripts/run_qwen35_sft.sh
+```
+
+Defaults: local model at `/mnt/workspace/models/Qwen3.5-2B`, filtered v4 data,
+6144-token maximum length, BF16 LoRA, 30 optimizer steps, TensorBoard enabled.
+The data file and its adjacent `.manifest.json` must already exist in the
+persistent workspace. The launcher does not download or regenerate either.
+
+For a full one-epoch pass:
+
+```bash
+SFT_MAX_STEPS=-1 SFT_EPOCHS=1 OUTPUT_DIR=outputs/qwen35_sft_full bash scripts/run_qwen35_sft.sh
+```
+
+## GRPO
+
+```bash
+SFT_ADAPTER=outputs/qwen35_sft_smoke/final bash scripts/run_qwen35_grpo.sh
+```
+
+Defaults: the expanded task set restricted to the frozen `rl_train` split,
+four generations per prompt, BF16 LoRA, 20 optimizer steps, reward curriculum
+disabled from step zero, TensorBoard and full rollout audit enabled.
+
+For a full pass over the selected split:
+
+```bash
+GRPO_MAX_STEPS=-1 OUTPUT_DIR=outputs/qwen35_grpo_full SFT_ADAPTER=outputs/qwen35_sft_full/final bash scripts/run_qwen35_grpo.sh
+```
+
+## Dependencies and prerequisites
+
+Install the base project requirements and the pinned Qwen3.5 requirements as
+described in `requirements-qwen35.txt`. Install TensorBoard separately:
+
+```bash
+pip install tensorboard
+```
+
+GRPO additionally requires the offline MockArxiv snapshot at
+`data/mock_arxiv_snapshot.json`. The snapshot is deliberately not stored in
+Git because it contains cached tool results and paper content. Build and
+validate it in the persistent ModelScope workspace before launching GRPO.
+
+Each run directory records the source Git commit, Python version, CUDA/PyTorch
+device information, console output, TensorBoard events, and the trainer's
+`training_manifest.json`. GRPO additionally writes `rollout_traces.jsonl`,
+`rollout_traces.summary.json`, and `reward_probe_summary.json`.
+
+Set `SFT_VERIFY=1` or `GRPO_VERIFY=1` to enable the post-training stage
+verifier. Smoke runs default to `--no-verify` so that the first check is
+focused on validating the training path and saving an adapter.
