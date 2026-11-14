@@ -64,7 +64,7 @@ def _base_id(value: str) -> str:
 def _pin_reference_papers(env: MockArxivEnv) -> None:
     """Fetch and prepend the fixed papers required by offline benchmark tasks."""
     import arxiv
-    from tools.arxiv_tool import _paper_info
+    from tools.arxiv_tool import _network_timeout, _paper_info
 
     wanted = list(dict.fromkeys(
         paper_id
@@ -72,8 +72,21 @@ def _pin_reference_papers(env: MockArxivEnv) -> None:
         for paper_id in ids
     ))
     client = arxiv.Client()
-    results = client.results(arxiv.Search(id_list=wanted, max_results=len(wanted)))
+    print(
+        f"  查询固定 benchmark 锚点论文（{len(wanted)} 篇，"
+        f"ARXIV_NETWORK_TIMEOUT={os.getenv('ARXIV_NETWORK_TIMEOUT', '45')}s）",
+        flush=True,
+    )
+    # Keep this direct arxiv.Client call under the same socket timeout as the
+    # registered arXiv tools. Previously this path bypassed _network_timeout,
+    # so a stalled export.arxiv.org response could block snapshot construction
+    # indefinitely even though normal search calls had a timeout.
+    with _network_timeout():
+        results = list(
+            client.results(arxiv.Search(id_list=wanted, max_results=len(wanted)))
+        )
     fetched = {_base_id(paper["id"]): paper for paper in map(_paper_info, results)}
+    print(f"  固定锚点论文获取完成：{len(fetched)}/{len(wanted)}", flush=True)
 
     missing = [paper_id for paper_id in wanted if _base_id(paper_id) not in fetched]
     if missing:
@@ -500,12 +513,13 @@ def build(
     path = Path(snapshot_path)
     env = MockArxivEnv(snapshot_path=path, mode="record", offline_download=False)
 
-    print(f"生成 MockEnv 快照 → {path}")
-    print(f"  aspects={aspects} keyword_queries={keyword_queries}")
-    print(f"  max_results={max_results} days={days}")
+    print(f"生成 MockEnv 快照 → {path}", flush=True)
+    print(f"  aspects={aspects} keyword_queries={keyword_queries}", flush=True)
+    print(f"  max_results={max_results} days={days}", flush=True)
 
     ok, fail = 0, 0
     for aspect in aspects:
+        print(f"  [RUN] aspect={aspect}", flush=True)
         try:
             papers = env.execute_tool(
                 "get_recently_submitted_cs_papers",
@@ -516,13 +530,14 @@ def build(
                     "save_to_file": False,
                 },
             )
-            print(f"  [OK]   aspect={aspect:<3} → {len(papers)} 篇")
+            print(f"  [OK]   aspect={aspect:<3} → {len(papers)} 篇", flush=True)
             ok += 1
         except Exception as e:
-            print(f"  [FAIL] aspect={aspect:<3} → {e}")
+            print(f"  [FAIL] aspect={aspect:<3} → {e}", flush=True)
             fail += 1
 
     for query in keyword_queries:
+        print(f"  [RUN] keyword query={query!r}", flush=True)
         try:
             papers = env.execute_tool(
                 "search_arxiv_papers",
@@ -532,10 +547,10 @@ def build(
                     "max_results": max_results,
                 },
             )
-            print(f"  [OK]   query={query!r} → {len(papers)} 篇")
+            print(f"  [OK]   query={query!r} → {len(papers)} 篇", flush=True)
             ok += 1
         except Exception as e:
-            print(f"  [FAIL] query={query!r} → {e}")
+            print(f"  [FAIL] query={query!r} → {e}", flush=True)
             fail += 1
 
     if fail and not allow_partial:
@@ -545,7 +560,7 @@ def build(
         )
 
     if pin_references:
-        print("  固定并校验 benchmark 锚点论文")
+        print("  固定并校验 benchmark 锚点论文", flush=True)
         _pin_reference_papers(env)
         _validate_reference_pools(env)
 
@@ -572,7 +587,7 @@ def build(
         )
         print(f"  PDF: 新下载 {fetched} / 已缓存 {cached} / 失败 {failed}")
 
-    print("  抽取快照论文文本与图表")
+    print("  抽取快照论文文本与图表", flush=True)
     content_ok, content_fail = _snapshot_paper_content(
         env, max_ref=content_max_ref, pool_refs=content_pool_refs
     )
