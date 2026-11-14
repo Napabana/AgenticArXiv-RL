@@ -44,7 +44,7 @@ described in `requirements-qwen35.txt`. Install TensorBoard separately:
 pip install tensorboard
 ```
 
-Before formal GRPO, run a frozen-policy reward-variance probe using the Qwen3.5 SFT adapter and create a model-specific train split. Do not reuse `v4_grpo_train.json` (explicitly invalidated) or the v5/v6 splits selected with older policies. Set `GRPO_SPLIT=path/to/qwen35_grpo_train.json:rl_train` when launching GRPO.\n\nGRPO additionally requires the offline MockArxiv snapshot at
+Before formal GRPO, run a frozen-policy reward-variance probe using the Qwen3.5 SFT adapter and create a model-specific train split. Do not reuse `v4_grpo_train.json` (explicitly invalidated) or the v5/v6 splits selected with older policies. Set `GRPO_SPLIT=path/to/qwen35_grpo_train.json:rl_train` when launching GRPO. The launcher verifies that the split is not invalidated, declares `task_set=expanded`, was produced by a frozen-policy probe (`policy_frozen=true`, `learning_rate=0`), and records the same SFT adapter path passed to the current run.\n\nGRPO additionally requires the offline MockArxiv snapshot at
 `data/mock_arxiv_snapshot.json`. The snapshot is deliberately not stored in
 Git because it contains cached tool results and paper content. Build and
 validate it in the persistent ModelScope workspace before launching GRPO.
