@@ -84,6 +84,9 @@ def validate_row(row: dict, index: int) -> None:
     if not isinstance(messages, list) or len(messages) != 2:
         raise ValueError(f"Row {index}: expected exactly 2 messages")
 
+    if not all(isinstance(message, dict) for message in messages):
+        raise ValueError(f"Row {index}: messages must contain objects")
+
     roles = [m.get("role") for m in messages]
 
     if roles != ["user", "assistant"]:
@@ -98,14 +101,16 @@ def validate_row(row: dict, index: int) -> None:
     if not messages[1]["content"].strip():
         raise ValueError(f"Row {index}: empty assistant completion")
 
-    if not row.get("derived_task_id"):
-        raise ValueError(f"Row {index}: missing derived_task_id")
+    derived_task_id = row.get("derived_task_id")
+    if not isinstance(derived_task_id, str) or not derived_task_id.strip():
+        raise ValueError(f"Row {index}: missing or invalid derived_task_id")
 
     if row.get("source") != "v4_multiturn":
         raise ValueError(f"Row {index}: unexpected source")
 
-    if not isinstance(row.get("trajectory_step"), int):
-        raise ValueError(f"Row {index}: invalid trajectory_step")
+    trajectory_step = row.get("trajectory_step")
+    if type(trajectory_step) is not int or trajectory_step < 0:
+        raise ValueError(f"Row {index}: trajectory_step must be a non-negative integer")
 
 
 
