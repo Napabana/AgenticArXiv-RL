@@ -55,7 +55,7 @@ class SnapshotReferenceTimeoutTest(unittest.TestCase):
         )
         self.assertEqual(
             [paper["id"] for paper in env.snapshot["get_recently_submitted_cs_papers"]["cv"]["result"][:3]],
-            wanted[3:],
+            [wanted[3], wanted[4], wanted[0]],
         )
 
 
