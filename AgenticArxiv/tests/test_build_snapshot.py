@@ -17,6 +17,48 @@ sys.path.insert(0, str(PACKAGE_ROOT))
 from rl import build_snapshot  # noqa: E402
 
 
+
+class SnapshotReferenceTimeoutTest(unittest.TestCase):
+    def test_pinned_reference_lookup_uses_arxiv_network_timeout(self):
+        ai_original = [
+            {"id": f"ai-existing-{i}", "title": f"AI {i}"} for i in range(5)
+        ]
+        cv_original = [
+            {"id": f"cv-existing-{i}", "title": f"CV {i}"} for i in range(5)
+        ]
+        env = SimpleNamespace(snapshot={
+            "get_recently_submitted_cs_papers": {
+                "ai": {"args": {"aspect": "AI"}, "result": ai_original},
+                "cv": {"args": {"aspect": "CV"}, "result": cv_original},
+            }
+        })
+        wanted = [
+            "2608.14539v1", "2608.14530v1", "2608.14528v1",
+            "2608.14546v1", "2608.14543v1",
+        ]
+        timeout_context = mock.MagicMock()
+        with mock.patch(
+            "tools.arxiv_tool._network_timeout", return_value=timeout_context
+        ) as network_timeout, mock.patch("arxiv.Client") as client_cls, mock.patch(
+            "tools.arxiv_tool._paper_info",
+            side_effect=[{"id": paper_id, "title": paper_id} for paper_id in wanted],
+        ):
+            client_cls.return_value.results.return_value = [object() for _ in wanted]
+            build_snapshot._pin_reference_papers(env)
+
+        network_timeout.assert_called_once_with()
+        timeout_context.__enter__.assert_called_once()
+        timeout_context.__exit__.assert_called_once()
+        self.assertEqual(
+            [paper["id"] for paper in env.snapshot["get_recently_submitted_cs_papers"]["ai"]["result"][:3]],
+            wanted[:3],
+        )
+        self.assertEqual(
+            [paper["id"] for paper in env.snapshot["get_recently_submitted_cs_papers"]["cv"]["result"][:3]],
+            wanted[3:],
+        )
+
+
 class SnapshotPathTest(unittest.TestCase):
     def setUp(self):
         self.tmpdir = tempfile.TemporaryDirectory()
