@@ -107,9 +107,10 @@ def _verify_data_manifest(
 ) -> dict:
     """验证 SFT 数据文件与 Manifest。
 
-    支持两种数据格式：
+    支持三种数据格式：
     1. qlora_sft_train_mix：原有混合 SFT 数据
     2. sft_v4_multiturn：多轮 Agent 轨迹数据
+    3. parametric_v1_linguistic：作者公开 2628 条 SFT 数据生成链路的语言扩增数据
     """
     manifest_path = (
         manifest_path
@@ -130,6 +131,7 @@ def _verify_data_manifest(
     supported_kinds = {
         "qlora_sft_train_mix",
         "sft_v4_multiturn",
+        "parametric_v1_linguistic",
     }
 
     if kind not in supported_kinds:
@@ -149,7 +151,7 @@ def _verify_data_manifest(
         )
 
     # 2. 根据 Manifest 类型读取预期样本数
-    if kind == "qlora_sft_train_mix":
+    if kind in {"qlora_sft_train_mix", "parametric_v1_linguistic"}:
         expected_rows = manifest.get("output_rows")
     else:
         expected_rows = (manifest.get("summary") or {}).get("rows")
@@ -157,6 +159,7 @@ def _verify_data_manifest(
     # 3. 逐行读取并验证 JSONL
     actual_rows = 0
     derived_task_ids = set()
+    sample_fingerprints = set()
 
     with data_path.open("r", encoding="utf-8") as handle:
         for line_no, line in enumerate(handle, start=1):
@@ -173,7 +176,7 @@ def _verify_data_manifest(
 
             actual_rows += 1
 
-            if kind == "sft_v4_multiturn":
+            if kind in {"sft_v4_multiturn", "parametric_v1_linguistic"}:
                 messages = row.get("messages")
 
                 if not isinstance(messages, list) or len(messages) != 2:
@@ -203,7 +206,7 @@ def _verify_data_manifest(
                     )
                 derived_task_ids.add(derived_task_id)
 
-                if row.get("source") != "v4_multiturn":
+                if kind == "sft_v4_multiturn" and row.get("source") != "v4_multiturn":
                     raise SystemExit(
                         f"❌ 第 {line_no} 行 source 错误"
                     )
@@ -213,6 +216,18 @@ def _verify_data_manifest(
                     raise SystemExit(
                         f"❌ 第 {line_no} 行 trajectory_step 必须为非负整数"
                     )
+
+                if kind == "parametric_v1_linguistic":
+                    fingerprint = row.get("sample_sha256")
+                    if not isinstance(fingerprint, str) or not fingerprint.strip():
+                        raise SystemExit(
+                            f"❌ 第 {line_no} 行缺少 sample_sha256"
+                        )
+                    if fingerprint in sample_fingerprints:
+                        raise SystemExit(
+                            f"❌ 第 {line_no} 行 sample_sha256 重复"
+                        )
+                    sample_fingerprints.add(fingerprint)
 
     # 4. 验证样本数量
     if expected_rows != actual_rows:
@@ -248,6 +263,12 @@ def _verify_data_manifest(
             raise SystemExit(
                 "❌ manifest 显示训练集中存在重复样本"
             )
+    elif kind == "parametric_v1_linguistic":
+        declared_unique = manifest.get("unique_sample_fingerprints")
+        if declared_unique != actual_rows or len(sample_fingerprints) != actual_rows:
+            raise SystemExit(
+                "❌ parametric linguistic 数据存在重复样本或 Manifest 统计不一致"
+            )
 
     # 6. 输出审计结果
     print(
@@ -261,6 +282,12 @@ def _verify_data_manifest(
         print(
             f"   semantic_tasks="
             f"{manifest.get('semantic_task_instances')}"
+        )
+    elif kind == "parametric_v1_linguistic":
+        print(
+            f"   seed_rows={manifest.get('seed_rows')}, "
+            f"derived_tasks={manifest.get('derived_tasks')}, "
+            f"parent_train_tasks={manifest.get('parent_train_tasks')}"
         )
     else:
         summary = manifest.get("summary", {})
