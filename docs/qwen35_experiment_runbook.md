@@ -37,6 +37,12 @@ GRPO_MAX_STEPS=-1 OUTPUT_DIR=outputs/qwen35_grpo_full GRPO_SPLIT=data/splits/qwe
 
 ## CPU-side code and manifest checks
 
+The full tool-registration test imports the arXiv tools. If you are preparing a minimal CPU-only environment rather than installing all base requirements, install that declared dependency first:
+
+```bash
+python -m pip install arxiv
+```
+
 Run these before switching to a GPU instance:
 
 ```bash
