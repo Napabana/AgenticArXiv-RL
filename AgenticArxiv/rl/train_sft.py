@@ -661,6 +661,7 @@ def main(
     # gradient checkpointing；不要再把它传给 TrainingArguments。
     config_kwargs = {
         "output_dir": str(out_path),
+        "logging_dir": logging_dir,
         "num_train_epochs": epochs,
         "per_device_train_batch_size": batch_size,
         "gradient_accumulation_steps": grad_accum,
