@@ -108,6 +108,74 @@ def validate_row(row: dict, index: int) -> None:
         raise ValueError(f"Row {index}: invalid trajectory_step")
 
 
+
+def build_filtered_manifest(
+    original_manifest: dict,
+    *,
+    input_path: Path,
+    output_path: Path,
+    input_hash: str,
+    output_hash: str,
+    original_rows: list[dict],
+    kept_rows: list[dict],
+    excluded_rows: list[dict],
+    max_length: int,
+    tokenizer_name: str,
+    excluded_path: Path,
+    audit_path: Path,
+) -> dict:
+    """Build a provenance-preserving manifest for a length-filtered dataset.
+
+    summary.chains describes source trajectories, not the number of unique
+    derived task IDs represented by the retained rows. Filtering individual
+    trajectory steps must therefore never overwrite that source-level count.
+    """
+    source_summary = dict(original_manifest.get("summary") or {})
+    source_truncated = source_summary.get(
+        "source_truncated_chains_reported",
+        source_summary.get("truncated_chains"),
+    )
+    kept_task_ids = {row["derived_task_id"] for row in kept_rows}
+    original_task_ids = {row["derived_task_id"] for row in original_rows}
+
+    summary = dict(source_summary)
+    summary.update({
+        "rows": len(kept_rows),
+        "original_rows": len(original_rows),
+        "excluded_rows": len(excluded_rows),
+        "unique_derived_task_ids": len(kept_task_ids),
+        "original_unique_derived_task_ids": len(original_task_ids),
+        # Length filtering removes rows; it does not truncate trajectories.
+        "truncated_chains": None,
+        "source_truncated_chains_reported": source_truncated,
+    })
+
+    manifest = dict(original_manifest)
+    manifest.update({
+        "kind": "sft_v4_multiturn",
+        "version": 2,
+        "parent_dataset": input_path.as_posix(),
+        "parent_sha256": input_hash,
+        "output": output_path.as_posix(),
+        "output_sha256": output_hash,
+        "summary": summary,
+        "transformation": {
+            "name": "token_length_filter",
+            "max_length": max_length,
+            "tokenizer": tokenizer_name,
+            "token_count_method": (
+                "apply_non_thinking_chat_template followed by tokenizer"
+            ),
+            "original_rows": len(original_rows),
+            "kept_rows": len(kept_rows),
+            "excluded_rows": len(excluded_rows),
+            "excluded_file": excluded_path.as_posix(),
+            "length_audit_file": audit_path.as_posix(),
+        },
+    })
+    return manifest
+
+
 def main():
     parser = argparse.ArgumentParser()
 
@@ -294,43 +362,20 @@ def main():
 
     output_hash = sha256_file(output_path)
 
-    # 保留原 Manifest 的元数据，同时更新派生数据的信息。
-    output_manifest = dict(original_manifest)
-
-    output_manifest.update({
-        "kind": "sft_v4_multiturn",
-        "version": 2,
-        "parent_dataset": input_path.as_posix(),
-        "parent_sha256": input_hash,
-        "output": output_path.as_posix(),
-        "output_sha256": output_hash,
-        "transformation": {
-            "name": "token_length_filter",
-            "max_length": args.max_length,
-            "tokenizer": args.model,
-            "token_count_method": (
-                "apply_non_thinking_chat_template "
-                "followed by tokenizer"
-            ),
-            "original_rows": len(rows),
-            "kept_rows": len(kept),
-            "excluded_rows": len(excluded),
-            "excluded_file": excluded_path.as_posix(),
-            "length_audit_file": audit_path.as_posix(),
-        },
-        "summary": {
-            **(original_manifest.get("summary") or {}),
-            "rows": len(kept),
-            "original_rows": len(rows),
-            "excluded_rows": len(excluded),
-            "chains": len({
-                r["derived_task_id"] for r in kept
-            }),
-            "truncated_chains": (
-                original_manifest.get("summary") or {}
-            ).get("truncated_chains"),
-        },
-    })
+    output_manifest = build_filtered_manifest(
+        original_manifest,
+        input_path=input_path,
+        output_path=output_path,
+        input_hash=input_hash,
+        output_hash=output_hash,
+        original_rows=rows,
+        kept_rows=kept,
+        excluded_rows=excluded,
+        max_length=args.max_length,
+        tokenizer_name=args.model,
+        excluded_path=excluded_path,
+        audit_path=audit_path,
+    )
 
     output_manifest_path.write_text(
         json.dumps(
