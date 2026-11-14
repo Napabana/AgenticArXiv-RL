@@ -821,7 +821,7 @@ class VerificationModelDeviceTest(unittest.TestCase):
     def _loaded(self, cuda: bool):
         from unittest.mock import MagicMock, patch
 
-        from rl import stage_verifier
+        from rl import precision, stage_verifier
 
         model = MagicMock()
         tokenizer = MagicMock()
@@ -830,6 +830,10 @@ class VerificationModelDeviceTest(unittest.TestCase):
 
         with patch.object(
             stage_verifier.torch.cuda, "is_available", return_value=cuda
+        ), patch.object(
+            precision,
+            "trainable_model_dtype",
+            return_value=stage_verifier.torch.float32,
         ), patch.object(
             stage_verifier,
             "load_text_model_and_tokenizer",
