@@ -805,6 +805,7 @@ def main(
 
     cfg_kwargs = {
         "output_dir": str(REPO_ROOT / output_dir),
+        "logging_dir": logging_dir,
         "num_train_epochs": epochs,
         "max_steps": max_steps,
         "per_device_train_batch_size": batch_size,
