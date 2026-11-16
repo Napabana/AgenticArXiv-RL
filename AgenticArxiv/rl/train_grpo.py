@@ -392,6 +392,8 @@ class RewardVarianceGuard(TrainerCallback):
         dead = (frac is not None and float(frac) >= 1.0) or (
             frac is None and std is not None and float(std) == 0.0
         )
+        if float(logs.get("step_credit/progress_signal_fraction", 0.0)) > 0.0:
+            dead = False
         if not dead:
             self.streak = 0
             self.ceiling_streak = 0
@@ -517,6 +519,9 @@ def main(
     dynamic_sampling: bool = None,
     dynamic_sampling_std_threshold: float = 0.0,
     dynamic_sampling_max_resamples: int = 32,
+    step_credit: str = "off",
+    step_credit_weight: float = 0.5,
+    step_credit_beta: float = 1.0,
     seed: int = 42,
     snapshot: str = None,
     task_set: str = "default",
@@ -560,6 +565,16 @@ def main(
     dynamic_sampling = resolve_dynamic_sampling_option(
         dapo=dapo, dynamic_sampling=dynamic_sampling
     )
+    if step_credit not in {"off", "reward", "progress"}:
+        raise SystemExit("❌ step_credit must be off, reward, or progress")
+    if not math.isfinite(step_credit_weight) or not 0 <= step_credit_weight <= 1:
+        raise SystemExit("❌ step_credit_weight must be in [0, 1]")
+    if not math.isfinite(step_credit_beta) or step_credit_beta < 0:
+        raise SystemExit("❌ step_credit_beta must be finite and nonnegative")
+    if step_credit != "off" and int(os.getenv("WORLD_SIZE", "1")) > 1:
+        raise SystemExit("❌ Step Credit v1 only supports single-process training")
+    if step_credit != "off" and num_generations != 4:
+        raise SystemExit("❌ Step Credit Qwen3.5 experiment requires num_generations=4")
     if dapo:
         print(
             f"🧬 DAPO 预设: loss_type={loss_type}, epsilon_high={epsilon_high}, "
@@ -620,6 +635,7 @@ def main(
             f"❌ 多轮 GRPO 需要离线快照 {snapshot_path}\n"
             "   请先运行: python -m AgenticArxiv.rl.build_snapshot"
         )
+    #这里附加语义标准答案 用于reward验证
     tasks = attach_expected_paper_ids(tasks, snapshot_path)
     required_turns = max((len(t.get("expected_tools") or []) + 1 for t in tasks), default=1)
     if max_turns < required_turns:
@@ -760,12 +776,22 @@ def main(
             f"(保存上限={limit_text})"
         )
     tasks_by_id = {t["id"]: t for t in tasks}
+    credit_collector = None
+    if step_credit != "off":
+        from rl.step_credit import StepCreditCollector
+
+        credit_collector = StepCreditCollector(
+            tasks_by_id, num_generations,
+            use_progress=step_credit == "progress", beta=step_credit_beta,
+            scale=scale_rewards or "group",
+        )
     reward_fn = make_grpo_reward_fn(
         tasks_by_id,
         env=None,
         reward_calc=reward_calc,
         tracker=tracker,
         auditor=auditor,
+        step_credit=credit_collector,
     )
     rollout_func = make_multiturn_rollout_func(
         environment_factory,
@@ -882,13 +908,24 @@ def main(
 
     print(describe_logging(backends, logging_dir if backends else None))
     print(f"🚀 开始 GRPO 训练（每个 prompt 采样 {num_generations} 条，规则奖励）")
-    trainer = GRPOTrainer(
+    trainer_class = GRPOTrainer
+    trainer_extra = {}
+    if credit_collector is not None:
+        from rl.step_credit_trainer import StepCreditGRPOTrainer
+
+        trainer_class = StepCreditGRPOTrainer
+        trainer_extra = {
+            "step_credit_collector": credit_collector,
+            "step_credit_weight": step_credit_weight,
+        }
+    trainer = trainer_class(
         model=policy,
         reward_funcs=reward_fn,
         args=config,
         train_dataset=train_dataset,
         processing_class=tokenizer,
         rollout_func=rollout_func,
+        **trainer_extra,
     )
     if model_is_qwen35 and bf16_lora:
         reference_model = trainer.accelerator.unwrap_model(trainer.model)
@@ -1075,6 +1112,29 @@ def main(
             "max_resample_attempts": dynamic_sampling_max_resamples,
             "single_process_only": True,
         },
+        "step_credit": {
+            "enabled": credit_collector is not None,
+            "mode": step_credit,
+            "weight": step_credit_weight,
+            "beta": step_credit_beta,
+            "algorithm": "prefix_tree_step_credit" if credit_collector is not None else None,
+            "trainer": type(trainer).__name__,
+            "trl_version": version("trl"),
+            "single_process": trainer.accelerator.num_processes == 1,
+            "truncated_group_fraction": (
+                trainer.step_credit_counts["truncated"] / trainer.step_credit_counts["groups"]
+                if credit_collector is not None and trainer.step_credit_counts["groups"] else 0.0
+            ),
+            "max_conservation_error": (
+                trainer.step_credit_max_conservation_error if credit_collector is not None else 0.0
+            ),
+            "mode_fractions": (
+                {mode: trainer.step_credit_counts[mode] / trainer.step_credit_counts["groups"]
+                 for mode in ("reward", "progress", "none")}
+                if credit_collector is not None and trainer.step_credit_counts["groups"]
+                else {mode: 0.0 for mode in ("reward", "progress", "none")}
+            ),
+        },
         "batch_size": batch_size,
         "gradient_accumulation_steps": grad_accum,
         "temperature": temperature,
@@ -1243,6 +1303,9 @@ if __name__ == "__main__":
         default=32,
         help="单个 generation batch 最多补采多少个新 prompt；耗尽时明确失败",
     )
+    p.add_argument("--step_credit", choices=["off", "reward", "progress"], default="off")
+    p.add_argument("--step_credit_weight", type=float, default=0.5)
+    p.add_argument("--step_credit_beta", type=float, default=1.0)
     p.add_argument(
         "--seed", type=int, default=42,
         help="训练与 rollout 采样种子；对比两个策略的原始轨迹时必须保持一致",

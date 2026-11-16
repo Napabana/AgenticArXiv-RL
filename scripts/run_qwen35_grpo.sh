@@ -90,6 +90,9 @@ cmd=(
   --beta "${GRPO_BETA:-0.04}"
   --reward_curriculum_steps 0
   --num_generations 4
+  --step_credit progress
+  --step_credit_weight 0.5
+  --step_credit_beta 1.0
   --max_completion_length "${GRPO_MAX_COMPLETION_LENGTH:-512}"
   --max_turns "${GRPO_MAX_TURNS:-4}"
   --no-qlora

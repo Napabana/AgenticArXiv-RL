@@ -364,6 +364,7 @@ def make_grpo_reward_fn(
     reward_calc: Optional[RewardCalculator] = None,
     tracker: Any = None,
     auditor: Any = None,
+    step_credit: Any = None,
 ) -> Callable[..., List[float]]:
     """构造 TRL GRPOTrainer 用的 reward function。
 
@@ -437,6 +438,8 @@ def make_grpo_reward_fn(
                 rewards=rewards,
                 training_step=step,
             )
+        if step_credit is not None:
+            step_credit.record_batch(ids, resolved_trajectories, rewards)
         return rewards
 
     grpo_reward_fn.__name__ = "grpo_reward_fn"
@@ -572,11 +575,13 @@ def make_multiturn_rollout_func(
                 ids = tokenizer(prompt)["input_ids"]
             prompt_ids.append(list(ids))
 
+        # 每条 Rollout 都要隔离环境状态
         environments = [environment_factory() for _ in expanded_prompts]
         applied_setups = []
         trajectory_results = []
         completion_ids = [[] for _ in expanded_prompts]
         env_masks = [[] for _ in expanded_prompts]
+        turn_spans = [[] for _ in expanded_prompts]
         histories = [[] for _ in expanded_prompts]
         raw_assistant_turns = [[] for _ in expanded_prompts]
         active = list(range(len(expanded_prompts)))
@@ -600,12 +605,14 @@ def make_multiturn_rollout_func(
                 break
             active = [i for i, _ in keep]
 
+            # 调用当前 Policy 生成一个 Assistant Turn
             turn_ids, _, _ = _generate_single_turn_compat(
                 trainer, [full_ids[i] for i in active]
             )
             next_active = []
             for batch_index, index in enumerate(active):
                 budget = max_completion_length - len(completion_ids[index])
+                span_start = len(completion_ids[index])
                 # turn_ids 是 TRL 返回的完成 token；可能是 tensor，统一转成 int 列表，
                 # 否则下一轮拼进 full_ids 后 torch.tensor() 无法处理
                 generated = [int(t) for t in turn_ids[batch_index]]
@@ -631,7 +638,8 @@ def make_multiturn_rollout_func(
                         env_masks[index].append(1)
                 completion_ids[index].extend(generated)
                 env_masks[index].extend([1] * len(generated))
-
+                turn_spans[index].append((span_start, len(completion_ids[index])))
+                #解析模型的三次输出
                 kind, action = parse_react_action(text)
                 thought = _thought_of(text)
                 if kind == "finish":
@@ -666,6 +674,7 @@ def make_multiturn_rollout_func(
                     # Character-bounded view, before token-budget clipping.
                     "model_observation": observation,
                 })
+                # 将 Observation 插入模型上下文
                 suffix = f"\nObservation: {observation}\nThought:"
                 suffix_ids = tokenizer(suffix, add_special_tokens=False)["input_ids"]
                 suffix_ids = list(suffix_ids)[: max(0, max_completion_length - len(completion_ids[index]))]
@@ -691,6 +700,7 @@ def make_multiturn_rollout_func(
                 },
                 "iteration_count": len(history),
                 "raw_assistant_turns": raw_assistant_turns[index],
+                "turn_token_spans": turn_spans[index],
                 "task_id": rollout_task_ids[index],
                 "setup_actions": applied_setups[index],
                 "clipped": clipped,
