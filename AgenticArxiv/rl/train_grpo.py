@@ -540,7 +540,7 @@ def main(
     lora_alpha: int = 32,
     lora_dropout: float = 0.05,
     gradient_checkpointing: bool = True,
-    optim: str = "paged_adamw_8bit",
+    optim: str = None,
     save_steps: int = 0,
     save_total_limit: int = 2,
     resume_from_checkpoint: str = None,
@@ -829,6 +829,9 @@ def main(
         batch_size = num_generations
         print(f"  调整 per_device_train_batch_size = {batch_size}（需被 num_generations 整除）")
 
+    resolved_optim = optim or ("paged_adamw_8bit" if qlora else "adamw_torch_fused")
+    print(f"⚙️  GRPO optimizer: {resolved_optim}")
+
     cfg_kwargs = {
         "output_dir": str(REPO_ROOT / output_dir),
         "logging_dir": logging_dir,
@@ -853,7 +856,7 @@ def main(
         "save_strategy": "steps" if save_steps > 0 else "no",
         "save_steps": save_steps if save_steps > 0 else 500,
         "save_total_limit": save_total_limit,
-        "optim": optim if qlora else "adamw_torch_fused",
+        "optim": resolved_optim,
         "gradient_checkpointing": gradient_checkpointing,
         "gradient_checkpointing_kwargs": (
             {"use_reentrant": False} if gradient_checkpointing else None
@@ -1328,7 +1331,7 @@ if __name__ == "__main__":
     p.add_argument(
         "--gradient_checkpointing", action=argparse.BooleanOptionalAction, default=True,
     )
-    p.add_argument("--optim", default="paged_adamw_8bit")
+    p.add_argument("--optim", default=None)
     p.add_argument(
         "--save_steps", type=int, default=0,
         help="每隔多少个 optimizer step 保存可恢复 checkpoint；0 表示只保存最终模型",
