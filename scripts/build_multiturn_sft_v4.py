@@ -54,6 +54,12 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def make_chain_id(source_task_id: str, augmentation_key: str) -> str:
+    """Stable identity for one task's one linguistic/thought augmentation view."""
+    identity = f"{source_task_id}\0{augmentation_key}"
+    return hashlib.sha256(identity.encode("utf-8")).hexdigest()
+
+
 def _resolve_declared_path(value: str, declaring_manifest: Path) -> Path:
     """Resolve a manifest path without depending on the caller's cwd."""
     candidate = Path(value)
@@ -266,6 +272,7 @@ def main(default_dataset_version: int = 4) -> None:
             or group[0].get("derived_task_id")
             or ""
         )
+        chain_id = make_chain_id(str(key[0]), str(key[1]))
         if not derived_task_id or derived_task_id not in task_map:
             raise KeyError(
                 f"链 {key!r} 无法映射到派生任务 manifest: {derived_task_id!r}"
@@ -292,6 +299,7 @@ def main(default_dataset_version: int = 4) -> None:
                              {"role": "assistant", "content": decision}],
                 "source": f"v{args.dataset_version}_multiturn",
                 "derived_task_id": row.get("derived_task_id"),
+                "chain_id": chain_id,
                 "trajectory_step": row.get("trajectory_step"),
             })
             steps_total += 1
@@ -367,6 +375,8 @@ def main(default_dataset_version: int = 4) -> None:
             "completed_chains": completed,
             "truncated_chains": truncated,
             "failure_counts": dict(sorted(failure_counts.items())),
+            "unique_chain_ids": len({row["chain_id"] for row in out_rows}),
+            "chain_id_policy": "sha256(source_task_id + canonical augmentation key)",
             "note": "user 内容 = runner 同款 build_messages（含会话状态块与 Observation 历史），与推理逐字节同分布",
         },
     }
