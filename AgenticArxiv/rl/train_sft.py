@@ -16,6 +16,7 @@ import dataclasses
 import hashlib
 import json
 import math
+import re
 import sys
 from importlib.metadata import version
 from pathlib import Path
@@ -70,7 +71,13 @@ def _sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-# def _verify_data_manifest(data_path: Path, manifest_path: Path | None = None) -> dict:
+# def _is_finish_decision(content: str) -> bool:
+    """Return whether a gold assistant completion ends with Action: FINISH."""
+    match = re.search(r"Action:\\s*(.*?)(?=\\nObservation:|$)", content, re.DOTALL)
+    return bool(match and match.group(1).strip().upper() == "FINISH")
+
+
+def _verify_data_manifest(data_path: Path, manifest_path: Path | None = None) -> dict:
 #     """冻结训练输入：行数、类型与 SHA256 任一漂移都拒绝训练。"""
 #     manifest_path = manifest_path or data_path.with_suffix(data_path.suffix + ".manifest.json")
 #     if not manifest_path.exists():
@@ -160,6 +167,8 @@ def _verify_data_manifest(
     actual_rows = 0
     derived_task_ids = set()
     sample_fingerprints = set()
+    chain_steps = {}
+    chain_decisions = {}
 
     with data_path.open("r", encoding="utf-8") as handle:
         for line_no, line in enumerate(handle, start=1):
@@ -217,6 +226,17 @@ def _verify_data_manifest(
                         f"❌ 第 {line_no} 行 trajectory_step 必须为非负整数"
                     )
 
+                if kind == "sft_v4_multiturn":
+                    chain_id = row.get("chain_id")
+                    if not isinstance(chain_id, str) or not chain_id.strip():
+                        raise SystemExit(
+                            f"❌ 第 {line_no} 行缺少有效 chain_id；请重建 chain-aware SFT 数据"
+                        )
+                    chain_steps.setdefault(chain_id, []).append(trajectory_step)
+                    chain_decisions.setdefault(chain_id, []).append(
+                        (trajectory_step, messages[1].get("content", ""))
+                    )
+
                 if kind == "parametric_v1_linguistic":
                     fingerprint = row.get("sample_sha256")
                     if not isinstance(fingerprint, str) or not fingerprint.strip():
@@ -228,6 +248,53 @@ def _verify_data_manifest(
                             f"❌ 第 {line_no} 行 sample_sha256 重复"
                         )
                     sample_fingerprints.add(fingerprint)
+
+    # 3b. v4 训练输入必须来自修复后的 chain-aware builder/filter，
+    # 且每条保留链从 step 0 连续到 Action: FINISH。
+    if kind == "sft_v4_multiturn":
+        summary = manifest.get("summary") or {}
+        transformation = manifest.get("transformation") or {}
+        if manifest.get("version") != 3 or transformation.get("chain_filter_policy") != (
+            "drop_entire_chain_if_any_row_exceeds_max_length"
+        ):
+            raise SystemExit(
+                "❌ SFT v4 Manifest 不是 chain-aware version=3；"
+                "请用修复后的 builder 和整链长度过滤器重新生成数据"
+            )
+        if (
+            summary.get("truncated_chains") != 0
+            or summary.get("completed_chains") != summary.get("chains")
+            or summary.get("failure_counts") != {}
+        ):
+            raise SystemExit(
+                "❌ SFT v4 Manifest 含未完成/失败轨迹: "
+                f"completed={summary.get('completed_chains')}, "
+                f"chains={summary.get('chains')}, "
+                f"truncated={summary.get('truncated_chains')}, "
+                f"failure_counts={summary.get('failure_counts')}"
+            )
+        actual_chains = len(chain_steps)
+        if (
+            summary.get("chains") != actual_chains
+            or summary.get("completed_chains") != actual_chains
+            or summary.get("unique_chain_ids") != actual_chains
+            or summary.get("kept_chains") != actual_chains
+        ):
+            raise SystemExit(
+                "❌ Manifest chain 数量与 JSONL 不一致: "
+                f"manifest={summary.get('chains')}, actual={actual_chains}"
+            )
+        for chain_id, steps in chain_steps.items():
+            ordered_steps = sorted(steps)
+            if ordered_steps != list(range(len(ordered_steps))):
+                raise SystemExit(
+                    f"❌ chain_id={chain_id} 的 trajectory_step 不连续: {ordered_steps}"
+                )
+            decisions = sorted(chain_decisions[chain_id], key=lambda item: item[0])
+            if not decisions or not _is_finish_decision(decisions[-1][1]):
+                raise SystemExit(
+                    f"❌ chain_id={chain_id} 最后一步不是 Action: FINISH"
+                )
 
     # 4. 验证样本数量
     if expected_rows != actual_rows:
