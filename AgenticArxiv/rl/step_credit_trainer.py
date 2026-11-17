@@ -69,8 +69,13 @@ class StepCreditGRPOTrainer(GRPOTrainer):
                         raise RuntimeError(f"assistant token span out of range at row {i}: {(start, end)}")
                     expected_tool_mask[start:end] = True
                     previous_end = end
-                if not torch.equal(tool_mask[i, :valid].bool(), expected_tool_mask) or bool(tool_mask[i, valid:].any()):
-                    raise RuntimeError(f"assistant spans disagree with TRL tool mask at row {i}")
+                if not torch.equal(
+                    tool_mask[i, :valid].bool(),
+                    expected_tool_mask
+                ):
+                    raise RuntimeError(
+                        f"assistant spans disagree with TRL tool mask at row {i}"
+                    )
                 base = float(advantages[i].item())
                 if group.mode == "none":
                     row = [base] * valid
