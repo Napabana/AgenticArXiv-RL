@@ -203,6 +203,8 @@ def filter_complete_chains(
     kept = []
     excluded = []
     for index, row in enumerate(rows):
+        if audit_rows[index].get("chain_id") != row["chain_id"]:
+            raise ValueError(f"第 {index + 1} 行 audit chain_id 与样本不一致")
         chain_excluded = row["chain_id"] in excluded_chain_ids
         audit_rows[index]["chain_excluded"] = chain_excluded
         audit_rows[index]["filter_reason"] = (
