@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import statistics
 from collections import Counter, defaultdict
 import sys
@@ -106,10 +107,115 @@ def validate_row(row: dict, index: int) -> None:
     if row.get("source") != "v4_multiturn":
         raise ValueError(f"Row {index}: unexpected source")
 
+    chain_id = row.get("chain_id")
+    if not isinstance(chain_id, str) or not chain_id.strip():
+        raise ValueError(f"Row {index}: missing or invalid chain_id")
+
     trajectory_step = row.get("trajectory_step")
     if type(trajectory_step) is not int or trajectory_step < 0:
         raise ValueError(f"Row {index}: trajectory_step must be a non-negative integer")
 
+
+def validate_source_manifest(manifest: dict) -> dict:
+    """Accept only audited builder-v2 sources with complete gold trajectories."""
+    if manifest.get("kind") != "sft_v4_multiturn" or manifest.get("version") != 2:
+        raise ValueError(
+            "旧版 SFT v4 Manifest 不可用于重新训练；请用修复后的 "
+            "build_multiturn_sft_v4.py 生成 version=2 Manifest"
+        )
+    summary = manifest.get("summary") or {}
+    required = ("chains", "completed_chains", "truncated_chains", "failure_counts", "unique_chain_ids")
+    missing = [key for key in required if key not in summary]
+    if missing:
+        raise ValueError(f"SFT v4 source Manifest 缺少审计字段: {missing}")
+    if summary["completed_chains"] != summary["chains"]:
+        raise ValueError(
+            "SFT v4 source 存在未完成轨迹: "
+            f"chains={summary['chains']}, completed={summary['completed_chains']}"
+        )
+    if summary["truncated_chains"] != 0 or summary["failure_counts"]:
+        raise ValueError(
+            "SFT v4 source 含截断/失败轨迹，禁止进入长度过滤和训练: "
+            f"truncated={summary['truncated_chains']}, "
+            f"failure_counts={summary['failure_counts']}"
+        )
+    if summary["unique_chain_ids"] != summary["chains"]:
+        raise ValueError(
+            "SFT v4 source chain_id 数量与 chains 不一致: "
+            f"unique_chain_ids={summary['unique_chain_ids']}, chains={summary['chains']}"
+        )
+    return summary
+
+
+def _is_finish_decision(content: str) -> bool:
+    match = re.search(r"Action:\\s*(.*?)(?=\\nObservation:|$)", content, re.DOTALL)
+    if not match:
+        return False
+    action_text = match.group(1).strip()
+    if action_text.upper() == "FINISH":
+        return True
+    try:
+        action = json.loads(action_text)
+    except json.JSONDecodeError:
+        return False
+    return isinstance(action, dict) and str(action.get("name", "")).upper() == "FINISH"
+
+
+def validate_complete_chains(rows: list[dict]) -> dict:
+    """Require contiguous decision steps and a terminal FINISH in every chain."""
+    grouped = defaultdict(list)
+    for index, row in enumerate(rows):
+        grouped[row["chain_id"]].append((index, row))
+    for chain_id, entries in grouped.items():
+        entries.sort(key=lambda item: item[1]["trajectory_step"])
+        steps = [row["trajectory_step"] for _, row in entries]
+        if steps != list(range(len(entries))):
+            raise ValueError(
+                f"Chain {chain_id}: trajectory_step 不连续或重复: {steps}"
+            )
+        task_ids = {row["derived_task_id"] for _, row in entries}
+        if len(task_ids) != 1:
+            raise ValueError(f"Chain {chain_id}: derived_task_id 不一致: {task_ids}")
+        final_content = entries[-1][1]["messages"][1]["content"]
+        if not _is_finish_decision(final_content):
+            raise ValueError(f"Chain {chain_id}: 最后一步不是 Action: FINISH")
+    return {"original_chains": len(grouped)}
+
+
+def filter_complete_chains(
+    rows: list[dict],
+    audit_rows: list[dict],
+    max_length: int,
+) -> tuple[list[dict], list[dict], dict]:
+    """Drop a whole chain if any one of its rendered samples exceeds max_length."""
+    if len(rows) != len(audit_rows):
+        raise ValueError("rows 与 audit_rows 数量不一致")
+    validate_complete_chains(rows)
+    grouped_indices = defaultdict(list)
+    for index, row in enumerate(rows):
+        grouped_indices[row["chain_id"]].append(index)
+
+    excluded_chain_ids = {
+        chain_id
+        for chain_id, indices in grouped_indices.items()
+        if any(audit_rows[index]["token_length"] > max_length for index in indices)
+    }
+    kept = []
+    excluded = []
+    for index, row in enumerate(rows):
+        chain_excluded = row["chain_id"] in excluded_chain_ids
+        audit_rows[index]["chain_excluded"] = chain_excluded
+        audit_rows[index]["filter_reason"] = (
+            "chain_has_overlength_step" if chain_excluded else None
+        )
+        (excluded if chain_excluded else kept).append(row)
+
+    chain_stats = {
+        "original_chains": len(grouped_indices),
+        "kept_chains": len(grouped_indices) - len(excluded_chain_ids),
+        "excluded_chains": len(excluded_chain_ids),
+    }
+    return kept, excluded, chain_stats
 
 
 def build_filtered_manifest(
@@ -122,48 +228,50 @@ def build_filtered_manifest(
     original_rows: list[dict],
     kept_rows: list[dict],
     excluded_rows: list[dict],
+    chain_stats: dict,
     max_length: int,
     tokenizer_name: str,
     excluded_path: Path,
     audit_path: Path,
 ) -> dict:
-    """Build a provenance-preserving manifest for a length-filtered dataset.
-
-    summary.chains describes source trajectories, not the number of unique
-    derived task IDs represented by the retained rows. Filtering individual
-    trajectory steps must therefore never overwrite that source-level count.
-    """
+    """Build a manifest for a length filter that preserves whole trajectories."""
     source_summary = dict(original_manifest.get("summary") or {})
-    source_truncated = source_summary.get(
-        "source_truncated_chains_reported",
-        source_summary.get("truncated_chains"),
-    )
     kept_task_ids = {row["derived_task_id"] for row in kept_rows}
     original_task_ids = {row["derived_task_id"] for row in original_rows}
+    kept_chain_ids = {row["chain_id"] for row in kept_rows}
+    excluded_chain_ids = {row["chain_id"] for row in excluded_rows}
 
     summary = dict(source_summary)
     summary.update({
+        "source_chains": source_summary.get("chains"),
+        "chains": chain_stats["kept_chains"],
+        "completed_chains": chain_stats["kept_chains"],
+        "truncated_chains": 0,
+        "failure_counts": {},
         "rows": len(kept_rows),
         "original_rows": len(original_rows),
         "excluded_rows": len(excluded_rows),
         "unique_derived_task_ids": len(kept_task_ids),
         "original_unique_derived_task_ids": len(original_task_ids),
-        # Length filtering removes rows; it does not truncate trajectories.
-        "truncated_chains": None,
-        "source_truncated_chains_reported": source_truncated,
+        "unique_chain_ids": len(kept_chain_ids),
+        "kept_chains": chain_stats["kept_chains"],
+        "excluded_chains": chain_stats["excluded_chains"],
+        "source_completed_chains": source_summary.get("completed_chains"),
+        "source_truncated_chains_reported": source_summary.get("truncated_chains"),
+        "length_filter_policy": "drop_entire_chain_if_any_row_exceeds_max_length",
     })
 
     manifest = dict(original_manifest)
     manifest.update({
         "kind": "sft_v4_multiturn",
-        "version": 2,
+        "version": 3,
         "parent_dataset": input_path.as_posix(),
         "parent_sha256": input_hash,
         "output": output_path.as_posix(),
         "output_sha256": output_hash,
         "summary": summary,
         "transformation": {
-            "name": "token_length_filter",
+            "name": "chain_aware_token_length_filter",
             "max_length": max_length,
             "tokenizer": tokenizer_name,
             "token_count_method": (
@@ -172,6 +280,10 @@ def build_filtered_manifest(
             "original_rows": len(original_rows),
             "kept_rows": len(kept_rows),
             "excluded_rows": len(excluded_rows),
+            "original_chains": chain_stats["original_chains"],
+            "kept_chains": chain_stats["kept_chains"],
+            "excluded_chains": chain_stats["excluded_chains"],
+            "chain_filter_policy": "drop_entire_chain_if_any_row_exceeds_max_length",
             "excluded_file": excluded_path.as_posix(),
             "length_audit_file": audit_path.as_posix(),
         },
@@ -227,10 +339,7 @@ def main():
         manifest_path.read_text(encoding="utf-8")
     )
 
-    if original_manifest.get("kind") != "sft_v4_multiturn":
-        raise ValueError(
-            f"Unexpected manifest kind: {original_manifest.get('kind')}"
-        )
+    source_summary = validate_source_manifest(original_manifest)
 
     input_hash = sha256_file(input_path)
 
@@ -249,7 +358,14 @@ def main():
             f"manifest={expected_rows}, actual={len(rows)}"
         )
 
+    if len(rows) != source_summary["rows"]:
+        raise ValueError(
+            f"Source rows 与 Manifest 不一致: manifest={source_summary['rows']}, actual={len(rows)}"
+        )
+    validate_complete_chains(rows)
+
     print("Original rows:", len(rows))
+    print("Original chains:", source_summary["chains"])
     print("Original SHA256:", input_hash)
 
     print("\n===== Load Tokenizer =====")
@@ -265,8 +381,6 @@ def main():
 
     print("\n===== Calculate Token Lengths =====")
 
-    kept = []
-    excluded = []
     audit_rows = []
 
     for index, row in enumerate(rows, 1):
@@ -280,32 +394,30 @@ def main():
         audit = {
             "index": index,
             "derived_task_id": row["derived_task_id"],
+            "chain_id": row["chain_id"],
             "trajectory_step": row["trajectory_step"],
             "token_length": length,
+            "over_length": length > args.max_length,
         }
-
         audit_rows.append(audit)
-
-        if length <= args.max_length:
-            kept.append(row)
-        else:
-            excluded.append(row)
 
         if index % 250 == 0:
             print(f"Processed {index}/{len(rows)}")
 
-    lengths = [r["token_length"] for r in audit_rows]
+    kept, excluded, chain_stats = filter_complete_chains(
+        rows,
+        audit_rows,
+        args.max_length,
+    )
     kept_lengths = [
-        r["token_length"]
-        for r in audit_rows
-        if r["token_length"] <= args.max_length
+        audit["token_length"] for audit in audit_rows
+        if not audit["chain_excluded"]
     ]
-
     excluded_lengths = [
-        r["token_length"]
-        for r in audit_rows
-        if r["token_length"] > args.max_length
+        audit["token_length"] for audit in audit_rows
+        if audit["chain_excluded"]
     ]
+    overlength_rows = sum(1 for audit in audit_rows if audit["over_length"])
 
     if not kept:
         raise ValueError("No samples remain after filtering")
@@ -313,9 +425,13 @@ def main():
     print("\n===== Filtering Summary =====")
 
     print("Max length:", args.max_length)
-    print("Original:", len(rows))
-    print("Kept:", len(kept))
-    print("Excluded:", len(excluded))
+    print("Original rows:", len(rows))
+    print("Kept rows:", len(kept))
+    print("Excluded rows (whole chains):", len(excluded))
+    print("Original chains:", chain_stats["original_chains"])
+    print("Kept chains:", chain_stats["kept_chains"])
+    print("Excluded chains:", chain_stats["excluded_chains"])
+    print("Over-length individual rows:", overlength_rows)
     print("Keep ratio:", f"{len(kept)/len(rows):.2%}")
 
     print("\n===== Original Length Distribution =====")
@@ -333,7 +449,7 @@ def main():
     print("\n===== Excluded Samples =====")
 
     for audit in audit_rows:
-        if audit["token_length"] > args.max_length:
+        if audit["chain_excluded"]:
             print(audit)
 
     print("\n===== Trajectory Step Distribution =====")
@@ -382,6 +498,7 @@ def main():
         tokenizer_name=args.model,
         excluded_path=excluded_path,
         audit_path=audit_path,
+        chain_stats=chain_stats,
     )
 
     output_manifest_path.write_text(
