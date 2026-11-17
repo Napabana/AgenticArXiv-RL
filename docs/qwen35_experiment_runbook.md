@@ -8,7 +8,7 @@ The launchers are intentionally explicit and default to short smoke runs.
 bash scripts/run_qwen35_sft.sh
 ```
 
-Defaults: local model at `/mnt/workspace/models/Qwen3.5-2B`, filtered v4 data,
+Defaults: local model at `/mnt/workspace/models/Qwen3.5-2B`, chain-aware rebuilt v4 data,
 6144-token maximum length, BF16 LoRA, 30 optimizer steps, TensorBoard enabled.
 The data file and its adjacent `.manifest.json` must already exist in the
 persistent workspace. The launcher does not download or regenerate either.
@@ -226,12 +226,12 @@ Run these before switching to a GPU instance:
 ```bash
 cd AgenticArxiv
 python -m py_compile rl/build_snapshot.py tests/test_build_snapshot.py
-python -m unittest tests.test_build_snapshot tests.test_prepare_sft_dataset tests.test_sft_v4_manifest_validation tests.test_training_guards
+python -m unittest tests.test_build_snapshot tests.test_build_multiturn_sft_v4 tests.test_prepare_sft_dataset tests.test_sft_v4_manifest_validation tests.test_training_guards
 bash -n ../scripts/run_qwen35_sft.sh
 bash -n ../scripts/run_qwen35_grpo.sh
 ```
 
-The unit tests cover source-chain versus unique-derived-task accounting, filtered-row arithmetic, SHA256/row/schema validation, and existing SFT training guards. These tests do not load the model or require CUDA.
+The unit tests cover multi-turn replay completion, stable chain IDs, whole-chain length filtering, source/filtered Manifest integrity, GRPO task-state initialization, and existing SFT training guards. These tests do not load the model or require CUDA.
 
 ## Dependencies and prerequisites
 
