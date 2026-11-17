@@ -12,9 +12,9 @@
        ↓ input_manifest + input_manifest_sha256
 语言扩增 JSONL 及 Manifest
        ↓ derived_task_id + trajectory_step
-多轮 SFT JSONL 及 Manifest
-       ↓ parent_sha256（可选长度过滤）
-训练输入 JSONL
+多轮 SFT JSONL（每行带 chain_id）及 Manifest v2
+       ↓ parent_sha256 + chain-aware 长度过滤
+训练输入 JSONL 及 Manifest v3
 ```
 
 - `data/sft/sft_v3_t5_parametric_seed.jsonl.manifest.json` 是当前派生任务声明来源，包含 86 个 `tasks`。实际 seed JSONL 未提交。
@@ -78,6 +78,7 @@
   ],
   "source": "v4_multiturn",
   "derived_task_id": "...",
+  "chain_id": "<sha256(source_task_id + canonical augmentation key)>",
   "trajectory_step": 0
 }
 ```
@@ -85,7 +86,7 @@
 约束：
 
 - `messages` 恰为 `user`、`assistant` 两条，内容均为字符串，assistant 不得为空。
-- `derived_task_id` 是非空字符串；`trajectory_step` 是非负整数。
+- `derived_task_id`、`chain_id` 是非空字符串；`trajectory_step` 是非负整数。`chain_id` 区分同一派生任务的不同语言/思维扩增视图。
 - user 内容由现有 `ReActAgent.build_messages` 生成，包含当前步骤之前的 setup、Action 和 Observation；本步 gold 决策只放在 assistant。
 - `Action: FINISH` 是正常终止，不执行工具。若它出现在链的最后一步，链计入 `completed_chains`；提前出现计入 `premature_finish`。
 - 非 FINISH 动作复用 `rl.grpo_reward.parse_react_action`，并经 Agent 现有副作用路径执行，避免绕开下载/翻译等项目语义。
@@ -102,7 +103,7 @@
 
 setup 失败发生在生成该链样本之前，直接抛出带任务、工具、参数和原始原因的异常，不伪装成截断链。
 
-## 5. 多轮 SFT Manifest v2
+## 5. 多轮 SFT 源 Manifest v2
 
 修复后的构建器输出：
 
@@ -123,14 +124,38 @@ setup 失败发生在生成该链样本之前，直接抛出带任务、工具�
     "rows": 1,
     "completed_chains": 1,
     "truncated_chains": 0,
-    "failure_counts": {}
+    "failure_counts": {},
+    "unique_chain_ids": 1,
+    "chain_id_policy": "sha256(source_task_id + canonical augmentation key)"
   }
 }
 ```
 
 路径用于描述血缘，SHA256 才是内容身份。生成新数据时必须使用新文件名，不覆盖历史 v4。长度过滤后的 Manifest 还必须保存 `parent_dataset`、`parent_sha256`、最大长度、tokenizer、排除文件和长度审计文件。
 
-## 6. Snapshot 当前契约
+
+
+## 6. 长度过滤后的训练 Manifest v3
+
+`prepare_sft_dataset.py` 只接受 builder v2 的完整源 Manifest。源数据必须满足
+`completed_chains == chains`、`truncated_chains == 0`、
+`failure_counts == {}`，否则在加载 tokenizer 前终止。
+
+长度过滤按 `chain_id` 分组：只要某条链中任意一个样本超过最大长度，
+整条链的所有行都会进入 excluded JSONL。过滤后的 Manifest v3 记录：
+
+- `chains` / `completed_chains` / `unique_chain_ids`：保留的完整链数；
+- `source_chains` / `source_completed_chains`：过滤前的源链数；
+- `excluded_chains`：因长度超限被整体排除的链数；
+- `excluded_rows`：被排除链中的全部样本行数；
+- `truncated_chains=0`：输出数据不含不完整链；
+- `length_filter_policy=drop_entire_chain_if_any_row_exceeds_max_length`。
+
+训练入口再次检查每条链的 step 从 0 连续递增，且最后一条 assistant 决策为
+`Action: FINISH`。旧 v1/v2 filtered Manifest 缺少 `chain_id` 或整链过滤证明，
+不允许继续用于 SFT。
+
+## 7. Snapshot 当前契约
 
 当前 `MockArxivEnv` 读取的 Snapshot 是无顶层 metadata 的普通 JSON 映射：
 
@@ -157,7 +182,7 @@ setup 失败发生在生成该链样本之前，直接抛出带任务、工具�
 
 当前 Snapshot 文件没有 `schema_version`、`as_of`、真实时间窗、Git SHA 或独立 Manifest；部分工具结果可能包含生成机的 `local_path`。因此现有 Snapshot 不能直接视为可移植数据包。
 
-## 7. 本地资源与可移植性
+## 8. 本地资源与可移植性
 
 - GitHub 只提交代码、测试、文档、小型 fixture 和 Manifest/索引。
 - Snapshot、大型 JSONL、PDF、译文、图片、模型权重和虚拟环境不进入 Git；后续通过带 revision 的 ModelScope Dataset 传递。
@@ -165,7 +190,7 @@ setup 失败发生在生成该链样本之前，直接抛出带任务、工具�
 - SHA256 默认针对文件原始字节。当前 Windows Git 的 `core.autocrlf=true` 会把历史 v4 JSONL 的 LF 转成 CRLF，使工作树原始哈希不同于 Manifest；跨环境交付必须保持字节不变或明确记录并校验换行策略。
 - 本地 WSL CPU 虚拟环境只是开发工具，不属于数据契约，也不能改变云端 `requirements-qwen35.txt` 或训练启动器。
 
-## 8. P1 计划，不属于当前能力
+## 9. P1 计划，不属于当前能力
 
 P1-A 需要新增显式 metadata-only Snapshot 模式，并同时定义：
 
