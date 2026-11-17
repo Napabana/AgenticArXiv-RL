@@ -7,10 +7,12 @@
 import unittest
 import json
 import argparse
+import hashlib
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from types import SimpleNamespace
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from benchmark.splits import load_split
 from benchmark.tasks import get_all_tasks
@@ -31,9 +33,13 @@ from rl.train_grpo import (
     _build_reward_calculator,
     _load_tasks,
     _validate_grpo_task_initial_state,
+    _validate_qwen35_sft_adapter_data_lineage,
+    main as grpo_main,
     resolve_dapo_options,
     resolve_dynamic_sampling_option,
 )
+
+
 from rl.train_sft import (
     QLORA_TARGET_MODULES,
     _assert_lora_only_trainable,
@@ -44,6 +50,69 @@ from rl.train_sft import (
     _to_prompt_completion,
     _verify_data_manifest,
 )
+
+
+class LegacyFrozenProbeLineageTest(unittest.TestCase):
+    def test_legacy_grpo_requires_positive_learning_rate(self):
+        with patch("rl.train_grpo.require_all_tools"):
+            with self.assertRaisesRegex(SystemExit, "要求正学习率"):
+                grpo_main(allow_legacy_sft_grpo=True, lr=0.0)
+
+    def test_legacy_probe_rejects_nonzero_learning_rate(self):
+        with patch("rl.train_grpo.require_all_tools"):
+            with self.assertRaisesRegex(SystemExit, "仅允许 --lr 0.0"):
+                grpo_main(allow_legacy_sft_probe=True, lr=1e-5)
+
+    def test_legacy_adapter_requires_explicit_probe_and_valid_hash(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            adapter = root / "outputs" / "sft" / "final"
+            adapter.mkdir(parents=True)
+            (adapter / "adapter_config.json").write_text(
+                json.dumps({"base_model_name_or_path": "Qwen/Qwen3.5-2B"}),
+                encoding="utf-8",
+            )
+            data = root / "data" / "legacy.jsonl"
+            data.parent.mkdir()
+            data.write_text('{}\n', encoding="utf-8")
+            data_hash = hashlib.sha256(data.read_bytes()).hexdigest()
+            Path(str(data) + ".manifest.json").write_text(
+                json.dumps({
+                    "kind": "sft_v4_multiturn",
+                    "version": 2,
+                    "output_sha256": data_hash,
+                }),
+                encoding="utf-8",
+            )
+            training_manifest = adapter.parent / "training_manifest.json"
+            training_manifest.write_text(json.dumps({
+                "data_manifest_kind": "sft_v4_multiturn",
+                "data": "data/legacy.jsonl",
+                "data_sha256": data_hash,
+            }), encoding="utf-8")
+            with patch("rl.train_grpo.REPO_ROOT", root), patch(
+                "rl.train_grpo.is_qwen35_model", return_value=True
+            ):
+                with self.assertRaisesRegex(SystemExit, "完整、chain-aware"):
+                    _validate_qwen35_sft_adapter_data_lineage(str(adapter))
+                _validate_qwen35_sft_adapter_data_lineage(
+                    str(adapter), legacy_probe=True
+                )
+                _validate_qwen35_sft_adapter_data_lineage(
+                    str(adapter), legacy_grpo=True
+                )
+                (adapter / "training_manifest.json").write_bytes(
+                    training_manifest.read_bytes()
+                )
+                training_manifest.unlink()
+                _validate_qwen35_sft_adapter_data_lineage(
+                    str(adapter), legacy_probe=True
+                )
+                data.write_text('changed\n', encoding="utf-8")
+                with self.assertRaisesRegex(SystemExit, "SHA256"):
+                    _validate_qwen35_sft_adapter_data_lineage(
+                        str(adapter), legacy_probe=True
+                    )
 
 
 class ConfigCompatibilityTest(unittest.TestCase):

@@ -198,7 +198,9 @@ def _validate_grpo_task_initial_state(tasks):
         )
 
 
-def _validate_qwen35_sft_adapter_data_lineage(model) -> None:
+def _validate_qwen35_sft_adapter_data_lineage(
+    model, *, legacy_probe: bool = False, legacy_grpo: bool = False
+) -> None:
     """Fail closed if a local Qwen3.5 adapter was trained on legacy SFT data."""
     adapter_path = Path(model)
     adapter_config_path = adapter_path / "adapter_config.json"
@@ -214,7 +216,9 @@ def _validate_qwen35_sft_adapter_data_lineage(model) -> None:
     if not is_qwen35_model(str(base_model_hint)):
         return
 
-    training_manifest_path = adapter_path.parent / "training_manifest.json"
+    training_manifest_path = adapter_path / "training_manifest.json"
+    if not training_manifest_path.is_file():
+        training_manifest_path = adapter_path.parent / "training_manifest.json"
     if not training_manifest_path.is_file():
         raise SystemExit(
             "❌ Qwen3.5 SFT Adapter 缺少 training_manifest.json，无法验证训练数据血缘"
@@ -258,6 +262,15 @@ def _validate_qwen35_sft_adapter_data_lineage(model) -> None:
         data_manifest = json.loads(data_manifest_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         raise SystemExit(f"❌ 无法读取 SFT data Manifest: {exc}") from exc
+    if legacy_probe or legacy_grpo:
+        if (
+            data_manifest.get("kind") != "sft_v4_multiturn"
+            or data_manifest.get("output_sha256") != actual_data_hash
+        ):
+            raise SystemExit("❌ 旧版 SFT data Manifest 类型或 SHA256 不匹配")
+        stage = "冻结探测" if legacy_probe else "GRPO 训练"
+        print(f"⚠️  {stage}使用旧版 SFT Adapter；结果必须标记旧版数据血缘")
+        return
     summary = data_manifest.get("summary") or {}
     transformation = data_manifest.get("transformation") or {}
     if (
@@ -675,6 +688,8 @@ def main(
     task_set: str = "default",
     split: str = None,
     allow_zero_variance: bool = False,
+    allow_legacy_sft_probe: bool = False,
+    allow_legacy_sft_grpo: bool = False,
     canary_steps: int = 50,
     min_canary_reward: float = -1.0,
     canary_patience: int = 3,
@@ -745,6 +760,10 @@ def main(
             raise SystemExit(f"❌ {exc}") from exc
     if rollout_trace_max_samples < 0:
         raise SystemExit("❌ rollout_trace_max_samples 不能为负数")
+    if allow_legacy_sft_probe and lr != 0.0:
+        raise SystemExit("❌ 旧版 SFT Adapter 仅允许 --lr 0.0 冻结探测")
+    if allow_legacy_sft_grpo and lr <= 0.0:
+        raise SystemExit("❌ --allow_legacy_sft_grpo 要求正学习率")
     if save_steps < 0:
         raise SystemExit("❌ save_steps 不能为负数")
     if save_steps > 0 and save_total_limit < 1:
@@ -771,7 +790,10 @@ def main(
         )
 
     model_is_qwen35 = is_qwen35_model(resolved, revision=model_revision)
-    _validate_qwen35_sft_adapter_data_lineage(resolved)
+    _validate_qwen35_sft_adapter_data_lineage(
+        resolved, legacy_probe=allow_legacy_sft_probe,
+        legacy_grpo=allow_legacy_sft_grpo,
+    )
     model_revision = resolve_model_revision(
         resolved, revision=model_revision
     )
@@ -984,7 +1006,6 @@ def main(
 
     cfg_kwargs = {
         "output_dir": str(REPO_ROOT / output_dir),
-        "logging_dir": logging_dir,
         "num_train_epochs": epochs,
         "max_steps": max_steps,
         "per_device_train_batch_size": batch_size,
@@ -1042,6 +1063,8 @@ def main(
     # GRPOConfig 的字段在 TRL 各版本间有增删，按实际安装版本过滤，
     # 避免因为一个参数名不存在就整个训练起不来
     valid = {f.name for f in dataclasses.fields(GRPOConfig)}
+    if "logging_dir" in valid:
+        cfg_kwargs["logging_dir"] = logging_dir
     if model_is_qwen35 and "chat_template_kwargs" not in valid:
         raise SystemExit(
             "❌ 当前 TRL 的 GRPOConfig 不支持 chat_template_kwargs；"
@@ -1051,6 +1074,13 @@ def main(
     if dropped:
         print(f"  提示：当前 TRL 不支持这些 GRPOConfig 参数，已忽略 -> {dropped}")
     config = GRPOConfig(**{k: v for k, v in cfg_kwargs.items() if k in valid})
+    if "logging_dir" not in valid:
+        config.logging_dir = logging_dir
+    if (
+        "tensorboard" in backends
+        and Path(config.logging_dir).resolve() != Path(logging_dir).resolve()
+    ):
+        raise SystemExit("❌ TensorBoard 日志目录与本次输出目录不一致")
 
     # 单进程时钉住单卡（避免 Trainer 走 DataParallel 的段错误）；
     # accelerate launch 下 accelerator 自己管设备，这里自动跳过。
@@ -1292,6 +1322,8 @@ def main(
         "gradient_accumulation_steps": grad_accum,
         "temperature": temperature,
         "frozen_policy_probe": lr == 0.0,
+        "legacy_sft_probe": allow_legacy_sft_probe,
+        "legacy_sft_grpo": allow_legacy_sft_grpo,
         "max_steps": max_steps,
         "requested_max_steps": max_steps,
         "actual_steps": actual_steps,
@@ -1393,6 +1425,14 @@ if __name__ == "__main__":
         "--allow_zero_variance", action="store_true",
         help="跳过「组内奖励方差为 0」检查。默认开启该检查：方差为 0 时"
              "GRPO 不产生任何梯度，训练会静默空转",
+    )
+    p.add_argument(
+        "--allow_legacy_sft_probe", action="store_true",
+        help="仅在 --lr 0.0 的冻结诊断中允许有旧版数据血缘的 SFT Adapter",
+    )
+    p.add_argument(
+        "--allow_legacy_sft_grpo", action="store_true",
+        help="显式允许从旧版 SFT Adapter 训练 GRPO，并在 Manifest 中标记旧血缘",
     )
     p.add_argument("--max_completion_length", type=int, default=256)
     p.add_argument(

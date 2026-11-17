@@ -71,13 +71,12 @@ def _sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-# def _is_finish_decision(content: str) -> bool:
+def _is_finish_decision(content: str) -> bool:
     """Return whether a gold assistant completion ends with Action: FINISH."""
     match = re.search(r"Action:\s*(.*?)(?=\nObservation:|$)", content, re.DOTALL)
     return bool(match and match.group(1).strip().upper() == "FINISH")
 
 
-def _verify_data_manifest(data_path: Path, manifest_path: Path | None = None) -> dict:
 #     """冻结训练输入：行数、类型与 SHA256 任一漂移都拒绝训练。"""
 #     manifest_path = manifest_path or data_path.with_suffix(data_path.suffix + ".manifest.json")
 #     if not manifest_path.exists():
