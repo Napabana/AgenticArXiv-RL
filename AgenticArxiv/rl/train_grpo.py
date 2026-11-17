@@ -20,6 +20,7 @@ observation 插回上下文，并将完整轨迹交给 RewardCalculator 打分�
 
 import argparse
 import dataclasses
+import hashlib
 import json
 import math
 import os
@@ -194,6 +195,87 @@ def _validate_grpo_task_initial_state(tasks):
             "depends_on 前置 Agent。请为依赖状态声明 TaskSpec.setup，或改用 "
             "--task_set expanded 与 setup-aware 任务集。\n"
             f"{details}"
+        )
+
+
+def _validate_qwen35_sft_adapter_data_lineage(model) -> None:
+    """Fail closed if a local Qwen3.5 adapter was trained on legacy SFT data."""
+    adapter_path = Path(model)
+    adapter_config_path = adapter_path / "adapter_config.json"
+    if not adapter_path.is_dir() or not adapter_config_path.is_file():
+        return
+
+    try:
+        adapter_config = json.loads(adapter_config_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"❌ 无法读取 SFT adapter_config.json: {exc}") from exc
+
+    base_model_hint = adapter_config.get("base_model_name_or_path", "")
+    if not is_qwen35_model(str(base_model_hint)):
+        return
+
+    training_manifest_path = adapter_path.parent / "training_manifest.json"
+    if not training_manifest_path.is_file():
+        raise SystemExit(
+            "❌ Qwen3.5 SFT Adapter 缺少 training_manifest.json，无法验证训练数据血缘"
+        )
+    try:
+        training_manifest = json.loads(
+            training_manifest_path.read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"❌ 无法读取 SFT training_manifest.json: {exc}") from exc
+
+    if training_manifest.get("data_manifest_kind") != "sft_v4_multiturn":
+        raise SystemExit(
+            "❌ Qwen3.5 GRPO 仅接受经过审计的 sft_v4_multiturn Adapter"
+        )
+    data_value = training_manifest.get("data")
+    if not isinstance(data_value, str) or not data_value:
+        raise SystemExit("❌ SFT training_manifest 缺少 data 路径")
+    data_path = Path(data_value)
+    if not data_path.is_absolute():
+        data_path = (REPO_ROOT / data_path).resolve()
+    data_manifest_path = Path(str(data_path) + ".manifest.json")
+    if not data_path.is_file() or not data_manifest_path.is_file():
+        raise SystemExit(
+            "❌ 无法找到 SFT 训练数据或其 Manifest；拒绝使用无法审计的 Adapter: "
+            f"{data_path}"
+        )
+
+    digest = hashlib.sha256()
+    with data_path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    actual_data_hash = digest.hexdigest()
+    expected_data_hash = training_manifest.get("data_sha256")
+    if actual_data_hash != expected_data_hash:
+        raise SystemExit(
+            "❌ SFT Adapter 的训练数据 SHA256 与 training_manifest 不一致"
+        )
+
+    try:
+        data_manifest = json.loads(data_manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"❌ 无法读取 SFT data Manifest: {exc}") from exc
+    summary = data_manifest.get("summary") or {}
+    transformation = data_manifest.get("transformation") or {}
+    if (
+        data_manifest.get("kind") != "sft_v4_multiturn"
+        or data_manifest.get("version") != 3
+        or transformation.get("chain_filter_policy")
+        != "drop_entire_chain_if_any_row_exceeds_max_length"
+        or data_manifest.get("output_sha256") != actual_data_hash
+        or summary.get("truncated_chains") != 0
+        or summary.get("source_truncated_chains_reported") != 0
+        or summary.get("completed_chains") != summary.get("chains")
+        or summary.get("failure_counts") != {}
+        or summary.get("unique_chain_ids") != summary.get("chains")
+    ):
+        raise SystemExit(
+            "❌ Qwen3.5 SFT Adapter 不是基于完整、chain-aware 的 SFT v4 数据训练的。"
+            "请先用 builder v2 重建源数据、用整链过滤器生成 Manifest v3，"
+            "再重新训练 Adapter。"
         )
 
 
@@ -689,6 +771,7 @@ def main(
         )
 
     model_is_qwen35 = is_qwen35_model(resolved, revision=model_revision)
+    _validate_qwen35_sft_adapter_data_lineage(resolved)
     model_revision = resolve_model_revision(
         resolved, revision=model_revision
     )
