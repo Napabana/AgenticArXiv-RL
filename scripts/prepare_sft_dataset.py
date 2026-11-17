@@ -300,11 +300,11 @@ def main():
 
     parser.add_argument(
         "--input",
-        default="data/sft/sft_v4_multiturn.jsonl",
+        default="data/sft/sft_v4_multiturn_rebuilt.jsonl",
     )
     parser.add_argument(
         "--output",
-        default="data/sft/sft_v4_multiturn_6144.jsonl",
+        default="data/sft/sft_v4_multiturn_rebuilt_6144.jsonl",
     )
     parser.add_argument(
         "--model",
