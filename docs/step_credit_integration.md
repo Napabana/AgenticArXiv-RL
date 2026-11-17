@@ -23,3 +23,31 @@ bash -n scripts/run_qwen35_grpo.sh
 ```
 
 `test_step_credit_trainer.py` reads `AgenticArxiv/tests/fixtures/step_credit_token_batch.json`, an artificial group of four trajectories with three Assistant turns, observations and different padded lengths. It asserts the installed TRL version. Do not start formal training until these checks pass and the snapshot, SFT adapter and model-specific GRPO split are present.
+
+## Qwen3.5 launcher modes
+
+`scripts/run_qwen35_grpo.sh` is a thin launcher; the training algorithm remains in
+`AgenticArxiv.rl.train_grpo`. It defaults to `GRPO_STEP_CREDIT=off`, preserving the
+native scalar-reward GRPO baseline. Select the added Step Credit behavior explicitly:
+
+```bash
+# Native GRPO baseline: original five-component scalar reward and TRL GRPOTrainer
+GRPO_STEP_CREDIT=off bash scripts/run_qwen35_grpo.sh
+
+# Prefix-tree credit from non-flat final rewards
+GRPO_STEP_CREDIT=reward bash scripts/run_qwen35_grpo.sh
+
+# Prefix-tree credit plus strict-progress fallback for flat-reward groups
+GRPO_STEP_CREDIT=progress bash scripts/run_qwen35_grpo.sh
+```
+
+Use separate `OUTPUT_DIR` values for each run. Both methods must use the same frozen-policy
+split, SFT adapter, seed, rollout budget and training hyperparameters for a controlled
+comparison. The launcher defaults to the completed Qwen3.5-2B two-epoch SFT adapter at
+`outputs/qwen35_sft_full_e2/final`; override `SFT_ADAPTER` when it is stored elsewhere.
+
+The optimizer can be selected with `GRPO_OPTIM`. The default remains
+`adamw_torch_fused` for the Qwen3.5 BF16-LoRA run; if the ROCm environment does not
+support the fused implementation, test `GRPO_OPTIM=adamw_torch` with a one-step smoke
+run before formal training. `GRPO_DRY_RUN=1` prints the resolved command without
+starting training, after validating the model, snapshot and split paths.
