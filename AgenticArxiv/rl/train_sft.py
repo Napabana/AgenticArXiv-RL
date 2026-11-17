@@ -207,6 +207,10 @@ def _verify_data_manifest(
                     raise SystemExit(
                         f"❌ 第 {line_no} 行消息角色错误: {roles}"
                     )
+                if not all(isinstance(message.get("content"), str) for message in messages):
+                    raise SystemExit(
+                        f"❌ 第 {line_no} 行消息 content 必须是字符串"
+                    )
 
                 derived_task_id = row.get("derived_task_id")
                 if not isinstance(derived_task_id, str) or not derived_task_id.strip():
