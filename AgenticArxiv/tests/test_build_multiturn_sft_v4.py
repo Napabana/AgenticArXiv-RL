@@ -15,6 +15,7 @@ from scripts.build_multiturn_sft_v4 import (
     advance_gold_decision,
     load_task_map,
     main,
+    make_chain_id,
     prepare_setup,
 )
 
@@ -180,6 +181,16 @@ class GoldDecisionTest(unittest.TestCase):
             )
 
 
+
+class ChainIdentityTest(unittest.TestCase):
+    def test_chain_id_is_stable_and_distinguishes_augmentation_views(self):
+        first = make_chain_id("task-1", '{"task_variant":0,"thought_variant":0}')
+        repeated = make_chain_id("task-1", '{"task_variant":0,"thought_variant":0}')
+        other_view = make_chain_id("task-1", '{"task_variant":1,"thought_variant":0}')
+        self.assertEqual(first, repeated)
+        self.assertNotEqual(first, other_view)
+
+
 class BuilderIntegrationTest(unittest.TestCase):
     def test_finish_only_chain_is_completed_not_truncated(self):
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -260,6 +271,14 @@ class BuilderIntegrationTest(unittest.TestCase):
         self.assertEqual(manifest["summary"]["completed_chains"], 1)
         self.assertEqual(manifest["summary"]["truncated_chains"], 0)
         self.assertEqual(manifest["summary"]["failure_counts"], {})
+        rows = [
+            json.loads(line)
+            for line in output.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        self.assertEqual(len(rows), 1)
+        self.assertTrue(rows[0]["chain_id"])
+        self.assertEqual(manifest["summary"]["unique_chain_ids"], 1)
 
 
 
