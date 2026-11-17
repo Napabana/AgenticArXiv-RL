@@ -4,7 +4,9 @@
 
     python -m AgenticArxiv.rl.train_grpo --model outputs/qwen35_sft_full_e2/final \\
         --split data/splits/v4_86.json:train --lr 0.0 --max_steps 440 \\
-        --allow_zero_variance --no-verify --output_dir outputs/qwen35_frozen_probe_e2
+        --batch_size 4 --num_generations 4 --max_turns 5 \\
+        --max_completion_length 1024 --allow_zero_variance \\
+        --no-verify --output_dir outputs/qwen35_frozen_probe_e2
 
 再用本脚本按「每任务至少 2 个有组内奖励方差的 prompt 组」筛选训练任务：
 
