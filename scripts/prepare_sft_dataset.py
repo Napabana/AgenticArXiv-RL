@@ -148,7 +148,7 @@ def validate_source_manifest(manifest: dict) -> dict:
 
 
 def _is_finish_decision(content: str) -> bool:
-    match = re.search(r"Action:\\s*(.*?)(?=\\nObservation:|$)", content, re.DOTALL)
+    match = re.search(r"Action:\s*(.*?)(?=\nObservation:|$)", content, re.DOTALL)
     if not match:
         return False
     action_text = match.group(1).strip()
