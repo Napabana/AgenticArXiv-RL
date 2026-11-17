@@ -15,7 +15,7 @@ SPLIT="${GRPO_SPLIT:-}"
 # off      = original scalar-reward GRPO baseline
 # reward   = prefix-tree credit from non-flat final rewards
 # progress = reward credit plus strict-progress fallback for flat reward groups
-STEP_CREDIT="${GRPO_STEP_CREDIT:-progress}"
+STEP_CREDIT="${GRPO_STEP_CREDIT:-off}"
 STEP_CREDIT_WEIGHT="${GRPO_STEP_CREDIT_WEIGHT:-0.5}"
 STEP_CREDIT_BETA="${GRPO_STEP_CREDIT_BETA:-1.0}"
 
