@@ -272,11 +272,11 @@ def main(default_dataset_version: int = 4) -> None:
             or group[0].get("derived_task_id")
             or ""
         )
-        chain_id = make_chain_id(str(key[0]), str(key[1]))
         if not derived_task_id or derived_task_id not in task_map:
             raise KeyError(
                 f"链 {key!r} 无法映射到派生任务 manifest: {derived_task_id!r}"
             )
+        chain_id = make_chain_id(derived_task_id, str(key[1]))
         spec = task_map[derived_task_id]
 
         env = MockArxivEnv(snapshot_path=snapshot_path, mode="replay")
