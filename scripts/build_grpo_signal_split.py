@@ -2,17 +2,17 @@
 
 先对当前策略跑一次冻结探测（README 阶段3；`--lr 0.0` 不更新权重）：
 
-    python -m AgenticArxiv.rl.train_grpo --model outputs/sft/final \\
-        --split data/splits/v3_81.json:train --lr 0.0 --max_steps 408 \\
-        --allow_zero_variance --no-verify --output_dir outputs/grpo_frozen_probe
+    python -m AgenticArxiv.rl.train_grpo --model outputs/qwen35_sft_full_e2/final \\
+        --split data/splits/v4_86.json:train --lr 0.0 --max_steps 440 \\
+        --allow_zero_variance --no-verify --output_dir outputs/qwen35_frozen_probe_e2
 
 再用本脚本按「每任务至少 2 个有组内奖励方差的 prompt 组」筛选训练任务：
 
     python -m scripts.build_grpo_signal_split \\
-        --probe outputs/grpo_frozen_probe/reward_probe_summary.json \\
-        --source-split data/splits/v3_81.json:train \\
-        --model outputs/sft/final \\
-        --output data/splits/v6_grpo_train.json
+        --probe outputs/qwen35_frozen_probe_e2/reward_probe_summary.json \\
+        --source-split data/splits/v4_86.json:train \\
+        --model outputs/qwen35_sft_full_e2/final \\
+        --output data/splits/qwen35_grpo_train_e2.json
 """
 
 from __future__ import annotations
@@ -176,7 +176,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--probe", required=True, help="reward_probe_summary.json 路径")
     parser.add_argument(
-        "--source-split", required=True, help="候选任务来源，FILE:NAME（如 data/splits/v3_81.json:train）"
+        "--source-split", required=True, help="候选任务来源，FILE:NAME（如 data/splits/v4_86.json:train）"
     )
     parser.add_argument("--model", required=True, help="被探测的策略模型路径")
     parser.add_argument("--output", required=True, help="输出切分文件路径")
