@@ -16,7 +16,7 @@
 
 用法::
 
-    python scripts/build_multiturn_sft_v4.py --output data/sft/sft_v4_multiturn.jsonl
+    python scripts/build_multiturn_sft_v4.py --output data/sft/sft_v4_multiturn_rebuilt.jsonl
 """
 
 from __future__ import annotations
@@ -351,7 +351,7 @@ def main(default_dataset_version: int = 4) -> None:
         if (gi + 1) % 25 == 0:
             print(f"  [{gi+1}/{len(groups)}] 链 {chains_total} | 样本 {steps_total} | 截断链 {truncated}", flush=True)
 
-    output_path = Path(args.output or f"data/sft/sft_v{args.dataset_version}_multiturn.jsonl")
+    output_path = Path(args.output or f"data/sft/sft_v{args.dataset_version}_multiturn_rebuilt.jsonl")
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", encoding="utf-8") as handle:
         for row in out_rows:
