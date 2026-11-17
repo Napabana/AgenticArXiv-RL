@@ -73,7 +73,7 @@ def _sha256_file(path: Path) -> str:
 
 # def _is_finish_decision(content: str) -> bool:
     """Return whether a gold assistant completion ends with Action: FINISH."""
-    match = re.search(r"Action:\\s*(.*?)(?=\\nObservation:|$)", content, re.DOTALL)
+    match = re.search(r"Action:\s*(.*?)(?=\nObservation:|$)", content, re.DOTALL)
     return bool(match and match.group(1).strip().upper() == "FINISH")
 
 
@@ -263,6 +263,7 @@ def _verify_data_manifest(
             )
         if (
             summary.get("truncated_chains") != 0
+            or summary.get("source_truncated_chains_reported") != 0
             or summary.get("completed_chains") != summary.get("chains")
             or summary.get("failure_counts") != {}
         ):
@@ -304,7 +305,7 @@ def _verify_data_manifest(
         )
 
     # 4b. 多轮数据集的来源统计必须与实际行数/唯一任务 ID 一致。
-    # 注意：summary.chains 是源轨迹数，不等于过滤后保留的 derived_task_id 数。
+    # 注意：summary.chains 是过滤后保留的完整 chain 数，不等于 unique derived_task_id 数。
     if kind == "sft_v4_multiturn":
         summary = manifest.get("summary") or {}
         declared_unique_ids = summary.get("unique_derived_task_ids")
