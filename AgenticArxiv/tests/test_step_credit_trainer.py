@@ -73,6 +73,15 @@ class StepCreditTrainerTest(unittest.TestCase):
             self.assertEqual(result["tool_mask"][i, 2:4].tolist(), [0, 0])
             self.assertEqual(result["completion_mask"][i, fixture["completion_lengths"][i]:].sum(), 0)
 
+    def test_tool_mask_padding_value_is_ignored(self):
+        # TRL may pad tool_mask with 1; only valid completion tokens are compared.
+        trainer, original, fixture = batch()
+        for i, length in enumerate(fixture["completion_lengths"]):
+            original["tool_mask"][i, length:] = 1
+        with patch.object(GRPOTrainer, "_generate_and_score_completions", return_value=original):
+            result = trainer._generate_and_score_completions([])
+        self.assertEqual(tuple(result["advantages"].shape), (4, 13))
+
     def test_zero_weight_matches_grpo(self):
         trainer, original, _ = batch(weight=0.0)
         with patch.object(GRPOTrainer, "_generate_and_score_completions", return_value=original):
