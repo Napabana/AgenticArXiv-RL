@@ -40,6 +40,85 @@ This is CPU-side preparation but it requires network access to arXiv and the con
 
 The resulting `data/mock_arxiv_snapshot.json` is intentionally not committed to Git. Keep it in the persistent ModelScope workspace and record its SHA256 with the experiment artifacts.
 
+## Rebuild audited SFT v4 data before GRPO
+
+Do not use the historical `sft_v4_multiturn.jsonl` / `sft_v4_multiturn_6144.jsonl`
+for the next experiment. Their source Manifest is v1 and reports
+`truncated_chains=1032` for 1032 chains. The setup/FINISH replay bug was fixed
+in the v2 builder, but the historical payload was not regenerated afterward.
+The already-trained `qwen35_sft_full_e2` Adapter therefore remains an archived
+result; do not use it as the policy for the next GRPO probe.
+
+The fixed builder writes a stable `chain_id` for each task/augmentation view,
+replays setup and every gold decision in one session, and emits
+`completed_chains`, `truncated_chains`, and `failure_counts`. Use new output
+names; never overwrite the historical v1 files:
+
+```bash
+python scripts/build_multiturn_sft_v4.py \
+  --seed-data data/sft/sft_v3_t5_parametric_linguistic.jsonl \
+  --snapshot data/mock_arxiv_snapshot.json \
+  --output data/sft/sft_v4_multiturn_rebuilt.jsonl
+```
+
+Before token filtering, require all source chains to be complete:
+
+```bash
+python - <<'PY'
+import json
+p = "data/sft/sft_v4_multiturn_rebuilt.jsonl.manifest.json"
+m = json.load(open(p, encoding="utf-8"))
+s = m["summary"]
+print({k: s.get(k) for k in (
+    "chains", "rows", "completed_chains", "truncated_chains",
+    "failure_counts", "unique_chain_ids"
+)})
+assert m["version"] == 2
+assert s["completed_chains"] == s["chains"]
+assert s["truncated_chains"] == 0
+assert s["failure_counts"] == {}
+assert s["unique_chain_ids"] == s["chains"]
+PY
+```
+
+If this check fails, stop and inspect the manifest's `failure_counts`; do not
+train on partial chains. The fixed length filter requires this audited v2
+source, validates contiguous `trajectory_step` values and terminal
+`Action: FINISH`, and drops an entire chain if any one of its samples exceeds
+6144 tokens. It never keeps the short steps of a chain whose other step was
+excluded:
+
+```bash
+python scripts/prepare_sft_dataset.py \
+  --input data/sft/sft_v4_multiturn_rebuilt.jsonl \
+  --output data/sft/sft_v4_multiturn_rebuilt_6144.jsonl \
+  --model /mnt/workspace/models/Qwen3.5-2B \
+  --max-length 6144
+```
+
+Inspect the filtered manifest before training. It must be version 3, have
+`truncated_chains=0`, `completed_chains=chains=unique_chain_ids`, and
+`source_truncated_chains_reported=0`. `excluded_chains` records whole chains
+removed by the length policy; `excluded_rows` includes every row from those
+chains.
+
+Train a new adapter for two epochs, retaining the previous adapter and data
+artifacts unchanged:
+
+```bash
+SFT_DATA=data/sft/sft_v4_multiturn_rebuilt_6144.jsonl \
+SFT_MANIFEST=data/sft/sft_v4_multiturn_rebuilt_6144.jsonl.manifest.json \
+SFT_MAX_STEPS=-1 \
+SFT_EPOCHS=2 \
+SFT_VERIFY=1 \
+OUTPUT_DIR=outputs/qwen35_sft_rebuilt_e2 \
+bash scripts/run_qwen35_sft.sh
+```
+
+The resulting GRPO source-policy path is
+`outputs/qwen35_sft_rebuilt_e2/final`. Only after this rebuild should the
+frozen-policy reward-variance probe below be run.
+
 ## GRPO data selection: source split and frozen-policy probe
 
 The current expanded task set contains 86 tasks. Use
@@ -58,7 +137,7 @@ tokens, so keep the rollout audit summary and inspect clipping before accepting
 the probe.
 
 ```bash
-SFT_ADAPTER=outputs/qwen35_sft_full_e2/final
+SFT_ADAPTER=outputs/qwen35_sft_rebuilt_e2/final
 BASE_MODEL=/mnt/workspace/models/Qwen3.5-2B
 
 python -m AgenticArxiv.rl.train_grpo \
@@ -80,7 +159,7 @@ python -m AgenticArxiv.rl.train_grpo \
   --save_rollout_traces \
   --rollout_trace_max_samples 100 \
   --no-verify \
-  --output_dir outputs/qwen35_frozen_probe_e2
+  --output_dir outputs/qwen35_frozen_probe_rebuilt_e2
 ```
 
 Then select tasks with at least two informative groups out of the eight
@@ -89,10 +168,10 @@ probe summary hash:
 
 ```bash
 python -m scripts.build_grpo_signal_split \
-  --probe outputs/qwen35_frozen_probe_e2/reward_probe_summary.json \
+  --probe outputs/qwen35_frozen_probe_rebuilt_e2/reward_probe_summary.json \
   --source-split data/splits/v4_86.json:train \
-  --model outputs/qwen35_sft_full_e2/final \
-  --output data/splits/qwen35_grpo_train_e2.json
+  --model outputs/qwen35_sft_rebuilt_e2/final \
+  --output data/splits/qwen35_grpo_train_rebuilt_e2.json
 ```
 
 Do not use `data/splits/v1.json:rl_train`, `v5_grpo_train.json`, or
@@ -107,9 +186,9 @@ has nonzero reward variance. The launcher exposes this as
 for the frozen-policy split:
 
 ```bash
-GRPO_SPLIT=data/splits/qwen35_grpo_train_e2.json:rl_train \
-SFT_ADAPTER=outputs/qwen35_sft_full_e2/final \
-OUTPUT_DIR=outputs/qwen35_grpo_one_step_e2 \
+GRPO_SPLIT=data/splits/qwen35_grpo_train_rebuilt_e2.json:rl_train \
+SFT_ADAPTER=outputs/qwen35_sft_rebuilt_e2/final \
+OUTPUT_DIR=outputs/qwen35_grpo_one_step_rebuilt_e2 \
 GRPO_MAX_STEPS=1 \
 GRPO_DYNAMIC_SAMPLING=1 \
 GRPO_MAX_TURNS=5 \
@@ -121,7 +200,7 @@ bash scripts/run_qwen35_grpo.sh
 ## GRPO
 
 ```bash
-GRPO_SPLIT=data/splits/qwen35_grpo_train_e2.json:rl_train SFT_ADAPTER=outputs/qwen35_sft_full_e2/final bash scripts/run_qwen35_grpo.sh
+GRPO_SPLIT=data/splits/qwen35_grpo_train_rebuilt_e2.json:rl_train SFT_ADAPTER=outputs/qwen35_sft_rebuilt_e2/final bash scripts/run_qwen35_grpo.sh
 ```
 
 Defaults: the expanded task set restricted to a Qwen3.5-specific frozen-policy `rl_train` split (the split must be supplied explicitly),
@@ -131,7 +210,7 @@ disabled from step zero, TensorBoard and full rollout audit enabled.
 For a full pass over the selected split:
 
 ```bash
-GRPO_MAX_STEPS=-1 OUTPUT_DIR=outputs/qwen35_grpo_full GRPO_SPLIT=data/splits/qwen35_grpo_train_e2.json:rl_train SFT_ADAPTER=outputs/qwen35_sft_full_e2/final bash scripts/run_qwen35_grpo.sh
+GRPO_MAX_STEPS=-1 OUTPUT_DIR=outputs/qwen35_grpo_full_rebuilt_e2 GRPO_SPLIT=data/splits/qwen35_grpo_train_rebuilt_e2.json:rl_train SFT_ADAPTER=outputs/qwen35_sft_rebuilt_e2/final bash scripts/run_qwen35_grpo.sh
 ```
 
 ## CPU-side code and manifest checks
@@ -163,7 +242,7 @@ described in `requirements-qwen35.txt`. Install TensorBoard separately:
 pip install tensorboard
 ```
 
-Before formal GRPO, run a frozen-policy reward-variance probe using the Qwen3.5 SFT adapter and create a model-specific train split. Do not reuse `v4_grpo_train.json` (explicitly invalidated) or the v5/v6 splits selected with older policies. Set `GRPO_SPLIT=data/splits/qwen35_grpo_train_e2.json:rl_train` when launching GRPO. The launcher verifies that the split is not invalidated, declares `task_set=expanded`, was produced by a frozen-policy probe (`policy_frozen=true`, `learning_rate=0`), and records the same SFT adapter path passed to the current run.
+Before formal GRPO, run a frozen-policy reward-variance probe using the Qwen3.5 SFT adapter and create a model-specific train split. Do not reuse `v4_grpo_train.json` (explicitly invalidated) or the v5/v6 splits selected with older policies. Set `GRPO_SPLIT=data/splits/qwen35_grpo_train_rebuilt_e2.json:rl_train` when launching GRPO. The launcher verifies that the split is not invalidated, declares `task_set=expanded`, was produced by a frozen-policy probe (`policy_frozen=true`, `learning_rate=0`), and records the same SFT adapter path passed to the current run.
 
 GRPO additionally requires the offline MockArxiv snapshot at
 `data/mock_arxiv_snapshot.json`. The snapshot is deliberately not stored in
