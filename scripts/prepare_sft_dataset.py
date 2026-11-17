@@ -409,6 +409,7 @@ def main():
         audit_rows,
         args.max_length,
     )
+    lengths = [audit["token_length"] for audit in audit_rows]
     kept_lengths = [
         audit["token_length"] for audit in audit_rows
         if not audit["chain_excluded"]
