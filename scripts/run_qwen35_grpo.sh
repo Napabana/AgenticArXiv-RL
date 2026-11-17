@@ -18,6 +18,9 @@ SPLIT="${GRPO_SPLIT:-}"
 STEP_CREDIT="${GRPO_STEP_CREDIT:-off}"
 STEP_CREDIT_WEIGHT="${GRPO_STEP_CREDIT_WEIGHT:-0.5}"
 STEP_CREDIT_BETA="${GRPO_STEP_CREDIT_BETA:-1.0}"
+DYNAMIC_SAMPLING="${GRPO_DYNAMIC_SAMPLING:-0}"
+DYNAMIC_SAMPLING_STD_THRESHOLD="${GRPO_DYNAMIC_SAMPLING_STD_THRESHOLD:-0.0}"
+DYNAMIC_SAMPLING_MAX_RESAMPLES="${GRPO_DYNAMIC_SAMPLING_MAX_RESAMPLES:-32}"
 
 OUTPUT_DIR="${OUTPUT_DIR:-outputs/qwen35_grpo_${STEP_CREDIT}_smoke}"
 MAX_STEPS="${GRPO_MAX_STEPS:-20}"
@@ -35,6 +38,14 @@ case "$STEP_CREDIT" in
   off|reward|progress) ;;
   *)
     echo "GRPO_STEP_CREDIT must be one of: off, reward, progress (got: $STEP_CREDIT)" >&2
+    exit 2
+    ;;
+esac
+
+case "$DYNAMIC_SAMPLING" in
+  0|1) ;;
+  *)
+    echo "GRPO_DYNAMIC_SAMPLING must be 0 or 1 (got: $DYNAMIC_SAMPLING)" >&2
     exit 2
     ;;
 esac
@@ -135,6 +146,14 @@ cmd=(
   --save_steps "${GRPO_SAVE_STEPS:-10}"
   --save_total_limit "${GRPO_SAVE_TOTAL_LIMIT:-2}"
 )
+
+if [[ "$DYNAMIC_SAMPLING" == "1" ]]; then
+  cmd+=(
+    --dynamic_sampling
+    --dynamic_sampling_std_threshold "$DYNAMIC_SAMPLING_STD_THRESHOLD"
+    --dynamic_sampling_max_resamples "$DYNAMIC_SAMPLING_MAX_RESAMPLES"
+  )
+fi
 
 if [[ "${GRPO_VERIFY:-1}" == "1" ]]; then
   cmd+=(--verify)
