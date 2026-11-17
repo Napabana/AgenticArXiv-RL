@@ -2,19 +2,19 @@
 
 先对当前策略跑一次冻结探测（README 阶段3；`--lr 0.0` 不更新权重）：
 
-    python -m AgenticArxiv.rl.train_grpo --model outputs/qwen35_sft_full_e2/final \\
+    python -m AgenticArxiv.rl.train_grpo --model outputs/qwen35_sft_rebuilt_e2/final \\
         --split data/splits/v4_86.json:train --lr 0.0 --max_steps 440 \\
         --batch_size 4 --num_generations 4 --max_turns 5 \\
         --max_completion_length 1024 --allow_zero_variance \\
-        --no-verify --output_dir outputs/qwen35_frozen_probe_e2
+        --no-verify --output_dir outputs/qwen35_frozen_probe_rebuilt_e2
 
 再用本脚本按「每任务至少 2 个有组内奖励方差的 prompt 组」筛选训练任务：
 
     python -m scripts.build_grpo_signal_split \\
-        --probe outputs/qwen35_frozen_probe_e2/reward_probe_summary.json \\
+        --probe outputs/qwen35_frozen_probe_rebuilt_e2/reward_probe_summary.json \\
         --source-split data/splits/v4_86.json:train \\
-        --model outputs/qwen35_sft_full_e2/final \\
-        --output data/splits/qwen35_grpo_train_e2.json
+        --model outputs/qwen35_sft_rebuilt_e2/final \\
+        --output data/splits/qwen35_grpo_train_rebuilt_e2.json
 """
 
 from __future__ import annotations
