@@ -29,6 +29,7 @@ from rl.train_grpo import (
     RewardVarianceGuard,
     _build_reward_calculator,
     _load_tasks,
+    _validate_grpo_task_initial_state,
     resolve_dapo_options,
     resolve_dynamic_sampling_option,
 )
@@ -1006,6 +1007,51 @@ class TrainingTaskSetTest(unittest.TestCase):
         first = [t["id"] for t in _load_tasks("expanded", "train")]
         self.assertEqual(first, sorted(first))
         self.assertEqual(first, [t["id"] for t in _load_tasks("expanded", "train")])
+
+
+class GrpoTaskDataPreflightTest(unittest.TestCase):
+    def test_default_smoke_pool_is_rejected_when_dependencies_are_not_seeded(self):
+        with self.assertRaisesRegex(SystemExit, "depends_on"):
+            _validate_grpo_task_initial_state(_load_tasks("default", None))
+
+    def test_expanded_pool_has_reproducible_initial_state_for_each_rollout(self):
+        _validate_grpo_task_initial_state(_load_tasks("expanded", None))
+
+    def test_qwen35_source_split_covers_all_86_expanded_tasks_once(self):
+        repo = Path(__file__).resolve().parents[2]
+        split_path = repo / "data" / "splits" / "v4_86.json"
+        payload = json.loads(split_path.read_text(encoding="utf-8"))
+        groups = payload["split"]
+        flattened = [
+            task_id
+            for name in ("train", "dev", "iid_test", "ood_test")
+            for task_id in groups[name]
+        ]
+        expected = {task["id"] for task in get_expanded_tasks()}
+        self.assertEqual(payload["task_count"], 86)
+        self.assertEqual(set(flattened), expected)
+        self.assertEqual(len(flattened), len(expected))
+
+    def test_new_translation_tasks_preserve_the_declared_iid_control(self):
+        repo = Path(__file__).resolve().parents[2]
+        payload = json.loads(
+            (repo / "data" / "splits" / "v4_86.json").read_text(encoding="utf-8")
+        )
+        train = set(payload["split"]["train"])
+        iid = set(payload["split"]["iid_test"])
+        self.assertTrue({
+            "trread_ai5_default",
+            "trread_cv5_page2",
+            "trread_ai5_null_page3",
+            "trread_cl5_default",
+        } <= train)
+        self.assertIn("trread_ro5_page2", iid)
+
+    def test_grpo_manifest_metadata_version_is_imported(self):
+        import rl.train_grpo as train_grpo
+
+        self.assertTrue(callable(train_grpo.version))
+
 
 
 if __name__ == "__main__":
