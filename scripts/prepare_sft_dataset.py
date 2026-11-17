@@ -362,6 +362,8 @@ def main():
         raise ValueError(
             f"Source rows 与 Manifest 不一致: manifest={source_summary['rows']}, actual={len(rows)}"
         )
+    for index, row in enumerate(rows, 1):
+        validate_row(row, index)
     validate_complete_chains(rows)
 
     print("Original rows:", len(rows))
@@ -384,8 +386,6 @@ def main():
     audit_rows = []
 
     for index, row in enumerate(rows, 1):
-        validate_row(row, index)
-
         length = token_length(
             tokenizer,
             row["messages"],
