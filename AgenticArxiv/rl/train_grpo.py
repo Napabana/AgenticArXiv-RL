@@ -24,6 +24,7 @@ import json
 import math
 import os
 import sys
+from importlib.metadata import version
 from pathlib import Path
 from typing import Optional
 
@@ -129,6 +130,71 @@ def _load_tasks(task_set: str, split: Optional[str]):
             f"--split rl_train（{DEFAULT_SPLIT_PATH.name}）"
         )
     return tasks
+
+
+def _validate_grpo_task_initial_state(tasks):
+    """Reject task pools whose prerequisites cannot be reproduced per rollout.
+
+    GRPO creates a fresh AgenticArxivMultiTurnEnv for every sampled completion.
+    Unlike BenchmarkRunner, it does not execute TaskSpec.depends_on agents.
+    State needed by a task must therefore be declared as TaskSpec.setup, or be
+    produced by the task's own first search action.
+    """
+    search_tools = {
+        "get_recently_submitted_cs_papers",
+        "search_arxiv_papers",
+    }
+    problems = []
+    for task in tasks:
+        task_id = str(task.get("id") or "<unknown>")
+        setup = task.get("setup") or []
+        expected_tools = list(task.get("expected_tools") or [])
+        expected_args = task.get("expected_tool_args")
+        if expected_args is None or len(expected_args) != len(expected_tools):
+            problems.append(
+                f"{task_id}: expected_tools / expected_tool_args 缺失或长度不一致"
+            )
+            continue
+
+        if task.get("depends_on") and not setup:
+            problems.append(
+                f"{task_id}: depends_on={task['depends_on']}，但没有独立 rollout 所需的 setup"
+            )
+
+        needs_paper_state = any(
+            isinstance(args, dict) and "ref" in args
+            for args in expected_args
+        )
+        starts_with_search = bool(expected_tools) and expected_tools[0] in search_tools
+        if (
+            needs_paper_state
+            and not starts_with_search
+            and not setup
+            and task.get("expected_terminal_mode") != "blocked"
+        ):
+            problems.append(
+                f"{task_id}: 使用 ref，但既没有 setup，也没有先执行搜索"
+            )
+
+        unsupported_setup = [
+            str(action.get("name") or "<missing>")
+            for action in setup
+            if str(action.get("name") or "") not in SUPPORTED_TOOL_NAMES
+        ]
+        if unsupported_setup:
+            problems.append(
+                f"{task_id}: setup 包含 rollout 不支持的工具 {unsupported_setup}"
+            )
+
+    if problems:
+        details = "\n".join(f"  - {item}" for item in problems)
+        raise SystemExit(
+            "❌ GRPO 任务数据不能在独立 Rollout 中复现初始状态。"
+            "每条 Rollout 都会重置 session；GRPO 不会执行 BenchmarkRunner 的 "
+            "depends_on 前置 Agent。请为依赖状态声明 TaskSpec.setup，或改用 "
+            "--task_set expanded 与 setup-aware 任务集。\n"
+            f"{details}"
+        )
 
 
 def _gold_completion_tokens(tokenizer, tasks) -> int:
@@ -629,6 +695,7 @@ def main(
 
     # 先验证任务与快照，再加载模型。语义标准答案损坏时应在占用显存前失败。
     tasks = _load_tasks(task_set, split)
+    _validate_grpo_task_initial_state(tasks)
     snapshot_path = Path(snapshot) if snapshot else DEFAULT_SNAPSHOT
     if not snapshot_path.exists():
         raise SystemExit(
