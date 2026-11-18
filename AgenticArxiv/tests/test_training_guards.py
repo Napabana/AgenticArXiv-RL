@@ -5,11 +5,14 @@
 """
 
 import unittest
+import json
 import argparse
+import hashlib
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from types import SimpleNamespace
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from benchmark.splits import load_split
 from benchmark.tasks import get_all_tasks
@@ -29,9 +32,14 @@ from rl.train_grpo import (
     RewardVarianceGuard,
     _build_reward_calculator,
     _load_tasks,
+    _validate_grpo_task_initial_state,
+    _validate_qwen35_sft_adapter_data_lineage,
+    main as grpo_main,
     resolve_dapo_options,
     resolve_dynamic_sampling_option,
 )
+
+
 from rl.train_sft import (
     QLORA_TARGET_MODULES,
     _assert_lora_only_trainable,
@@ -42,6 +50,69 @@ from rl.train_sft import (
     _to_prompt_completion,
     _verify_data_manifest,
 )
+
+
+class LegacyFrozenProbeLineageTest(unittest.TestCase):
+    def test_legacy_grpo_requires_positive_learning_rate(self):
+        with patch("rl.train_grpo.require_all_tools"):
+            with self.assertRaisesRegex(SystemExit, "要求正学习率"):
+                grpo_main(allow_legacy_sft_grpo=True, lr=0.0)
+
+    def test_legacy_probe_rejects_nonzero_learning_rate(self):
+        with patch("rl.train_grpo.require_all_tools"):
+            with self.assertRaisesRegex(SystemExit, "仅允许 --lr 0.0"):
+                grpo_main(allow_legacy_sft_probe=True, lr=1e-5)
+
+    def test_legacy_adapter_requires_explicit_probe_and_valid_hash(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            adapter = root / "outputs" / "sft" / "final"
+            adapter.mkdir(parents=True)
+            (adapter / "adapter_config.json").write_text(
+                json.dumps({"base_model_name_or_path": "Qwen/Qwen3.5-2B"}),
+                encoding="utf-8",
+            )
+            data = root / "data" / "legacy.jsonl"
+            data.parent.mkdir()
+            data.write_text('{}\n', encoding="utf-8")
+            data_hash = hashlib.sha256(data.read_bytes()).hexdigest()
+            Path(str(data) + ".manifest.json").write_text(
+                json.dumps({
+                    "kind": "sft_v4_multiturn",
+                    "version": 2,
+                    "output_sha256": data_hash,
+                }),
+                encoding="utf-8",
+            )
+            training_manifest = adapter.parent / "training_manifest.json"
+            training_manifest.write_text(json.dumps({
+                "data_manifest_kind": "sft_v4_multiturn",
+                "data": "data/legacy.jsonl",
+                "data_sha256": data_hash,
+            }), encoding="utf-8")
+            with patch("rl.train_grpo.REPO_ROOT", root), patch(
+                "rl.train_grpo.is_qwen35_model", return_value=True
+            ):
+                with self.assertRaisesRegex(SystemExit, "完整、chain-aware"):
+                    _validate_qwen35_sft_adapter_data_lineage(str(adapter))
+                _validate_qwen35_sft_adapter_data_lineage(
+                    str(adapter), legacy_probe=True
+                )
+                _validate_qwen35_sft_adapter_data_lineage(
+                    str(adapter), legacy_grpo=True
+                )
+                (adapter / "training_manifest.json").write_bytes(
+                    training_manifest.read_bytes()
+                )
+                training_manifest.unlink()
+                _validate_qwen35_sft_adapter_data_lineage(
+                    str(adapter), legacy_probe=True
+                )
+                data.write_text('changed\n', encoding="utf-8")
+                with self.assertRaisesRegex(SystemExit, "SHA256"):
+                    _validate_qwen35_sft_adapter_data_lineage(
+                        str(adapter), legacy_probe=True
+                    )
 
 
 class ConfigCompatibilityTest(unittest.TestCase):
@@ -759,8 +830,13 @@ class ToolRegistrationCoverageTest(unittest.TestCase):
             with self.subTest(module=module):
                 __import__(module)
 
-        register_all_tools()
-        self.assertEqual(missing_tools(), [])
+        failures = register_all_tools()
+        missing = missing_tools()
+        self.assertEqual(
+            missing,
+            [],
+            msg=f"missing tools={missing}; tool import failures={failures}",
+        )
 
     def test_entry_points_do_not_hand_list_tool_modules(self):
         """手写模块清单本身就是这个 bug 的成因，别再长回来。"""
@@ -807,46 +883,51 @@ class PpoAvailabilityTest(unittest.TestCase):
 
 
 class VerificationModelDeviceTest(unittest.TestCase):
-    """阶段验证必须在训练设备上生成。
+    """阶段验证模型应在加载阶段映射到训练设备。
 
-    `StageVerifier` 里的三个 verify_* 原本用裸 `from_pretrained` 加载产物模型，
-    模型落在 CPU；`CanaryEvaluator` 又是从参数上读设备，于是整道闸门在 CPU 上
-    做生成。1.5B 模型跑 8×256 token 要几十分钟一个阶段 —— 闸门慢到这个程度就
-    没人愿意留着它，这正是它当初被默认关掉的原因之一。
+    当前实现通过 load_text_model_and_tokenizer(device_map=...) 放置模型，
+    而不是先调用裸 from_pretrained 再执行 model.to(...)。
     """
 
     def _loaded(self, cuda: bool):
         from unittest.mock import MagicMock, patch
 
-        from rl import stage_verifier
+        from rl import precision, stage_verifier
 
         model = MagicMock()
         tokenizer = MagicMock()
         tokenizer.pad_token = None
         tokenizer.eos_token = "</s>"
 
-        with patch.object(stage_verifier.torch.cuda, "is_available", return_value=cuda), \
-             patch.object(
-                 stage_verifier.AutoModelForCausalLM, "from_pretrained", return_value=model
-             ), patch.object(
-                 stage_verifier.AutoTokenizer, "from_pretrained", return_value=tokenizer
-             ):
+        with patch.object(
+            stage_verifier.torch.cuda, "is_available", return_value=cuda
+        ), patch.object(
+            precision,
+            "trainable_model_dtype",
+            return_value=stage_verifier.torch.float32,
+        ), patch.object(
+            stage_verifier,
+            "load_text_model_and_tokenizer",
+            return_value=(model, tokenizer),
+        ) as loader:
             loaded_model, loaded_tokenizer = stage_verifier._load_verification_model(
                 "/tmp/fake-model"
             )
-        # 助手返回的是 .to() 的结果，断言要看被调用的那个对象
-        return model, loaded_model, loaded_tokenizer
 
-    def test_model_is_moved_to_the_cuda_device_when_available(self):
-        loaded, _moved, _tokenizer = self._loaded(cuda=True)
-        loaded.to.assert_called_once_with("cuda")
+        return model, loaded_model, loaded_tokenizer, loader
 
-    def test_cpu_only_environment_does_not_try_to_move(self):
-        loaded, _moved, _tokenizer = self._loaded(cuda=False)
-        loaded.to.assert_not_called()
+    def test_model_is_loaded_on_cuda_when_available(self):
+        model, loaded_model, _tokenizer, loader = self._loaded(cuda=True)
+        self.assertIs(loaded_model, model)
+        self.assertEqual(loader.call_args.kwargs.get("device_map"), {"": 0})
+
+    def test_cpu_only_environment_does_not_set_cuda_device_map(self):
+        model, loaded_model, _tokenizer, loader = self._loaded(cuda=False)
+        self.assertIs(loaded_model, model)
+        self.assertNotIn("device_map", loader.call_args.kwargs)
 
     def test_missing_pad_token_falls_back_to_eos(self):
-        _loaded, _moved, tokenizer = self._loaded(cuda=True)
+        _model, _loaded_model, tokenizer, _loader = self._loaded(cuda=True)
         self.assertEqual(tokenizer.pad_token, tokenizer.eos_token)
 
 
@@ -996,6 +1077,51 @@ class TrainingTaskSetTest(unittest.TestCase):
         first = [t["id"] for t in _load_tasks("expanded", "train")]
         self.assertEqual(first, sorted(first))
         self.assertEqual(first, [t["id"] for t in _load_tasks("expanded", "train")])
+
+
+class GrpoTaskDataPreflightTest(unittest.TestCase):
+    def test_default_smoke_pool_is_rejected_when_dependencies_are_not_seeded(self):
+        with self.assertRaisesRegex(SystemExit, "depends_on"):
+            _validate_grpo_task_initial_state(_load_tasks("default", None))
+
+    def test_expanded_pool_has_reproducible_initial_state_for_each_rollout(self):
+        _validate_grpo_task_initial_state(_load_tasks("expanded", None))
+
+    def test_qwen35_source_split_covers_all_86_expanded_tasks_once(self):
+        repo = Path(__file__).resolve().parents[2]
+        split_path = repo / "data" / "splits" / "v4_86.json"
+        payload = json.loads(split_path.read_text(encoding="utf-8"))
+        groups = payload["split"]
+        flattened = [
+            task_id
+            for name in ("train", "dev", "iid_test", "ood_test")
+            for task_id in groups[name]
+        ]
+        expected = {task["id"] for task in get_expanded_tasks()}
+        self.assertEqual(payload["task_count"], 86)
+        self.assertEqual(set(flattened), expected)
+        self.assertEqual(len(flattened), len(expected))
+
+    def test_new_translation_tasks_preserve_the_declared_iid_control(self):
+        repo = Path(__file__).resolve().parents[2]
+        payload = json.loads(
+            (repo / "data" / "splits" / "v4_86.json").read_text(encoding="utf-8")
+        )
+        train = set(payload["split"]["train"])
+        iid = set(payload["split"]["iid_test"])
+        self.assertTrue({
+            "trread_ai5_default",
+            "trread_cv5_page2",
+            "trread_ai5_null_page3",
+            "trread_cl5_default",
+        } <= train)
+        self.assertIn("trread_ro5_page2", iid)
+
+    def test_grpo_manifest_metadata_version_is_imported(self):
+        import rl.train_grpo as train_grpo
+
+        self.assertTrue(callable(train_grpo.version))
+
 
 
 if __name__ == "__main__":

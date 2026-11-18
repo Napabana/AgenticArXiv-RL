@@ -20,10 +20,12 @@ observation 插回上下文，并将完整轨迹交给 RewardCalculator 打分�
 
 import argparse
 import dataclasses
+import hashlib
 import json
 import math
 import os
 import sys
+from importlib.metadata import version
 from pathlib import Path
 from typing import Optional
 
@@ -42,7 +44,7 @@ os.environ.setdefault("STORE_BACKEND", "memory")
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 from datasets import Dataset
-from transformers import AutoModelForCausalLM, AutoTokenizer, TrainerCallback
+from transformers import AutoTokenizer, TrainerCallback
 from rl import trl_compat  # noqa: F401  (torch<2.6 时兜底 FSDPModule，须在 trl 之前)
 from trl import GRPOConfig, GRPOTrainer
 
@@ -78,9 +80,19 @@ from rl.reward import RewardCalculator
 from rl.stage_verifier import StageVerifier
 from rl.train_sft import (
     _assert_lora_only_trainable,
+    _bf16_lora_runtime_guard,
     _build_qlora_configs,
     _qlora_runtime_guard,
     _trainable_parameter_stats,
+)
+from rl.model_loading import (
+    assert_grpo_reference_adapter,
+    build_bf16_lora_config,
+    is_qwen35_model,
+    load_text_causal_lm,
+    resolve_model_revision,
+    trainable_parameter_fingerprint,
+    validate_qwen35_lora_targets,
 )
 
 DEFAULT_SNAPSHOT = REPO_ROOT / "data" / "mock_arxiv_snapshot.json"
@@ -119,6 +131,165 @@ def _load_tasks(task_set: str, split: Optional[str]):
             f"--split rl_train（{DEFAULT_SPLIT_PATH.name}）"
         )
     return tasks
+
+
+def _validate_grpo_task_initial_state(tasks):
+    """Reject task pools whose prerequisites cannot be reproduced per rollout.
+
+    GRPO creates a fresh AgenticArxivMultiTurnEnv for every sampled completion.
+    Unlike BenchmarkRunner, it does not execute TaskSpec.depends_on agents.
+    State needed by a task must therefore be declared as TaskSpec.setup, or be
+    produced by the task's own first search action.
+    """
+    search_tools = {
+        "get_recently_submitted_cs_papers",
+        "search_arxiv_papers",
+    }
+    problems = []
+    for task in tasks:
+        task_id = str(task.get("id") or "<unknown>")
+        setup = task.get("setup") or []
+        expected_tools = list(task.get("expected_tools") or [])
+        expected_args = task.get("expected_tool_args")
+        if expected_args is None or len(expected_args) != len(expected_tools):
+            problems.append(
+                f"{task_id}: expected_tools / expected_tool_args 缺失或长度不一致"
+            )
+            continue
+
+        if task.get("depends_on") and not setup:
+            problems.append(
+                f"{task_id}: depends_on={task['depends_on']}，但没有独立 rollout 所需的 setup"
+            )
+
+        needs_paper_state = any(
+            isinstance(args, dict) and "ref" in args
+            for args in expected_args
+        )
+        starts_with_search = bool(expected_tools) and expected_tools[0] in search_tools
+        if (
+            needs_paper_state
+            and not starts_with_search
+            and not setup
+            and task.get("expected_terminal_mode") != "blocked"
+        ):
+            problems.append(
+                f"{task_id}: 使用 ref，但既没有 setup，也没有先执行搜索"
+            )
+
+        unsupported_setup = [
+            str(action.get("name") or "<missing>")
+            for action in setup
+            if str(action.get("name") or "") not in SUPPORTED_TOOL_NAMES
+        ]
+        if unsupported_setup:
+            problems.append(
+                f"{task_id}: setup 包含 rollout 不支持的工具 {unsupported_setup}"
+            )
+
+    if problems:
+        details = "\n".join(f"  - {item}" for item in problems)
+        raise SystemExit(
+            "❌ GRPO 任务数据不能在独立 Rollout 中复现初始状态。"
+            "每条 Rollout 都会重置 session；GRPO 不会执行 BenchmarkRunner 的 "
+            "depends_on 前置 Agent。请为依赖状态声明 TaskSpec.setup，或改用 "
+            "--task_set expanded 与 setup-aware 任务集。\n"
+            f"{details}"
+        )
+
+
+def _validate_qwen35_sft_adapter_data_lineage(
+    model, *, legacy_probe: bool = False, legacy_grpo: bool = False
+) -> None:
+    """Fail closed if a local Qwen3.5 adapter was trained on legacy SFT data."""
+    adapter_path = Path(model)
+    adapter_config_path = adapter_path / "adapter_config.json"
+    if not adapter_path.is_dir() or not adapter_config_path.is_file():
+        return
+
+    try:
+        adapter_config = json.loads(adapter_config_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"❌ 无法读取 SFT adapter_config.json: {exc}") from exc
+
+    base_model_hint = adapter_config.get("base_model_name_or_path", "")
+    if not is_qwen35_model(str(base_model_hint)):
+        return
+
+    training_manifest_path = adapter_path / "training_manifest.json"
+    if not training_manifest_path.is_file():
+        training_manifest_path = adapter_path.parent / "training_manifest.json"
+    if not training_manifest_path.is_file():
+        raise SystemExit(
+            "❌ Qwen3.5 SFT Adapter 缺少 training_manifest.json，无法验证训练数据血缘"
+        )
+    try:
+        training_manifest = json.loads(
+            training_manifest_path.read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"❌ 无法读取 SFT training_manifest.json: {exc}") from exc
+
+    if training_manifest.get("data_manifest_kind") != "sft_v4_multiturn":
+        raise SystemExit(
+            "❌ Qwen3.5 GRPO 仅接受经过审计的 sft_v4_multiturn Adapter"
+        )
+    data_value = training_manifest.get("data")
+    if not isinstance(data_value, str) or not data_value:
+        raise SystemExit("❌ SFT training_manifest 缺少 data 路径")
+    data_path = Path(data_value)
+    if not data_path.is_absolute():
+        data_path = (REPO_ROOT / data_path).resolve()
+    data_manifest_path = Path(str(data_path) + ".manifest.json")
+    if not data_path.is_file() or not data_manifest_path.is_file():
+        raise SystemExit(
+            "❌ 无法找到 SFT 训练数据或其 Manifest；拒绝使用无法审计的 Adapter: "
+            f"{data_path}"
+        )
+
+    digest = hashlib.sha256()
+    with data_path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    actual_data_hash = digest.hexdigest()
+    expected_data_hash = training_manifest.get("data_sha256")
+    if actual_data_hash != expected_data_hash:
+        raise SystemExit(
+            "❌ SFT Adapter 的训练数据 SHA256 与 training_manifest 不一致"
+        )
+
+    try:
+        data_manifest = json.loads(data_manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"❌ 无法读取 SFT data Manifest: {exc}") from exc
+    if legacy_probe or legacy_grpo:
+        if (
+            data_manifest.get("kind") != "sft_v4_multiturn"
+            or data_manifest.get("output_sha256") != actual_data_hash
+        ):
+            raise SystemExit("❌ 旧版 SFT data Manifest 类型或 SHA256 不匹配")
+        stage = "冻结探测" if legacy_probe else "GRPO 训练"
+        print(f"⚠️  {stage}使用旧版 SFT Adapter；结果必须标记旧版数据血缘")
+        return
+    summary = data_manifest.get("summary") or {}
+    transformation = data_manifest.get("transformation") or {}
+    if (
+        data_manifest.get("kind") != "sft_v4_multiturn"
+        or data_manifest.get("version") != 3
+        or transformation.get("chain_filter_policy")
+        != "drop_entire_chain_if_any_row_exceeds_max_length"
+        or data_manifest.get("output_sha256") != actual_data_hash
+        or summary.get("truncated_chains") != 0
+        or summary.get("source_truncated_chains_reported") != 0
+        or summary.get("completed_chains") != summary.get("chains")
+        or summary.get("failure_counts") != {}
+        or summary.get("unique_chain_ids") != summary.get("chains")
+    ):
+        raise SystemExit(
+            "❌ Qwen3.5 SFT Adapter 不是基于完整、chain-aware 的 SFT v4 数据训练的。"
+            "请先用 builder v2 重建源数据、用整链过滤器生成 Manifest v3，"
+            "再重新训练 Adapter。"
+        )
 
 
 def _gold_completion_tokens(tokenizer, tasks) -> int:
@@ -176,7 +347,9 @@ def _load_policy(
     model_path: str,
     *,
     qlora: bool,
+    bf16_lora: bool,
     base_model: Optional[str],
+    model_revision: Optional[str],
     lora_r: int,
     lora_alpha: int,
     lora_dropout: float,
@@ -194,10 +367,70 @@ def _load_policy(
     )
     from utils.llm_client import _is_vlm_model_path
 
-    is_vlm = _is_vlm_model_path(str(arch_model))
+    is_qwen35 = is_qwen35_model(str(arch_model), revision=model_revision)
+    is_vlm = _is_vlm_model_path(str(arch_model)) and not is_qwen35
+    if qlora and bf16_lora:
+        raise SystemExit("❌ --qlora 与 --bf16_lora 互斥")
+    if is_qwen35 and qlora:
+        raise SystemExit(
+            "❌ Qwen3.5 第一版不使用 4-bit QLoRA；请传 --no-qlora --bf16_lora"
+        )
+    if is_qwen35 and not bf16_lora:
+        raise SystemExit(
+            "❌ Qwen3.5 GRPO 必须使用 --no-qlora --bf16_lora，拒绝全参数微调路径"
+        )
     if is_vlm and qlora:
         print("⚠️ VLM 策略在 DCU 上没有可用的 bitsandbytes（das 构建），改走 bf16 LoRA")
         qlora = False
+    if bf16_lora:
+        _bf16_lora_runtime_guard()
+        from peft import PeftModel, get_peft_model
+
+        source = _adapter_base_model(local, base_model) if is_adapter else (
+            str(Path(base_model).resolve()) if base_model and Path(base_model).exists()
+            else base_model or model_path
+        )
+        source_path = Path(source)
+        print(
+            "🪶 GRPO BF16 LoRA: full BF16 text backbone\n"
+            f"   base={source}\n"
+            f"   adapter={model_path if is_adapter else '(new)'}"
+        )
+        torch.cuda.empty_cache()
+        torch.cuda.reset_peak_memory_stats()
+        base = load_text_causal_lm(
+            source,
+            revision=model_revision,
+            dtype=torch.bfloat16,
+            device_map={"": 0},
+            low_cpu_mem_usage=True,
+            local_files_only=source_path.exists(),
+        )
+        if is_adapter:
+            policy = PeftModel.from_pretrained(base, model_path, is_trainable=True)
+            if is_qwen35:
+                active_config = next(iter(policy.peft_config.values()))
+                validate_qwen35_lora_targets(active_config.target_modules)
+        else:
+            fresh_lora, targets = build_bf16_lora_config(
+                base,
+                r=lora_r,
+                alpha=lora_alpha,
+                dropout=lora_dropout,
+                require_qwen35_coverage=is_qwen35,
+            )
+            policy = get_peft_model(base, fresh_lora)
+            print(f"🎯 BF16 LoRA target modules: {len(targets)}")
+        policy.config.use_cache = False
+        trainable, total, ratio = _assert_lora_only_trainable(
+            policy, require_4bit=False
+        )
+        print(
+            f"🔧 参数统计: trainable={trainable:,}, model_parameters={total:,}, "
+            f"trainable_ratio={ratio:.4f}%"
+        )
+        return policy
+
     if not qlora:
         if is_vlm:
             # 27B 级 VLM 单卡装不下，双卡 device_map；LoRA 目标必须含视觉-语言投影层
@@ -235,8 +468,8 @@ def _load_policy(
             return policy
         print("⚠️  --no-qlora：加载完整精度策略，不属于单张4090冻结方案")
         print("⚠️  --no-qlora：加载完整精度策略，不属于单张4090冻结方案")
-        policy = AutoModelForCausalLM.from_pretrained(
-            model_path, local_files_only=local.exists()
+        policy = load_text_causal_lm(
+            model_path, revision=model_revision, local_files_only=local.exists()
         )
         policy.config.use_cache = False
         return policy
@@ -259,12 +492,13 @@ def _load_policy(
     )
     torch.cuda.empty_cache()
     torch.cuda.reset_peak_memory_stats()
-    base = AutoModelForCausalLM.from_pretrained(
+    base = load_text_causal_lm(
         source,
         quantization_config=quantization,
         device_map={"": 0},
         dtype=torch.bfloat16,
         low_cpu_mem_usage=True,
+        revision=model_revision,
         local_files_only=source_path.exists(),
     )
     base = prepare_model_for_kbit_training(
@@ -319,6 +553,8 @@ class RewardVarianceGuard(TrainerCallback):
         dead = (frac is not None and float(frac) >= 1.0) or (
             frac is None and std is not None and float(std) == 0.0
         )
+        if float(logs.get("step_credit/progress_signal_fraction", 0.0)) > 0.0:
+            dead = False
         if not dead:
             self.streak = 0
             self.ceiling_streak = 0
@@ -421,6 +657,7 @@ def resolve_dynamic_sampling_option(
 
 def main(
     model: str = "outputs/dpo/final",
+    model_revision: str = None,
     output_dir: str = "outputs/grpo",
     epochs: int = 1,
     max_steps: int = -1,
@@ -443,11 +680,16 @@ def main(
     dynamic_sampling: bool = None,
     dynamic_sampling_std_threshold: float = 0.0,
     dynamic_sampling_max_resamples: int = 32,
+    step_credit: str = "off",
+    step_credit_weight: float = 0.5,
+    step_credit_beta: float = 1.0,
     seed: int = 42,
     snapshot: str = None,
     task_set: str = "default",
     split: str = None,
     allow_zero_variance: bool = False,
+    allow_legacy_sft_probe: bool = False,
+    allow_legacy_sft_grpo: bool = False,
     canary_steps: int = 50,
     min_canary_reward: float = -1.0,
     canary_patience: int = 3,
@@ -455,12 +697,13 @@ def main(
     report_to: str = "none",
     run_name: str = None,
     qlora: bool = True,
+    bf16_lora: bool = False,
     base_model: str = None,
     lora_r: int = 16,
     lora_alpha: int = 32,
     lora_dropout: float = 0.05,
     gradient_checkpointing: bool = True,
-    optim: str = "paged_adamw_8bit",
+    optim: str = None,
     save_steps: int = 0,
     save_total_limit: int = 2,
     resume_from_checkpoint: str = None,
@@ -485,6 +728,16 @@ def main(
     dynamic_sampling = resolve_dynamic_sampling_option(
         dapo=dapo, dynamic_sampling=dynamic_sampling
     )
+    if step_credit not in {"off", "reward", "progress"}:
+        raise SystemExit("❌ step_credit must be off, reward, or progress")
+    if not math.isfinite(step_credit_weight) or not 0 <= step_credit_weight <= 1:
+        raise SystemExit("❌ step_credit_weight must be in [0, 1]")
+    if not math.isfinite(step_credit_beta) or step_credit_beta < 0:
+        raise SystemExit("❌ step_credit_beta must be finite and nonnegative")
+    if step_credit != "off" and int(os.getenv("WORLD_SIZE", "1")) > 1:
+        raise SystemExit("❌ Step Credit v1 only supports single-process training")
+    if step_credit != "off" and num_generations != 4:
+        raise SystemExit("❌ Step Credit Qwen3.5 experiment requires num_generations=4")
     if dapo:
         print(
             f"🧬 DAPO 预设: loss_type={loss_type}, epsilon_high={epsilon_high}, "
@@ -507,6 +760,10 @@ def main(
             raise SystemExit(f"❌ {exc}") from exc
     if rollout_trace_max_samples < 0:
         raise SystemExit("❌ rollout_trace_max_samples 不能为负数")
+    if allow_legacy_sft_probe and lr != 0.0:
+        raise SystemExit("❌ 旧版 SFT Adapter 仅允许 --lr 0.0 冻结探测")
+    if allow_legacy_sft_grpo and lr <= 0.0:
+        raise SystemExit("❌ --allow_legacy_sft_grpo 要求正学习率")
     if save_steps < 0:
         raise SystemExit("❌ save_steps 不能为负数")
     if save_steps > 0 and save_total_limit < 1:
@@ -532,14 +789,25 @@ def main(
             f"请先运行 train_sft / train_dpo，或用 --model 指定其它检查点"
         )
 
+    model_is_qwen35 = is_qwen35_model(resolved, revision=model_revision)
+    _validate_qwen35_sft_adapter_data_lineage(
+        resolved, legacy_probe=allow_legacy_sft_probe,
+        legacy_grpo=allow_legacy_sft_grpo,
+    )
+    model_revision = resolve_model_revision(
+        resolved, revision=model_revision
+    )
+
     # 先验证任务与快照，再加载模型。语义标准答案损坏时应在占用显存前失败。
     tasks = _load_tasks(task_set, split)
+    _validate_grpo_task_initial_state(tasks)
     snapshot_path = Path(snapshot) if snapshot else DEFAULT_SNAPSHOT
     if not snapshot_path.exists():
         raise SystemExit(
             f"❌ 多轮 GRPO 需要离线快照 {snapshot_path}\n"
             "   请先运行: python -m AgenticArxiv.rl.build_snapshot"
         )
+    #这里附加语义标准答案 用于reward验证
     tasks = attach_expected_paper_ids(tasks, snapshot_path)
     required_turns = max((len(t.get("expected_tools") or []) + 1 for t in tasks), default=1)
     if max_turns < required_turns:
@@ -592,15 +860,19 @@ def main(
     print(f"📚 任务数: {len(tasks)}（GRPO 为在线算法，无需预生成轨迹数据）")
 
     print(f"📦 加载 tokenizer: {resolved}")
-    tokenizer = AutoTokenizer.from_pretrained(
-        resolved, local_files_only=Path(resolved).exists()
-    )
+    tokenizer_kwargs = {"local_files_only": Path(resolved).exists()}
+    if model_revision:
+        tokenizer_kwargs["revision"] = model_revision
+    tokenizer = AutoTokenizer.from_pretrained(resolved, **tokenizer_kwargs)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "left"
     policy = _load_policy(
         resolved,
         qlora=qlora,
+        bf16_lora=bf16_lora,
         base_model=base_model,
+        model_revision=model_revision,
         lora_r=lora_r,
         lora_alpha=lora_alpha,
         lora_dropout=lora_dropout,
@@ -676,12 +948,22 @@ def main(
             f"(保存上限={limit_text})"
         )
     tasks_by_id = {t["id"]: t for t in tasks}
+    credit_collector = None
+    if step_credit != "off":
+        from rl.step_credit import StepCreditCollector
+
+        credit_collector = StepCreditCollector(
+            tasks_by_id, num_generations,
+            use_progress=step_credit == "progress", beta=step_credit_beta,
+            scale=scale_rewards or "group",
+        )
     reward_fn = make_grpo_reward_fn(
         tasks_by_id,
         env=None,
         reward_calc=reward_calc,
         tracker=tracker,
         auditor=auditor,
+        step_credit=credit_collector,
     )
     rollout_func = make_multiturn_rollout_func(
         environment_factory,
@@ -719,6 +1001,9 @@ def main(
         batch_size = num_generations
         print(f"  调整 per_device_train_batch_size = {batch_size}（需被 num_generations 整除）")
 
+    resolved_optim = optim or ("paged_adamw_8bit" if qlora else "adamw_torch_fused")
+    print(f"⚙️  GRPO optimizer: {resolved_optim}")
+
     cfg_kwargs = {
         "output_dir": str(REPO_ROOT / output_dir),
         "num_train_epochs": epochs,
@@ -734,6 +1019,7 @@ def main(
         "num_generations": num_generations,
         "max_completion_length": max_completion_length,
         "temperature": temperature,
+        "chat_template_kwargs": {"enable_thinking": False} if model_is_qwen35 else {},
         "seed": seed,
         "data_seed": seed,
         "logging_steps": 1,
@@ -741,7 +1027,7 @@ def main(
         "save_strategy": "steps" if save_steps > 0 else "no",
         "save_steps": save_steps if save_steps > 0 else 500,
         "save_total_limit": save_total_limit,
-        "optim": optim if qlora else "adamw_torch_fused",
+        "optim": resolved_optim,
         "gradient_checkpointing": gradient_checkpointing,
         "gradient_checkpointing_kwargs": (
             {"use_reentrant": False} if gradient_checkpointing else None
@@ -777,10 +1063,24 @@ def main(
     # GRPOConfig 的字段在 TRL 各版本间有增删，按实际安装版本过滤，
     # 避免因为一个参数名不存在就整个训练起不来
     valid = {f.name for f in dataclasses.fields(GRPOConfig)}
+    if "logging_dir" in valid:
+        cfg_kwargs["logging_dir"] = logging_dir
+    if model_is_qwen35 and "chat_template_kwargs" not in valid:
+        raise SystemExit(
+            "❌ 当前 TRL 的 GRPOConfig 不支持 chat_template_kwargs；"
+            "请使用 requirements-qwen35.txt 中锁定的 TRL 版本"
+        )
     dropped = sorted(k for k in cfg_kwargs if k not in valid)
     if dropped:
         print(f"  提示：当前 TRL 不支持这些 GRPOConfig 参数，已忽略 -> {dropped}")
     config = GRPOConfig(**{k: v for k, v in cfg_kwargs.items() if k in valid})
+    if "logging_dir" not in valid:
+        config.logging_dir = logging_dir
+    if (
+        "tensorboard" in backends
+        and Path(config.logging_dir).resolve() != Path(logging_dir).resolve()
+    ):
+        raise SystemExit("❌ TensorBoard 日志目录与本次输出目录不一致")
 
     # 单进程时钉住单卡（避免 Trainer 走 DataParallel 的段错误）；
     # accelerate launch 下 accelerator 自己管设备，这里自动跳过。
@@ -791,18 +1091,46 @@ def main(
 
     print(describe_logging(backends, logging_dir if backends else None))
     print(f"🚀 开始 GRPO 训练（每个 prompt 采样 {num_generations} 条，规则奖励）")
-    trainer = GRPOTrainer(
+    trainer_class = GRPOTrainer
+    trainer_extra = {}
+    if credit_collector is not None:
+        from rl.step_credit_trainer import StepCreditGRPOTrainer
+
+        trainer_class = StepCreditGRPOTrainer
+        trainer_extra = {
+            "step_credit_collector": credit_collector,
+            "step_credit_weight": step_credit_weight,
+        }
+    trainer = trainer_class(
         model=policy,
         reward_funcs=reward_fn,
         args=config,
         train_dataset=train_dataset,
         processing_class=tokenizer,
         rollout_func=rollout_func,
+        **trainer_extra,
     )
+    if model_is_qwen35 and bf16_lora:
+        reference_model = trainer.accelerator.unwrap_model(trainer.model)
+        reference_report = assert_grpo_reference_adapter(
+            reference_model, beta=float(config.beta)
+        )
+        if reference_report["required"]:
+            print(
+                "🧷 GRPO reference adapter verified: "
+                f"policy={reference_report['active_policy_adapter']}, "
+                f"reference={reference_report['reference_adapter']}, "
+                f"tensors={reference_report['matched_parameter_tensors']}, "
+                f"frozen={reference_report['reference_frozen']}"
+            )
     # 必须在 trainer 建好之后接线。即使 report_to=none，TRL 仍会把 _metrics
     # 汇总到控制台；report_to 只控制是否转发到 TensorBoard/wandb，不应决定
     # 是否采集指标。此前的条件绑定还会让 _pending 在长训练中持续增长。
     tracker.bind(trainer)
+    adapter_fingerprint_before = (
+        trainable_parameter_fingerprint(trainer.model)
+        if qlora or bf16_lora else None
+    )
 
     # --- Canary 回调：每 N 步在固定任务上评估，检测性能退化 ---
     canary_cb = None
@@ -871,16 +1199,35 @@ def main(
     final_dir = REPO_ROOT / output_dir / "final"
     trainer.save_model(str(final_dir))
     tokenizer.save_pretrained(str(final_dir))
-    if qlora:
+    if qlora or bf16_lora:
         required_adapter_files = (
             final_dir / "adapter_config.json",
             final_dir / "adapter_model.safetensors",
         )
         missing = [str(path) for path in required_adapter_files if not path.exists()]
         if missing:
-            raise SystemExit(f"❌ GRPO完成但adapter文件缺失: {missing}")
+            method = "QLoRA" if qlora else "BF16 LoRA"
+            raise SystemExit(f"❌ GRPO完成但{method} adapter文件缺失: {missing}")
     import torch
     actual_steps = int(getattr(trainer.state, "global_step", 0) or 0)
+    adapter_fingerprint_after = (
+        trainable_parameter_fingerprint(trainer.model)
+        if qlora or bf16_lora else None
+    )
+    adapter_updated = (
+        adapter_fingerprint_before != adapter_fingerprint_after
+        if adapter_fingerprint_before is not None else None
+    )
+    if (
+        (qlora or bf16_lora)
+        and lr > 0
+        and actual_steps > 0
+        and not adapter_updated
+    ):
+        raise SystemExit(
+            "❌ GRPO 已完成 optimizer step，但 Adapter 参数没有变化；"
+            "检查 reward variance、advantage、梯度和学习率"
+        )
     stopped_early = max_steps > 0 and actual_steps < max_steps
     if guard is not None and guard.converged:
         stop_reason = "reward_variance_window_saturated"
@@ -890,8 +1237,44 @@ def main(
         stop_reason = "trainer_stopped_early"
     else:
         stop_reason = "max_steps_or_epochs_completed"
+    peft_configs = getattr(trainer.model, "peft_config", {}) or {}
+    active_peft_config = next(iter(peft_configs.values()), None) if isinstance(peft_configs, dict) else None
+    raw_target_modules = getattr(active_peft_config, "target_modules", []) or []
+    if isinstance(raw_target_modules, (set, tuple)):
+        lora_target_modules = sorted(str(x) for x in raw_target_modules)
+    elif isinstance(raw_target_modules, list):
+        lora_target_modules = [str(x) for x in raw_target_modules]
+    else:
+        lora_target_modules = [str(raw_target_modules)] if raw_target_modules else []
+
     manifest = {
-        "stage": "grpo_qlora" if qlora else "grpo_full",
+        "stage": "grpo_qlora" if qlora else "grpo_bf16_lora" if bf16_lora else "grpo_full",
+        "training_method": "qlora" if qlora else "bf16_lora" if bf16_lora else "full_finetune",
+        "model_type": "qwen3_5" if model_is_qwen35 else "auto",
+        "model_revision": model_revision,
+        "tokenizer_revision": getattr(tokenizer, "init_kwargs", {}).get("_commit_hash"),
+        "model_class": "Qwen3_5ForCausalLM" if model_is_qwen35 else "AutoModelForCausalLM",
+        "weight_dtype": "bfloat16" if qlora or bf16_lora else "checkpoint_default",
+        "lora": {
+            "enabled": qlora or bf16_lora,
+            "method": "qlora" if qlora else "bf16_lora" if bf16_lora else None,
+            "r": lora_r if qlora or bf16_lora else None,
+            "alpha": lora_alpha if qlora or bf16_lora else None,
+            "dropout": lora_dropout if qlora or bf16_lora else None,
+            "target_modules": lora_target_modules,
+        },
+        "versions": {
+            package: version(package)
+            for package in (
+                "torch", "transformers", "trl", "accelerate", "datasets",
+                "huggingface_hub", "tokenizers", "safetensors", "peft", "bitsandbytes",
+            )
+            if (
+                package not in ("peft", "bitsandbytes")
+                or (package == "peft" and (qlora or bf16_lora))
+                or (package == "bitsandbytes" and qlora)
+            )
+        },
         "source_model": resolved,
         "base_model": base_model,
         "task_set": task_set,
@@ -912,10 +1295,35 @@ def main(
             "max_resample_attempts": dynamic_sampling_max_resamples,
             "single_process_only": True,
         },
+        "step_credit": {
+            "enabled": credit_collector is not None,
+            "mode": step_credit,
+            "weight": step_credit_weight,
+            "beta": step_credit_beta,
+            "algorithm": "prefix_tree_step_credit" if credit_collector is not None else None,
+            "trainer": type(trainer).__name__,
+            "trl_version": version("trl"),
+            "single_process": trainer.accelerator.num_processes == 1,
+            "truncated_group_fraction": (
+                trainer.step_credit_counts["truncated"] / trainer.step_credit_counts["groups"]
+                if credit_collector is not None and trainer.step_credit_counts["groups"] else 0.0
+            ),
+            "max_conservation_error": (
+                trainer.step_credit_max_conservation_error if credit_collector is not None else 0.0
+            ),
+            "mode_fractions": (
+                {mode: trainer.step_credit_counts[mode] / trainer.step_credit_counts["groups"]
+                 for mode in ("reward", "progress", "none")}
+                if credit_collector is not None and trainer.step_credit_counts["groups"]
+                else {mode: 0.0 for mode in ("reward", "progress", "none")}
+            ),
+        },
         "batch_size": batch_size,
         "gradient_accumulation_steps": grad_accum,
         "temperature": temperature,
         "frozen_policy_probe": lr == 0.0,
+        "legacy_sft_probe": allow_legacy_sft_probe,
+        "legacy_sft_grpo": allow_legacy_sft_grpo,
         "max_steps": max_steps,
         "requested_max_steps": max_steps,
         "actual_steps": actual_steps,
@@ -956,6 +1364,13 @@ def main(
         "peak_vram_gib": (
             torch.cuda.max_memory_allocated() / 2**30 if torch.cuda.is_available() else 0.0
         ),
+        "adapter_updated": adapter_updated,
+        "adapter_fingerprint_before": (
+            adapter_fingerprint_before[:16] if adapter_fingerprint_before else None
+        ),
+        "adapter_fingerprint_after": (
+            adapter_fingerprint_after[:16] if adapter_fingerprint_after else None
+        ),
     }
     trainable, model_parameters, trainable_ratio = _trainable_parameter_stats(trainer.model)
     manifest.update({
@@ -992,6 +1407,7 @@ def main(
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description="GRPO 训练")
     p.add_argument("--model", default="outputs/dpo/final")
+    p.add_argument("--model_revision", default=None)
     p.add_argument("--output_dir", default="outputs/grpo")
     p.add_argument("--epochs", type=int, default=1)
     p.add_argument("--max_steps", type=int, default=-1)
@@ -1009,6 +1425,14 @@ if __name__ == "__main__":
         "--allow_zero_variance", action="store_true",
         help="跳过「组内奖励方差为 0」检查。默认开启该检查：方差为 0 时"
              "GRPO 不产生任何梯度，训练会静默空转",
+    )
+    p.add_argument(
+        "--allow_legacy_sft_probe", action="store_true",
+        help="仅在 --lr 0.0 的冻结诊断中允许有旧版数据血缘的 SFT Adapter",
+    )
+    p.add_argument(
+        "--allow_legacy_sft_grpo", action="store_true",
+        help="显式允许从旧版 SFT Adapter 训练 GRPO，并在 Manifest 中标记旧血缘",
     )
     p.add_argument("--max_completion_length", type=int, default=256)
     p.add_argument(
@@ -1072,13 +1496,20 @@ if __name__ == "__main__":
         default=32,
         help="单个 generation batch 最多补采多少个新 prompt；耗尽时明确失败",
     )
+    p.add_argument("--step_credit", choices=["off", "reward", "progress"], default="off")
+    p.add_argument("--step_credit_weight", type=float, default=0.5)
+    p.add_argument("--step_credit_beta", type=float, default=1.0)
     p.add_argument(
         "--seed", type=int, default=42,
         help="训练与 rollout 采样种子；对比两个策略的原始轨迹时必须保持一致",
     )
     p.add_argument(
         "--qlora", action=argparse.BooleanOptionalAction, default=True,
-        help="使用4-bit QLoRA继续训练SFT adapter（单4090默认方案）",
+        help="使用4-bit QLoRA；Qwen3.5 不使用该模式",
+    )
+    p.add_argument(
+        "--bf16_lora", action="store_true",
+        help="显式启用 BF16 LoRA（Qwen3.5 推荐）；需同时传 --no-qlora",
     )
     p.add_argument(
         "--base_model", default=None,
@@ -1090,7 +1521,7 @@ if __name__ == "__main__":
     p.add_argument(
         "--gradient_checkpointing", action=argparse.BooleanOptionalAction, default=True,
     )
-    p.add_argument("--optim", default="paged_adamw_8bit")
+    p.add_argument("--optim", default=None)
     p.add_argument(
         "--save_steps", type=int, default=0,
         help="每隔多少个 optimizer step 保存可恢复 checkpoint；0 表示只保存最终模型",

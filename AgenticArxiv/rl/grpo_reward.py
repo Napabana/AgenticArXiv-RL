@@ -29,6 +29,7 @@ from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence
 
 from benchmark.metrics import NON_TOOL_ACTIONS
 from rl.reward import RewardCalculator
+from rl.model_loading import apply_non_thinking_chat_template
 
 # 与 agents/agent_engine.py 的解析规则保持一致
 _THOUGHT_RE = re.compile(r"Thought:\s*(.*?)(?=\nAction:|$)", re.DOTALL)
@@ -363,6 +364,7 @@ def make_grpo_reward_fn(
     reward_calc: Optional[RewardCalculator] = None,
     tracker: Any = None,
     auditor: Any = None,
+    step_credit: Any = None,
 ) -> Callable[..., List[float]]:
     """构造 TRL GRPOTrainer 用的 reward function。
 
@@ -436,6 +438,8 @@ def make_grpo_reward_fn(
                 rewards=rewards,
                 training_step=step,
             )
+        if step_credit is not None:
+            step_credit.record_batch(ids, resolved_trajectories, rewards)
         return rewards
 
     grpo_reward_fn.__name__ = "grpo_reward_fn"
@@ -467,6 +471,52 @@ def require_rollout_func_support() -> None:
         )
 
 
+
+def _generate_single_turn_compat(trainer, prompt_ids):
+    """Call TRL's private single-turn generator across supported API versions.
+
+    TRL 1.x adds a required num_generations argument. Prompts passed to the
+    custom rollout are already expanded by GRPOTrainer, so each row must
+    generate exactly one completion here.
+    """
+    import inspect
+
+    signature = inspect.signature(trainer._generate_single_turn)
+    kwargs = (
+        {"num_generations": 1}
+        if "num_generations" in signature.parameters
+        else {}
+    )
+    result = trainer._generate_single_turn(
+        prompt_ids,
+        None,
+        {},
+        **kwargs,
+    )
+    if not isinstance(result, tuple) or len(result) != 3:
+        raise RuntimeError(
+            "Unsupported TRL _generate_single_turn return contract: "
+            f"expected a 3-tuple, got {type(result).__name__}"
+        )
+    return result
+
+
+
+def _trainer_max_completion_length(trainer) -> int:
+    """Read the completion budget across TRL releases."""
+    value = getattr(trainer, "max_completion_length", None)
+    if value is None:
+        value = getattr(getattr(trainer, "args", None), "max_completion_length", None)
+    if value is None:
+        raise RuntimeError(
+            "Cannot resolve max_completion_length from TRL trainer or trainer.args"
+        )
+    value = int(value)
+    if value <= 0:
+        raise ValueError(f"max_completion_length must be positive, got {value}")
+    return value
+
+
 def make_multiturn_rollout_func(
     environment_factory,
     max_turns: int = 4,
@@ -488,6 +538,7 @@ def make_multiturn_rollout_func(
         import copy
 
         tokenizer = trainer.processing_class
+        max_completion_length = _trainer_max_completion_length(trainer)
         # 不要再按 num_generations 展开：TRL 交进来的 prompts 已经是重复过的
         # （num_generations=2 时收到的是 2 条一模一样的 prompt）。再展开一次会让
         # 返回条数变成 N*G*G，与 TRL 期望的 N*G 对不上，在 shuffle_sequence_dict
@@ -510,8 +561,11 @@ def make_multiturn_rollout_func(
             if isinstance(prompt, list):
                 # transformers>=5 的 apply_chat_template(tokenize=True) 返回
                 # BatchEncoding（含 "input_ids" 键），旧版返回纯 int 列表；统一取 token 序列。
-                encoded = tokenizer.apply_chat_template(
-                    prompt, tokenize=True, add_generation_prompt=True,
+                encoded = apply_non_thinking_chat_template(
+                    tokenizer,
+                    prompt,
+                    tokenize=True,
+                    add_generation_prompt=True,
                 )
                 if "input_ids" in encoded:
                     ids = encoded["input_ids"]
@@ -521,11 +575,13 @@ def make_multiturn_rollout_func(
                 ids = tokenizer(prompt)["input_ids"]
             prompt_ids.append(list(ids))
 
+        # 每条 Rollout 都要隔离环境状态
         environments = [environment_factory() for _ in expanded_prompts]
         applied_setups = []
         trajectory_results = []
         completion_ids = [[] for _ in expanded_prompts]
         env_masks = [[] for _ in expanded_prompts]
+        turn_spans = [[] for _ in expanded_prompts]
         histories = [[] for _ in expanded_prompts]
         raw_assistant_turns = [[] for _ in expanded_prompts]
         active = list(range(len(expanded_prompts)))
@@ -543,18 +599,20 @@ def make_multiturn_rollout_func(
         for _turn in range(max_turns):
             if not active:
                 break
-            remaining = [trainer.max_completion_length - len(completion_ids[i]) for i in active]
+            remaining = [max_completion_length - len(completion_ids[i]) for i in active]
             keep = [(i, r) for i, r in zip(active, remaining) if r > 0]
             if not keep:
                 break
             active = [i for i, _ in keep]
 
-            turn_ids, _, _ = trainer._generate_single_turn(
-                [full_ids[i] for i in active], None, {}
+            # 调用当前 Policy 生成一个 Assistant Turn
+            turn_ids, _, _ = _generate_single_turn_compat(
+                trainer, [full_ids[i] for i in active]
             )
             next_active = []
             for batch_index, index in enumerate(active):
-                budget = trainer.max_completion_length - len(completion_ids[index])
+                budget = max_completion_length - len(completion_ids[index])
+                span_start = len(completion_ids[index])
                 # turn_ids 是 TRL 返回的完成 token；可能是 tensor，统一转成 int 列表，
                 # 否则下一轮拼进 full_ids 后 torch.tensor() 无法处理
                 generated = [int(t) for t in turn_ids[batch_index]]
@@ -580,7 +638,8 @@ def make_multiturn_rollout_func(
                         env_masks[index].append(1)
                 completion_ids[index].extend(generated)
                 env_masks[index].extend([1] * len(generated))
-
+                turn_spans[index].append((span_start, len(completion_ids[index])))
+                #解析模型的三次输出
                 kind, action = parse_react_action(text)
                 thought = _thought_of(text)
                 if kind == "finish":
@@ -615,20 +674,21 @@ def make_multiturn_rollout_func(
                     # Character-bounded view, before token-budget clipping.
                     "model_observation": observation,
                 })
+                # 将 Observation 插入模型上下文
                 suffix = f"\nObservation: {observation}\nThought:"
                 suffix_ids = tokenizer(suffix, add_special_tokens=False)["input_ids"]
-                suffix_ids = list(suffix_ids)[: max(0, trainer.max_completion_length - len(completion_ids[index]))]
+                suffix_ids = list(suffix_ids)[: max(0, max_completion_length - len(completion_ids[index]))]
                 completion_ids[index].extend(suffix_ids)
                 env_masks[index].extend([0] * len(suffix_ids))
                 full_ids[index] = prompt_ids[index] + completion_ids[index]
-                if len(completion_ids[index]) < trainer.max_completion_length:
+                if len(completion_ids[index]) < max_completion_length:
                     next_active.append(index)
             active = next_active
 
         for index, history in enumerate(histories):
             last_action = str(history[-1].get("action") or "") if history else ""
             clipped = (
-                len(completion_ids[index]) >= trainer.max_completion_length
+                len(completion_ids[index]) >= max_completion_length
                 and last_action != "FINISH"
             )
             trajectory_results.append({
@@ -640,6 +700,7 @@ def make_multiturn_rollout_func(
                 },
                 "iteration_count": len(history),
                 "raw_assistant_turns": raw_assistant_turns[index],
+                "turn_token_spans": turn_spans[index],
                 "task_id": rollout_task_ids[index],
                 "setup_actions": applied_setups[index],
                 "clipped": clipped,
