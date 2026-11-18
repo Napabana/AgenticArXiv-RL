@@ -6,11 +6,38 @@
 
 | 阶段 | 输入与训练 | 环境 | 核验结果 |
 |---|---|---|---|
-| SFT | Qwen3.5-2B；旧版 `sft_v4_multiturn_6144.jsonl`，2,496 行、1,032 条链；BF16 LoRA，2 epoch | 魔塔 A10 24GB | 624 步，最终训练均值 loss 0.0816，adapter 已更新；A10 峰值显存 19.1 GiB |
-| GRPO | 以上 SFT adapter；39 个 `rl_train` 任务，4 个 generation/prompt，`lr=5e-6`，`reward_curriculum_steps=0`；4090 BF16 LoRA | 4090 24GB | 从 checkpoint-120 恢复后完成 312 步，adapter 已更新；峰值显存 16.4 GiB |
+| SFT | Qwen3.5-2B；旧版 `sft_v4_multiturn_6144.jsonl`，2,496 行、1,032 条链；BF16 LoRA，2 epoch | 魔塔 A10 24GB | 624 步，最终训练均值 loss 0.0816，adapter 已更新；该进程 PyTorch 分配峰值 19.1 GiB |
+| GRPO | 以上 SFT adapter；39 个 `rl_train` 任务，4 个 generation/prompt，`lr=5e-6`，`reward_curriculum_steps=0`；4090 BF16 LoRA | 4090 24GB | 从 checkpoint-120 恢复后完成 312 步，adapter 已更新；恢复进程 PyTorch 分配峰值 16.38 GiB，首次运行峰值未留存 |
 | 评测 | Base / SFT / GRPO，共用 Snapshot、`v7_86` 切分、seed 42、每任务 3 次、离线 regex agent |  | dev 8、IID 19、OOD 4 个任务，共 31 个留出任务、每模型 93 次运行；九份汇总均为 0 执行错误 |
 
-GRPO 是**常规 GRPO 目标 + 动态采样**：manifest 中 `dapo=false`、`loss_type=null`、`beta=0.04`。训练使用当时仓库的规则奖励实现：Format/Tool/Argument/Process/Outcome 权重为 `1:3:2:1:3`，`result_quality`、`efficiency` 作为诊断分量且可触发严重失败的奖励上限；没有自定义权重配置。`reward_curriculum_steps=0` 表示全程使用完整权重。动态采样仅接受组内奖励标准差大于零的组，**不改奖励公式**。第一次运行在第 121 步耗尽 32 次重采样预算；从第 120 步 checkpoint 以 64 次预算恢复并完成。两个 TensorBoard event 在第 121 步重叠，图中取恢复运行的记录，并与最终 `trainer_state.json` 的 312 步逐项核对。GRPO 图中的灰色虚线标记恢复点，SFT 图中的虚线标记 epoch 边界。
+GRPO 是**常规 GRPO 目标 + 动态采样**：manifest 中 `dapo=false`、`loss_type=null`、`beta=0.04`。训练使用当时仓库的规则奖励实现：Format/Tool/Argument/Process/Outcome 权重为 `1:3:2:1:3`，`result_quality`、`efficiency` 作为诊断分量且可触发严重失败的奖励上限；没有自定义权重配置。`reward_curriculum_steps=0` 表示全程使用完整权重。动态采样仅接受组内奖励标准差大于零的组，**不改奖励公式**。首次运行的 TensorBoard 日志记录到 step 121，随后因 32 次重采样预算耗尽而退出；从第 120 步 checkpoint 以 64 次预算恢复并完成。两个 TensorBoard event 在第 121 步重叠，图中取恢复运行的记录，并与最终 `trainer_state.json` 的 312 步逐项核对。GRPO 图中的灰色虚线标记恢复点，SFT 图中的虚线标记 epoch 边界。
+
+## 训练环境、时间与成本口径
+
+以下时间均为北京时间（UTC+8）。TensorBoard 的时间戳对应**已完成步骤的标量记录**，不是实例开机或进程启动时刻；训练器给出的 `train_runtime` 才用于报告训练器运行耗时。首次 GRPO 因动态采样耗尽而异常退出，没有完整的 `train_runtime`，因此只能报告其日志覆盖窗口。
+
+| 阶段 | GPU | 首条训练标量 | 末条训练标量 | 可核实耗时 |
+|---|---|---|---|---|
+| SFT，624 步 | NVIDIA A10，约 24 GB；PyTorch 分配峰值 19.11 GiB | 2026-11-15 12:47:34（step 1） | 2026-11-15 14:34:32（step 624） | Trainer `train_runtime=6520 s`，即 **1 小时 48 分 40 秒**；首末标量间隔 1 小时 46 分 58 秒 |
+| GRPO 首次运行 | NVIDIA GeForce RTX 4090，约 24 GB | 2026-11-17 22:18:26（step 1） | 2026-11-18 00:00:28（首次日志最后记录 step 121） | 首末标量间隔 **1 小时 42 分 02 秒**；随后动态采样耗尽并退出，精确进程耗时未记录 |
+| GRPO 从 checkpoint-120 恢复 | 同一 4090；该进程 PyTorch 分配峰值 16.38 GiB | 2026-11-18 00:11:09（重做 step 121） | 2026-11-18 02:59:18（step 312） | Trainer `train_runtime≈1.015×10⁴ s`，约 **2 小时 49 分 10 秒**；首末标量间隔 2 小时 48 分 09 秒 |
+
+GRPO 从首次记录到最终记录的**连续日历跨度**为约 **4 小时 40 分 52 秒**，其中包含两次运行之间约 10 分 41 秒的间隔；它不是纯优化器耗时，也不是计费时长。评测自动化于 2026-11-18 04:27:23 标记完成，实例实际开关机时间还需平台账单确认。
+
+上表的显存峰值来自 `torch.cuda.max_memory_allocated()`，是**当前进程的 PyTorch 已分配显存**，不是 `nvidia-smi` 所示整卡占用或 PyTorch reserved 峰值。GRPO 最终 manifest 的原值为 `16.378967761993408 GiB`，只覆盖恢复进程；首次异常退出的进程没有对应 manifest，不能据此断言整个 GRPO 实验的最高占用仅为 16.4 GiB。
+
+| 环境项 | SFT（魔塔 A10） | GRPO（4090） |
+|---|---|---|
+| Python | 3.12.13（保存的 `python_version.txt`） | 3.13（异常 traceback 的虚拟环境路径；未保存 `python --version` 原始输出） |
+| PyTorch | 2.13.0+cu130（`device_info.txt`；依赖清单记作 2.13.0） | 2.8.0（最终训练 manifest；CUDA 构建后缀未记录） |
+| Transformers | 5.16.1 | 5.16.1 |
+| TRL | 0.29.1 | 0.29.1 |
+| PEFT | 0.20.0 | 0.20.0 |
+| CUDA | PyTorch CUDA 13.0；`nvidia-smi` 显示驱动支持 CUDA 13.0 | **未留存可靠的 PyTorch CUDA runtime 记录**；不沿用 A10 的版本 |
+
+版本证据分别来自本地 SFT 的 `environment.freeze.txt`、`device_info.txt`、`python_version.txt`，以及 GRPO 的 `final/training_manifest.json` 和 `console.log`。CUDA 驱动显示的最高支持版本与 PyTorch 使用的 CUDA runtime 不是同一个概念。
+
+**费用暂缺原始单价与账单，不填写金额。**SFT 费用须按 A10 实际计费记录核算；GRPO 费用须按 4090 实例从开机到关机的**计费时长 × 实际单价**核算，包含准备模型、训练、恢复、评测和空闲时间，不能只用上表的训练耗时乘单价。若使用免费额度，需以账单中实际扣费为准；总成本再加可能的存储、下载或 API 费用。
 
 ### 图 1：SFT loss 与 token accuracy
 
