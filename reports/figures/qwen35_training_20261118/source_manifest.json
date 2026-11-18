@@ -1,0 +1,21 @@
+{
+  "source_sha256": {
+    "qwen35_sft_full_e2/events.out.tfevents.1794717953.dsw-2376939-5cfc444f47-7bmmb.2555.0": "973b194a0b09ff02cb52415954b4db4dcf3b49fa4cdbc7e4a82e105b7af53bac",
+    "AgenticArXiv-RL/outputs/qwen35_grpo_export_20261118/outputs/qwen35_grpo_4090_20261117_221756/runs/Nov17_22-18-07_3ce75747f839/events.out.tfevents.1794925087.3ce75747f839.254.0": "1af2dcc39d85939d8ae88df329c01165ec2ebdabec2f98968241a2146a73da96",
+    "AgenticArXiv-RL/outputs/qwen35_grpo_export_20261118/outputs/qwen35_grpo_4090_20261117_221756/runs/Nov18_00-10-09_3ce75747f839/events.out.tfevents.1794931809.3ce75747f839.1101.0": "fa8b2658a203d21f17cd81c7646f7c4ec6eaf73402549d4dcb1d20ff716fe854",
+    "AgenticArXiv-RL/outputs/qwen35_grpo_export_20261118/outputs/qwen35_grpo_4090_20261117_221756/checkpoint-312/trainer_state.json": "e0fdd91494345cda3e5151ceaa10f9e3cd7258eb58f208c5bd6a47dc0c61cdcc"
+  },
+  "source_path_root": "parent directory of AgenticArXiv-RL",
+  "coverage": {
+    "sft_steps": 624,
+    "grpo_steps": 312,
+    "grpo_resume_checkpoint": 120
+  },
+  "overlap_resolution": "For GRPO step 121, use the resumed event file; validated against checkpoint-312/trainer_state.json.",
+  "matplotlib_version": "3.11.2",
+  "benchmark_run_counts": {
+    "dev": 24,
+    "iid_test": 57,
+    "ood_test": 12
+  }
+}
