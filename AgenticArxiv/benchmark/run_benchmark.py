@@ -148,8 +148,6 @@ def main():
     args = parser.parse_args()
     if args.backend == "transformers" and not args.model:
         parser.error("--backend transformers 必须同时提供 --model 本地模型目录")
-    if "native_tool_calling" in args.agents and args.backend != "api":
-        parser.error("native_tool_calling 当前需要 --backend api")
 
     # 工具没注册齐就别开跑：registry 不全时模型不会报错，它会编造工具名，
     # benchmark 照样跑完并给出成功率 —— 那种数字比没有数字更危险。
@@ -158,7 +156,7 @@ def main():
     llm_extra = {}
     if args.no_thinking:
         llm_extra["chat_template_kwargs"] = {"enable_thinking": False}
-        if "native_tool_calling" in args.agents:
+        if args.backend == "api" and "native_tool_calling" in args.agents:
             api_host = urlsplit(os.getenv("LLM_BASE_URL", "")).hostname
             if api_host in ("api.siliconflow.cn", "api.siliconflow.com"):
                 llm_extra = {"enable_thinking": False}

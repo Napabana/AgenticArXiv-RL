@@ -9,7 +9,7 @@ from benchmark.protocol_audit import summarize_protocol_results
 from benchmark.runner import BenchmarkRunner
 from tools.bootstrap import require_all_tools
 from tools.tool_registry import registry
-from utils.llm_client import parse_tool_response
+from utils.llm_client import TransformersLLMClient, _decode_qwen_tool_call, parse_tool_response
 
 
 def _reply(content=None, calls=None, reason="stop"):
@@ -106,6 +106,7 @@ def test_both_agents_run_and_score_two_tools_with_the_same_benchmark(lookup, mon
 
 @pytest.mark.parametrize(("response", "error"), [
     (_reply("<tool_call>"), "missing_structured_tool_call"),
+    (_reply("<tool_response>invented</tool_response>"), "missing_structured_tool_call"),
     (_reply(reason="tool_calls"), "missing_structured_tool_call"),
     (_reply(calls=[_call("1", "lookup", [])]), "arguments_not_object"),
     (_reply(calls=[_call("1", "lookup", {}), _call("2", "lookup", {})]), "multiple_tool_calls"),
@@ -146,7 +147,7 @@ def test_comparison_reclassifies_legacy_false_finish_only_in_its_scoring_trace()
 def test_execution_failure_is_returned_to_the_model(lookup):
     class BrokenEnv:
         def execute_tool(self, name, args):
-            raise ValueError("fixture unavailable")
+            raise ValueError("fixture unavailable for {'section': 'method'}")
 
     client = _ScriptedClient(
         _reply(calls=[_call("one", "lookup", {"query": "paper"})]),
@@ -156,4 +157,77 @@ def test_execution_failure_is_returned_to_the_model(lookup):
     assert result["history"][1]["action"] == "FINISH"
     tool_feedback = client.calls[1]["messages"][-1]
     assert tool_feedback["tool_call_id"] == "one"
-    assert "fixture unavailable" in tool_feedback["content"]
+    assert "fixture unavailable for {'section': 'method'}" in tool_feedback["content"]
+
+
+def test_qwen_decoder_keeps_first_call_and_rejects_a_partial_envelope(lookup):
+    tools = [{"type": "function", "function": tool} for tool in registry.list_tools()]
+    opening = "<tool_call><function=lookup><parameter=query>123</parameter>"
+    complete = opening + "</function></tool_call>"
+    suffix = "<tool_response>invented</tool_response>" + complete
+    text, call = _decode_qwen_tool_call("checking\n" + complete + suffix, tools)
+    assert text == "checking"
+    assert call["function"]["name"] == "lookup"
+    assert json.loads(call["function"]["arguments"]) == {"query": "123"}
+    assert _decode_qwen_tool_call(opening, tools)[1] is None
+    assert _decode_qwen_tool_call(suffix, tools)[1] is None
+    duplicate = opening + "<parameter=query>again</parameter></function></tool_call>"
+    assert _decode_qwen_tool_call(duplicate, tools)[1] is None
+
+
+def test_local_qwen_routes_tools_to_template_and_stops_on_call_boundary(lookup, monkeypatch):
+    torch = pytest.importorskip("torch")
+
+    class Tokenizer:
+        pad_token_id = 0
+
+        def decode(self, ids, skip_special_tokens=True):
+            return (
+                "<tool_call><function=lookup><parameter=query>second</parameter></function></tool_call>"
+                "<tool_response>invented</tool_response>"
+            )
+
+    class Model:
+        def parameters(self):
+            return iter([torch.nn.Parameter(torch.zeros(1))])
+
+        def generate(self, **kwargs):
+            captured["generation"] = kwargs
+            return torch.tensor([[1, 2, 3, 4, 5]])
+
+    captured = {}
+
+    def prepare(messages, template_kwargs):
+        captured.update(messages=messages, template=template_kwargs)
+        return {"input_ids": torch.tensor([[1, 2]])}, []
+
+    client = TransformersLLMClient.__new__(TransformersLLMClient)
+    client.model_name = "local-qwen35"
+    client.is_qwen35 = True
+    client.tokenizer = Tokenizer()
+    client.model = Model()
+    client.seed = None
+    client._calls = 0
+    monkeypatch.setattr(client, "_prepare_inputs", prepare)
+    previous = _call("one", "lookup", {"query": "first"})
+    tools = [{"type": "function", "function": tool} for tool in registry.list_tools()]
+    response = client.chat_completions(
+        model="local-qwen35",
+        messages=[
+            {"role": "user", "content": "lookup two articles"},
+            {"role": "assistant", "tool_calls": [previous]},
+            {"role": "tool", "tool_call_id": "one", "content": "result for first"},
+        ],
+        max_tokens=3,
+        extra={"tools": tools, "tool_choice": "auto"},
+    )
+    assert captured["template"]["tools"] == tools
+    assert "tools" not in captured["generation"]
+    assert captured["generation"]["stop_strings"] == ["</tool_call>"]
+    assert captured["generation"]["tokenizer"] is client.tokenizer
+    assert captured["messages"][1]["tool_calls"][0]["function"]["arguments"] == {"query": "first"}
+    assert isinstance(previous["function"]["arguments"], str)
+    choice = response["choices"][0]
+    assert choice["finish_reason"] == "tool_calls"
+    assert "<tool_response>" in choice["raw_generation"]
+    assert parse_tool_response(choice)[2] == {"name": "lookup", "args": {"query": "second"}}

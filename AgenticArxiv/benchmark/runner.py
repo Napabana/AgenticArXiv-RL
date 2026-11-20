@@ -57,8 +57,6 @@ class BenchmarkRunner:
             )
         self.agent_types = agent_types or self.AGENT_TYPES
         self.compare_protocols = "native_tool_calling" in self.agent_types
-        if self.compare_protocols and llm_backend != "api":
-            raise ValueError("native_tool_calling 当前需要 --backend api")
         self.repeat = repeat
         self.model = model
         self.llm_extra = dict(llm_extra or {})

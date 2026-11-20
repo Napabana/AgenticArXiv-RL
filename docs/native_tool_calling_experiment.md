@@ -2,7 +2,7 @@
 
 ## 目标与范围
 
-用同一个 `Qwen/Qwen3.5-2B` 检查点评估原始 ReAct 文本协议和原生工具调用协议。两组均不加载项目的 SFT 或 GRPO Adapter。本阶段交付 OpenAI 兼容 API 实现，通过本地离线快照和远程 `Qwen/Qwen3.5-4B` 检查 API、Agent 和 Benchmark 的接线。正式 2B 对照等服务器可用后进行。Qwen 原生聊天模板使用 XML 风格的调用和结果标签，兼容 API 服务负责将生成结果转换为 `message.tool_calls`。 [Qwen3.5-2B 模型卡](https://huggingface.co/Qwen/Qwen3.5-2B#serving-qwen35) · [官方聊天模板](https://huggingface.co/Qwen/Qwen3.5-2B/blob/main/chat_template.jinja)
+用同一个 `Qwen/Qwen3.5-2B` 检查点评估原始 ReAct 文本协议和原生工具调用协议。两组均不加载项目的 SFT 或 GRPO Adapter。首版用本地离线快照和远程 `Qwen/Qwen3.5-4B` 检查 OpenAI 兼容 API、Agent 和 Benchmark 的接线。本地 Transformers 后端也支持直接生成并解码 Qwen3.5 原生工具调用。Qwen 原生聊天模板使用 XML 风格的调用和结果标签，Agent 通过结构化的 `message.tool_calls` 执行工具。 [Qwen3.5-2B 模型卡](https://huggingface.co/Qwen/Qwen3.5-2B#serving-qwen35) · [官方聊天模板](https://huggingface.co/Qwen/Qwen3.5-2B/blob/main/chat_template.jinja)
 
 ## 请求与多轮执行
 
@@ -10,7 +10,7 @@
 - API 边界解析第一条候选消息的 `tool_calls`、调用 ID、工具名和 JSON 参数对象。既有工具参数校验检查类型、必填字段和额外字段。未知工具、参数错误、残缺调用、多调用和截断分别记录。末轮正常文本回复映射为内部 `FINISH`，最终文字供不可行任务评分。
 - 检索工具的 `max_results` 是可选字段。4B 冒烟中 API 曾省略明确要求的篇数上限，调用通过 Schema 校验后使用了工具默认值 50。原生提示明确把用户给出的篇数和时间窗映射到 `max_results` 和 `days`，保留 Schema 定义及严格参数评分。
 - Agent 保存已执行调用的 assistant 消息和带对应 `tool_call_id` 的工具结果消息。两组共用 Tool Dispatcher、会话注入、翻译副作用和迭代预算。工具执行错误作为 Observation 回填后，模型可以在剩余预算内继续决策。
-- 裸 XML、空输出或异常结束由协议错误路径处理。服务必须能返回结构化调用。后续若在服务器直接使用 Transformers 推理，需要另接 Qwen 原生输出解码器。
+- API 后端接收服务返回的结构化调用。直接使用 `--backend transformers` 时，Qwen3.5 使用原生聊天模板，在生成完整调用的闭合标签后停止并解析首个调用。模型自行生成的后续文本只留作诊断。下一轮上下文由运行时回填真实工具结果。残缺调用、空输出或异常结束由协议错误路径处理。
 
 ## Benchmark 与诊断
 

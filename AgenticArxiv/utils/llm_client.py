@@ -2,11 +2,59 @@
 import json
 import os
 import random
+import re
 import time
+from copy import deepcopy
 from hashlib import sha256
 from typing import Any, Dict, List, Optional
+from uuid import uuid4
 import requests
 from loguru import logger
+
+
+_QWEN_CALL_END = "</tool_call>"
+_QWEN_CALL = re.compile(
+    r"<tool_call>\s*<function=([\w-]+)>\s*(.*?)\s*</function>\s*</tool_call>",
+    re.DOTALL,
+)
+_QWEN_PARAMETER = re.compile(r"<parameter=([\w-]+)>\s*(.*?)\s*</parameter>\s*", re.DOTALL)
+
+
+def _decode_qwen_tool_call(content: str, tools: list[dict]) -> tuple[str, Optional[dict]]:
+    """Decode the first complete native call and ignore output beyond its boundary."""
+    prefix, start, suffix = content.partition("<tool_call>")
+    match = _QWEN_CALL.match(start + suffix) if start else None
+    if match is None or "<tool_response" in prefix or "</tool_call>" in prefix:
+        return content, None
+
+    name, body = match.groups()
+    properties = next((
+        tool["function"]["parameters"].get("properties", {})
+        for tool in tools if tool["function"]["name"] == name
+    ), {})
+    args = {}
+    pos = 0
+    while pos < len(body):
+        param = _QWEN_PARAMETER.match(body, pos)
+        if param is None or param[1] in args:
+            return content, None
+        key, value = param.groups()
+        if properties.get(key, {}).get("type") != "string":
+            try:
+                typed = json.loads({"None": "null", "True": "true", "False": "false"}.get(value, value))
+                json.dumps(typed, allow_nan=False)
+            except (ValueError, RecursionError):
+                pass
+            else:
+                value = typed
+        args[key] = value
+        pos = param.end()
+
+    return prefix.strip(), {
+        "id": f"call_{uuid4().hex}",
+        "type": "function",
+        "function": {"name": name, "arguments": json.dumps(args, ensure_ascii=False)},
+    }
 
 
 def parse_tool_response(
@@ -28,7 +76,7 @@ def parse_tool_response(
     if calls is None or calls == []:
         if reason == "tool_calls" or any(
             marker in content
-            for marker in ("<tool_call", "</tool_call", "<function=", "<parameter=")
+            for marker in ("<tool_call", "</tool_call", "<function=", "<parameter=", "<tool_response")
         ):
             raise ValueError("missing_structured_tool_call")
         if not content.strip():
@@ -369,7 +417,7 @@ class TransformersLLMClient:
     def chat_completions(
         self,
         model: str,
-        messages: List[Dict[str, str]],
+        messages: List[Dict[str, Any]],
         temperature: float = 0.3,
         max_tokens: int = 1000,
         stream: bool = False,
@@ -381,9 +429,22 @@ class TransformersLLMClient:
             raise ValueError("TransformersLLMClient does not support streaming")
         extra = dict(extra or {})
         stop = extra.pop("stop", []) or []
-        template_kwargs = extra.pop("chat_template_kwargs", {}) or {}
+        template_kwargs = dict(extra.pop("chat_template_kwargs", {}) or {})
+        tools = extra.pop("tools", None)
+        tool_choice = extra.pop("tool_choice", "auto")
         if getattr(self, "is_qwen35", False):
             template_kwargs.setdefault("enable_thinking", False)
+        if tools:
+            if not getattr(self, "is_qwen35", False) or tool_choice != "auto":
+                raise ValueError("Local tool calling requires Qwen3.5 and tool_choice=auto")
+            template_kwargs["tools"] = tools
+            # Qwen renders arguments as a mapping in assistant history.
+            messages = deepcopy(messages)
+            for message in messages:
+                for call in message.get("tool_calls") or []:
+                    function = call["function"]
+                    if isinstance(function["arguments"], str):
+                        function["arguments"] = json.loads(function["arguments"])
         inputs, _images = self._prepare_inputs(
             messages, template_kwargs=template_kwargs
         )
@@ -404,8 +465,11 @@ class TransformersLLMClient:
         # supplied to generate().  Keep the decode-time split below as a final
         # guard, but stop generation eagerly so a local model does not waste up
         # to max_tokens hallucinating its own Observation and later turns.
-        if stop:
-            generation_kwargs["stop_strings"] = list(stop)
+        stop_strings = list(stop)
+        if tools and _QWEN_CALL_END not in stop_strings:
+            stop_strings.append(_QWEN_CALL_END)
+        if stop_strings:
+            generation_kwargs["stop_strings"] = stop_strings
             generation_kwargs["tokenizer"] = self.tokenizer
         if do_sample:
             generation_kwargs["temperature"] = temperature
@@ -417,19 +481,31 @@ class TransformersLLMClient:
             output = self.model.generate(**inputs, **generation_kwargs)
         prompt_tokens = inputs["input_ids"].shape[-1]
         completion_ids = output[0, prompt_tokens:]
-        content = self.tokenizer.decode(completion_ids, skip_special_tokens=True)
+        raw_generation = self.tokenizer.decode(completion_ids, skip_special_tokens=True)
+        content = raw_generation
         for marker in stop:
-            if marker in content:
+            if marker in content and not (tools and marker == _QWEN_CALL_END):
                 content = content.split(marker, 1)[0]
         completion_tokens = int(completion_ids.shape[-1])
-        return {
-            "choices": [{"message": {"role": "assistant", "content": content}}],
+        message: Dict[str, Any] = {"role": "assistant", "content": content}
+        choice: Dict[str, Any] = {"message": message}
+        response: Dict[str, Any] = {
+            "choices": [choice],
             "usage": {
                 "prompt_tokens": int(prompt_tokens),
                 "completion_tokens": completion_tokens,
                 "total_tokens": int(prompt_tokens) + completion_tokens,
             },
         }
+        if tools:
+            response["model"] = self.model_name
+            choice["raw_generation"] = raw_generation
+            choice["finish_reason"] = "length" if completion_tokens >= max_tokens else "stop"
+            text, call = _decode_qwen_tool_call(content, tools)
+            if call:
+                message.update(content=text, tool_calls=[call])
+                choice["finish_reason"] = "tool_calls"
+        return response
 
 
 def get_env_llm_client() -> LLMClient:

@@ -868,7 +868,7 @@ class BaseAgent(ABC):
 
         except Exception as e:
             error_msg = f"工具执行失败: {str(e)}"
-            log.error(error_msg, exc_info=True)
+            log.exception("{}", error_msg)
             return error_msg
 
     # ---------- 日志 + SSE ----------
