@@ -1,4 +1,5 @@
 # AgenticArxiv/utils/llm_client.py
+import json
 import os
 import random
 import time
@@ -6,6 +7,57 @@ from hashlib import sha256
 from typing import Any, Dict, List, Optional
 import requests
 from loguru import logger
+
+
+def parse_tool_response(
+    choice: Dict[str, Any],
+) -> tuple[str, Optional[Dict[str, Any]], Optional[Dict[str, Any]]]:
+    """Read one API assistant choice as final text or one structured call."""
+    if not isinstance(choice, dict) or not isinstance(choice.get("message"), dict):
+        raise ValueError("missing_assistant_message")
+    reason = choice.get("finish_reason")
+    if reason not in (None, "stop", "tool_calls"):
+        raise ValueError(f"finish_reason:{reason}")
+    message = choice["message"]
+    content = message.get("content")
+    if content is None:
+        content = ""
+    elif not isinstance(content, str):
+        raise ValueError("invalid_assistant_content")
+    calls = message.get("tool_calls")
+    if calls is None or calls == []:
+        if reason == "tool_calls" or any(
+            marker in content
+            for marker in ("<tool_call", "</tool_call", "<function=", "<parameter=")
+        ):
+            raise ValueError("missing_structured_tool_call")
+        if not content.strip():
+            raise ValueError("empty_assistant_response")
+        return content, None, None
+
+    if not isinstance(calls, list):
+        raise ValueError("invalid_tool_calls")
+    if len(calls) != 1:
+        raise ValueError("multiple_tool_calls")
+    call = calls[0]
+    if not isinstance(call, dict) or call.get("type") != "function":
+        raise ValueError("invalid_tool_call_type")
+    call_id = call.get("id")
+    function = call.get("function")
+    if not isinstance(call_id, str) or not call_id.strip() or not isinstance(function, dict):
+        raise ValueError("invalid_tool_call")
+    name = function.get("name")
+    arguments = function.get("arguments")
+    if not isinstance(name, str) or not name.strip() or not isinstance(arguments, str):
+        raise ValueError("invalid_function")
+    try:
+        args = json.loads(arguments)
+        json.dumps(args, allow_nan=False)
+    except (ValueError, RecursionError) as exc:
+        raise ValueError("invalid_arguments_json") from exc
+    if not isinstance(args, dict):
+        raise ValueError("arguments_not_object")
+    return content, call, {"name": name, "args": args}
 
 
 class LLMClient:
@@ -38,7 +90,7 @@ class LLMClient:
     def chat_completions(
         self,
         model: str,
-        messages: List[Dict[str, str]],
+        messages: List[Dict[str, Any]],
         temperature: float = 0.3,
         max_tokens: int = 1000,
         stream: bool = False,
@@ -217,7 +269,7 @@ class TransformersLLMClient:
 
         from rl.model_loading import is_qwen35_model, load_text_model_and_tokenizer
 
-        # Qwen3.5 checkpoint 顶层包含 vision_config，但 ArxivFetch 工具链是
+        # Qwen3.5 checkpoint 顶层包含 vision_config，但 AgenticArxiv 工具链是
         # 纯文本；显式加载 Qwen3_5ForCausalLM，避免不必要的视觉塔。
         self.is_qwen35 = is_qwen35_model(model)
         self.is_vlm = _is_vlm_model_path(model) and not self.is_qwen35

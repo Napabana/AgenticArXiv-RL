@@ -39,6 +39,7 @@ class BaseAgent(ABC):
     """所有 Agent 方案的基类，封装通用的循环控制、日志、SSE、副作用逻辑"""
 
     agent_type: str = "regex"  # 子类覆写
+    policy_responses: Optional[List[Dict[str, Any]]] = None
 
     # ReAct 循环里，Observation 必须由工具真实执行产生。
     # 不设 stop 时模型会自己往下编造 Observation 与后续步骤，例如：
@@ -137,6 +138,9 @@ class BaseAgent(ABC):
                 f"Thought: {s['thought']}\nAction: {s['action']}\nObservation: {s['observation']}"
             )
         return "\n\n".join(parts)
+
+    def _terminal_step(self, thought: str) -> Dict[str, str]:
+        return {"thought": thought, "action": "FINISH", "observation": "任务完成"}
 
     def build_routed_messages(
         self,
@@ -421,13 +425,15 @@ class BaseAgent(ABC):
                 log.info(f"Thought: {thought}")
 
                 if action_dict is None:
-                    log.info("任务完成")
-                    observation = "任务完成"
-                    history.append({"thought": thought, "action": "FINISH", "observation": observation})
+                    step = self._terminal_step(thought)
+                    history.append(step)
                     step_timings.append(
                         {"router_ms": router_ms, "llm_ms": llm_ms, "tool_ms": 0}
                     )
-                    self._log_step(msg_id, iteration, thought, "FINISH", "{}", observation, llm_ms, 0, session_id)
+                    self._log_step(
+                        msg_id, iteration, thought, step["action"], "{}",
+                        step["observation"], llm_ms, 0, session_id,
+                    )
                     break
 
                 # 带副作用的工具执行
@@ -599,6 +605,8 @@ class BaseAgent(ABC):
             stream=False,
             extra=extra or None,
         )
+        if self.policy_responses is not None:
+            self.policy_responses.append(response)
         elapsed_ms = int((time.time() - started) * 1000)
         raw_usage = response.get("usage") or {}
         usage = {

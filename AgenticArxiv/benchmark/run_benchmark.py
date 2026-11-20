@@ -14,10 +14,12 @@ Benchmark CLI 入口。
 """
 
 import argparse
+from hashlib import sha256
 import json
 import sys
 import os
 from pathlib import Path
+from urllib.parse import urlsplit
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
@@ -35,6 +37,7 @@ from config import settings
 def _trace_record(result) -> dict:
     """Keep enough raw data to reproduce both task and router metrics."""
     raw = result.raw_result or {}
+    error = getattr(result, "error", None)
     return {
         "task_id": result.task_id,
         "agent_type": result.agent_type,
@@ -49,6 +52,8 @@ def _trace_record(result) -> dict:
         "timing": raw.get("timing") or {},
         "token_usage": raw.get("token_usage") or {},
         "routing": raw.get("routing") or {"mode": "policy", "decisions": []},
+        **{key: raw[key] for key in ("protocol", "reward", "runtime_terminal_step") if key in raw},
+        **({"error": error} if error else {}),
     }
 
 
@@ -57,7 +62,7 @@ def main():
     parser.add_argument(
         "--agents", nargs="+",
         default=["regex", "mcp", "skill_cli"],
-        choices=["regex", "mcp", "skill_cli"],
+        choices=["regex", "mcp", "skill_cli", "native_tool_calling"],
         help="要测试的 Agent 类型 (默认全部)",
     )
     parser.add_argument(
@@ -143,6 +148,8 @@ def main():
     args = parser.parse_args()
     if args.backend == "transformers" and not args.model:
         parser.error("--backend transformers 必须同时提供 --model 本地模型目录")
+    if "native_tool_calling" in args.agents and args.backend != "api":
+        parser.error("native_tool_calling 当前需要 --backend api")
 
     # 工具没注册齐就别开跑：registry 不全时模型不会报错，它会编造工具名，
     # benchmark 照样跑完并给出成功率 —— 那种数字比没有数字更危险。
@@ -151,6 +158,10 @@ def main():
     llm_extra = {}
     if args.no_thinking:
         llm_extra["chat_template_kwargs"] = {"enable_thinking": False}
+        if "native_tool_calling" in args.agents:
+            api_host = urlsplit(os.getenv("LLM_BASE_URL", "")).hostname
+            if api_host in ("api.siliconflow.cn", "api.siliconflow.com"):
+                llm_extra = {"enable_thinking": False}
 
     # 任务池
     if args.task_set == "expanded":
@@ -235,20 +246,33 @@ def main():
 
     results = runner.run_all(task_list)
 
-    if args.save_traces is not None:
+    if args.save_traces is not None or runner.compare_protocols:
         traces_path = Path(args.save_traces) if args.save_traces else Path(args.output) / "traces.jsonl"
         traces_path.parent.mkdir(parents=True, exist_ok=True)
         with open(traces_path, "w", encoding="utf-8") as handle:
             written = 0
             for r in results:
                 history = (r.raw_result or {}).get("history")
-                if not history:
+                if not history and not runner.compare_protocols:
                     continue
                 handle.write(json.dumps(
                     _trace_record(r), ensure_ascii=False
                 ) + "\n")
                 written += 1
         print(f"轨迹已写出: {traces_path}（{written} 条）")
+
+    if runner.compare_protocols:
+        from benchmark.protocol_audit import summarize_protocol_results
+
+        protocol_report = summarize_protocol_results(results)
+        protocol_report["requested_model"] = model
+        protocol_report["snapshot_sha256"] = (
+            sha256(runner._snapshot_path().read_bytes()).hexdigest() if args.offline else None
+        )
+        report_path = Path(args.output) / "protocol_comparison.json"
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(json.dumps(protocol_report, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"协议对照已写出: {report_path}")
 
     # 提取有效 metrics
     all_metrics = [r.metrics for r in results if r.metrics is not None]

@@ -56,6 +56,9 @@ class BenchmarkRunner:
                 f"llm_backend 必须是 {self.LLM_BACKENDS} 之一，收到 {llm_backend!r}"
             )
         self.agent_types = agent_types or self.AGENT_TYPES
+        self.compare_protocols = "native_tool_calling" in self.agent_types
+        if self.compare_protocols and llm_backend != "api":
+            raise ValueError("native_tool_calling 当前需要 --backend api")
         self.repeat = repeat
         self.model = model
         self.llm_extra = dict(llm_extra or {})
@@ -128,6 +131,11 @@ class BenchmarkRunner:
                         self._start_generation_stream(task_id, trial)
                         agent = self._create_agent(
                             agent_type, task_def.get("max_iterations"))
+                        compare = self.compare_protocols and agent_type in (
+                            "regex", "native_tool_calling",
+                        )
+                        if compare:
+                            agent.policy_responses = []
                         # setup 是当前请求之前已经发生的会话历史。环境状态由
                         # _apply_setup 真实铺设；同一份声明再渲染为模型可见上下文，
                         # 使 Benchmark 与 GRPO 面对一致的可观测状态。它不进入
@@ -140,7 +148,14 @@ class BenchmarkRunner:
                             session_id=session_id,
                             initial_history=build_visible_setup_context(task_def),
                         )
-                        metrics = extract_metrics(task_def, raw, agent_type, trial, session_id=session_id)
+                        if compare:
+                            from benchmark.protocol_audit import score_protocol_trial
+
+                            metrics = score_protocol_trial(
+                                task_def, raw, agent_type, trial, session_id, agent.policy_responses,
+                            )
+                        else:
+                            metrics = extract_metrics(task_def, raw, agent_type, trial, session_id=session_id)
                         br = BenchmarkResult(
                             task_id=task_id,
                             agent_type=agent_type,
@@ -267,8 +282,13 @@ class BenchmarkRunner:
         elif agent_type == "skill_cli":
             from skill_cli.skill_agent import SkillAgent
             return SkillAgent(self.llm_client, **kwargs)
+        elif agent_type == "native_tool_calling":
+            from agents.native_tool_agent import NativeToolCallingAgent
+            return NativeToolCallingAgent(self.llm_client, **kwargs)
         else:
             from agents.agent_engine import ReActAgent
+            if self.compare_protocols:
+                kwargs["tool_router"] = None
             return ReActAgent(self.llm_client, **kwargs)
 
     @staticmethod
