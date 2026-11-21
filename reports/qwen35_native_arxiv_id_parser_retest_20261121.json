@@ -1,0 +1,179 @@
+{
+  "model": "Qwen/Qwen3.5-2B-Base",
+  "model_source": "https://modelscope.cn/models/Qwen/Qwen3.5-2B-Base",
+  "weights_sha256": "928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "runtime": "2.8.0+cu128 5.16.1 NVIDIA GeForce RTX 4090",
+  "backend": "transformers",
+  "agent": "native_tool_calling",
+  "dtype": "bfloat16",
+  "adapter": null,
+  "temperature": 0.1,
+  "thinking": false,
+  "base_seed": 42,
+  "seed_scope": "task_id and trial",
+  "environment": "offline MockArxivEnv",
+  "code_commit": "d37c93bd85809035018db82349daf04f58ac0b80",
+  "task_id": "ref_ctrl_id_download",
+  "expected_call": {
+    "name": "download_arxiv_pdf",
+    "args": {
+      "ref": "2608.14528v1"
+    }
+  },
+  "repeat_per_task": 3,
+  "start_time": "2026-11-21T11:12:08+08:00",
+  "end_time": "2026-11-21T11:13:34+08:00",
+  "local_source_archive_sha256": "98e03172775543b5089f2c7b866dfda314f1c6d227a1e3f3dfcd08b78025e5b4",
+  "same_task_from_full_run": {
+    "code_commit": "6cbf8f981b08aa44b31bf4bbce4d1aa50b96a933",
+    "strict_success": {
+      "count": 0,
+      "total": 3
+    },
+    "format_parse_success": {
+      "count": 9,
+      "total": 9
+    },
+    "schema_compliance": {
+      "count": 7,
+      "total": 9
+    },
+    "executed_calls": 7,
+    "tool_execution_errors": 7,
+    "terminal_actions": {
+      "FORCE_STOP": 1,
+      "ERROR": 2
+    },
+    "affected_calls": [
+      {
+        "trial": 1,
+        "turn": 2,
+        "tool": "get_paper_cache_status",
+        "ref": 2608.14528,
+        "schema_ok": false,
+        "issue": "schema:invalid_value:ref"
+      },
+      {
+        "trial": 2,
+        "turn": 2,
+        "tool": "get_paper_cache_status",
+        "ref": 2608.14528,
+        "schema_ok": false,
+        "issue": "schema:invalid_value:ref"
+      }
+    ]
+  },
+  "focused_retest": {
+    "strict_success": {
+      "count": 0,
+      "total": 3
+    },
+    "format_parse_success": {
+      "count": 15,
+      "total": 15
+    },
+    "schema_compliance": {
+      "count": 15,
+      "total": 15
+    },
+    "executed_calls": 15,
+    "tool_execution_errors": 15,
+    "terminal_actions": {
+      "FORCE_STOP": 3
+    },
+    "accepted_unversioned_calls": [
+      {
+        "trial": 1,
+        "turn": 2,
+        "tool": "get_paper_cache_status",
+        "ref": "2608.14528",
+        "schema_ok": true,
+        "issue": ""
+      },
+      {
+        "trial": 1,
+        "turn": 3,
+        "tool": "download_arxiv_pdf",
+        "ref": "2608.14528",
+        "schema_ok": true,
+        "issue": ""
+      },
+      {
+        "trial": 1,
+        "turn": 4,
+        "tool": "get_paper_cache_status",
+        "ref": "2608.14528",
+        "schema_ok": true,
+        "issue": ""
+      },
+      {
+        "trial": 1,
+        "turn": 5,
+        "tool": "download_arxiv_pdf",
+        "ref": "2608.14528",
+        "schema_ok": true,
+        "issue": ""
+      },
+      {
+        "trial": 2,
+        "turn": 2,
+        "tool": "get_paper_cache_status",
+        "ref": "2608.14528",
+        "schema_ok": true,
+        "issue": ""
+      },
+      {
+        "trial": 2,
+        "turn": 3,
+        "tool": "download_arxiv_pdf",
+        "ref": "2608.14528",
+        "schema_ok": true,
+        "issue": ""
+      },
+      {
+        "trial": 2,
+        "turn": 4,
+        "tool": "get_paper_cache_status",
+        "ref": "2608.14528",
+        "schema_ok": true,
+        "issue": ""
+      },
+      {
+        "trial": 2,
+        "turn": 5,
+        "tool": "download_arxiv_pdf",
+        "ref": "2608.14528",
+        "schema_ok": true,
+        "issue": ""
+      }
+    ]
+  },
+  "historical_reference_audit": {
+    "post_trained_native": {
+      "before_tool_boundary_fix": {
+        "turns_checked": 232,
+        "format_errors": 21,
+        "unversioned_numeric_xml_ref": 0,
+        "float_ref": 0
+      },
+      "after_tool_boundary_fix": {
+        "turns_checked": 273,
+        "format_errors": 0,
+        "unversioned_numeric_xml_ref": 0,
+        "float_ref": 0
+      }
+    },
+    "react_trials_per_group": 93,
+    "react_float_refs": {
+      "base": 0,
+      "sft": 9,
+      "grpo": 9
+    },
+    "react_ref_ctrl_id_download_affected_trials": {
+      "base": 0,
+      "sft": 3,
+      "grpo": 3
+    }
+  }
+}

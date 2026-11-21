@@ -1,0 +1,1931 @@
+{
+  "model": "Qwen/Qwen3.5-2B-Base",
+  "model_source": "https://modelscope.cn/models/Qwen/Qwen3.5-2B-Base",
+  "weights_sha256": "928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "runtime": "2.8.0+cu128 5.16.1 NVIDIA GeForce RTX 4090",
+  "backend": "transformers",
+  "agent": "native_tool_calling",
+  "dtype": "bfloat16",
+  "adapter": null,
+  "temperature": 0.1,
+  "thinking": false,
+  "base_seed": 42,
+  "seed_scope": "task_id and trial",
+  "environment": "offline MockArxivEnv",
+  "code_commit": "6cbf8f981b08aa44b31bf4bbce4d1aa50b96a933",
+  "task_split_file": "data/splits/v7_86.json",
+  "repeat_per_task": 3,
+  "start_time": "2026-11-21T10:38:06+08:00",
+  "end_time": "2026-11-21T11:11:25+08:00",
+  "wall_seconds": 1999,
+  "local_source_archive_sha256": "f4a8348cae56c19b42268d6d046c483f5637791b720bcd0550ed934e63e7884d",
+  "full": {
+    "strict_success": {
+      "count": 33,
+      "total": 93,
+      "rate": 0.3548387096774194
+    },
+    "format_parse_success": {
+      "count": 290,
+      "total": 292,
+      "rate": 0.9931506849315068
+    },
+    "schema_compliance": {
+      "count": 217,
+      "total": 234,
+      "rate": 0.9273504273504274
+    },
+    "tool_accuracy": {
+      "count": 39,
+      "total": 93,
+      "rate": 0.41935483870967744
+    },
+    "tool_error_rate": {
+      "count": 68,
+      "total": 217,
+      "rate": 0.31336405529953915
+    },
+    "argument_accuracy": {
+      "count": 42.75,
+      "total": 93,
+      "rate": 0.4596774193548387
+    },
+    "avg_total_tokens": 9675.290322580646,
+    "avg_llm_ms": 20974.666666666668,
+    "avg_executed_tool_calls": 2.3333333333333335,
+    "generation_stop_reasons": {
+      "tool_call_end": 234,
+      "chat_end": 56,
+      "length": 2
+    },
+    "schema_issues": {
+      "schema:invalid_value:question": 1,
+      "schema:unknown_args:aspect": 2,
+      "schema:invalid_value:aspect": 9,
+      "schema:invalid_value:ref": 2,
+      "schema:unknown_tool": 3
+    },
+    "format_issues": {
+      "format:finish_reason:length": 2
+    },
+    "terminal_actions": {
+      "FINISH": 56,
+      "FORCE_STOP": 18,
+      "ERROR": 19
+    },
+    "runtime_errors": {
+      "request_errors": 0,
+      "benchmark_errors": 0
+    },
+    "task_reliability": {
+      "0": 16,
+      "3": 8,
+      "1": 5,
+      "2": 2
+    }
+  },
+  "by_split": {
+    "dev": {
+      "format_parse_success": {
+        "count": 68,
+        "total": 68,
+        "rate": 1.0
+      },
+      "schema_compliance": {
+        "count": 48,
+        "total": 53,
+        "rate": 0.9056603773584906
+      },
+      "tool_accuracy": {
+        "count": 10,
+        "total": 24,
+        "rate": 0.4166666666666667
+      },
+      "argument_accuracy": {
+        "score_sum": 10.75,
+        "total": 24,
+        "rate": 0.4479166666666667
+      },
+      "tool_error_rate": {
+        "count": 16,
+        "total": 48,
+        "rate": 0.3333333333333333
+      },
+      "strict_success": {
+        "count": 7,
+        "total": 24,
+        "rate": 0.2916666666666667
+      },
+      "avg_executed_tool_calls": 2.0,
+      "avg_prompt_tokens": 8252.666666666666,
+      "avg_completion_tokens": 277.75,
+      "avg_total_tokens": 8530.416666666666,
+      "avg_llm_ms": 16530.416666666668,
+      "avg_total_ms": 16534.666666666668,
+      "avg_reward": 0.019345291666666663,
+      "benchmark_errors": 0,
+      "request_errors": 0,
+      "error_terminations": 5,
+      "issues": {
+        "schema:invalid_value:question": 1,
+        "schema:unknown_args:aspect": 1,
+        "schema:invalid_value:aspect": 1,
+        "schema:invalid_value:ref": 2
+      },
+      "recovered_format_errors": 0,
+      "returned_models": [
+        "Qwen/Qwen3.5-2B-Base"
+      ],
+      "generation_stop_reasons": {
+        "tool_call_end": 53,
+        "chat_end": 15
+      }
+    },
+    "iid_test": {
+      "format_parse_success": {
+        "count": 172,
+        "total": 173,
+        "rate": 0.9942196531791907
+      },
+      "schema_compliance": {
+        "count": 126,
+        "total": 137,
+        "rate": 0.9197080291970803
+      },
+      "tool_accuracy": {
+        "count": 22,
+        "total": 57,
+        "rate": 0.38596491228070173
+      },
+      "argument_accuracy": {
+        "score_sum": 23.0,
+        "total": 57,
+        "rate": 0.40350877192982454
+      },
+      "tool_error_rate": {
+        "count": 41,
+        "total": 126,
+        "rate": 0.3253968253968254
+      },
+      "strict_success": {
+        "count": 20,
+        "total": 57,
+        "rate": 0.3508771929824561
+      },
+      "avg_executed_tool_calls": 2.210526315789474,
+      "avg_prompt_tokens": 8968.105263157895,
+      "avg_completion_tokens": 376.03508771929825,
+      "avg_total_tokens": 9344.140350877193,
+      "avg_llm_ms": 20843.56140350877,
+      "avg_total_ms": 20847.824561403508,
+      "avg_reward": -0.06578947368421052,
+      "benchmark_errors": 0,
+      "request_errors": 0,
+      "error_terminations": 12,
+      "issues": {
+        "schema:unknown_tool": 2,
+        "schema:invalid_value:aspect": 8,
+        "schema:unknown_args:aspect": 1,
+        "format:finish_reason:length": 1
+      },
+      "recovered_format_errors": 0,
+      "returned_models": [
+        "Qwen/Qwen3.5-2B-Base"
+      ],
+      "generation_stop_reasons": {
+        "tool_call_end": 137,
+        "chat_end": 35,
+        "length": 1
+      }
+    },
+    "ood_test": {
+      "format_parse_success": {
+        "count": 50,
+        "total": 51,
+        "rate": 0.9803921568627451
+      },
+      "schema_compliance": {
+        "count": 43,
+        "total": 44,
+        "rate": 0.9772727272727273
+      },
+      "tool_accuracy": {
+        "count": 7,
+        "total": 12,
+        "rate": 0.5833333333333334
+      },
+      "argument_accuracy": {
+        "score_sum": 9.0,
+        "total": 12,
+        "rate": 0.75
+      },
+      "tool_error_rate": {
+        "count": 11,
+        "total": 43,
+        "rate": 0.2558139534883721
+      },
+      "strict_success": {
+        "count": 6,
+        "total": 12,
+        "rate": 0.5
+      },
+      "avg_executed_tool_calls": 3.5833333333333335,
+      "avg_prompt_tokens": 12949.416666666666,
+      "avg_completion_tokens": 588.5833333333334,
+      "avg_total_tokens": 13538.0,
+      "avg_llm_ms": 30485.916666666668,
+      "avg_total_ms": 30492.5,
+      "avg_reward": 0.3515873333333333,
+      "benchmark_errors": 0,
+      "request_errors": 0,
+      "error_terminations": 2,
+      "issues": {
+        "format:finish_reason:length": 1,
+        "schema:unknown_tool": 1
+      },
+      "recovered_format_errors": 0,
+      "returned_models": [
+        "Qwen/Qwen3.5-2B-Base"
+      ],
+      "generation_stop_reasons": {
+        "tool_call_end": 44,
+        "chat_end": 6,
+        "length": 1
+      }
+    }
+  },
+  "format_failure_cases": [
+    {
+      "task_id": "opt_service",
+      "trial": 0,
+      "turn": 3,
+      "issue": "format:finish_reason:length",
+      "stop_reason": "length"
+    },
+    {
+      "task_id": "multi_ai5_dl1_tr",
+      "trial": 2,
+      "turn": 4,
+      "issue": "format:finish_reason:length",
+      "stop_reason": "length"
+    }
+  ],
+  "strict_trials_per_task": {
+    "analyze_ai5_ref4_desc": 0,
+    "chain_cl5_dl3_tr3": 0,
+    "constraint_search_no_file": 0,
+    "constraint_translate_only": 0,
+    "figure_ai5_ref4": 0,
+    "infeasible_index_out_of_range": 0,
+    "infeasible_unsupported_action": 0,
+    "multi_ai3_tr1": 1,
+    "multi_ai5_dl1_tr": 2,
+    "multi_cl5_dl2_cache": 3,
+    "multi_cv3_dl1": 0,
+    "multi_cv5_dl1_cache_tr": 1,
+    "multi_ro3_dl_two": 0,
+    "opt_force_dl": 3,
+    "opt_service": 0,
+    "qa_cr5_abstract": 3,
+    "ref_ctrl_id_cache": 3,
+    "ref_ctrl_id_download": 0,
+    "ref_ctrl_null_cache": 3,
+    "ref_stress_learning_state": 0,
+    "search_AI_1d_3": 1,
+    "search_CR_14d_10": 0,
+    "search_CV_1d_1": 1,
+    "search_RO_30d_25": 0,
+    "search_kw_agentic_rl": 3,
+    "search_kw_rag": 3,
+    "state_cache_two": 2,
+    "state_dl_then_cache": 0,
+    "state_ref_cache_active": 3,
+    "summary_lg5_tldr120": 0,
+    "trread_ro5_page2": 1
+  },
+  "trials": [
+    {
+      "split": "dev",
+      "task_id": "constraint_search_no_file",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 0.75,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "constraint_search_no_file",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 0.75,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "constraint_search_no_file",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 0.75,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "infeasible_unsupported_action",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "get_paper_content",
+        "get_paper_content",
+        "get_paper_content",
+        "get_paper_content"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "infeasible_unsupported_action",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "get_paper_content",
+        "extract_paper_figures",
+        "get_paper_content",
+        "get_translated_content"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "infeasible_unsupported_action",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "get_paper_content"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "multi_cv3_dl1",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_content"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "dev",
+      "task_id": "multi_cv3_dl1",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "multi_cv3_dl1",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [
+        "search_arxiv_papers",
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 2
+    },
+    {
+      "split": "dev",
+      "task_id": "opt_force_dl",
+      "trial": 0,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "download_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "opt_force_dl",
+      "trial": 1,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "download_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "opt_force_dl",
+      "trial": 2,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "download_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "ref_ctrl_id_download",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "search_arxiv_papers",
+        "search_arxiv_papers",
+        "search_arxiv_papers",
+        "search_arxiv_papers",
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 5
+    },
+    {
+      "split": "dev",
+      "task_id": "ref_ctrl_id_download",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "dev",
+      "task_id": "ref_ctrl_id_download",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "dev",
+      "task_id": "search_AI_1d_3",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_recently_submitted_cs_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "dev",
+      "task_id": "search_AI_1d_3",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "search_arxiv_papers",
+        "get_paper_cache_status",
+        "search_arxiv_papers",
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 5
+    },
+    {
+      "split": "dev",
+      "task_id": "search_AI_1d_3",
+      "trial": 2,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "search_kw_agentic_rl",
+      "trial": 0,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "search_kw_agentic_rl",
+      "trial": 1,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "search_kw_agentic_rl",
+      "trial": 2,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "state_dl_then_cache",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_content",
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.5,
+      "reference_score": 0.5,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "state_dl_then_cache",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_content",
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.5,
+      "reference_score": 0.5,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "dev",
+      "task_id": "state_dl_then_cache",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_content",
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.5,
+      "reference_score": 0.5,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "analyze_ai5_ref4_desc",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 2
+    },
+    {
+      "split": "iid_test",
+      "task_id": "analyze_ai5_ref4_desc",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "extract_paper_figures",
+        "analyze_figure"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "iid_test",
+      "task_id": "analyze_ai5_ref4_desc",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "extract_paper_figures",
+        "analyze_figure"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "iid_test",
+      "task_id": "chain_cl5_dl3_tr3",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_cache_status",
+        "translate_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "iid_test",
+      "task_id": "chain_cl5_dl3_tr3",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "chain_cl5_dl3_tr3",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "constraint_translate_only",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "translate_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "constraint_translate_only",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "get_paper_content",
+        "get_paper_content",
+        "get_paper_content",
+        "get_paper_content"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "constraint_translate_only",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "translate_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "figure_ai5_ref4",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 2
+    },
+    {
+      "split": "iid_test",
+      "task_id": "figure_ai5_ref4",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "extract_paper_figures"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "iid_test",
+      "task_id": "figure_ai5_ref4",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "extract_paper_figures"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "iid_test",
+      "task_id": "infeasible_index_out_of_range",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_paper_cache_status",
+        "get_paper_cache_status",
+        "get_paper_cache_status",
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 5
+    },
+    {
+      "split": "iid_test",
+      "task_id": "infeasible_index_out_of_range",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "download_arxiv_pdf",
+        "download_arxiv_pdf",
+        "download_arxiv_pdf",
+        "download_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 5
+    },
+    {
+      "split": "iid_test",
+      "task_id": "infeasible_index_out_of_range",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_recently_submitted_cs_papers",
+        "get_recently_submitted_cs_papers",
+        "get_recently_submitted_cs_papers",
+        "get_recently_submitted_cs_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "iid_test",
+      "task_id": "multi_ai3_tr1",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "translate_arxiv_pdf",
+        "translate_arxiv_pdf",
+        "translate_arxiv_pdf",
+        "translate_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.5,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 4
+    },
+    {
+      "split": "iid_test",
+      "task_id": "multi_ai3_tr1",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "multi_ai3_tr1",
+      "trial": 2,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "translate_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "opt_service",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "translate_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 1,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "opt_service",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "translate_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "opt_service",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "translate_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "qa_cr5_abstract",
+      "trial": 0,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_content"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "qa_cr5_abstract",
+      "trial": 1,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_content"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "qa_cr5_abstract",
+      "trial": 2,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_content"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_ctrl_id_cache",
+      "trial": 0,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_ctrl_id_cache",
+      "trial": 1,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_ctrl_id_cache",
+      "trial": 2,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_ctrl_null_cache",
+      "trial": 0,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_ctrl_null_cache",
+      "trial": 1,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_ctrl_null_cache",
+      "trial": 2,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_stress_learning_state",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_content",
+        "get_translated_content"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_stress_learning_state",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "search_arxiv_papers",
+        "search_arxiv_papers",
+        "search_arxiv_papers",
+        "search_arxiv_papers",
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 5
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_stress_learning_state",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_content",
+        "analyze_figure",
+        "analyze_figure"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 2
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_CR_14d_10",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "search_arxiv_papers",
+        "search_arxiv_papers",
+        "get_recently_submitted_cs_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 2
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_CR_14d_10",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "search_arxiv_papers",
+        "search_arxiv_papers",
+        "search_arxiv_papers",
+        "search_arxiv_papers",
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 5
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_CR_14d_10",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_recently_submitted_cs_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_CV_1d_1",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 1,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_CV_1d_1",
+      "trial": 1,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_CV_1d_1",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 1,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_RO_30d_25",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_RO_30d_25",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_RO_30d_25",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_kw_rag",
+      "trial": 0,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_kw_rag",
+      "trial": 1,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_kw_rag",
+      "trial": 2,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "state_cache_two",
+      "trial": 0,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "state_cache_two",
+      "trial": 1,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "state_cache_two",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.5,
+      "reference_score": 0.5,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "state_ref_cache_active",
+      "trial": 0,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "state_ref_cache_active",
+      "trial": 1,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "state_ref_cache_active",
+      "trial": 2,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "summary_lg5_tldr120",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "summary_lg5_tldr120",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "summary_lg5_tldr120",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "iid_test",
+      "task_id": "trread_ro5_page2",
+      "trial": 0,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_translated_content"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "trread_ro5_page2",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "translate_arxiv_pdf",
+        "get_translated_content"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "iid_test",
+      "task_id": "trread_ro5_page2",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "translate_arxiv_pdf",
+        "get_translated_content"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_ai5_dl1_tr",
+      "trial": 0,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "translate_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_ai5_dl1_tr",
+      "trial": 1,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "translate_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_ai5_dl1_tr",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "translate_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 1,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_cl5_dl2_cache",
+      "trial": 0,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_cl5_dl2_cache",
+      "trial": 1,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_cl5_dl2_cache",
+      "trial": 2,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_cv5_dl1_cache_tr",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_cache_status",
+        "translate_arxiv_pdf",
+        "get_translated_content"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_cv5_dl1_cache_tr",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_cache_status",
+        "translate_arxiv_pdf",
+        "get_translated_content"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_cv5_dl1_cache_tr",
+      "trial": 2,
+      "strict_success": true,
+      "terminal_action": "FINISH",
+      "actual_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_cache_status",
+        "translate_arxiv_pdf"
+      ],
+      "tool_sequence_accurate": true,
+      "argument_score": 1.0,
+      "reference_score": 1.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 0
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_ro3_dl_two",
+      "trial": 0,
+      "strict_success": false,
+      "terminal_action": "ERROR",
+      "actual_tools": [
+        "search_arxiv_papers"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 1
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_ro3_dl_two",
+      "trial": 1,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_paper_cache_status",
+        "get_paper_cache_status",
+        "get_paper_cache_status",
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 5
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_ro3_dl_two",
+      "trial": 2,
+      "strict_success": false,
+      "terminal_action": "FORCE_STOP",
+      "actual_tools": [
+        "get_paper_cache_status",
+        "get_paper_cache_status",
+        "get_paper_cache_status",
+        "get_paper_cache_status",
+        "get_paper_cache_status"
+      ],
+      "tool_sequence_accurate": false,
+      "argument_score": 0.0,
+      "reference_score": 0.0,
+      "parse_failures": 0,
+      "tool_execution_failures": 5
+    }
+  ],
+  "paired_smoke": {
+    "archive_sha256": "57a602a28465304d85eabefd479300ecee756f1042b934cc749697dc95819f55",
+    "task_ids": [
+      "search_AI_1d_3",
+      "multi_ro3_dl_two",
+      "infeasible_index_out_of_range"
+    ],
+    "baseline": {
+      "code_commit": "d423b894be02d70ca6eae9c49843df1377b27ec9",
+      "format_parse_success": {
+        "count": 10,
+        "total": 10,
+        "rate": 1.0
+      },
+      "schema_compliance": {
+        "count": 8,
+        "total": 9,
+        "rate": 0.8888888888888888
+      },
+      "tool_accuracy": {
+        "count": 0,
+        "total": 3,
+        "rate": 0.0
+      },
+      "argument_accuracy": {
+        "score_sum": 0.0,
+        "total": 3,
+        "rate": 0.0
+      },
+      "tool_error_rate": {
+        "count": 7,
+        "total": 8,
+        "rate": 0.875
+      },
+      "strict_success": {
+        "count": 0,
+        "total": 3,
+        "rate": 0.0
+      },
+      "avg_executed_tool_calls": 2.6666666666666665,
+      "avg_prompt_tokens": 9454.666666666666,
+      "avg_completion_tokens": 248.66666666666666,
+      "avg_total_tokens": 9703.333333333334,
+      "avg_llm_ms": 17282.0,
+      "avg_total_ms": 17290.0,
+      "avg_reward": -0.75,
+      "benchmark_errors": 0,
+      "request_errors": 0,
+      "error_terminations": 1,
+      "issues": {
+        "schema:unknown_tool": 1
+      },
+      "recovered_format_errors": 0,
+      "returned_models": [
+        "Qwen/Qwen3.5-2B-Base"
+      ]
+    },
+    "boundary_fix": {
+      "code_commit": "6cbf8f981b08aa44b31bf4bbce4d1aa50b96a933",
+      "format_parse_success": {
+        "count": 10,
+        "total": 10,
+        "rate": 1.0
+      },
+      "schema_compliance": {
+        "count": 8,
+        "total": 9,
+        "rate": 0.8888888888888888
+      },
+      "tool_accuracy": {
+        "count": 0,
+        "total": 3,
+        "rate": 0.0
+      },
+      "argument_accuracy": {
+        "score_sum": 0.0,
+        "total": 3,
+        "rate": 0.0
+      },
+      "tool_error_rate": {
+        "count": 7,
+        "total": 8,
+        "rate": 0.875
+      },
+      "strict_success": {
+        "count": 0,
+        "total": 3,
+        "rate": 0.0
+      },
+      "avg_executed_tool_calls": 2.6666666666666665,
+      "avg_prompt_tokens": 9454.666666666666,
+      "avg_completion_tokens": 248.0,
+      "avg_total_tokens": 9702.666666666666,
+      "avg_llm_ms": 17335.333333333332,
+      "avg_total_ms": 17343.0,
+      "avg_reward": -0.75,
+      "benchmark_errors": 0,
+      "request_errors": 0,
+      "error_terminations": 1,
+      "issues": {
+        "schema:unknown_tool": 1
+      },
+      "recovered_format_errors": 0,
+      "returned_models": [
+        "Qwen/Qwen3.5-2B-Base"
+      ],
+      "generation_stop_reasons": {
+        "tool_call_end": 9,
+        "chat_end": 1
+      }
+    }
+  }
+}
