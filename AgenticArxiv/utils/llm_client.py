@@ -13,6 +13,7 @@ from loguru import logger
 
 
 _QWEN_CALL_END = "</tool_call>"
+_QWEN_CHAT_END = "<|im_end|>"
 _QWEN_CALL = re.compile(
     r"<tool_call>\s*<function=([\w-]+)>\s*(.*?)\s*</function>\s*</tool_call>",
     re.DOTALL,
@@ -466,8 +467,18 @@ class TransformersLLMClient:
         # guard, but stop generation eagerly so a local model does not waste up
         # to max_tokens hallucinating its own Observation and later turns.
         stop_strings = list(stop)
-        if tools and _QWEN_CALL_END not in stop_strings:
-            stop_strings.append(_QWEN_CALL_END)
+        if tools:
+            if _QWEN_CALL_END not in stop_strings:
+                stop_strings.append(_QWEN_CALL_END)
+            eos = generation_kwargs.get("eos_token_id", self.model.generation_config.eos_token_id)
+            eos_ids = [eos] if isinstance(eos, int) else list(eos or ())
+            # The pre-trained checkpoint's EOS is <|endoftext|>, but its chat template closes with <|im_end|>.
+            chat_end_id = self.tokenizer.convert_tokens_to_ids(_QWEN_CHAT_END)
+            if chat_end_id == self.tokenizer.unk_token_id:
+                chat_end_id = None
+            if chat_end_id is not None and chat_end_id not in eos_ids:
+                eos_ids.append(chat_end_id)
+                generation_kwargs["eos_token_id"] = eos_ids
         if stop_strings:
             generation_kwargs["stop_strings"] = stop_strings
             generation_kwargs["tokenizer"] = self.tokenizer
@@ -500,8 +511,22 @@ class TransformersLLMClient:
         if tools:
             response["model"] = self.model_name
             choice["raw_generation"] = raw_generation
-            choice["finish_reason"] = "length" if completion_tokens >= max_tokens else "stop"
             text, call = _decode_qwen_tool_call(content, tools)
+            last_id = int(completion_ids[-1]) if completion_tokens else None
+            if call or _QWEN_CALL_END in raw_generation:
+                stop_reason = "tool_call_end"
+            elif last_id is not None and last_id == chat_end_id:
+                stop_reason = "chat_end"
+            elif last_id in eos_ids:
+                stop_reason = "eos"
+            elif any(marker in raw_generation for marker in stop):
+                stop_reason = "stop_string"
+            elif completion_tokens >= max_tokens:
+                stop_reason = "length"
+            else:
+                stop_reason = "other"
+            choice["generation_stop_reason"] = stop_reason
+            choice["finish_reason"] = "length" if stop_reason == "length" else "stop"
             if call:
                 message.update(content=text, tool_calls=[call])
                 choice["finish_reason"] = "tool_calls"

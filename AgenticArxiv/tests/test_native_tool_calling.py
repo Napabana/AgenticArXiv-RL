@@ -1,4 +1,5 @@
 import json
+from types import SimpleNamespace
 
 import pytest
 
@@ -175,27 +176,33 @@ def test_qwen_decoder_keeps_first_call_and_rejects_a_partial_envelope(lookup):
     assert _decode_qwen_tool_call(duplicate, tools)[1] is None
 
 
-def test_local_qwen_routes_tools_to_template_and_stops_on_call_boundary(lookup, monkeypatch):
+@pytest.fixture
+def local_qwen(monkeypatch):
     torch = pytest.importorskip("torch")
+    captured = {}
+    completions = []
 
     class Tokenizer:
         pad_token_id = 0
+        unk_token_id = None
+
+        def convert_tokens_to_ids(self, token):
+            assert token == "<|im_end|>"
+            return 248046
 
         def decode(self, ids, skip_special_tokens=True):
-            return (
-                "<tool_call><function=lookup><parameter=query>second</parameter></function></tool_call>"
-                "<tool_response>invented</tool_response>"
-            )
+            return captured["text"]
 
     class Model:
+        generation_config = SimpleNamespace(eos_token_id=248044)
+
         def parameters(self):
             return iter([torch.nn.Parameter(torch.zeros(1))])
 
         def generate(self, **kwargs):
-            captured["generation"] = kwargs
-            return torch.tensor([[1, 2, 3, 4, 5]])
-
-    captured = {}
+            captured.setdefault("generation", []).append(kwargs)
+            captured["text"], last_id = completions.pop(0)
+            return torch.tensor([[1, 2, 3, 4, last_id]])
 
     def prepare(messages, template_kwargs):
         captured.update(messages=messages, template=template_kwargs)
@@ -209,6 +216,16 @@ def test_local_qwen_routes_tools_to_template_and_stops_on_call_boundary(lookup, 
     client.seed = None
     client._calls = 0
     monkeypatch.setattr(client, "_prepare_inputs", prepare)
+    return client, captured, completions
+
+
+def test_local_qwen_routes_tools_to_template_and_stops_on_call_boundary(lookup, local_qwen):
+    client, captured, completions = local_qwen
+    completions.append((
+        "<tool_call><function=lookup><parameter=query>second</parameter></function></tool_call>"
+        "<tool_response>invented</tool_response>",
+        5,
+    ))
     previous = _call("one", "lookup", {"query": "first"})
     tools = [{"type": "function", "function": tool} for tool in registry.list_tools()]
     response = client.chat_completions(
@@ -222,12 +239,71 @@ def test_local_qwen_routes_tools_to_template_and_stops_on_call_boundary(lookup, 
         extra={"tools": tools, "tool_choice": "auto"},
     )
     assert captured["template"]["tools"] == tools
-    assert "tools" not in captured["generation"]
-    assert captured["generation"]["stop_strings"] == ["</tool_call>"]
-    assert captured["generation"]["tokenizer"] is client.tokenizer
+    generation = captured["generation"][0]
+    assert "tools" not in generation
+    assert generation["stop_strings"] == ["</tool_call>"]
+    assert generation["eos_token_id"] == [248044, 248046]
+    assert generation["tokenizer"] is client.tokenizer
+    assert client.model.generation_config.eos_token_id == 248044
     assert captured["messages"][1]["tool_calls"][0]["function"]["arguments"] == {"query": "first"}
     assert isinstance(previous["function"]["arguments"], str)
     choice = response["choices"][0]
     assert choice["finish_reason"] == "tool_calls"
+    assert choice["generation_stop_reason"] == "tool_call_end"
     assert "<tool_response>" in choice["raw_generation"]
     assert parse_tool_response(choice)[2] == {"name": "lookup", "args": {"query": "second"}}
+
+
+@pytest.mark.parametrize(("text", "last_id", "stop_reason", "error"), [
+    ("查询完毕。", 248046, "chat_end", None),
+    ("查询完毕。", 248044, "eos", None),
+    ("<tool_call><function=lookup>", 248046, "chat_end", "missing_structured_tool_call"),
+    ("<tool_call>invalid</tool_call>", 248059, "tool_call_end", "missing_structured_tool_call"),
+    ("未完成的回答", 5, "length", "finish_reason:length"),
+])
+def test_local_qwen_distinguishes_eos_at_exact_budget_from_truncation(
+    lookup, local_qwen, text, last_id, stop_reason, error,
+):
+    client, _, completions = local_qwen
+    completions.append((text, last_id))
+    response = client.chat_completions(
+        model="local-qwen35",
+        messages=[{"role": "user", "content": "查询"}],
+        max_tokens=3,
+        extra={"tools": [{"type": "function", "function": registry.get_tool("lookup")}]},
+    )
+    choice = response["choices"][0]
+    assert choice["generation_stop_reason"] == stop_reason
+    if error:
+        with pytest.raises(ValueError, match=error):
+            parse_tool_response(choice)
+    else:
+        assert parse_tool_response(choice) == (text, None, None)
+
+
+def test_local_qwen_keeps_chat_feedback_and_audits_generation_stops(lookup, local_qwen, monkeypatch):
+    client, captured, completions = local_qwen
+    configured_eos = [248044, 248046]
+    client.model.generation_config.eos_token_id = configured_eos
+    completions.extend([
+        ("<tool_call><function=lookup><parameter=query>paper</parameter></function></tool_call>", 248059),
+        ("找到论文。", 248046),
+    ])
+    env = _RecordingEnv()
+    runner = BenchmarkRunner(agent_types=["native_tool_calling"], repeat=1)
+    runner._llm_client = client
+    monkeypatch.setattr(runner, "_tool_env", lambda: env)
+    results = runner.run_all([{
+        "id": "base_lookup", "task": "查询论文", "expected_tools": ["lookup"],
+        "expected_tool_args": [{"query": "paper"}],
+    }])
+    assert is_strict_success(results[0].metrics)
+    assert env.calls[0][0] == "lookup"
+    assistant, feedback = captured["messages"][-2:]
+    assert feedback == {
+        "role": "tool", "tool_call_id": assistant["tool_calls"][0]["id"], "content": "result for paper",
+    }
+    assert all("eos_token_id" not in args for args in captured["generation"])
+    assert configured_eos == [248044, 248046]
+    summary = summarize_protocol_results(results)["agents"]["native_tool_calling"]
+    assert summary["generation_stop_reasons"] == {"tool_call_end": 1, "chat_end": 1}

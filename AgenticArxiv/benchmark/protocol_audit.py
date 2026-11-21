@@ -169,6 +169,11 @@ def summarize_protocol_results(results: list) -> dict[str, Any]:
             "recovered_format_errors": sum(turn.get("recovered", False) for turn in turns),
             "returned_models": sorted({turn["model"] for turn in turns if turn["model"]}),
         }
+        generation_stops = Counter(
+            reason for turn in turns if (reason := turn["choice"].get("generation_stop_reason"))
+        )
+        if generation_stops:
+            agents[name]["generation_stop_reasons"] = dict(generation_stops)
     complete_pairs = [pair for pair in paired.values() if all(name in pair for name in PROTOCOL_AGENTS)]
     return {
         "agents": agents,
