@@ -29,7 +29,7 @@ from tools.paper_content_tool import (
     _extract_section,
     _pdf_to_text,
 )
-from tools.tool_registry import registry
+from tools.tool_registry import PAPER_REF_SCHEMA, registry
 
 
 # Free-form budgets would make the offline snapshot key space unbounded; the
@@ -338,7 +338,7 @@ def summary_backend() -> str:
 
 def summarize_paper(
     session_id: str = "default",
-    ref: Union[str, int, None] = 1,
+    ref: Union[str, int, None] = None,
     style: Optional[str] = None,
     max_words: Optional[int] = None,
 ) -> Dict[str, Any]:
@@ -392,17 +392,7 @@ PAPER_SUMMARY_TOOL_SCHEMA = {
             "type": "string",
             "default": "default",
         },
-        "ref": {
-            "description": (
-                "Paper reference: 1-based result index, arXiv id, or "
-                "title fragment; null selects the most recently active paper."
-            ),
-            "anyOf": [
-                {"type": "integer"},
-                {"type": "string"},
-                {"type": "null"},
-            ],
-        },
+        "ref": PAPER_REF_SCHEMA,
         "style": {
             "description": "Summary shape to produce.",
             "type": "string",

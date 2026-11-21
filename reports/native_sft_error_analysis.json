@@ -1,0 +1,6508 @@
+{
+  "summary": {
+    "dev": {
+      "base": 15,
+      "sft": 15,
+      "trials": 24,
+      "fail_to_pass": 6,
+      "pass_to_fail": 6
+    },
+    "iid_test": {
+      "base": 33,
+      "sft": 37,
+      "trials": 57,
+      "fail_to_pass": 15,
+      "pass_to_fail": 11
+    },
+    "ood_test": {
+      "base": 9,
+      "sft": 12,
+      "trials": 12,
+      "fail_to_pass": 3,
+      "pass_to_fail": 0
+    }
+  },
+  "error_counts": {
+    "base": {
+      "tool_sequence": 29,
+      "repeat": 16,
+      "refusal": 5,
+      "parameter": 7,
+      "tool_execution": 17,
+      "snapshot": 11,
+      "schema": 1,
+      "pending_guard": 4,
+      "early_finish": 2,
+      "parse": 4
+    },
+    "sft": {
+      "parameter": 12,
+      "tool_sequence": 11,
+      "repeat": 1,
+      "refusal": 6,
+      "early_finish": 5,
+      "parse": 6,
+      "tool_execution": 3,
+      "paper": 3
+    }
+  },
+  "training_coverage": {
+    "category_search": 83,
+    "category_search_no_file": 0,
+    "category_search_all_cs": 1,
+    "after_download": 95,
+    "after_download_finish": 35,
+    "after_download_cache": 0
+  },
+  "trials": [
+    {
+      "split": "dev",
+      "task_id": "constraint_search_no_file",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "max_results": 5,
+              "save_to_file": false
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 0.5,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CL",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "constraint_search_no_file",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "max_results": 5,
+              "save_to_file": false
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 0.5,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CL",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "constraint_search_no_file",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "max_results": 5,
+              "save_to_file": false
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 0.5,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CL",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "infeasible_unsupported_action",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "repeat",
+          "refusal"
+        ],
+        "expected_tools": "",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "repeat",
+          "refusal"
+        ],
+        "expected_tools": "",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_content",
+            "args": {
+              "ref": 1,
+              "section": null
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_content",
+            "args": {
+              "ref": 1,
+              "section": null
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "infeasible_unsupported_action",
+      "trial": 1,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "repeat",
+          "refusal"
+        ],
+        "expected_tools": "",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "refusal"
+        ],
+        "expected_tools": "",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "infeasible_unsupported_action",
+      "trial": 2,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "repeat",
+          "refusal"
+        ],
+        "expected_tools": "",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "refusal"
+        ],
+        "expected_tools": "",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "multi_cv3_dl1",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "CV",
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 3,
+              "aspect": "CV",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "multi_cv3_dl1",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "CV",
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 3,
+              "aspect": "CV",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "multi_cv3_dl1",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "CV",
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 3,
+              "aspect": "CV",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "opt_force_dl",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": true
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": true
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "opt_force_dl",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": true
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": true
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "opt_force_dl",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": true
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": true
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "ref_ctrl_id_download",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2608.14528v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": "2608.14528v1",
+              "force": false
+            },
+            "paper_id": "2608.14528v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "ref_ctrl_id_download",
+      "trial": 1,
+      "base": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2608.14528v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": "2608.14528v1",
+              "force": false
+            },
+            "paper_id": "2608.14528v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "ref_ctrl_id_download",
+      "trial": 2,
+      "base": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2608.14528v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": "2608.14528v1",
+              "force": false
+            },
+            "paper_id": "2608.14528v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "search_AI_1d_3",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "snapshot"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.AI",
+              "days": 1,
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "aspect": "AI",
+              "days": 1,
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 3,
+              "aspect": "AI",
+              "days": 1,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "search_AI_1d_3",
+      "trial": 1,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat",
+          "snapshot"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.AI",
+              "days": 1,
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.AI",
+              "days": 1,
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.AI",
+              "days": 1,
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.AI",
+              "days": 1,
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.AI",
+              "days": 1,
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 3,
+              "aspect": "AI",
+              "days": 1,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "search_AI_1d_3",
+      "trial": 2,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat",
+          "snapshot"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.AI",
+              "days": 1,
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.AI",
+              "days": 1,
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "aspect": "AI",
+              "days": 1,
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 3,
+              "aspect": "AI",
+              "days": 1,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "search_kw_agentic_rl",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "search_arxiv_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "all:agentic reinforcement learning",
+              "days": 30,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "search_arxiv_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "all:agentic reinforcement learning",
+              "days": 30,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "search_kw_agentic_rl",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "search_arxiv_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "all:agentic reinforcement learning",
+              "days": 30,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "search_arxiv_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "all:agentic reinforcement learning",
+              "max_results": 5,
+              "days": 30
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "search_kw_agentic_rl",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "search_arxiv_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "all:agentic reinforcement learning",
+              "days": 30,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "search_arxiv_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "all:agentic reinforcement learning",
+              "days": 30,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "state_dl_then_cache",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "download_arxiv_pdf,get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "early_finish"
+        ],
+        "expected_tools": "download_arxiv_pdf,get_paper_cache_status",
+        "arg_score": 0.5,
+        "ref_score": 0.5,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "state_dl_then_cache",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "download_arxiv_pdf,get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parse"
+        ],
+        "expected_tools": "download_arxiv_pdf,get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "ERROR",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": [
+          "format:finish_reason:length"
+        ]
+      }
+    },
+    {
+      "split": "dev",
+      "task_id": "state_dl_then_cache",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "download_arxiv_pdf,get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "early_finish"
+        ],
+        "expected_tools": "download_arxiv_pdf,get_paper_cache_status",
+        "arg_score": 0.5,
+        "ref_score": 0.5,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "analyze_ai5_ref4_desc",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,extract_paper_figures,analyze_figure",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "AI",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "analyze_figure",
+            "args": {
+              "ref": 4,
+              "figure_no": 1,
+              "question": "describe"
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,extract_paper_figures,analyze_figure",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "AI",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 4,
+              "force": false
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "analyze_figure",
+            "args": {
+              "ref": 4,
+              "figure_no": 1,
+              "question": "describe"
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "analyze_ai5_ref4_desc",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,extract_paper_figures,analyze_figure",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "AI",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "analyze_figure",
+            "args": {
+              "ref": 4,
+              "figure_no": 1,
+              "question": "describe"
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,extract_paper_figures,analyze_figure",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "AI",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 4,
+              "force": false
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "analyze_figure",
+            "args": {
+              "ref": 4,
+              "figure_no": 1,
+              "question": "describe"
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "analyze_ai5_ref4_desc",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,extract_paper_figures,analyze_figure",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "AI",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "analyze_figure",
+            "args": {
+              "ref": 4,
+              "figure_no": 1,
+              "question": "describe"
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,extract_paper_figures,analyze_figure",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "AI",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 4,
+              "force": false
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "analyze_figure",
+            "args": {
+              "ref": 4,
+              "figure_no": 1,
+              "question": "describe"
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "chain_cl5_dl3_tr3",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "CL",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parse"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "ERROR",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CL",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 3,
+              "force": false
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 3,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": [
+          "format:finish_reason:length"
+        ]
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "chain_cl5_dl3_tr3",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "CL",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parse"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "ERROR",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CL",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 3,
+              "force": false
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 3,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": [
+          "format:finish_reason:length"
+        ]
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "chain_cl5_dl3_tr3",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "CL",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parse"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "ERROR",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CL",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 3,
+              "force": false
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 3,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2611.18514v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": [
+          "format:finish_reason:length"
+        ]
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "constraint_translate_only",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "translate_arxiv_pdf",
+        "arg_score": 0.5,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "translate_arxiv_pdf",
+        "arg_score": 0.5,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "constraint_translate_only",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": true
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "translate_arxiv_pdf",
+        "arg_score": 0.5,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "constraint_translate_only",
+      "trial": 2,
+      "base": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "translate_arxiv_pdf",
+        "arg_score": 0.5,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "translate_arxiv_pdf",
+        "arg_score": 0.5,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "figure_ai5_ref4",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,extract_paper_figures",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "AI",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,extract_paper_figures",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "AI",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 4,
+              "force": false
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "figure_ai5_ref4",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,extract_paper_figures",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "AI",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,extract_paper_figures",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "AI",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 4,
+              "force": false
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "figure_ai5_ref4",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,extract_paper_figures",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "AI",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,extract_paper_figures",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "AI",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 4,
+              "force": false
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          },
+          {
+            "name": "extract_paper_figures",
+            "args": {
+              "ref": 4
+            },
+            "paper_id": "2611.18553v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "infeasible_index_out_of_range",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "schema",
+          "refusal"
+        ],
+        "expected_tools": "",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "ERROR",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 30,
+              "max_results": 100
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": [
+          "schema:invalid_value:days"
+        ]
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "refusal"
+        ],
+        "expected_tools": "",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 20,
+              "force": false
+            },
+            "paper_id": null,
+            "tool_issue": "tool_error"
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "infeasible_index_out_of_range",
+      "trial": 1,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat",
+          "refusal"
+        ],
+        "expected_tools": "",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {},
+            "paper_id": null,
+            "tool_issue": "tool_error"
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 20
+            },
+            "paper_id": null,
+            "tool_issue": "tool_error"
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 20
+            },
+            "paper_id": null,
+            "tool_issue": "tool_error"
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 20
+            },
+            "paper_id": null,
+            "tool_issue": "tool_error"
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 20
+            },
+            "paper_id": null,
+            "tool_issue": "tool_error"
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "refusal"
+        ],
+        "expected_tools": "",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 20,
+              "force": false
+            },
+            "paper_id": null,
+            "tool_issue": "tool_error"
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "infeasible_index_out_of_range",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "refusal"
+        ],
+        "expected_tools": "",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 20,
+              "force": false
+            },
+            "paper_id": null,
+            "tool_issue": "tool_error"
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "multi_ai3_tr1",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat",
+          "pending_guard"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,translate_arxiv_pdf",
+        "arg_score": 0.75,
+        "ref_score": 1.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "AI",
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "service": "google"
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "service": "google"
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "service": "google"
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "service": "google"
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 3,
+              "aspect": "AI",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "multi_ai3_tr1",
+      "trial": 1,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,translate_arxiv_pdf",
+        "arg_score": 0.5,
+        "ref_score": 0.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "AI",
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 3,
+              "aspect": "AI",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "multi_ai3_tr1",
+      "trial": 2,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,translate_arxiv_pdf",
+        "arg_score": 0.5,
+        "ref_score": 0.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "AI",
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 3,
+              "aspect": "AI",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "opt_service",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "service": "google"
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "google",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "opt_service",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "service": "google"
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "google",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "opt_service",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "service": "google"
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "google",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "qa_cr5_abstract",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_content",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "CR",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18463v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_content",
+            "args": {
+              "ref": 2,
+              "section": "abstract"
+            },
+            "paper_id": "2611.18463v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_content",
+        "arg_score": 0.8333333333333334,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CR",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2,
+              "force": false
+            },
+            "paper_id": "2611.18463v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_content",
+            "args": {
+              "ref": 2,
+              "section": null
+            },
+            "paper_id": "2611.18463v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "qa_cr5_abstract",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_content",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "CR",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18463v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_content",
+            "args": {
+              "ref": 2,
+              "section": "abstract"
+            },
+            "paper_id": "2611.18463v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_content",
+        "arg_score": 0.8333333333333334,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CR",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2,
+              "force": false
+            },
+            "paper_id": "2611.18463v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_content",
+            "args": {
+              "ref": 2,
+              "section": null
+            },
+            "paper_id": "2611.18463v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "qa_cr5_abstract",
+      "trial": 2,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "early_finish"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_content",
+        "arg_score": 0.3333333333333333,
+        "ref_score": 0.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "aspect": "CR",
+              "days": 7,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_content",
+            "args": {
+              "ref": 2,
+              "section": "abstract"
+            },
+            "paper_id": "2611.18463v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_content",
+        "arg_score": 0.8333333333333334,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CR",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2,
+              "force": false
+            },
+            "paper_id": "2611.18463v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_content",
+            "args": {
+              "ref": 2,
+              "section": null
+            },
+            "paper_id": "2611.18463v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_ctrl_id_cache",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2608.14543v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14543v1"
+            },
+            "paper_id": "2608.14543v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_ctrl_id_cache",
+      "trial": 1,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "parse"
+        ],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 0.0,
+        "ref_score": 0.0,
+        "termination": "ERROR",
+        "calls": [],
+        "protocol_issues": [
+          "format:finish_reason:length"
+        ]
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14543v1"
+            },
+            "paper_id": "2608.14543v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_ctrl_id_cache",
+      "trial": 2,
+      "base": {
+        "strict": false,
+        "categories": [
+          "parameter"
+        ],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2608.14543v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14543v1"
+            },
+            "paper_id": "2608.14543v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_ctrl_null_cache",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14528v1"
+            },
+            "paper_id": "2608.14528v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14528v1"
+            },
+            "paper_id": "2608.14528v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_ctrl_null_cache",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14528v1"
+            },
+            "paper_id": "2608.14528v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14528v1"
+            },
+            "paper_id": "2608.14528v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_ctrl_null_cache",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14528v1"
+            },
+            "paper_id": "2608.14528v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14528v1"
+            },
+            "paper_id": "2608.14528v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_stress_learning_state",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence"
+        ],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 0.0,
+        "ref_score": 0.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "max_results": 10
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parameter",
+          "paper"
+        ],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 0.0,
+        "ref_score": 0.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_stress_learning_state",
+      "trial": 1,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence"
+        ],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 0.0,
+        "ref_score": 0.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "max_results": 10
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 3
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parameter",
+          "paper"
+        ],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 0.0,
+        "ref_score": 0.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "ref_stress_learning_state",
+      "trial": 2,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat",
+          "snapshot"
+        ],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 0.0,
+        "ref_score": 0.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "Learning State",
+              "max_results": 10
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "Learning State",
+              "days": 7,
+              "max_results": 10
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "Learning State",
+              "days": 7,
+              "max_results": 10
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "Learning State",
+              "days": 7,
+              "max_results": 10
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "Learning State",
+              "days": 7,
+              "max_results": 10
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parameter",
+          "paper"
+        ],
+        "expected_tools": "download_arxiv_pdf",
+        "arg_score": 0.0,
+        "ref_score": 0.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_CR_14d_10",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 14,
+              "max_results": 10,
+              "aspect": "CR"
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 10,
+              "aspect": "CR",
+              "days": 14,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_CR_14d_10",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 14,
+              "max_results": 10,
+              "aspect": "CR"
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 10,
+              "aspect": "CR",
+              "days": 14,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_CR_14d_10",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "aspect": "CR",
+              "days": 14,
+              "max_results": 10
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 10,
+              "aspect": "CR",
+              "days": 14,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_CV_1d_1",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat",
+          "snapshot"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.CV",
+              "days": 1,
+              "max_results": 1
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 1,
+              "max_results": 1
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.CV",
+              "days": 1,
+              "max_results": 1
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 1,
+              "max_results": 1
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.CV",
+              "days": 1,
+              "max_results": 1
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 1,
+              "aspect": "CV",
+              "days": 1,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_CV_1d_1",
+      "trial": 1,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat",
+          "snapshot"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.CV",
+              "days": 1,
+              "max_results": 1
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.CV",
+              "days": 1,
+              "max_results": 1
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.CV",
+              "days": 1,
+              "max_results": 1
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.CV",
+              "days": 1,
+              "max_results": 1
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.CV",
+              "days": 1,
+              "max_results": 1
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 1,
+              "aspect": "CV",
+              "days": 1,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_CV_1d_1",
+      "trial": 2,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "snapshot"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.CV",
+              "days": 1,
+              "max_results": 1
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "aspect": "CV",
+              "days": 1,
+              "max_results": 1
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 1,
+              "aspect": "CV",
+              "days": 1,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_RO_30d_25",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "parse",
+          "tool_execution",
+          "snapshot"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "ERROR",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.RO",
+              "days": 30,
+              "max_results": 25
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "aspect": "RO",
+              "days": 30,
+              "max_results": 25
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": [
+          "format:finish_reason:length"
+        ]
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 25,
+              "aspect": "RO",
+              "days": 30,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_RO_30d_25",
+      "trial": 1,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "parse",
+          "tool_execution",
+          "snapshot"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "ERROR",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.RO",
+              "days": 30,
+              "max_results": 25
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "robotics",
+              "days": 30,
+              "max_results": 25
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "aspect": "RO",
+              "days": 30,
+              "max_results": 25
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": [
+          "format:finish_reason:length"
+        ]
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 25,
+              "aspect": "RO",
+              "days": 30,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_RO_30d_25",
+      "trial": 2,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat",
+          "snapshot"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 0.0,
+        "ref_score": 1.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.RO",
+              "days": 30,
+              "max_results": 25
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.RO",
+              "days": 30,
+              "max_results": 25
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.RO",
+              "days": 30,
+              "max_results": 25
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.RO",
+              "days": 30,
+              "max_results": 25
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.RO",
+              "days": 30,
+              "max_results": 25
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 25,
+              "aspect": "RO",
+              "days": 30,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_kw_rag",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "search_arxiv_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "all:retrieval augmented generation",
+              "days": 30,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "search_arxiv_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "all:retrieval augmented generation",
+              "days": 30,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_kw_rag",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "search_arxiv_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "all:retrieval augmented generation",
+              "days": 30,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "search_arxiv_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "all:retrieval augmented generation",
+              "max_results": 5,
+              "days": 30
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "search_kw_rag",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "search_arxiv_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "all:retrieval augmented generation",
+              "days": 30,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "search_arxiv_papers",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "all:retrieval augmented generation",
+              "max_results": 5,
+              "days": 30
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "state_cache_two",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "early_finish"
+        ],
+        "expected_tools": "get_paper_cache_status,get_paper_cache_status",
+        "arg_score": 0.5,
+        "ref_score": 0.5,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "early_finish"
+        ],
+        "expected_tools": "get_paper_cache_status,get_paper_cache_status",
+        "arg_score": 0.5,
+        "ref_score": 0.5,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "state_cache_two",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status,get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2608.14530v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "early_finish"
+        ],
+        "expected_tools": "get_paper_cache_status,get_paper_cache_status",
+        "arg_score": 0.5,
+        "ref_score": 0.5,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "state_cache_two",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status,get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2608.14530v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "early_finish"
+        ],
+        "expected_tools": "get_paper_cache_status,get_paper_cache_status",
+        "arg_score": 0.5,
+        "ref_score": 0.5,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "state_ref_cache_active",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat"
+        ],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 0.0,
+        "ref_score": 0.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": null,
+            "tool_issue": "translation_not_ready"
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": null,
+            "tool_issue": "translation_not_ready"
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": null,
+            "tool_issue": "translation_not_ready"
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": null,
+            "tool_issue": "translation_not_ready"
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": null,
+            "tool_issue": "translation_not_ready"
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14530v1"
+            },
+            "paper_id": "2608.14530v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "state_ref_cache_active",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14530v1"
+            },
+            "paper_id": "2608.14530v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14530v1"
+            },
+            "paper_id": "2608.14530v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "state_ref_cache_active",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14530v1"
+            },
+            "paper_id": "2608.14530v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": "2608.14530v1"
+            },
+            "paper_id": "2608.14530v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "summary_lg5_tldr120",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,summarize_paper",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 14,
+              "aspect": "LG",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2611.18563v1",
+            "tool_issue": null
+          },
+          {
+            "name": "summarize_paper",
+            "args": {
+              "ref": 1,
+              "style": "tldr",
+              "max_words": 120
+            },
+            "paper_id": "2611.18563v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parse"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,summarize_paper",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "ERROR",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "LG",
+              "days": 14,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2611.18563v1",
+            "tool_issue": null
+          },
+          {
+            "name": "summarize_paper",
+            "args": {
+              "ref": 1,
+              "style": "tldr",
+              "max_words": 120
+            },
+            "paper_id": "2611.18563v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": [
+          "format:finish_reason:length"
+        ]
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "summary_lg5_tldr120",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,summarize_paper",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 14,
+              "aspect": "LG",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2611.18563v1",
+            "tool_issue": null
+          },
+          {
+            "name": "summarize_paper",
+            "args": {
+              "ref": 1,
+              "style": "tldr",
+              "max_words": 120
+            },
+            "paper_id": "2611.18563v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": false,
+        "categories": [
+          "parse"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,summarize_paper",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "ERROR",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "LG",
+              "days": 14,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2611.18563v1",
+            "tool_issue": null
+          },
+          {
+            "name": "summarize_paper",
+            "args": {
+              "ref": 1,
+              "style": "tldr",
+              "max_words": 120
+            },
+            "paper_id": "2611.18563v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": [
+          "format:finish_reason:length"
+        ]
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "summary_lg5_tldr120",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,summarize_paper",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 14,
+              "aspect": "LG",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2611.18563v1",
+            "tool_issue": null
+          },
+          {
+            "name": "summarize_paper",
+            "args": {
+              "ref": 1,
+              "style": "tldr",
+              "max_words": 120
+            },
+            "paper_id": "2611.18563v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,summarize_paper",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "LG",
+              "days": 14,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2611.18563v1",
+            "tool_issue": null
+          },
+          {
+            "name": "summarize_paper",
+            "args": {
+              "ref": 1,
+              "style": "tldr",
+              "max_words": 120
+            },
+            "paper_id": "2611.18563v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "trread_ro5_page2",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat",
+          "pending_guard"
+        ],
+        "expected_tools": "get_translated_content",
+        "arg_score": 0.0,
+        "ref_score": 0.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 2
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 2
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 2
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 2
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_translated_content",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 2
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "trread_ro5_page2",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_translated_content",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 2
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_translated_content",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 2
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "iid_test",
+      "task_id": "trread_ro5_page2",
+      "trial": 2,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat",
+          "pending_guard"
+        ],
+        "expected_tools": "get_translated_content",
+        "arg_score": 0.0,
+        "ref_score": 0.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 2
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 2
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 2
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_translated_content",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 2
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_ai5_dl1_tr",
+      "trial": 0,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat",
+          "pending_guard"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,translate_arxiv_pdf",
+        "arg_score": 0.8333333333333334,
+        "ref_score": 1.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "AI",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "service": "google"
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 1
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          },
+          {
+            "name": "get_translated_content",
+            "args": {
+              "ref": 1,
+              "page": 1
+            },
+            "paper_id": null,
+            "tool_issue": "pending_guard"
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "AI",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_ai5_dl1_tr",
+      "trial": 1,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "tool_execution",
+          "repeat",
+          "snapshot"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,translate_arxiv_pdf",
+        "arg_score": 0.0,
+        "ref_score": 0.0,
+        "termination": "FORCE_STOP",
+        "calls": [
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.AI",
+              "days": 7,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "search_arxiv_papers",
+            "args": {
+              "query": "cs.AI",
+              "days": 7,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": "snapshot_coverage_error"
+          },
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "aspect": "AI",
+              "days": 7,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "AI",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_ai5_dl1_tr",
+      "trial": 2,
+      "base": {
+        "strict": false,
+        "categories": [
+          "tool_sequence",
+          "parse"
+        ],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,translate_arxiv_pdf",
+        "arg_score": 0.3333333333333333,
+        "ref_score": 0.0,
+        "termination": "ERROR",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "AI",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": [
+          "format:finish_reason:length"
+        ]
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "AI",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14539v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_cl5_dl2_cache",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "CL",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18527v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18527v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CL",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2,
+              "force": false
+            },
+            "paper_id": "2611.18527v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18527v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_cl5_dl2_cache",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "CL",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18527v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18527v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CL",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2,
+              "force": false
+            },
+            "paper_id": "2611.18527v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18527v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_cl5_dl2_cache",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 7,
+              "aspect": "CL",
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18527v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18527v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CL",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2,
+              "force": false
+            },
+            "paper_id": "2611.18527v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18527v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_cv5_dl1_cache_tr",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "aspect": "CV",
+              "days": 7,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CV",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_cv5_dl1_cache_tr",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "aspect": "CV",
+              "days": 7,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CV",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_cv5_dl1_cache_tr",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "aspect": "CV",
+              "days": 7,
+              "max_results": 5
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status,translate_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 5,
+              "aspect": "CV",
+              "days": 7,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          },
+          {
+            "name": "get_paper_cache_status",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          },
+          {
+            "name": "translate_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false,
+              "service": "bing",
+              "threads": 4,
+              "keep_dual": false
+            },
+            "paper_id": "2608.14546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_ro3_dl_two",
+      "trial": 0,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "aspect": "RO",
+              "days": 3,
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 3,
+              "aspect": "RO",
+              "days": 3,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2,
+              "force": false
+            },
+            "paper_id": "2611.18546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_ro3_dl_two",
+      "trial": 1,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 3,
+              "aspect": "RO",
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 3,
+              "aspect": "RO",
+              "days": 3,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2,
+              "force": false
+            },
+            "paper_id": "2611.18546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    },
+    {
+      "split": "ood_test",
+      "task_id": "multi_ro3_dl_two",
+      "trial": 2,
+      "base": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "days": 3,
+              "aspect": "RO",
+              "max_results": 3
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2
+            },
+            "paper_id": "2611.18546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      },
+      "sft": {
+        "strict": true,
+        "categories": [],
+        "expected_tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,download_arxiv_pdf",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "termination": "FINISH",
+        "calls": [
+          {
+            "name": "get_recently_submitted_cs_papers",
+            "args": {
+              "max_results": 3,
+              "aspect": "RO",
+              "days": 3,
+              "output_path": null,
+              "save_to_file": true
+            },
+            "paper_id": null,
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 1,
+              "force": false
+            },
+            "paper_id": "2611.18562v1",
+            "tool_issue": null
+          },
+          {
+            "name": "download_arxiv_pdf",
+            "args": {
+              "ref": 2,
+              "force": false
+            },
+            "paper_id": "2611.18546v1",
+            "tool_issue": null
+          }
+        ],
+        "protocol_issues": []
+      }
+    }
+  ]
+}

@@ -117,7 +117,8 @@ class BenchmarkRunner:
                         self._reset_offline_trial_state()
                         # 确保依赖任务已执行
                         self._ensure_dependencies(task_def, session_id, agent_type)
-                        self._apply_setup(task_def, session_id)
+                        if agent_type != "native_tool_calling":
+                            self._apply_setup(task_def, session_id)
 
                         # 下载/翻译任务：清理上一次试验留下的文件和 DB 记录
                         if task_def.get("category") in ("download", "translate"):
@@ -127,8 +128,10 @@ class BenchmarkRunner:
                         # 不包含 session prefix，确保 Base/SFT/RL 换前缀后仍可配对；
                         # 也不受前面任务实际用了多少轮 ReAct 调用的影响。
                         self._start_generation_stream(task_id, trial)
-                        agent = self._create_agent(
-                            agent_type, task_def.get("max_iterations"))
+                        max_iterations = task_def.get("max_iterations")
+                        if agent_type == "native_tool_calling":
+                            max_iterations = max(max_iterations or 5, len(task_def.get("expected_tools") or []) + 1)
+                        agent = self._create_agent(agent_type, max_iterations)
                         compare = self.compare_protocols and agent_type in (
                             "regex", "native_tool_calling",
                         )
@@ -140,12 +143,21 @@ class BenchmarkRunner:
                         # raw_result.history，因此不会被当作策略动作参与评分。
                         from agents.prompt_templates import build_visible_setup_context
 
+                        receipts = []
+                        if agent_type == "native_tool_calling":
+                            receipts = agent.apply_setup(task_def.get("setup") or [], session_id)
+                            initial_history = agent.setup_context(receipts)
+                        else:
+                            initial_history = build_visible_setup_context(task_def)
                         raw = agent.run(
                             task=task_def["task"],
                             agent_model=self.model,
                             session_id=session_id,
-                            initial_history=build_visible_setup_context(task_def),
+                            initial_history=initial_history,
                         )
+                        if receipts:
+                            raw["setup_receipts"] = receipts
+                            raw["setup_context"] = initial_history
                         if compare:
                             from benchmark.protocol_audit import score_protocol_trial
 

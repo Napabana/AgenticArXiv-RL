@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 from typing import Dict, Any, Optional, Union, Callable
 
-from tools.tool_registry import registry
+from tools.tool_registry import PAPER_REF_SCHEMA, registry
 from models.store import store
 from models.schemas import PdfAsset, TranslateAsset
 from utils.pdf_downloader import (
@@ -321,13 +321,10 @@ PDF_TRANSLATE_TOOL_SCHEMA = {
     "type": "object",
     "properties": {
         "session_id": {"type": "string", "default": "default"},
-        "ref": {
-            "description": "论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文",
-            "anyOf": [{"type": "integer"}, {"type": "string"}, {"type": "null"}],
-        },
-        "force": {"type": "boolean", "default": False},
-        "service": {"type": "string", "description": "翻译服务，如 bing/deepl/google", "default": "bing"},
-        "threads": {"type": "integer", "description": "线程数", "default": 4, "minimum": 1, "maximum": 32},
+        "ref": PAPER_REF_SCHEMA,
+        "force": {"type": "boolean", "description": "是否强制重新翻译已有译文", "default": False},
+        "service": {"type": "string", "description": "翻译服务，如 bing/deepl/google", "default": settings.pdf2zh_service},
+        "threads": {"type": "integer", "description": "线程数", "default": settings.pdf2zh_threads, "minimum": 1, "maximum": 32},
         "keep_dual": {"type": "boolean", "description": "是否保留双语 PDF", "default": False},
         "paper_id": {"type": "string", "description": "可选：直接指定 paper_id（不依赖 session）"},
         "pdf_url": {"type": "string", "description": "可选：直接指定 pdf_url（不依赖 session）"},
@@ -338,7 +335,7 @@ PDF_TRANSLATE_TOOL_SCHEMA = {
 
 registry.register_tool(
     name="translate_arxiv_pdf",
-    description="调用 pdf2zh 翻译 PDF 全文，默认只保留中文单语 mono PDF，并维护 translate_cache.json 索引（ref 支持 null 指代最近操作论文）",
+    description="提交 PDF 全文翻译。PENDING 表示已受理，译文尚未就绪，请勿重提交或轮询。用户明确要求时可随后查询一次缓存。默认只保留中文单语 PDF。",
     parameter_schema=PDF_TRANSLATE_TOOL_SCHEMA,
     func=translate_arxiv_pdf,
 )

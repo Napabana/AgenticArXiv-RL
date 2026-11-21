@@ -56,6 +56,12 @@ DEFAULT_SNAPSHOT_TOOLS: Set[str] = set(_SEARCH_TOOLS) | {
 }
 
 
+class SnapshotCoverageError(KeyError):
+    """Replay has no record for the requested valid operation."""
+
+    tool_issue = "snapshot_coverage_error"
+
+
 class MockArxivEnv:
     """快照回放环境（用于快速、确定性、离线的 rollout）
 
@@ -198,7 +204,7 @@ class MockArxivEnv:
 
         self.stats["miss"] += 1
         if self.mode == "replay":
-            raise KeyError(
+            raise SnapshotCoverageError(
                 f"[MockArxivEnv] replay 模式下快照缺失: tool={tool_name} key={key}。"
                 f"请先运行 `python -m rl.build_snapshot` 生成快照。"
             )
@@ -287,33 +293,24 @@ class MockArxivEnv:
 
     @staticmethod
     def _derive_search_result(args: Dict[str, Any], tool_data: Dict[str, Any]):
-        """从已记录的论文池里按 aspect 取子集，模拟真实检索的参数语义。
-
-        匹配优先级：同 aspect 的池 → "*" 全域池 → 任意池。
-        返回 None 表示无可用池（交给上层走 miss 分支）。
-        """
-        if not tool_data:
-            return None
-
+        """Derive a result from the requested category's recorded pool."""
         aspect = str(args.get("aspect", "*"))
-        # 容错：模型可能写成 "cs.AI" 而 schema 要求 "AI"
-        norm_aspect = aspect.split(".")[-1] if aspect.startswith("cs.") else aspect
-
-        def pool_of(entry) -> list:
-            r = entry.get("result")
-            return r if isinstance(r, list) else []
-
-        exact, wildcard, anypool = None, None, None
+        norm_aspect = aspect.upper().removeprefix("CS.")
+        exact, wildcard = [], []
         for entry in tool_data.values():
-            a = str(entry.get("args", {}).get("aspect", "*"))
-            if anypool is None:
-                anypool = pool_of(entry)
-            if a == "*":
-                wildcard = pool_of(entry)
-            if a == norm_aspect:
-                exact = pool_of(entry)
+            pool = entry.get("result")
+            if not isinstance(pool, list):
+                continue
+            category = entry.get("args", {}).get("aspect", "*")
+            if category == "*":
+                wildcard = pool
+            if category == norm_aspect:
+                exact = pool
 
-        pool = exact if exact else (wildcard if wildcard else anypool)
+        pool = exact or [
+            paper for paper in wildcard
+            if f"cs.{norm_aspect}" in paper.get("categories", [])
+        ]
         if not pool:
             return None
 
@@ -385,6 +382,14 @@ class MockArxivEnv:
 
     # ---------- 离线下载桩 ----------
 
+    def has_recorded_translation(self, paper_id: str) -> bool:
+        """Determine whether the snapshot contains an already completed translation."""
+        return any(
+            entry["result"].get("paper_id") == paper_id and bool(entry["result"].get("content"))
+            for entry in self.snapshot.get(_TRANSLATED_CONTENT_TOOL, {}).values()
+            if isinstance(entry["result"], dict)
+        )
+
     def reset_runtime_state(self) -> None:
         """Clear mutable replay state between independent benchmark trials."""
         self._offline_downloaded.clear()
@@ -422,7 +427,7 @@ class MockArxivEnv:
         from models.store import store
 
         session_id = args.get("session_id", "default")
-        ref = args.get("ref", 1)
+        ref = args.get("ref")
 
         if ref is None:
             paper_id = store.get_last_active_paper_id(session_id)
@@ -511,7 +516,7 @@ class MockArxivEnv:
         against the current session before building the stable snapshot key.
         """
         session_id = str((args or {}).get("session_id") or "default")
-        ref = (args or {}).get("ref", 1)
+        ref = (args or {}).get("ref")
         if resolved_paper_id:
             paper_id = str(resolved_paper_id)
         else:
@@ -542,7 +547,7 @@ class MockArxivEnv:
         from tools.paper_summary_tool import bucket_max_words, normalize_style
 
         session_id = str((args or {}).get("session_id") or "default")
-        ref = (args or {}).get("ref", 1)
+        ref = (args or {}).get("ref")
         if resolved_paper_id:
             paper_id = str(resolved_paper_id)
         else:
@@ -567,7 +572,7 @@ class MockArxivEnv:
     ) -> str:
         """Key figure extraction by resolved paper id (no other arguments)."""
         session_id = str((args or {}).get("session_id") or "default")
-        ref = (args or {}).get("ref", 1)
+        ref = (args or {}).get("ref")
         if resolved_paper_id:
             paper_id = str(resolved_paper_id)
         else:
@@ -592,7 +597,7 @@ class MockArxivEnv:
         from tools.figure_analysis_tool import normalize_question, validate_figure_no
 
         session_id = str((args or {}).get("session_id") or "default")
-        ref = (args or {}).get("ref", 1)
+        ref = (args or {}).get("ref")
         if resolved_paper_id:
             paper_id = str(resolved_paper_id)
         else:
@@ -625,7 +630,7 @@ class MockArxivEnv:
 
         page = validate_page((args or {}).get("page", 1))
         session_id = str((args or {}).get("session_id") or "default")
-        ref = (args or {}).get("ref", 1)
+        ref = (args or {}).get("ref")
         if resolved_paper_id:
             paper_id = str(resolved_paper_id)
         else:

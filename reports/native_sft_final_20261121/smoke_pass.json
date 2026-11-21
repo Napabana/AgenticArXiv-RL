@@ -1,0 +1,16 @@
+{
+  "status": "GPU_PASS",
+  "loss": 0.15818610042333603,
+  "optimizer_steps": 2,
+  "adapter_sha256": "b87a36c28ef6b15a6aafa22db9b5c8a7229808616d191708373b0553bec21e57",
+  "native_schema": {
+    "count": 2,
+    "total": 2,
+    "rate": 1.0
+  },
+  "strict": {
+    "count": 2,
+    "total": 3,
+    "rate": 0.6666666666666666
+  }
+}

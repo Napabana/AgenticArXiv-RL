@@ -23,7 +23,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from config import settings
 from models.store import store
-from tools.tool_registry import registry
+from tools.tool_registry import PAPER_REF_SCHEMA, registry
 
 
 #: Vector-only papers can carry dozens of incidental glyph images; the first
@@ -126,7 +126,7 @@ def _figure_candidates(document):
 
 def extract_paper_figures(
     session_id: str = "default",
-    ref: Union[str, int, None] = 1,
+    ref: Union[str, int, None] = None,
 ) -> Dict[str, Any]:
     """Extract embedded figures (image files + captions) from a paper PDF.
 
@@ -196,17 +196,7 @@ PAPER_FIGURES_TOOL_SCHEMA = {
             "type": "string",
             "default": "default",
         },
-        "ref": {
-            "description": (
-                "Paper reference: 1-based result index, arXiv id, or "
-                "title fragment; null selects the most recently active paper."
-            ),
-            "anyOf": [
-                {"type": "integer"},
-                {"type": "string"},
-                {"type": "null"},
-            ],
-        },
+        "ref": PAPER_REF_SCHEMA,
     },
     "required": [],
 }

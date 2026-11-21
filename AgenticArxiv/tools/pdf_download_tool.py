@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 from typing import Dict, Any, Optional, Union
 
-from tools.tool_registry import registry
+from tools.tool_registry import PAPER_REF_SCHEMA, registry
 from models.store import store
 from models.schemas import Paper
 from models.schemas import PdfAsset
@@ -25,7 +25,7 @@ def _fallback_pdf_url(paper_id: str) -> str:
 
 def download_arxiv_pdf(
     session_id: str = "default",
-    ref: Union[str, int, None] = 1,
+    ref: Union[str, int, None] = None,
     force: bool = False,
 ) -> Dict[str, Any]:
     """
@@ -163,10 +163,7 @@ PDF_DOWNLOAD_TOOL_SCHEMA = {
             "description": "会话ID，用于从短期记忆中解析 ref 或读取 last_active_paper_id",
             "default": "default",
         },
-        "ref": {
-            "description": "论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文",
-            "anyOf": [{"type": "integer"}, {"type": "string"}, {"type": "null"}],
-        },
+        "ref": PAPER_REF_SCHEMA,
         "force": {
             "type": "boolean",
             "description": "是否强制重新下载（覆盖本地文件）",

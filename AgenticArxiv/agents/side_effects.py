@@ -156,7 +156,9 @@ class LocalSideEffectManager(SideEffectManager):
         if not paper_id:
             ref = kwargs.get("ref")
             paper = self.store.resolve_paper(session_id, ref)
-            paper_id = paper.id if paper else self.store.get_last_active_paper_id(session_id)
+            paper_id = paper.id if paper else (
+                self.store.get_last_active_paper_id(session_id) if ref is None else None
+            )
         if not paper_id:
             raise ValueError(
                 "未找到指代对象：当前会话没有可翻译的论文，请先检索/下载论文，"

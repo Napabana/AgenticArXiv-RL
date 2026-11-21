@@ -6,7 +6,7 @@ from collections import Counter, defaultdict
 from typing import Any
 
 from agents.base_agent import BaseAgent, is_terminal_action
-from benchmark.metrics import _count_tool_failures, _parse_tool_action, is_strict_success
+from benchmark.metrics import _count_snapshot_coverage_errors, _count_tool_failures, _parse_tool_action, is_strict_success
 from rl.reward import RewardCalculator
 from tools.tool_registry import registry
 from utils.llm_client import parse_tool_response
@@ -54,6 +54,7 @@ def _audit_turn(response: dict, agent_type: str) -> dict:
         choice = {}
     turn = {
         "model": response.get("model"),
+        "response": response,
         "choice": choice,
         "format_ok": False,
         "schema_ok": None,
@@ -71,7 +72,13 @@ def _audit_turn(response: dict, agent_type: str) -> dict:
     turn["format_ok"] = True
     turn["action"] = action
     if action is not None:
-        tool = registry.get_tool(action["name"])
+        if agent_type == "native_tool_calling":
+            tool = registry.model_tool(action["name"])
+            normalized = registry.normalize_arguments(action["name"], action["args"])
+            turn["normalized_args"] = normalized
+            action = {**action, "args": normalized}
+        else:
+            tool = registry.get_tool(action["name"])
         valid, reason = (
             BaseAgent._validate_routed_action(action, tool) if tool else (False, "unknown_tool")
         )
@@ -90,6 +97,8 @@ def score_protocol_trial(
     for turn, step in zip(turns, history):
         turn["runtime_action"] = step["action"]
         turn["recovered"] = not turn["format_ok"] and _parse_tool_action(step["action"]) is not None
+        if not turn["format_ok"] and step["action"] == "ERROR":
+            step["parse_failed"] = True
 
     if agent_type == "regex" and turns and history and history[-1]["action"] == "FINISH":
         if not turns[-1]["format_ok"]:
@@ -97,6 +106,7 @@ def score_protocol_trial(
             history = [*history[:-1], {
                 **history[-1],
                 "action": "ERROR",
+                "parse_failed": True,
                 "observation": f"无法解析 ReAct 动作: {turns[-1]['issue']}",
             }]
             raw["history"] = history
@@ -107,10 +117,32 @@ def score_protocol_trial(
         action = _parse_tool_action(step["action"])
         if action and isinstance(action.get("name"), str) and registry.get_tool(action["name"]):
             dispatched.append(step)
+    def signature(name, args):
+        return name, json.dumps(registry.effective_arguments(name, args), sort_keys=True, ensure_ascii=False)
+
+    expected_calls = Counter(
+        signature(name, args or {}) for name, args in zip(
+            task.get("expected_tools") or [], task.get("expected_tool_args") or [],
+        )
+    )
+    actual_calls = Counter()
+    pending = False
+    for step in dispatched:
+        action = _parse_tool_action(step["action"])
+        name = action["name"]
+        actual_calls[signature(name, action.get("args") or {})] += 1
+        if name == "translate_arxiv_pdf" and not step.get("tool_issue"):
+            pending |= "PENDING" in str(step.get("observation", ""))
+    repeated = sum(max(0, count - max(1, expected_calls[key])) for key, count in actual_calls.items())
     raw["protocol"] = {
         "turns": turns,
+        "unexpected_repeat_calls": repeated,
+        "pending_submission": pending,
+        "pending_finished": pending and bool(history) and history[-1]["action"] == "FINISH",
+        "pending_guard_errors": sum(step.get("tool_issue") == "pending_guard" for step in dispatched),
         "tool_calls_executed": len(dispatched),
         "tool_execution_errors": _count_tool_failures(dispatched),
+        "snapshot_coverage_errors": _count_snapshot_coverage_errors(dispatched),
         "request_error": any(
             step["action"] == "ERROR" and step["thought"] == "LLM调用失败" for step in history
         ),
@@ -154,6 +186,15 @@ def summarize_protocol_results(results: list) -> dict[str, Any]:
             "argument_accuracy": {"score_sum": sum(arg_scores), "total": len(arg_scores),
                                   "rate": sum(arg_scores) / len(arg_scores) if arg_scores else None},
             "tool_error_rate": _rate(sum(p.get("tool_execution_errors", 0) for p in protocols), calls),
+            "snapshot_coverage_errors": sum(p.get("snapshot_coverage_errors", 0) for p in protocols),
+            "setup_failures": sum(m.setup_failures for m in metrics),
+            "unexpected_repeat_calls": sum(p.get("unexpected_repeat_calls", 0) for p in protocols),
+            "pending_guard_errors": sum(p.get("pending_guard_errors", 0) for p in protocols),
+            "pending_finished": _rate(sum(p.get("pending_finished", False) for p in protocols),
+                                      sum(p.get("pending_submission", False) for p in protocols)),
+            "explained_refusal": _rate(sum(m.terminal_semantics_accurate for m in metrics
+                                             if m.terminal_semantics_applicable),
+                                       sum(m.terminal_semantics_applicable for m in metrics)),
             "strict_success": _rate(sum(is_strict_success(metric) for metric in metrics), len(runs)),
             "avg_executed_tool_calls": calls / len(runs),
             "avg_prompt_tokens": sum(metric.prompt_tokens for metric in metrics) / len(runs),

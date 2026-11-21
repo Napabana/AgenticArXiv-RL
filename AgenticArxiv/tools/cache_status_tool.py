@@ -2,7 +2,7 @@
 from __future__ import annotations
 from typing import Any, Dict, Optional, Union
 
-from tools.tool_registry import registry
+from tools.tool_registry import PAPER_REF_SCHEMA, registry
 from models.store import store
 
 
@@ -48,10 +48,7 @@ SCHEMA = {
     "type": "object",
     "properties": {
         "session_id": {"type": "string", "default": "default"},
-        "ref": {
-            "description": "论文引用：1-based序号 或 arxiv id 或 title子串；也支持 null 表示最近一次操作的论文",
-            "anyOf": [{"type": "integer"}, {"type": "string"}, {"type": "null"}],
-        },
+        "ref": PAPER_REF_SCHEMA,
         "paper_id": {"type": "string"},
     },
     "required": [],
@@ -59,7 +56,7 @@ SCHEMA = {
 
 registry.register_tool(
     name="get_paper_cache_status",
-    description="查询某篇论文的本地缓存状态(是否已下载raw、是否已翻译mono), 用于避免重复下载/翻译（ref 支持 null 指代最近操作论文）",
+    description="只查询 PDF 下载状态和中文译文就绪状态，不发起下载或翻译。用户要求先下载再检查时，先调用下载工具再查询。提交翻译后可按用户要求查询一次，PENDING 不代表译文可读。",
     parameter_schema=SCHEMA,
     func=get_paper_cache_status,
 )

@@ -74,6 +74,10 @@ def main() -> None:
                 unknown.add(str(trace.get("task_id")))
                 continue
             detail = old_details.get(_key(trace), {})
+            for turn, step in zip((trace.get("protocol") or {}).get("turns", []),
+                                  trace.get("history") or []):
+                if turn.get("format_ok") is False and step.get("action") == "ERROR":
+                    step["parse_failed"] = True
             trace_timing = trace.get("timing") or {}
             trace_usage = trace.get("token_usage") or {}
             result = {

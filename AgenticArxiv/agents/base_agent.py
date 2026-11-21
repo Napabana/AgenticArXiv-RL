@@ -451,7 +451,10 @@ class BaseAgent(ABC):
                 )
 
                 action_str = json.dumps(action_dict, ensure_ascii=False)
-                history.append({"thought": thought, "action": action_str, "observation": observation})
+                step = {"thought": thought, "action": action_str, "observation": observation}
+                if getattr(self, "_last_tool_issue", None):
+                    step["tool_issue"] = self._last_tool_issue
+                history.append(step)
 
                 self._log_step(
                     msg_id, iteration, thought,
@@ -750,6 +753,8 @@ class BaseAgent(ABC):
 
     def _execute_with_side_effects(self, action_dict: Dict[str, Any]) -> str:
         """统一处理 session_id 覆盖、翻译异步、paper 状态写入等副作用"""
+        self._last_tool_result = None
+        self._last_tool_issue = None
         try:
             tool_name = action_dict["name"]
             args = action_dict.get("args", {}) or {}
@@ -788,6 +793,12 @@ class BaseAgent(ABC):
                     pdf_url=args.get("pdf_url"),
                     input_pdf_path=args.get("input_pdf_path"),
                 )
+                self._last_tool_result = {
+                    "task_id": t.task_id, "paper_id": t.paper_id, "status": t.status,
+                }
+                if t.status in {"FAILED", "ERROR"}:
+                    self._last_tool_issue = "tool_error"
+                    return f"工具执行失败: 翻译任务 {t.task_id} 状态={t.status}"
                 return (
                     f"已创建翻译任务 task_id={t.task_id}, paper_id={t.paper_id}，状态={t.status}。"
                     f"前端可订阅 SSE: /events?session_id={self.session_id}，"
@@ -796,6 +807,10 @@ class BaseAgent(ABC):
 
             # 调用工具（注入了 env 则优先走 env）
             result = self._dispatch_tool(tool_name, inject_args)
+            self._last_tool_result = result
+            if isinstance(result, dict) and (result.get("error") or result.get("status") == "FAILED"):
+                self._last_tool_issue = "tool_error"
+                return f"工具执行失败: {result.get('error') or result['status']}"
 
             # paper_id 写入 last_active
             try:
@@ -831,6 +846,7 @@ class BaseAgent(ABC):
                             None,
                         )
                         if fallback_meta:
+                            self._last_tool_issue = "snapshot_coverage_error"
                             message = fallback_meta.get(
                                 "message",
                                 "关键词未命中离线快照，回退结果不代表真实匹配。",
@@ -867,6 +883,7 @@ class BaseAgent(ABC):
                 return str(result)[:1000]
 
         except Exception as e:
+            self._last_tool_issue = getattr(e, "tool_issue", "tool_error")
             error_msg = f"工具执行失败: {str(e)}"
             log.exception("{}", error_msg)
             return error_msg

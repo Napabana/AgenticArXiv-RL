@@ -1,0 +1,222 @@
+{
+  "split": "v4_86:dev",
+  "tasks": [
+    "constraint_search_no_file",
+    "infeasible_unsupported_action",
+    "multi_cv3_dl1",
+    "opt_force_dl",
+    "ref_ctrl_id_download",
+    "search_AI_1d_3",
+    "search_kw_agentic_rl",
+    "state_dl_then_cache"
+  ],
+  "decisions": 17,
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+  "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+  "training_manifest_sha256": "34196a2639203ca290a43c1012daa1f82f4621a4f8beb2203c597713d013bf70",
+  "evaluator_sha256": "a35437c83d0502ca28228cd9faae590ec9af3eb8048523d826defa02a298de5e",
+  "metric": "token-weighted teacher-forced next-token negative log-likelihood of the audited Assistant completion",
+  "results": [
+    {
+      "step": 0,
+      "adapter_sha256": null,
+      "scores": {
+        "all": {
+          "nll": 0.6421829402690031,
+          "tokens": 1225
+        },
+        "constraint_search_no_file": {
+          "nll": 0.4162305054841218,
+          "tokens": 270
+        },
+        "final_answer": {
+          "nll": 0.45286388497252567,
+          "tokens": 572
+        },
+        "infeasible_unsupported_action": {
+          "nll": 3.6389185587565103,
+          "tokens": 15
+        },
+        "multi_cv3_dl1": {
+          "nll": 0.850073528828594,
+          "tokens": 177
+        },
+        "opt_force_dl": {
+          "nll": 1.0719246037801107,
+          "tokens": 75
+        },
+        "ref_ctrl_id_download": {
+          "nll": 0.8077660000201353,
+          "tokens": 97
+        },
+        "search_AI_1d_3": {
+          "nll": 0.49276842929349085,
+          "tokens": 202
+        },
+        "search_kw_agentic_rl": {
+          "nll": 0.365701560514519,
+          "tokens": 249
+        },
+        "state_dl_then_cache": {
+          "nll": 0.856417955671038,
+          "tokens": 140
+        },
+        "tool_call": {
+          "nll": 0.8080183148931763,
+          "tokens": 653
+        }
+      }
+    },
+    {
+      "step": 25,
+      "adapter_sha256": "eaf9c41e6bc9643acca1d65900d60647400a9e38eef3e8f0f50a3b53e7627bf3",
+      "scores": {
+        "all": {
+          "nll": 0.11585472690815829,
+          "tokens": 1225
+        },
+        "constraint_search_no_file": {
+          "nll": 0.11736919085184733,
+          "tokens": 270
+        },
+        "final_answer": {
+          "nll": 0.16161440041932193,
+          "tokens": 572
+        },
+        "infeasible_unsupported_action": {
+          "nll": 3.2273953755696616,
+          "tokens": 15
+        },
+        "multi_cv3_dl1": {
+          "nll": 0.01860386705667959,
+          "tokens": 177
+        },
+        "opt_force_dl": {
+          "nll": 0.04842508713404337,
+          "tokens": 75
+        },
+        "ref_ctrl_id_download": {
+          "nll": 0.043101260342548804,
+          "tokens": 97
+        },
+        "search_AI_1d_3": {
+          "nll": 0.032031925007848454,
+          "tokens": 202
+        },
+        "search_kw_agentic_rl": {
+          "nll": 0.13605682342406736,
+          "tokens": 249
+        },
+        "state_dl_then_cache": {
+          "nll": 0.07405172969613756,
+          "tokens": 140
+        },
+        "tool_call": {
+          "nll": 0.0757712150423304,
+          "tokens": 653
+        }
+      }
+    },
+    {
+      "step": 50,
+      "adapter_sha256": "4777435779af78c1a4887db5ec102ac0ddbbc4817e8410baa3a84c4f7017df90",
+      "scores": {
+        "all": {
+          "nll": 0.08360363591690453,
+          "tokens": 1225
+        },
+        "constraint_search_no_file": {
+          "nll": 0.09340722560882568,
+          "tokens": 270
+        },
+        "final_answer": {
+          "nll": 0.12898684082018746,
+          "tokens": 572
+        },
+        "infeasible_unsupported_action": {
+          "nll": 3.0942588806152345,
+          "tokens": 15
+        },
+        "multi_cv3_dl1": {
+          "nll": 0.006512278890879141,
+          "tokens": 177
+        },
+        "opt_force_dl": {
+          "nll": 0.05458633661270142,
+          "tokens": 75
+        },
+        "ref_ctrl_id_download": {
+          "nll": 0.016031809074362528,
+          "tokens": 97
+        },
+        "search_AI_1d_3": {
+          "nll": 0.004723657549607871,
+          "tokens": 202
+        },
+        "search_kw_agentic_rl": {
+          "nll": 0.08173902111359868,
+          "tokens": 249
+        },
+        "state_dl_then_cache": {
+          "nll": 0.01908350501741682,
+          "tokens": 140
+        },
+        "tool_call": {
+          "nll": 0.04384989440897522,
+          "tokens": 653
+        }
+      }
+    },
+    {
+      "step": 64,
+      "adapter_sha256": "789af8cf28960892a1fde034d32f9b8ddf230e8450552be70d15024c964ed6c8",
+      "scores": {
+        "all": {
+          "nll": 0.08087447601313494,
+          "tokens": 1225
+        },
+        "constraint_search_no_file": {
+          "nll": 0.0898960581532231,
+          "tokens": 270
+        },
+        "final_answer": {
+          "nll": 0.126115942113362,
+          "tokens": 572
+        },
+        "infeasible_unsupported_action": {
+          "nll": 3.0465710957845054,
+          "tokens": 15
+        },
+        "multi_cv3_dl1": {
+          "nll": 0.00554103644217475,
+          "tokens": 177
+        },
+        "opt_force_dl": {
+          "nll": 0.055920732021331784,
+          "tokens": 75
+        },
+        "ref_ctrl_id_download": {
+          "nll": 0.014152665651336159,
+          "tokens": 97
+        },
+        "search_AI_1d_3": {
+          "nll": 0.004415188464197782,
+          "tokens": 202
+        },
+        "search_kw_agentic_rl": {
+          "nll": 0.07631548341498318,
+          "tokens": 249
+        },
+        "state_dl_then_cache": {
+          "nll": 0.01899057584149497,
+          "tokens": 140
+        },
+        "tool_call": {
+          "nll": 0.04124489161906162,
+          "tokens": 653
+        }
+      }
+    }
+  ]
+}

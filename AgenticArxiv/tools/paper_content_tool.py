@@ -10,7 +10,7 @@ import re
 from typing import Any, Dict, Optional, Union
 
 from models.store import store
-from tools.tool_registry import registry
+from tools.tool_registry import PAPER_REF_SCHEMA, registry
 
 
 _SECTION_ALIASES = {
@@ -221,7 +221,7 @@ def _pdf_to_text(path: str) -> str:
 
 def get_paper_content(
     session_id: str = "default",
-    ref: Union[str, int, None] = 1,
+    ref: Union[str, int, None] = None,
     section: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Read cached paper text, optionally restricting output to one section.
@@ -278,17 +278,7 @@ PAPER_CONTENT_TOOL_SCHEMA = {
             "type": "string",
             "default": "default",
         },
-        "ref": {
-            "description": (
-                "Paper reference: 1-based result index, arXiv id, or "
-                "title fragment; null selects the most recently active paper."
-            ),
-            "anyOf": [
-                {"type": "integer"},
-                {"type": "string"},
-                {"type": "null"},
-            ],
-        },
+        "ref": PAPER_REF_SCHEMA,
         "section": {
             "description": (
                 "Optional section. When omitted, returns title + abstract "

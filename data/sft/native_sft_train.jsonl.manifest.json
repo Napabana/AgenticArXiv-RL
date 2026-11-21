@@ -1,0 +1,293 @@
+{
+  "version": 1,
+  "kind": "native_sft_decision_samples",
+  "code_commit": "d1f3129a3a873cbe9be439ef33bd95e3279d3961",
+  "builder_sha256": "d1d8b7c3ac3c1e58c0e5fe33b08ab86e2365cf1e4363d9045ceaa87e5c03d449",
+  "split_file": "data/splits/v4_86.json",
+  "split_sha256": "0a176b0f67b8b61d4f84e27a40071ab81a5be3d2040c2a58aa695432f5a6eacc",
+  "train_parent_ids": [
+    "analyze_cv5_ref1_desc",
+    "analyze_cv5_ref3_trend",
+    "analyze_ro5_ref2_axes",
+    "chain_ai5_dl2_tr2",
+    "chain_ai5_read_then_summary",
+    "chain_cv5_cache_dl_tr_cache",
+    "chain_lg10_dl_tr_last",
+    "chain_ro5_dl_three",
+    "constraint_cache_only",
+    "constraint_download_only",
+    "constraint_search_only",
+    "constraint_two_downloads_only",
+    "figure_cv5_ref1",
+    "figure_cv5_ref3",
+    "figure_ro5_ref2",
+    "infeasible_no_session",
+    "infeasible_unknown_id",
+    "infeasible_zero_index",
+    "multi_cr5_cache1",
+    "multi_lg10_dl3",
+    "opt_force_tr",
+    "opt_keep_dual",
+    "opt_threads",
+    "read_ai5_default",
+    "read_cl5_result",
+    "read_cv5_method",
+    "read_lg5_conclusion",
+    "ref_ctrl_null_translate",
+    "ref_ctrl_word_handover",
+    "ref_ctrl_word_marionette",
+    "ref_stress_image_restoration",
+    "ref_stress_state_across",
+    "ref_stress_uncertainty_aware",
+    "search_AI_30d_25",
+    "search_CL_30d_10",
+    "search_CL_7d_5",
+    "search_CR_7d_5",
+    "search_CV_14d_3",
+    "search_LG_14d_1",
+    "search_LG_3d_10",
+    "search_RO_3d_8",
+    "search_kw_llm",
+    "state_cache_before_dl",
+    "state_ref_last_active",
+    "state_ref_last_of_10",
+    "state_ref_ordinal_cn",
+    "state_translate_active",
+    "summary_ai5_tldr60",
+    "summary_cl5_bullet250",
+    "summary_cv5_structured120",
+    "summary_ro5_structured250",
+    "trread_ai5_default",
+    "trread_ai5_null_page3",
+    "trread_cl5_default",
+    "trread_cv5_page2"
+  ],
+  "snapshot_file": "mock_arxiv_snapshot.json",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "base_runs": {
+    "dev": {
+      "report_sha256": "0597d706b19277ef8720cccacd37d73b136ef01542f52032a937306272982d0f",
+      "trace_sha256": "d42de5d7bf1f6f9552d84e5e6deb64229cceb1337649f06c9f176072b9e3a413"
+    },
+    "iid_test": {
+      "report_sha256": "113c42585c03955fb671fd77a4de62287f85142776956beecceb4802c463dbcb",
+      "trace_sha256": "9faad4e76fbc16bac3c640534b135c2570e0850ca9f0b507971a921044b88c07"
+    },
+    "ood_test": {
+      "report_sha256": "f1b60bed2d2faf941e278100752246d75a54b1c1e4d3be298a005923fac46afa",
+      "trace_sha256": "df68fb57622384f90271ca6367ffb8811dc7e8cb1a712d551bdcc00a69f26e9d"
+    }
+  },
+  "model_id": "Qwen/Qwen3.5-2B-Base",
+  "system_prompt_sha256": "7fa6eb3c371fd800da21e37333ed1f5fc191dd9420d738948546e90ecdf4a4e0",
+  "tools_sha256": "8a71e0b65414d1c868616fb7eef3eeaa912599365ce720aeeb4cf9687e6156d0",
+  "legacy": {
+    "manifest_path": "data/sft/sft_v3_t5_parametric_seed.jsonl.manifest.json",
+    "manifest_sha256": "24320cf8ca000eb4d78c0a8efe5f6d982b1fd0e2a4c9034962905bdd15533d52",
+    "task_manifest_sha256": "6d5b26fe521a34837b98e4cd986c54e9a9bb64710f5b0a63e0f9c1b266c2fa32",
+    "reconstructed_tasks": 86,
+    "archived_seed": {
+      "path": "data/sft/sft_v3_t5_parametric_seed.jsonl",
+      "present": false,
+      "expected_sha256": "1d4d2831225e68ecf773ac9314fb6be14e085ab104dbe48266db68f80882011c"
+    },
+    "excluded_legacy_parents": []
+  },
+  "catalog_counts": {
+    "core": 55,
+    "parametric": 86,
+    "error_targeted": 10,
+    "recovery": 2,
+    "sft_only": 1
+  },
+  "trajectory_counts": {
+    "core": 55,
+    "parametric": 86,
+    "error_targeted": 10,
+    "recovery": 2,
+    "sft_only": 1
+  },
+  "terminal_counts": {
+    "completed": 142,
+    "blocked": 12
+  },
+  "excluded_trajectories": [],
+  "snapshot_alignments": [
+    {
+      "task_id": "read_cl5_result",
+      "parent_task_id": "read_cl5_result",
+      "prior_ref": 3,
+      "prior_paper_id": "2611.18514v1",
+      "ref": 1,
+      "paper_id": "2611.18533v1",
+      "tool": "get_paper_content",
+      "snapshot_key": {
+        "paper_id": "2611.18533v1",
+        "section": "result"
+      }
+    },
+    {
+      "task_id": "read_cv5_method",
+      "parent_task_id": "read_cv5_method",
+      "prior_ref": 5,
+      "prior_paper_id": "2611.18550v1",
+      "ref": 4,
+      "paper_id": "2611.18559v1",
+      "tool": "get_paper_content",
+      "snapshot_key": {
+        "paper_id": "2611.18559v1",
+        "section": "method"
+      }
+    },
+    {
+      "task_id": "read_lg5_conclusion",
+      "parent_task_id": "read_lg5_conclusion",
+      "prior_ref": 1,
+      "prior_paper_id": "2611.18563v1",
+      "ref": 3,
+      "paper_id": "2611.18562v1",
+      "tool": "get_paper_content",
+      "snapshot_key": {
+        "paper_id": "2611.18562v1",
+        "section": "conclusion"
+      }
+    },
+    {
+      "task_id": "native_augp1_read_ai5_default_cl_ref4",
+      "parent_task_id": "read_ai5_default",
+      "prior_ref": 4,
+      "prior_paper_id": "2611.18513v1",
+      "ref": 2,
+      "paper_id": "2611.18527v1",
+      "tool": "get_paper_content",
+      "snapshot_key": {
+        "paper_id": "2611.18527v1",
+        "section": null
+      }
+    },
+    {
+      "task_id": "native_augp1_summary_ai5_tldr60_ro_ref4_bullet250",
+      "parent_task_id": "summary_ai5_tldr60",
+      "prior_ref": 4,
+      "prior_paper_id": "2611.18501v1",
+      "ref": 2,
+      "paper_id": "2611.18546v1",
+      "tool": "summarize_paper",
+      "snapshot_key": {
+        "paper_id": "2611.18546v1",
+        "style": "bullet",
+        "max_words": 250
+      }
+    },
+    {
+      "task_id": "native_augp1_figure_cv5_ref1_ro_ref3",
+      "parent_task_id": "figure_cv5_ref1",
+      "prior_ref": 3,
+      "prior_paper_id": "2611.18505v1",
+      "ref": 2,
+      "paper_id": "2611.18546v1",
+      "tool": "extract_paper_figures",
+      "snapshot_key": {
+        "paper_id": "2611.18546v1"
+      }
+    }
+  ],
+  "output_sha256": {
+    "native_sft_task_catalog.jsonl": "2bba7a7f8f47cf0007c8bca9040a3500dc0da686b3940b8f0442a4a262f2b8a9",
+    "native_sft_trajectories.jsonl": "70f99424155f90b3a7d5dcb8e146a478ce4e36766a7d27a7bfb18c1ec6d8b7ea",
+    "native_sft_content_preview.jsonl": "d5452044c4596f2c6efc8e87391522ed5af1b597cd6ad914626c8230594f42b6",
+    "native_sft_train.jsonl": "0d13b8acd3c23f0f939ddd1007d8b7b0f0865902e93c6b9469d4a9c2c42abe5b"
+  },
+  "audit_status": "PASS",
+  "replay_manifest_sha256": "7d8bba61e9a8e8ed3b1ed868bd23341d9abe9b9ebb27dfdbeb2f5de3715baa50",
+  "output": "native_sft_train.jsonl",
+  "decision_samples": 429,
+  "sample_counts": {
+    "core": 153,
+    "parametric": 247,
+    "error_targeted": 25,
+    "recovery": 3,
+    "sft_only": 1
+  },
+  "supervision_counts": {
+    "tool_call": 281,
+    "assistant_content": 429,
+    "final_answer": 148
+  },
+  "tool_call_counts": {
+    "get_recently_submitted_cs_papers": 83,
+    "download_arxiv_pdf": 95,
+    "extract_paper_figures": 16,
+    "analyze_figure": 9,
+    "translate_arxiv_pdf": 25,
+    "get_paper_content": 10,
+    "summarize_paper": 11,
+    "get_paper_cache_status": 22,
+    "search_arxiv_papers": 5,
+    "get_translated_content": 5
+  },
+  "repeated_tool_call_contents": 174,
+  "token_lengths": {
+    "min": 2868,
+    "p50": 3297,
+    "p95": 4425,
+    "max": 5337
+  },
+  "max_length": 6144,
+  "excluded_decisions": [
+    {
+      "task_id": "chain_ai5_read_then_summary",
+      "step": 4,
+      "tokens": 6176,
+      "reason": "over_6144"
+    },
+    {
+      "task_id": "read_cl5_result",
+      "step": 3,
+      "tokens": 8678,
+      "reason": "over_6144"
+    },
+    {
+      "task_id": "read_cv5_method",
+      "step": 3,
+      "tokens": 7499,
+      "reason": "over_6144"
+    },
+    {
+      "task_id": "read_lg5_conclusion",
+      "step": 3,
+      "tokens": 19072,
+      "reason": "over_6144"
+    },
+    {
+      "task_id": "native_augp1_read_ai5_default_ref1",
+      "step": 3,
+      "tokens": 29457,
+      "reason": "over_6144"
+    },
+    {
+      "task_id": "native_augp1_read_ai5_default_cl_ref4",
+      "step": 3,
+      "tokens": 6531,
+      "reason": "over_6144"
+    }
+  ],
+  "chat_template_sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+  "tokenizer_sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+  "trl_version": "0.29.1",
+  "loss_mask": "Only the current assistant content, tool structure/arguments, and end of turn are labeled",
+  "mask_examples": {
+    "tool_call": {
+      "task_id": "analyze_cv5_ref1_desc",
+      "prefix_tokens": 2865,
+      "supervised_tokens": 92,
+      "supervised_text": "我会按指定分类和时间检索论文。\n\n<tool_call>\n<function=get_recently_submitted_cs_papers>\n<parameter=max_results>\n5\n</parameter>\n<parameter=aspect>\nCV\n</parameter>\n<parameter=days>\n7\n</parameter>\n<parameter=output_path>\nNone\n</parameter>\n<parameter=save_to_file>\nTrue\n</parameter>\n</function>\n</tool_call><|im_end|>\n"
+    },
+    "final_answer": {
+      "task_id": "analyze_cv5_ref1_desc",
+      "prefix_tokens": 4526,
+      "supervised_tokens": 328,
+      "supervised_text": "共检索到 5 篇论文。\n1. CPI-Bench: A Comprehensive,Practical and Intelligent Benchmark for Real-World Image Editing（2608.14546v1）\n2. MagnifiQ: Patch-aware Text Guided Progressive Upscaling for High-Resolution Image Restoration（2608.14543v1）\n3. Decoding the Past: An Uncertainty-Aware Deep Learning Framework for Sex Attribution in Prehistoric Hand Stencils（2608.14539v1）\n4. BAL: Bidirectional Autoregression in Latent Space for Learning Human Movement Representations（2611.18559v1）\n5. Restoring Diversity in Distilled Image and Video Generators by Probing Activations（2611.18550v1）\n2608.14546v1 的 PDF 已就绪\n2608.14546v1 的 PDF 已提取到 8 张图表\n已分析指定图表（2608.14546v1）。\nFigure 1: Left: Model ranking trends across benchmarks compared against the Arena Image Edit Leader-\nboard [6]. CPI-Bench we proposed demonstrates the closest alignment with Arena. Right: Spearman\ncorrelation coefficients and Mean Absolute Error (MAE) with Arena rank. CPI-Bench outperforms other\nbenchmarks, achieving the highest correlation and the lowest error margin.<|im_end|>\n"
+    }
+  }
+}

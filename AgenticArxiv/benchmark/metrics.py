@@ -6,6 +6,8 @@ import re
 from dataclasses import dataclass, field, asdict
 from typing import List, Dict, Any, Optional, Sequence
 
+from tools.tool_registry import registry
+
 
 # 非工具调用的动作标记
 NON_TOOL_ACTIONS = ("FINISH", "FORCE_STOP", "ERROR")
@@ -60,6 +62,8 @@ class TaskMetrics:
     expected_tools: List[str] = field(default_factory=list)
     tool_call_accurate: bool = False
     parse_failures: int = 0
+    snapshot_coverage_errors: int = 0
+    setup_failures: int = 0
     tool_exec_failures: int = 0
     # 参数级准确率（0~1）。没有 expected_tool_args 时 score 用 1.0 保持中性，
     # applicable=False 让报告把它显示为 n/a，而不是虚假的 100%。
@@ -96,6 +100,7 @@ def is_strict_success(metrics: TaskMetrics) -> bool:
         and metrics.ref_score == 1.0
         and metrics.parse_failures == 0
         and metrics.tool_exec_failures == 0
+        and metrics.setup_failures == 0
         and metrics.terminal_semantics_accurate
     )
 
@@ -210,6 +215,8 @@ def extract_metrics(
         expected_tools=expected_tools,
         tool_call_accurate=tool_call_accurate,
         parse_failures=parse_failures,
+        snapshot_coverage_errors=_count_snapshot_coverage_errors(history),
+        setup_failures=sum(bool(step.get("tool_issue")) for step in result.get("setup_receipts", [])),
         tool_exec_failures=tool_exec_failures,
         arg_score=arg_score,
         arg_applicable=arg_applicable,
@@ -491,7 +498,9 @@ _VERSION_SUFFIX = re.compile(r"v\d+$")
 
 def resolved_paper_id(observation: Any) -> Optional[str]:
     """从 observation 里取出工具**实际解析到**的 paper_id，取不到返回 None。"""
-    text = observation if isinstance(observation, str) else str(observation or "")
+    if isinstance(observation, dict):
+        return observation.get("paper_id") or None
+    text = str(observation or "")
     for pattern in _PAPER_ID_PATTERNS:
         match = pattern.search(text)
         if match:
@@ -600,8 +609,16 @@ def _match_arg_value(predicted_val: Any, expected_val: Any, key: str = "") -> bo
     if predicted_val is None:
         return False
 
+    if isinstance(expected_val, bool):
+        if isinstance(predicted_val, str):
+            return predicted_val.lower() == str(expected_val).lower()
+        return isinstance(predicted_val, bool) and predicted_val == expected_val
+
     if predicted_val == expected_val:
         return True
+
+    if key == "output_path":
+        return False
 
     # 1. aspect 字段归一化：如 "cs.AI" 与 "AI" 等价，大小写不敏感
     if key == "aspect":
@@ -613,23 +630,12 @@ def _match_arg_value(predicted_val: Any, expected_val: Any, key: str = "") -> bo
             exp_norm = exp_norm[3:]
         return pred_norm == exp_norm
 
-    # 2. ref 字段归一化：支持整数与字符串数字等价，支持形如 "第1篇" 的正则匹配
     if key == "ref":
-        try:
-            # 两边都能转成整数时，这一步就是定论，不该再往下抠数字。
-            return int(predicted_val) == int(expected_val)
-        except (ValueError, TypeError):
-            pass
-        # 只有取值不是纯数字（"第1篇"）时才退回正则。`-?` 不能省：str(-1) 里的
-        # 减号不属于 \d+，写成 \d+ 会从 "-1" 里抠出 "1" 判成对。ref 是 1-based
-        # 序号，-1 是越界值，正是 wrong_args 基线用来制造错误参数的取值。
-        m = re.search(r"-?\d+", str(predicted_val))
-        if m:
-            try:
-                if int(m.group(0)) == int(expected_val):
-                    return True
-            except (ValueError, TypeError):
-                pass
+        ordinal = r"(?:第)?\s*(\d+)\s*(?:篇)?"
+        predicted_index = re.fullmatch(ordinal, str(predicted_val))
+        expected_index = re.fullmatch(ordinal, str(expected_val))
+        if predicted_index and expected_index:
+            return int(predicted_index[1]) == int(expected_index[1])
         return str(predicted_val).strip().lower() == str(expected_val).strip().lower()
 
     # 3. 通用数值类型比对：如 7 vs "7", 5.0 vs 5
@@ -638,11 +644,6 @@ def _match_arg_value(predicted_val: Any, expected_val: Any, key: str = "") -> bo
             return float(predicted_val) == float(expected_val)
         except (ValueError, TypeError):
             pass
-
-    # 4. 布尔类型：字符串 "true"/"false" 与 bool 兼容
-    if isinstance(expected_val, bool):
-        if isinstance(predicted_val, str):
-            return predicted_val.lower() == str(expected_val).lower()
 
     # 5. 字符串大小写宽松比对
     if isinstance(expected_val, str) and isinstance(predicted_val, str):
@@ -657,29 +658,11 @@ def argument_match_score(
     expected_tools=None,
     expected_paper_ids=None,
 ):
-    """参数级匹配度，返回 [0,1] 或 None（任务未声明 expected_tool_args）。
+    """Compare effective parameters while preserving partial credit per step.
 
-    每一步按「期望键里被答对的比例」打分，再对各步取平均。约定：
-
-    - `expected_args is None`：任务没有参数标准答案，返回 None，
-      `RewardCalculator` 会把 argument 这一档整个踢出加权分母。
-    - `expected_args == []`：正确行为是**一次工具都不调**（category="infeasible"）。
-      这与上一条不是一回事，必须能区分，否则乱调工具反而白拿满分。
-    - 某一项为 `None`：该步存在但不校验参数。
-    - 某个键的期望值为 `None`：该键应当缺省——省略不传、或显式传 None 都算对，
-      工具会退回当前活跃论文。
-
-    提取到此处是为了让 benchmark 报告也能反映参数准确率 ——
-    此前它只存在于 RL 奖励里，TaskMetrics 中没有对应字段，
-    于是「工具选对了但参数选错了」在 benchmark 里完全不可见。
-
-    ## expected_tools
-
-    传入后，第 i 步只有在**工具名也对**时才算参数分，否则该步 0 分；
-    不传则退化为原来的纯按位比对（保持既有调用点兼容）。
-    没有这道闸时参数分与工具名脱钩：`download_01` 期望
-    `download_arxiv_pdf(ref=1)`，而 `get_paper_cache_status(ref=1)`
-    照样拿满参数分——等于替调错的工具背书，权重 2 白送出去。
+    None means no argument oracle, and an empty list requires zero calls.
+    Paper identities come from observed resolution; explicit versioned IDs
+    also constrain the reference passed to the tool.
     """
     if expected_args is None:
         return None
@@ -711,26 +694,35 @@ def argument_match_score(
         ):
             scores.append(0.0)
             continue
-        keys = set(expected)
-        if not keys:
-            scores.append(1.0 if not predicted else 0.0)
+        if index >= len(actual):
+            scores.append(0.0)
             continue
+        predicted_args = registry.effective_arguments(name, predicted)
+        expected_args_for_tool = registry.effective_arguments(name, expected)
+        paper = expected_paper_ids[index] if expected_paper_ids and index < len(expected_paper_ids) else None
+        keys = set(expected) - {"session_id"}
+        if name == "get_recently_submitted_cs_papers" and not expected_args_for_tool.get("save_to_file", True) and not predicted_args.get("save_to_file", True):
+            keys.discard("output_path")
+        keys.update(
+            key for key in predicted_args.keys() | expected_args_for_tool.keys()
+            if not _match_arg_value(predicted_args.get(key), expected_args_for_tool.get(key), key)
+        )
+        if paper and "ref" in expected_args_for_tool:
+            keys.add("ref")
         matched = 0
-        for key, value in expected.items():
-            semantic_paper = (
-                key == "ref"
-                and expected_paper_ids is not None
-                and index < len(expected_paper_ids)
-                and expected_paper_ids[index]
-            )
-            if semantic_paper:
+        for key in keys:
+            target = expected_args_for_tool.get(key)
+            observed = predicted_args.get(key)
+            if key == "ref" and paper:
                 resolved = resolved_paper_id(observation)
-                matched += int(bool(resolved) and _same_paper(
-                    resolved, str(expected_paper_ids[index])
-                ))
+                explicit_version = isinstance(target, str) and _VERSION_SUFFIX.search(target)
+                if explicit_version:
+                    matched += int(observed == target and resolved == str(paper))
+                else:
+                    matched += int(bool(resolved) and _same_paper(resolved, str(paper)))
             else:
-                matched += int(_match_arg_value(predicted.get(key), value, key))
-        scores.append(matched / len(keys))
+                matched += int(_match_arg_value(observed, target, key))
+        scores.append(matched / len(keys) if keys else 1.0)
     return sum(scores) / len(scores) if scores else 1.0
 
 
@@ -746,23 +738,28 @@ def observation_reports(observation: Any, markers: Sequence[str], action: Any = 
     """Check failure markers, using prefixes for observations containing paper text."""
     text = str(observation or "")
     parsed = _parse_tool_action(action)
-    if parsed and parsed.get("name") in _PREFIX_ONLY_FAILURE_TOOLS:
+    if not parsed:
+        return False
+    if parsed.get("name") in _PREFIX_ONLY_FAILURE_TOOLS:
         return text.lstrip().startswith(tuple(markers))
     return any(marker in text for marker in markers)
 
 
+def is_parse_failure(step: dict) -> bool:
+    """Use structured parser failures, including the historical PARSE_ERROR action."""
+    return bool(step.get("parse_failed") or step.get("action") == "PARSE_ERROR")
+
+
 def _count_parse_failures(history: List[Dict]) -> int:
-    """统计解析失败次数（thought 存在但 action 为终止且非正常 FINISH）"""
-    failures = 0
-    for i, step in enumerate(history):
-        action = step.get("action", "")
-        # FINISH 在非最后一步出现（说明解析失败导致提前终止）
-        if action == "FINISH" and i < len(history) - 1:
-            failures += 1
-        # observation 包含"无法解析"
-        if observation_reports(step.get("observation", ""), ("无法解析",), action):
-            failures += 1
-    return failures
+    return sum(is_parse_failure(step) for step in history)
+
+
+def _count_snapshot_coverage_errors(history: List[Dict]) -> int:
+    return sum(
+        step.get("tool_issue") == "snapshot_coverage_error"
+        or str(step.get("observation", "")).startswith("工具执行失败: '[MockArxivEnv] replay 模式下快照缺失:")
+        for step in history
+    )
 
 
 def _count_tool_failures(history: List[Dict]) -> int:
@@ -773,6 +770,6 @@ def _count_tool_failures(history: List[Dict]) -> int:
         action = step.get("action", "")
         if action in NON_TOOL_ACTIONS:
             continue
-        if observation_reports(step.get("observation", ""), error_markers, action):
+        if step.get("tool_issue") or observation_reports(step.get("observation", ""), error_markers, action):
             failures += 1
     return failures

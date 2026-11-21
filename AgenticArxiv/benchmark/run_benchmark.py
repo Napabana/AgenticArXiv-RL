@@ -52,7 +52,7 @@ def _trace_record(result) -> dict:
         "timing": raw.get("timing") or {},
         "token_usage": raw.get("token_usage") or {},
         "routing": raw.get("routing") or {"mode": "policy", "decisions": []},
-        **{key: raw[key] for key in ("protocol", "reward", "runtime_terminal_step") if key in raw},
+        **{key: raw[key] for key in ("protocol", "reward", "runtime_terminal_step", "setup_receipts", "setup_context") if key in raw},
         **({"error": error} if error else {}),
     }
 
@@ -267,6 +267,20 @@ def main():
         protocol_report["snapshot_sha256"] = (
             sha256(runner._snapshot_path().read_bytes()).hexdigest() if args.offline else None
         )
+        if "native_tool_calling" in args.agents:
+            from agents.prompt_templates import NATIVE_TOOL_SYSTEM_PROMPT
+            from tools.tool_registry import registry
+
+            tools = [registry.model_tool(tool["name"]) for tool in registry.list_tools()]
+            protocol_report["native_protocol"] = {
+                "system_prompt_sha256": sha256(NATIVE_TOOL_SYSTEM_PROMPT.encode("utf-8")).hexdigest(),
+                "tools_sha256": sha256(json.dumps(tools, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest(),
+                "repeat": args.repeat,
+                "seed": args.seed,
+                "split": args.split,
+                "no_thinking": args.no_thinking,
+                "adapter": os.environ.get("VLM_ADAPTER_PATH") or None,
+            }
         report_path = Path(args.output) / "protocol_comparison.json"
         report_path.parent.mkdir(parents=True, exist_ok=True)
         report_path.write_text(json.dumps(protocol_report, ensure_ascii=False, indent=2), encoding="utf-8")

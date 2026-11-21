@@ -139,8 +139,9 @@ class ArgValueEquivalenceTest(unittest.TestCase):
         self.assertFalse(_match_arg_value("cs.AI", "cs.CL", "aspect"))
 
     def test_ref_accepts_string_and_ordinal_spellings(self):
-        for predicted in (1, "1", "1.0", "第1篇", "第 1 篇"):
+        for predicted in (1, "1", "第1篇", "第 1 篇"):
             self.assertTrue(_match_arg_value(predicted, 1, "ref"), predicted)
+        self.assertFalse(_match_arg_value("1.0", 1, "ref"))
 
     def test_ref_does_not_drop_the_minus_sign(self):
         r"""回归：`\d+` 从 "-1" 里只抠得到 "1"，于是 ref=-1 被判成 ref=1。

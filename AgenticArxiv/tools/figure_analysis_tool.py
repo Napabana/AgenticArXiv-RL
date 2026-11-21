@@ -34,7 +34,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 from models.store import store
 from tools.paper_figures_tool import MAX_FIGURES, extract_paper_figures
-from tools.tool_registry import registry
+from tools.tool_registry import PAPER_REF_SCHEMA, registry
 
 
 #: Supported question kinds.  Small on purpose: the policy is a ~1.5B text
@@ -335,7 +335,7 @@ def analysis_backend() -> str:
 
 def analyze_figure(
     session_id: str = "default",
-    ref: Union[str, int, None] = 1,
+    ref: Union[str, int, None] = None,
     figure_no: int = 1,
     question: Optional[str] = None,
 ) -> Dict[str, Any]:
@@ -372,17 +372,7 @@ FIGURE_ANALYSIS_TOOL_SCHEMA = {
             "type": "string",
             "default": "default",
         },
-        "ref": {
-            "description": (
-                "Paper reference: 1-based result index, arXiv id, or "
-                "title fragment; null selects the most recently active paper."
-            ),
-            "anyOf": [
-                {"type": "integer"},
-                {"type": "string"},
-                {"type": "null"},
-            ],
-        },
+        "ref": PAPER_REF_SCHEMA,
         "figure_no": {
             "description": (
                 "1-based index of the figure within the paper, in page order; "

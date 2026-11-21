@@ -211,7 +211,7 @@ ARXIV_TOOL_SCHEMA = {
         },
         "aspect": {
             "type": "string",
-            "description": "计算机科学子领域代码",
+            "description": "* 表示全部计算机科学子领域。AI、CV、RO、CL、LG、CR 等为类别短码，cs.CV 对应 CV。",
             "enum": list(cs_categories.keys()),
             "default": "*",
         },
@@ -223,12 +223,13 @@ ARXIV_TOOL_SCHEMA = {
             "default": 7,
         },
         "output_path": {
-            "type": "string",
-            "description": "可选：保存到指定文件路径；不传则用项目 output/recent_cs_papers.txt",
+            "type": ["string", "null"],
+            "description": "保存搜索结果的路径。save_to_file=true 时，null 或空路径使用默认路径。save_to_file=false 时忽略此项，使用 null 或省略。",
+            "default": None,
         },
         "save_to_file": {
             "type": "boolean",
-            "description": "是否将论文列表写入文件",
+            "description": "true（默认）返回结果并将论文列表写入文件；false 只返回结果，不创建或写入结果文件。",
             "default": True,
         },
     },
@@ -252,7 +253,8 @@ KEYWORD_SEARCH_SCHEMA = {
         },
         "days": {
             "type": ["integer", "null"],
-            "description": "可选：只检索最近多少天内提交的论文",
+            "description": "只检索最近多少天内提交的论文；null 表示不限制时间。",
+            "default": None,
             "minimum": 1,
         },
     },
@@ -261,14 +263,14 @@ KEYWORD_SEARCH_SCHEMA = {
 
 registry.register_tool(
     name="get_recently_submitted_cs_papers",
-    description="获取最近提交的计算机科学领域论文列表，支持按子领域筛选",
+    description="按 CS 子领域和最近提交时间筛选论文。按关键词、标题或作者检索时用 search_arxiv_papers。",
     parameter_schema=ARXIV_TOOL_SCHEMA,
     func=get_recently_submitted_cs_papers,
 )
 
 registry.register_tool(
     name="search_arxiv_papers",
-    description="按关键词、标题或作者检索 arXiv 论文，可选按提交时间过滤",
+    description="按关键词、标题或作者检索 arXiv 论文。仅按 cs.CV 等类别筛选时用 get_recently_submitted_cs_papers。",
     parameter_schema=KEYWORD_SEARCH_SCHEMA,
     func=search_arxiv_papers,
 )

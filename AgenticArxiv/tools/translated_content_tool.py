@@ -25,7 +25,7 @@ from typing import Any, Dict, Tuple, Union
 
 from models.store import store
 from tools.paper_content_tool import _normalize_text
-from tools.tool_registry import registry
+from tools.tool_registry import PAPER_REF_SCHEMA, registry
 
 
 def validate_page(page: Any) -> int:
@@ -73,7 +73,7 @@ def _read_pdf_page(path: str, page: int) -> Tuple[str, int]:
 
 def get_translated_content(
     session_id: str = "default",
-    ref: Union[str, int, None] = 1,
+    ref: Union[str, int, None] = None,
     page: int = 1,
 ) -> Dict[str, Any]:
     """Read one page of a paper's translated (Chinese mono) PDF.
@@ -124,17 +124,7 @@ TRANSLATED_CONTENT_TOOL_SCHEMA = {
             "type": "string",
             "default": "default",
         },
-        "ref": {
-            "description": (
-                "Paper reference: 1-based result index, arXiv id, or "
-                "title fragment; null selects the most recently active paper."
-            ),
-            "anyOf": [
-                {"type": "integer"},
-                {"type": "string"},
-                {"type": "null"},
-            ],
-        },
+        "ref": PAPER_REF_SCHEMA,
         "page": {
             "description": (
                 "1-based page of the translated PDF; page 1 usually holds "

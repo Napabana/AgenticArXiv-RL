@@ -134,7 +134,7 @@ class AgenticArxivMultiTurnEnv:
         return result
 
     def download_arxiv_pdf(
-        self, ref: str | int | None = 1, force: bool = False
+        self, ref: str | int | None = None, force: bool = False
     ) -> dict[str, Any]:
         """Download a paper selected from the latest search results.
 
@@ -161,7 +161,7 @@ class AgenticArxivMultiTurnEnv:
 
     def get_paper_content(
         self,
-        ref: str | int | None = 1,
+        ref: str | int | None = None,
         section: Optional[str] = None,
     ) -> dict[str, Any]:
         """Read paper text through the deterministic snapshot backend."""
@@ -189,7 +189,7 @@ class AgenticArxivMultiTurnEnv:
 
     def summarize_paper(
         self,
-        ref: str | int | None = 1,
+        ref: str | int | None = None,
         style: Optional[str] = None,
         max_words: Optional[int] = None,
     ) -> dict[str, Any]:
@@ -223,7 +223,7 @@ class AgenticArxivMultiTurnEnv:
         )
 
     def extract_paper_figures(
-        self, ref: str | int | None = 1
+        self, ref: str | int | None = None
     ) -> dict[str, Any]:
         """Extract a downloaded paper's figures through the snapshot backend.
 
@@ -250,7 +250,7 @@ class AgenticArxivMultiTurnEnv:
 
     def analyze_figure(
         self,
-        ref: str | int | None = 1,
+        ref: str | int | None = None,
         figure_no: int = 1,
         question: Optional[str] = None,
     ) -> dict[str, Any]:
@@ -282,7 +282,7 @@ class AgenticArxivMultiTurnEnv:
         )
 
     def get_translated_content(
-        self, ref: str | int | None = 1, page: int = 1
+        self, ref: str | int | None = None, page: int = 1
     ) -> dict[str, Any]:
         """Read one page of a paper's translation through the snapshot backend.
 

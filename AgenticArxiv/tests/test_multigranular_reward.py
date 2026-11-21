@@ -107,7 +107,7 @@ class MultiGranularRewardTest(unittest.TestCase):
         # 旧口径因为键齐全还能拿 0.0（不罚），等于「搜错了方向」零成本。
         self.assertEqual(reward.argument, -1.0)
 
-    def test_missing_arguments_receive_lower_score(self):
+    def test_omitting_only_the_nondefault_value_lowers_the_score(self):
         task = {
             "id": "search",
             "expected_tools": ["get_recently_submitted_cs_papers"],
@@ -124,7 +124,8 @@ class MultiGranularRewardTest(unittest.TestCase):
             {"action": "FINISH", "observation": "done"},
         ]
         reward, _ = self.calculator.compute_reward_breakdown(task, _result(history))
-        self.assertAlmostEqual(reward.argument, -1.0 / 3.0, places=6)
+        # days=7 is the default, but max_results defaults to 50 instead of 5.
+        self.assertAlmostEqual(reward.argument, 1.0 / 3.0, places=6)
 
     def test_task_without_expected_args_keeps_argument_layer_inactive(self):
         history = [

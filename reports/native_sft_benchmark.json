@@ -1,0 +1,999 @@
+{
+  "splits": {
+    "dev": {
+      "base": {
+        "format_parse_success": {
+          "count": 69,
+          "total": 69,
+          "rate": 1.0
+        },
+        "schema_compliance": {
+          "count": 49,
+          "total": 49,
+          "rate": 1.0
+        },
+        "tool_accuracy": {
+          "count": 18,
+          "total": 24,
+          "rate": 0.75
+        },
+        "argument_accuracy": {
+          "score_sum": 15.0,
+          "total": 24,
+          "rate": 0.625
+        },
+        "tool_error_rate": {
+          "count": 8,
+          "total": 49,
+          "rate": 0.16326530612244897
+        },
+        "snapshot_coverage_errors": 8,
+        "setup_failures": 0,
+        "unexpected_repeat_calls": 16,
+        "pending_guard_errors": 0,
+        "pending_finished": {
+          "count": 0,
+          "total": 0,
+          "rate": null
+        },
+        "explained_refusal": {
+          "count": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "strict_success": {
+          "count": 15,
+          "total": 24,
+          "rate": 0.625
+        },
+        "avg_executed_tool_calls": 2.0416666666666665,
+        "avg_prompt_tokens": 9443.833333333334,
+        "avg_completion_tokens": 404.7083333333333,
+        "avg_total_tokens": 9848.541666666666,
+        "avg_llm_ms": 20952.666666666668,
+        "avg_total_ms": 20957.583333333332,
+        "avg_reward": 0.506696375,
+        "benchmark_errors": 0,
+        "request_errors": 0,
+        "error_terminations": 0,
+        "issues": {},
+        "recovered_format_errors": 0,
+        "returned_models": [
+          "/root/sj-tmp/models/Qwen3.5-2B-Base"
+        ],
+        "generation_stop_reasons": {
+          "tool_call_end": 49,
+          "chat_end": 20
+        }
+      },
+      "sft": {
+        "format_parse_success": {
+          "count": 54,
+          "total": 55,
+          "rate": 0.9818181818181818
+        },
+        "schema_compliance": {
+          "count": 32,
+          "total": 32,
+          "rate": 1.0
+        },
+        "tool_accuracy": {
+          "count": 19,
+          "total": 24,
+          "rate": 0.7916666666666666
+        },
+        "argument_accuracy": {
+          "score_sum": 18.5,
+          "total": 24,
+          "rate": 0.7708333333333334
+        },
+        "tool_error_rate": {
+          "count": 0,
+          "total": 32,
+          "rate": 0.0
+        },
+        "snapshot_coverage_errors": 0,
+        "setup_failures": 0,
+        "unexpected_repeat_calls": 2,
+        "pending_guard_errors": 0,
+        "pending_finished": {
+          "count": 0,
+          "total": 0,
+          "rate": null
+        },
+        "explained_refusal": {
+          "count": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "strict_success": {
+          "count": 15,
+          "total": 24,
+          "rate": 0.625
+        },
+        "avg_executed_tool_calls": 1.3333333333333333,
+        "avg_prompt_tokens": 9470.208333333334,
+        "avg_completion_tokens": 219.04166666666666,
+        "avg_total_tokens": 9689.25,
+        "avg_llm_ms": 19183.958333333332,
+        "avg_total_ms": 19187.833333333332,
+        "avg_reward": 0.5662202916666667,
+        "benchmark_errors": 0,
+        "request_errors": 0,
+        "error_terminations": 1,
+        "issues": {
+          "format:finish_reason:length": 1
+        },
+        "recovered_format_errors": 0,
+        "returned_models": [
+          "/root/sj-tmp/models/Qwen3.5-2B-Base"
+        ],
+        "generation_stop_reasons": {
+          "tool_call_end": 32,
+          "chat_end": 22,
+          "length": 1
+        }
+      },
+      "base_files": {
+        "trace_sha256": "d42de5d7bf1f6f9552d84e5e6deb64229cceb1337649f06c9f176072b9e3a413",
+        "details_sha256": "0fa44943ef7e84502c115a40c5a4f0cb88e968c7e91c9b42bd762e841d696bfc"
+      },
+      "sft_files": {
+        "trace_sha256": "106cec3cecf4ee2fa217b4c8d69cbd01d3c435714ebf704faeb16775e96b6c9d",
+        "details_sha256": "7f95359f0dc446b46b2bdc9371e9066690141cbc341ab2f5c79925b5446f1e73"
+      },
+      "fail_to_pass": [
+        [
+          "ref_ctrl_id_download",
+          0
+        ],
+        [
+          "ref_ctrl_id_download",
+          1
+        ],
+        [
+          "ref_ctrl_id_download",
+          2
+        ],
+        [
+          "search_AI_1d_3",
+          0
+        ],
+        [
+          "search_AI_1d_3",
+          1
+        ],
+        [
+          "search_AI_1d_3",
+          2
+        ]
+      ],
+      "pass_to_fail": [
+        [
+          "constraint_search_no_file",
+          0
+        ],
+        [
+          "constraint_search_no_file",
+          1
+        ],
+        [
+          "constraint_search_no_file",
+          2
+        ],
+        [
+          "state_dl_then_cache",
+          0
+        ],
+        [
+          "state_dl_then_cache",
+          1
+        ],
+        [
+          "state_dl_then_cache",
+          2
+        ]
+      ]
+    },
+    "iid_test": {
+      "base": {
+        "format_parse_success": {
+          "count": 183,
+          "total": 186,
+          "rate": 0.9838709677419355
+        },
+        "schema_compliance": {
+          "count": 138,
+          "total": 139,
+          "rate": 0.9928057553956835
+        },
+        "tool_accuracy": {
+          "count": 37,
+          "total": 57,
+          "rate": 0.6491228070175439
+        },
+        "argument_accuracy": {
+          "score_sum": 36.583333333333336,
+          "total": 57,
+          "rate": 0.6418128654970761
+        },
+        "tool_error_rate": {
+          "count": 43,
+          "total": 138,
+          "rate": 0.3115942028985507
+        },
+        "snapshot_coverage_errors": 22,
+        "setup_failures": 0,
+        "unexpected_repeat_calls": 29,
+        "pending_guard_errors": 11,
+        "pending_finished": {
+          "count": 11,
+          "total": 14,
+          "rate": 0.7857142857142857
+        },
+        "explained_refusal": {
+          "count": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "strict_success": {
+          "count": 33,
+          "total": 57,
+          "rate": 0.5789473684210527
+        },
+        "avg_executed_tool_calls": 2.4210526315789473,
+        "avg_prompt_tokens": 11128.0,
+        "avg_completion_tokens": 543.2456140350877,
+        "avg_total_tokens": 11671.245614035088,
+        "avg_llm_ms": 26594.40350877193,
+        "avg_total_ms": 26599.78947368421,
+        "avg_reward": 0.4417293333333333,
+        "benchmark_errors": 0,
+        "request_errors": 0,
+        "error_terminations": 4,
+        "issues": {
+          "schema:invalid_value:days": 1,
+          "format:finish_reason:length": 3
+        },
+        "recovered_format_errors": 0,
+        "returned_models": [
+          "/root/sj-tmp/models/Qwen3.5-2B-Base"
+        ],
+        "generation_stop_reasons": {
+          "tool_call_end": 139,
+          "chat_end": 44,
+          "length": 3
+        }
+      },
+      "sft": {
+        "format_parse_success": {
+          "count": 148,
+          "total": 153,
+          "rate": 0.9673202614379085
+        },
+        "schema_compliance": {
+          "count": 96,
+          "total": 96,
+          "rate": 1.0
+        },
+        "tool_accuracy": {
+          "count": 51,
+          "total": 57,
+          "rate": 0.8947368421052632
+        },
+        "argument_accuracy": {
+          "score_sum": 47.5,
+          "total": 57,
+          "rate": 0.8333333333333334
+        },
+        "tool_error_rate": {
+          "count": 3,
+          "total": 96,
+          "rate": 0.03125
+        },
+        "snapshot_coverage_errors": 0,
+        "setup_failures": 0,
+        "unexpected_repeat_calls": 0,
+        "pending_guard_errors": 0,
+        "pending_finished": {
+          "count": 9,
+          "total": 12,
+          "rate": 0.75
+        },
+        "explained_refusal": {
+          "count": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "strict_success": {
+          "count": 37,
+          "total": 57,
+          "rate": 0.6491228070175439
+        },
+        "avg_executed_tool_calls": 1.6842105263157894,
+        "avg_prompt_tokens": 8915.82456140351,
+        "avg_completion_tokens": 390.82456140350877,
+        "avg_total_tokens": 9306.649122807017,
+        "avg_llm_ms": 29156.964912280702,
+        "avg_total_ms": 29161.298245614034,
+        "avg_reward": 0.6428571228070176,
+        "benchmark_errors": 0,
+        "request_errors": 0,
+        "error_terminations": 5,
+        "issues": {
+          "format:finish_reason:length": 5
+        },
+        "recovered_format_errors": 0,
+        "returned_models": [
+          "/root/sj-tmp/models/Qwen3.5-2B-Base"
+        ],
+        "generation_stop_reasons": {
+          "tool_call_end": 96,
+          "chat_end": 52,
+          "length": 5
+        }
+      },
+      "base_files": {
+        "trace_sha256": "9faad4e76fbc16bac3c640534b135c2570e0850ca9f0b507971a921044b88c07",
+        "details_sha256": "18ea9338e47fd8107ed0113428eae563b0e5f7f8efc408c79e52e512ac874047"
+      },
+      "sft_files": {
+        "trace_sha256": "2a14254f1412207809626499b1e8dc87724f149a0f5e06a4f50d943e9e23f6b1",
+        "details_sha256": "67fbc1a6d9a064bc2a9913c9a0c5a3f18323275adaf6619b7cb525af39a51fc7"
+      },
+      "fail_to_pass": [
+        [
+          "multi_ai3_tr1",
+          0
+        ],
+        [
+          "multi_ai3_tr1",
+          1
+        ],
+        [
+          "multi_ai3_tr1",
+          2
+        ],
+        [
+          "ref_ctrl_id_cache",
+          0
+        ],
+        [
+          "ref_ctrl_id_cache",
+          1
+        ],
+        [
+          "ref_ctrl_id_cache",
+          2
+        ],
+        [
+          "search_CV_1d_1",
+          0
+        ],
+        [
+          "search_CV_1d_1",
+          1
+        ],
+        [
+          "search_CV_1d_1",
+          2
+        ],
+        [
+          "search_RO_30d_25",
+          0
+        ],
+        [
+          "search_RO_30d_25",
+          1
+        ],
+        [
+          "search_RO_30d_25",
+          2
+        ],
+        [
+          "state_ref_cache_active",
+          0
+        ],
+        [
+          "trread_ro5_page2",
+          0
+        ],
+        [
+          "trread_ro5_page2",
+          2
+        ]
+      ],
+      "pass_to_fail": [
+        [
+          "chain_cl5_dl3_tr3",
+          0
+        ],
+        [
+          "chain_cl5_dl3_tr3",
+          1
+        ],
+        [
+          "chain_cl5_dl3_tr3",
+          2
+        ],
+        [
+          "constraint_translate_only",
+          1
+        ],
+        [
+          "infeasible_index_out_of_range",
+          2
+        ],
+        [
+          "qa_cr5_abstract",
+          0
+        ],
+        [
+          "qa_cr5_abstract",
+          1
+        ],
+        [
+          "state_cache_two",
+          1
+        ],
+        [
+          "state_cache_two",
+          2
+        ],
+        [
+          "summary_lg5_tldr120",
+          0
+        ],
+        [
+          "summary_lg5_tldr120",
+          1
+        ]
+      ]
+    },
+    "ood_test": {
+      "base": {
+        "format_parse_success": {
+          "count": 50,
+          "total": 51,
+          "rate": 0.9803921568627451
+        },
+        "schema_compliance": {
+          "count": 41,
+          "total": 41,
+          "rate": 1.0
+        },
+        "tool_accuracy": {
+          "count": 9,
+          "total": 12,
+          "rate": 0.75
+        },
+        "argument_accuracy": {
+          "score_sum": 10.166666666666666,
+          "total": 12,
+          "rate": 0.8472222222222222
+        },
+        "tool_error_rate": {
+          "count": 4,
+          "total": 41,
+          "rate": 0.0975609756097561
+        },
+        "snapshot_coverage_errors": 2,
+        "setup_failures": 0,
+        "unexpected_repeat_calls": 3,
+        "pending_guard_errors": 2,
+        "pending_finished": {
+          "count": 3,
+          "total": 4,
+          "rate": 0.75
+        },
+        "explained_refusal": {
+          "count": 0,
+          "total": 0,
+          "rate": null
+        },
+        "strict_success": {
+          "count": 9,
+          "total": 12,
+          "rate": 0.75
+        },
+        "avg_executed_tool_calls": 3.4166666666666665,
+        "avg_prompt_tokens": 14185.5,
+        "avg_completion_tokens": 689.9166666666666,
+        "avg_total_tokens": 14875.416666666666,
+        "avg_llm_ms": 34074.333333333336,
+        "avg_total_ms": 34081.916666666664,
+        "avg_reward": 0.5625,
+        "benchmark_errors": 0,
+        "request_errors": 0,
+        "error_terminations": 1,
+        "issues": {
+          "format:finish_reason:length": 1
+        },
+        "recovered_format_errors": 0,
+        "returned_models": [
+          "/root/sj-tmp/models/Qwen3.5-2B-Base"
+        ],
+        "generation_stop_reasons": {
+          "tool_call_end": 41,
+          "length": 1,
+          "chat_end": 9
+        }
+      },
+      "sft": {
+        "format_parse_success": {
+          "count": 51,
+          "total": 51,
+          "rate": 1.0
+        },
+        "schema_compliance": {
+          "count": 39,
+          "total": 39,
+          "rate": 1.0
+        },
+        "tool_accuracy": {
+          "count": 12,
+          "total": 12,
+          "rate": 1.0
+        },
+        "argument_accuracy": {
+          "score_sum": 12.0,
+          "total": 12,
+          "rate": 1.0
+        },
+        "tool_error_rate": {
+          "count": 0,
+          "total": 39,
+          "rate": 0.0
+        },
+        "snapshot_coverage_errors": 0,
+        "setup_failures": 0,
+        "unexpected_repeat_calls": 0,
+        "pending_guard_errors": 0,
+        "pending_finished": {
+          "count": 6,
+          "total": 6,
+          "rate": 1.0
+        },
+        "explained_refusal": {
+          "count": 0,
+          "total": 0,
+          "rate": null
+        },
+        "strict_success": {
+          "count": 12,
+          "total": 12,
+          "rate": 1.0
+        },
+        "avg_executed_tool_calls": 3.25,
+        "avg_prompt_tokens": 13845.25,
+        "avg_completion_tokens": 489.0,
+        "avg_total_tokens": 14334.25,
+        "avg_llm_ms": 40154.583333333336,
+        "avg_total_ms": 40162.166666666664,
+        "avg_reward": 1.0,
+        "benchmark_errors": 0,
+        "request_errors": 0,
+        "error_terminations": 0,
+        "issues": {},
+        "recovered_format_errors": 0,
+        "returned_models": [
+          "/root/sj-tmp/models/Qwen3.5-2B-Base"
+        ],
+        "generation_stop_reasons": {
+          "tool_call_end": 39,
+          "chat_end": 12
+        }
+      },
+      "base_files": {
+        "trace_sha256": "df68fb57622384f90271ca6367ffb8811dc7e8cb1a712d551bdcc00a69f26e9d",
+        "details_sha256": "ee6e9664f0fb07bb58dad60a721ee464db895f263fc26daa6ba4548653095cfd"
+      },
+      "sft_files": {
+        "trace_sha256": "b3da8bd56dc9bc90e197ead59683f174b1be9e6ee0e4bdc88e986a531c446cca",
+        "details_sha256": "16fdb97f457fecbc040db0dfe8936a0dc957a9b54c22606900bf396ab4c65371"
+      },
+      "fail_to_pass": [
+        [
+          "multi_ai5_dl1_tr",
+          0
+        ],
+        [
+          "multi_ai5_dl1_tr",
+          1
+        ],
+        [
+          "multi_ai5_dl1_tr",
+          2
+        ]
+      ],
+      "pass_to_fail": []
+    }
+  },
+  "trials": 93,
+  "base_strict": 57,
+  "sft_strict": 64,
+  "fail_to_pass": [
+    [
+      "ref_ctrl_id_download",
+      0
+    ],
+    [
+      "ref_ctrl_id_download",
+      1
+    ],
+    [
+      "ref_ctrl_id_download",
+      2
+    ],
+    [
+      "search_AI_1d_3",
+      0
+    ],
+    [
+      "search_AI_1d_3",
+      1
+    ],
+    [
+      "search_AI_1d_3",
+      2
+    ],
+    [
+      "multi_ai3_tr1",
+      0
+    ],
+    [
+      "multi_ai3_tr1",
+      1
+    ],
+    [
+      "multi_ai3_tr1",
+      2
+    ],
+    [
+      "ref_ctrl_id_cache",
+      0
+    ],
+    [
+      "ref_ctrl_id_cache",
+      1
+    ],
+    [
+      "ref_ctrl_id_cache",
+      2
+    ],
+    [
+      "search_CV_1d_1",
+      0
+    ],
+    [
+      "search_CV_1d_1",
+      1
+    ],
+    [
+      "search_CV_1d_1",
+      2
+    ],
+    [
+      "search_RO_30d_25",
+      0
+    ],
+    [
+      "search_RO_30d_25",
+      1
+    ],
+    [
+      "search_RO_30d_25",
+      2
+    ],
+    [
+      "state_ref_cache_active",
+      0
+    ],
+    [
+      "trread_ro5_page2",
+      0
+    ],
+    [
+      "trread_ro5_page2",
+      2
+    ],
+    [
+      "multi_ai5_dl1_tr",
+      0
+    ],
+    [
+      "multi_ai5_dl1_tr",
+      1
+    ],
+    [
+      "multi_ai5_dl1_tr",
+      2
+    ]
+  ],
+  "pass_to_fail": [
+    [
+      "constraint_search_no_file",
+      0
+    ],
+    [
+      "constraint_search_no_file",
+      1
+    ],
+    [
+      "constraint_search_no_file",
+      2
+    ],
+    [
+      "state_dl_then_cache",
+      0
+    ],
+    [
+      "state_dl_then_cache",
+      1
+    ],
+    [
+      "state_dl_then_cache",
+      2
+    ],
+    [
+      "chain_cl5_dl3_tr3",
+      0
+    ],
+    [
+      "chain_cl5_dl3_tr3",
+      1
+    ],
+    [
+      "chain_cl5_dl3_tr3",
+      2
+    ],
+    [
+      "constraint_translate_only",
+      1
+    ],
+    [
+      "infeasible_index_out_of_range",
+      2
+    ],
+    [
+      "qa_cr5_abstract",
+      0
+    ],
+    [
+      "qa_cr5_abstract",
+      1
+    ],
+    [
+      "state_cache_two",
+      1
+    ],
+    [
+      "state_cache_two",
+      2
+    ],
+    [
+      "summary_lg5_tldr120",
+      0
+    ],
+    [
+      "summary_lg5_tldr120",
+      1
+    ]
+  ],
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "training": {
+    "status": "PASS",
+    "base_model": "Qwen/Qwen3.5-2B-Base",
+    "data_sha256": "0d13b8acd3c23f0f939ddd1007d8b7b0f0865902e93c6b9469d4a9c2c42abe5b",
+    "data_manifest_sha256": "fb0e27a84b845ec5962f8486d01031a3d806036d7c1714db50ccf8d113e7718d",
+    "dataset_rows": 429,
+    "optimizer_steps": 54,
+    "train_loss": 0.13097117550636608,
+    "lora_fingerprint_before": "78d314fcac1d4eafc2dc7dc3f9517e09ed0e0d716ed6756b59ce91455bb080f1",
+    "lora_fingerprint_after": "91031955209a60a076571de97dc5226551cccce17f6366efc5fffcc89f64b59b",
+    "trainable_parameters": 16819200,
+    "targets": [
+      "model.layers.0.linear_attn.in_proj_a",
+      "model.layers.0.linear_attn.in_proj_b",
+      "model.layers.0.linear_attn.in_proj_qkv",
+      "model.layers.0.linear_attn.in_proj_z",
+      "model.layers.0.linear_attn.out_proj",
+      "model.layers.0.mlp.down_proj",
+      "model.layers.0.mlp.gate_proj",
+      "model.layers.0.mlp.up_proj",
+      "model.layers.1.linear_attn.in_proj_a",
+      "model.layers.1.linear_attn.in_proj_b",
+      "model.layers.1.linear_attn.in_proj_qkv",
+      "model.layers.1.linear_attn.in_proj_z",
+      "model.layers.1.linear_attn.out_proj",
+      "model.layers.1.mlp.down_proj",
+      "model.layers.1.mlp.gate_proj",
+      "model.layers.1.mlp.up_proj",
+      "model.layers.10.linear_attn.in_proj_a",
+      "model.layers.10.linear_attn.in_proj_b",
+      "model.layers.10.linear_attn.in_proj_qkv",
+      "model.layers.10.linear_attn.in_proj_z",
+      "model.layers.10.linear_attn.out_proj",
+      "model.layers.10.mlp.down_proj",
+      "model.layers.10.mlp.gate_proj",
+      "model.layers.10.mlp.up_proj",
+      "model.layers.11.mlp.down_proj",
+      "model.layers.11.mlp.gate_proj",
+      "model.layers.11.mlp.up_proj",
+      "model.layers.11.self_attn.k_proj",
+      "model.layers.11.self_attn.o_proj",
+      "model.layers.11.self_attn.q_proj",
+      "model.layers.11.self_attn.v_proj",
+      "model.layers.12.linear_attn.in_proj_a",
+      "model.layers.12.linear_attn.in_proj_b",
+      "model.layers.12.linear_attn.in_proj_qkv",
+      "model.layers.12.linear_attn.in_proj_z",
+      "model.layers.12.linear_attn.out_proj",
+      "model.layers.12.mlp.down_proj",
+      "model.layers.12.mlp.gate_proj",
+      "model.layers.12.mlp.up_proj",
+      "model.layers.13.linear_attn.in_proj_a",
+      "model.layers.13.linear_attn.in_proj_b",
+      "model.layers.13.linear_attn.in_proj_qkv",
+      "model.layers.13.linear_attn.in_proj_z",
+      "model.layers.13.linear_attn.out_proj",
+      "model.layers.13.mlp.down_proj",
+      "model.layers.13.mlp.gate_proj",
+      "model.layers.13.mlp.up_proj",
+      "model.layers.14.linear_attn.in_proj_a",
+      "model.layers.14.linear_attn.in_proj_b",
+      "model.layers.14.linear_attn.in_proj_qkv",
+      "model.layers.14.linear_attn.in_proj_z",
+      "model.layers.14.linear_attn.out_proj",
+      "model.layers.14.mlp.down_proj",
+      "model.layers.14.mlp.gate_proj",
+      "model.layers.14.mlp.up_proj",
+      "model.layers.15.mlp.down_proj",
+      "model.layers.15.mlp.gate_proj",
+      "model.layers.15.mlp.up_proj",
+      "model.layers.15.self_attn.k_proj",
+      "model.layers.15.self_attn.o_proj",
+      "model.layers.15.self_attn.q_proj",
+      "model.layers.15.self_attn.v_proj",
+      "model.layers.16.linear_attn.in_proj_a",
+      "model.layers.16.linear_attn.in_proj_b",
+      "model.layers.16.linear_attn.in_proj_qkv",
+      "model.layers.16.linear_attn.in_proj_z",
+      "model.layers.16.linear_attn.out_proj",
+      "model.layers.16.mlp.down_proj",
+      "model.layers.16.mlp.gate_proj",
+      "model.layers.16.mlp.up_proj",
+      "model.layers.17.linear_attn.in_proj_a",
+      "model.layers.17.linear_attn.in_proj_b",
+      "model.layers.17.linear_attn.in_proj_qkv",
+      "model.layers.17.linear_attn.in_proj_z",
+      "model.layers.17.linear_attn.out_proj",
+      "model.layers.17.mlp.down_proj",
+      "model.layers.17.mlp.gate_proj",
+      "model.layers.17.mlp.up_proj",
+      "model.layers.18.linear_attn.in_proj_a",
+      "model.layers.18.linear_attn.in_proj_b",
+      "model.layers.18.linear_attn.in_proj_qkv",
+      "model.layers.18.linear_attn.in_proj_z",
+      "model.layers.18.linear_attn.out_proj",
+      "model.layers.18.mlp.down_proj",
+      "model.layers.18.mlp.gate_proj",
+      "model.layers.18.mlp.up_proj",
+      "model.layers.19.mlp.down_proj",
+      "model.layers.19.mlp.gate_proj",
+      "model.layers.19.mlp.up_proj",
+      "model.layers.19.self_attn.k_proj",
+      "model.layers.19.self_attn.o_proj",
+      "model.layers.19.self_attn.q_proj",
+      "model.layers.19.self_attn.v_proj",
+      "model.layers.2.linear_attn.in_proj_a",
+      "model.layers.2.linear_attn.in_proj_b",
+      "model.layers.2.linear_attn.in_proj_qkv",
+      "model.layers.2.linear_attn.in_proj_z",
+      "model.layers.2.linear_attn.out_proj",
+      "model.layers.2.mlp.down_proj",
+      "model.layers.2.mlp.gate_proj",
+      "model.layers.2.mlp.up_proj",
+      "model.layers.20.linear_attn.in_proj_a",
+      "model.layers.20.linear_attn.in_proj_b",
+      "model.layers.20.linear_attn.in_proj_qkv",
+      "model.layers.20.linear_attn.in_proj_z",
+      "model.layers.20.linear_attn.out_proj",
+      "model.layers.20.mlp.down_proj",
+      "model.layers.20.mlp.gate_proj",
+      "model.layers.20.mlp.up_proj",
+      "model.layers.21.linear_attn.in_proj_a",
+      "model.layers.21.linear_attn.in_proj_b",
+      "model.layers.21.linear_attn.in_proj_qkv",
+      "model.layers.21.linear_attn.in_proj_z",
+      "model.layers.21.linear_attn.out_proj",
+      "model.layers.21.mlp.down_proj",
+      "model.layers.21.mlp.gate_proj",
+      "model.layers.21.mlp.up_proj",
+      "model.layers.22.linear_attn.in_proj_a",
+      "model.layers.22.linear_attn.in_proj_b",
+      "model.layers.22.linear_attn.in_proj_qkv",
+      "model.layers.22.linear_attn.in_proj_z",
+      "model.layers.22.linear_attn.out_proj",
+      "model.layers.22.mlp.down_proj",
+      "model.layers.22.mlp.gate_proj",
+      "model.layers.22.mlp.up_proj",
+      "model.layers.23.mlp.down_proj",
+      "model.layers.23.mlp.gate_proj",
+      "model.layers.23.mlp.up_proj",
+      "model.layers.23.self_attn.k_proj",
+      "model.layers.23.self_attn.o_proj",
+      "model.layers.23.self_attn.q_proj",
+      "model.layers.23.self_attn.v_proj",
+      "model.layers.3.mlp.down_proj",
+      "model.layers.3.mlp.gate_proj",
+      "model.layers.3.mlp.up_proj",
+      "model.layers.3.self_attn.k_proj",
+      "model.layers.3.self_attn.o_proj",
+      "model.layers.3.self_attn.q_proj",
+      "model.layers.3.self_attn.v_proj",
+      "model.layers.4.linear_attn.in_proj_a",
+      "model.layers.4.linear_attn.in_proj_b",
+      "model.layers.4.linear_attn.in_proj_qkv",
+      "model.layers.4.linear_attn.in_proj_z",
+      "model.layers.4.linear_attn.out_proj",
+      "model.layers.4.mlp.down_proj",
+      "model.layers.4.mlp.gate_proj",
+      "model.layers.4.mlp.up_proj",
+      "model.layers.5.linear_attn.in_proj_a",
+      "model.layers.5.linear_attn.in_proj_b",
+      "model.layers.5.linear_attn.in_proj_qkv",
+      "model.layers.5.linear_attn.in_proj_z",
+      "model.layers.5.linear_attn.out_proj",
+      "model.layers.5.mlp.down_proj",
+      "model.layers.5.mlp.gate_proj",
+      "model.layers.5.mlp.up_proj",
+      "model.layers.6.linear_attn.in_proj_a",
+      "model.layers.6.linear_attn.in_proj_b",
+      "model.layers.6.linear_attn.in_proj_qkv",
+      "model.layers.6.linear_attn.in_proj_z",
+      "model.layers.6.linear_attn.out_proj",
+      "model.layers.6.mlp.down_proj",
+      "model.layers.6.mlp.gate_proj",
+      "model.layers.6.mlp.up_proj",
+      "model.layers.7.mlp.down_proj",
+      "model.layers.7.mlp.gate_proj",
+      "model.layers.7.mlp.up_proj",
+      "model.layers.7.self_attn.k_proj",
+      "model.layers.7.self_attn.o_proj",
+      "model.layers.7.self_attn.q_proj",
+      "model.layers.7.self_attn.v_proj",
+      "model.layers.8.linear_attn.in_proj_a",
+      "model.layers.8.linear_attn.in_proj_b",
+      "model.layers.8.linear_attn.in_proj_qkv",
+      "model.layers.8.linear_attn.in_proj_z",
+      "model.layers.8.linear_attn.out_proj",
+      "model.layers.8.mlp.down_proj",
+      "model.layers.8.mlp.gate_proj",
+      "model.layers.8.mlp.up_proj",
+      "model.layers.9.linear_attn.in_proj_a",
+      "model.layers.9.linear_attn.in_proj_b",
+      "model.layers.9.linear_attn.in_proj_qkv",
+      "model.layers.9.linear_attn.in_proj_z",
+      "model.layers.9.linear_attn.out_proj",
+      "model.layers.9.mlp.down_proj",
+      "model.layers.9.mlp.gate_proj",
+      "model.layers.9.mlp.up_proj"
+    ],
+    "adapter_sha256": "57505a645d6e8f44f7907f90437041715e9ce0b8116b179462d25dc0fe8ee6d7",
+    "adapter_config_sha256": "5b3870e490d8458b88dd5fe21d32af6080ceb3b3efb4086d668b58b7ec9388f2",
+    "trl_version": "0.29.1",
+    "transformers_version": "5.16.1",
+    "torch_version": "2.8.0+cu128",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "peak_vram_gib": 19.114452838897705,
+    "seed": 42,
+    "epochs": 1.0,
+    "grad_accum": 8,
+    "loss_log": "metrics.jsonl",
+    "loss_log_sha256": "32ec19ccc4aa7596723730506b02bf4a3cdb314e6010d908a9e747c1b87a60e4",
+    "tensorboard_events": [
+      "tensorboard/events.out.tfevents.1795249758.b4e43106255d.2906.0"
+    ]
+  }
+}

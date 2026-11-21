@@ -1,0 +1,50 @@
+[
+  {
+    "Name": "model.safetensors-00001-of-00001.safetensors",
+    "Sha256": "928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d",
+    "Revision": "d5d1278c20b0378a55617e346cb432b524f52b3f",
+    "Size": 4548221488
+  },
+  {
+    "Name": "config.json",
+    "Sha256": "ed1c1723241f23f7f4e23430759cbd7dcfb4103cbdfe052bfe7626b57c2615b4",
+    "Revision": "d5d1278c20b0378a55617e346cb432b524f52b3f",
+    "Size": 2908
+  },
+  {
+    "Name": "LICENSE",
+    "Sha256": "50cbab8a892c5f2993b8c7351a99182507472def3b1374558308605d99b86b32",
+    "Revision": "b3acd79cf02e14a824cb469c182e2635a13d7ac4",
+    "Size": 11343
+  },
+  {
+    "Name": "merges.txt",
+    "Sha256": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d",
+    "Revision": "d5d1278c20b0378a55617e346cb432b524f52b3f",
+    "Size": 3353259
+  },
+  {
+    "Name": "vocab.json",
+    "Sha256": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003",
+    "Revision": "d5d1278c20b0378a55617e346cb432b524f52b3f",
+    "Size": 6722759
+  },
+  {
+    "Name": "tokenizer.json",
+    "Sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+    "Revision": "d5d1278c20b0378a55617e346cb432b524f52b3f",
+    "Size": 12807196
+  },
+  {
+    "Name": "tokenizer_config.json",
+    "Sha256": "e611fbccc7c29ef3b1cafb1cb7ea548d189968632901d678fd62be68c47885de",
+    "Revision": "7e6a080cecb73402447c730402f84c7f2510e420",
+    "Size": 16712
+  },
+  {
+    "Name": "model.safetensors.index.json",
+    "Sha256": "74d2ddfe79f10f35b27b498632f02b97b60dd9ec39b35d7c5a890c399284e319",
+    "Revision": "d5d1278c20b0378a55617e346cb432b524f52b3f",
+    "Size": 64460
+  }
+]

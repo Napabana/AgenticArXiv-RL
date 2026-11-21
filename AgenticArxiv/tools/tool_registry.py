@@ -1,9 +1,22 @@
 # AgenticArxiv/tools/tool_registry.py
+from copy import deepcopy
 from typing import Dict, Any, Callable, List, Optional
 import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+
+PAPER_REF_SCHEMA = {
+    "description": (
+        "当前会话候选列表的 1-based 序号、完整 arXiv ID（保留版本后缀）或标题片段。"
+        "省略或 null 指最近操作的论文；没有最近操作对象时无法解析。"
+    ),
+    "anyOf": [{"type": "integer", "minimum": 1}, {"type": "string", "minLength": 1}, {"type": "null"}],
+    "default": None,
+}
+
+_HARNESS_ARGS = {"session_id", "paper_id", "pdf_url", "input_pdf_path"}
 
 
 class ToolRegistry:
@@ -51,6 +64,55 @@ class ToolRegistry:
             }
             for tool in self._tools.values()
         ]
+
+    def model_tool(self, name: str) -> Optional[Dict[str, Any]]:
+        """Build the Native schema without internal execution overrides."""
+        tool = self.get_tool(name)
+        if tool is None:
+            return None
+        schema = deepcopy(tool["parameters"])
+        properties = schema.get("properties", {})
+        for key in _HARNESS_ARGS:
+            properties.pop(key, None)
+        schema["required"] = [key for key in schema.get("required", []) if key not in _HARNESS_ARGS]
+        schema["additionalProperties"] = False
+        if name == "translate_arxiv_pdf":
+            from config import settings
+            properties["service"]["default"] = settings.pdf2zh_service
+            properties["threads"]["default"] = settings.pdf2zh_threads
+        return {"name": name, "description": tool["description"], "parameters": schema}
+
+    @staticmethod
+    def normalize_arguments(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
+        """Normalize arXiv category aliases before validating the canonical enum."""
+        args = dict(arguments)
+        if name == "get_recently_submitted_cs_papers" and isinstance(args.get("aspect"), str):
+            args["aspect"] = args["aspect"].strip().upper().removeprefix("CS.")
+        return args
+
+    def effective_arguments(self, name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
+        """Expand model-visible defaults for scoring and canonical expert calls."""
+        tool = self.model_tool(name)
+        properties = tool["parameters"]["properties"] if tool else {}
+        args = {key: spec["default"] for key, spec in properties.items() if "default" in spec}
+        args.update(self.normalize_arguments(name, arguments))
+        args.pop("session_id", None)
+        if name == "get_recently_submitted_cs_papers":
+            if not args.get("output_path") or args.get("save_to_file") is False:
+                args["output_path"] = None
+        if name == "get_translated_content" and args.get("page") is None:
+            args["page"] = 1
+        if name == "summarize_paper":
+            from tools.paper_summary_tool import bucket_max_words, normalize_style
+            if "style" in args and "max_words" in args:
+                try:
+                    style = normalize_style(args["style"])
+                    max_words = bucket_max_words(args["max_words"])
+                except ValueError:
+                    pass  # Preserve invalid inputs for mismatching in historical traces.
+                else:
+                    args.update(style=style, max_words=max_words)
+        return args
 
     def execute_tool(self, name: str, arguments: Dict[str, Any]) -> Any:
         """

@@ -19,6 +19,7 @@ from benchmark.metrics import (
     extract_metrics,
     lcs_length,
     observation_reports,
+    is_parse_failure,
 )
 
 
@@ -278,10 +279,9 @@ class RewardCalculator:
         good_steps = 0.0
         for step in history:
             action = step.get("action", "")
-            observation = str(step.get("observation", ""))
             if action in TERMINAL_ACTIONS or _parse_action(action):
                 good_steps += 1.0
-            if step.get("parse_failed") or observation_reports(observation, ("无法解析",), action):
+            if is_parse_failure(step):
                 good_steps -= 1.0
         failures = metrics.parse_failures + metrics.tool_exec_failures
         extras = max(0, len(metrics.tool_call_sequence) - len(metrics.expected_tools))
@@ -373,9 +373,9 @@ class RewardCalculator:
             observation = str(step.get("observation", "") or "")
             action = _parse_action(step.get("action", "")) or {}
             tool_name = str(action.get("name", ""))
-            if step.get("parse_failed") or observation_reports(
+            if is_parse_failure(step) or observation_reports(
                 observation,
-                ("工具执行失败", "无法解析", "offline_fallback", "回退结果"),
+                ("工具执行失败", "offline_fallback", "回退结果"),
                 step.get("action", ""),
             ):
                 scores.append(-1.0)
@@ -388,7 +388,7 @@ class RewardCalculator:
             # only grade whether its observation represents useful work.
             if tool_name in {"get_recently_submitted_cs_papers", "search_arxiv_papers"}:
                 good = (
-                    "成功获取" in observation
+                    ("成功获取" in observation or '"paper_count":' in observation)
                     or "论文" in observation
                     or "paper" in observation.lower()
                     or "'id'" in observation
@@ -502,7 +502,7 @@ def compute_step_reward(step_dict: Dict[str, Any], metrics: TaskMetrics) -> floa
     action = step_dict.get("action", "")
     observation = str(step_dict.get("observation", ""))
     reward = 0.1 if action in TERMINAL_ACTIONS or _parse_action(action) else -0.2
-    if step_dict.get("parse_failed") or observation_reports(observation, ("无法解析",), action):
+    if is_parse_failure(step_dict):
         reward -= 0.2
     if observation_reports(observation, ("错误:", "工具执行失败:", "Error"), action):
         reward -= 0.3

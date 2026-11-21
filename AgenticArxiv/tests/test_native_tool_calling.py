@@ -322,3 +322,161 @@ def test_local_qwen_keeps_chat_feedback_and_audits_generation_stops(lookup, loca
     assert configured_eos == [248044, 248046]
     summary = summarize_protocol_results(results)["agents"]["native_tool_calling"]
     assert summary["generation_stop_reasons"] == {"tool_call_end": 1, "chat_end": 1}
+
+
+
+def test_native_effective_parameters_and_version(lookup):
+    from benchmark.metrics import argument_match_score
+
+    def score(name, actual, expected, paper=None, resolved=None):
+        return argument_match_score(
+            [{"action": json.dumps({"name": name, "args": actual}),
+              "observation": {"paper_id": resolved}}],
+            [expected], [name], [paper] if paper else None,
+        )
+
+    search = "get_recently_submitted_cs_papers"
+    assert score(search, {"save_to_file": False, "output_path": ""},
+                 {"aspect": "*", "save_to_file": False}) == 1
+    assert score(search, {"aspect": "cs.CV"}, {"aspect": "CV"}) == 1
+    assert score(search, {}, {"save_to_file": False}) < 1
+    translate = "translate_arxiv_pdf"
+    assert score(translate, {}, {"keep_dual": True}) < 1
+    download = "download_arxiv_pdf"
+    assert score(download, {}, {"ref": 1}, "2608.14528v1", "2608.14528v1") == 1
+    assert score(download, {}, {"ref": 1}, "2608.14528v1", "2608.14529v1") < 1
+    assert score(download, {"ref": "2608.14528"}, {"ref": "2608.14528v1"},
+                 "2608.14528v1", "2608.14528v1") < 1
+
+
+def test_native_schema_and_dispatch_use_the_same_contract(lookup):
+    from config import settings
+
+    env = _RecordingEnv()
+    client = _ScriptedClient(
+        _reply(calls=[_call("one", "get_recently_submitted_cs_papers", {"aspect": "cs.CV"})]),
+        _reply("现有说明提到了无法解析。"),
+    )
+
+    def execute(name, args):
+        env.calls.append((name, args))
+        return []
+
+    env.execute_tool = execute
+    result = NativeToolCallingAgent(client, env=env).run("检索")
+    assert env.calls[0][1]["aspect"] == "CV"
+    tool_schema = {tool["function"]["name"]: tool["function"]["parameters"]["properties"]
+                   for tool in client.calls[0]["extra"]["tools"]}
+    assert all("session_id" not in props for props in tool_schema.values())
+    translate = tool_schema["translate_arxiv_pdf"]
+    assert translate["service"]["default"] == settings.pdf2zh_service
+    assert translate["threads"]["default"] == settings.pdf2zh_threads
+    assert "paper_id" not in translate and "input_pdf_path" not in translate
+    assert tool_schema["download_arxiv_pdf"]["ref"]["default"] is None
+    from benchmark.metrics import _count_parse_failures
+    assert _count_parse_failures(result["history"]) == 0
+
+
+
+def test_recent_search_no_file_ignores_explicit_output_path(monkeypatch, tmp_path):
+    from tools import arxiv_tool
+
+    monkeypatch.setattr(arxiv_tool.arxiv, "Client", lambda: SimpleNamespace(results=lambda _: ()))
+    path = tmp_path / "reports" / "papers.md"
+    assert arxiv_tool.get_recently_submitted_cs_papers(output_path=str(path), save_to_file=False) == []
+    assert not path.parent.exists()
+    arxiv_tool.get_recently_submitted_cs_papers(output_path=str(path))
+    assert path.is_file()
+
+
+def test_cache_lookup_does_not_create_either_asset(monkeypatch):
+    from tools import cache_status_tool
+
+    actions = []
+    store = SimpleNamespace(
+        set_last_active_paper_id=lambda session, paper: actions.append((session, paper)),
+        get_pdf_asset=lambda paper: None,
+        get_translate_asset=lambda paper: None,
+    )
+    monkeypatch.setattr(cache_status_tool, "store", store)
+    result = cache_status_tool.get_paper_cache_status(session_id="s", paper_id="2608.14530v1")
+    assert (result["pdf_ready"], result["translated_ready"]) == (False, False)
+    assert actions == [("s", "2608.14530v1")]
+
+
+def test_native_rejects_unknown_category_and_harness_args(lookup):
+    for args in ({"aspect": "cs.UNKNOWN"}, {"session_id": "other"}):
+        env = _RecordingEnv()
+        client = _ScriptedClient(_reply(calls=[
+            _call("one", "get_recently_submitted_cs_papers", args),
+        ]))
+        result = NativeToolCallingAgent(client, env=env).run("检索")
+        assert result["history"][-1]["action"] == "ERROR"
+        assert not env.calls
+
+
+@pytest.mark.parametrize("followups", [
+    [],
+    ["get_paper_cache_status"],
+    ["get_translated_content"],
+    ["get_paper_cache_status", "get_paper_cache_status"],
+    ["translate_arxiv_pdf"],
+])
+def test_pending_translation_only_allows_one_cache_followup(lookup, followups):
+    from models.schemas import Paper
+    from models.store_memory import MemoryStore
+
+    paper = Paper(id="2608.14528v1", title="Paper")
+    store = MemoryStore(make_dirs=False)
+    effects = LocalSideEffectManager(store)
+    store.set_last_papers("session", [paper])
+    dispatched = []
+
+    class Env:
+        def execute_tool(self, name, args):
+            dispatched.append(name)
+            return {"paper_id": paper.id, "translated_ready": True}
+
+    tools = ["translate_arxiv_pdf", *followups]
+    client = _ScriptedClient(*[
+        _reply(calls=[_call(str(i), name, {"ref": 1 if i == 0 else None})])
+        for i, name in enumerate(tools)
+    ], _reply("翻译已提交，目前待处理。"))
+    result = NativeToolCallingAgent(client, side_effect_mgr=effects, env=Env()).run(
+        "提交翻译", session_id="session",
+    )
+    history = result["history"]
+    assert json.loads(history[0]["observation"])["status"] == "PENDING"
+    assert history[-1]["action"] == "FINISH"
+    assert dispatched == (["get_paper_cache_status"] if "get_paper_cache_status" in followups else [])
+    assert effects._translate_seq == 1
+    for index, name in enumerate(followups, 1):
+        if name == "get_paper_cache_status" and index == 1:
+            assert json.loads(history[index]["observation"])["translated_ready"] is False
+        else:
+            assert history[index]["tool_issue"] == "pending_guard"
+
+
+def test_native_setup_reports_receipts_and_active_paper(lookup):
+    from models.store_memory import MemoryStore
+
+    class Env:
+        def execute_tool(self, name, args):
+            if name == "search_arxiv_papers":
+                return [{"id": "2608.14528v1", "title": "Paper"}]
+            if name == "analyze_figure":
+                return {"paper_id": "2608.14528v1", "answer": "Increasing"}
+            raise ValueError("data unavailable")
+
+    effects = LocalSideEffectManager(MemoryStore(make_dirs=False))
+    agent = NativeToolCallingAgent(None, side_effect_mgr=effects, env=Env())
+    receipts = agent.apply_setup([
+        {"name": "search_arxiv_papers", "args": {"query": "Paper"}},
+        {"name": "analyze_figure", "args": {"ref": 1}},
+        {"name": "download_arxiv_pdf", "args": {"ref": None}},
+    ], "s")
+    context = agent.setup_context(receipts)
+    assert "当前候选列表有 1 篇" in context
+    assert "最近操作的论文是 2608.14528v1" in context
+    assert receipts[-1]["tool_issue"] == "tool_error"
+    assert "data unavailable" in context and "READY" not in context
