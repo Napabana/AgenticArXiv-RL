@@ -176,6 +176,21 @@ def test_qwen_decoder_keeps_first_call_and_rejects_a_partial_envelope(lookup):
     assert _decode_qwen_tool_call(duplicate, tools)[1] is None
 
 
+@pytest.mark.parametrize(("value", "expected"), [
+    ("2608.14528", "2608.14528"),
+    ("2608.01230", "2608.01230"),
+    ("2608.14528v1", "2608.14528v1"),
+    ("3", 3),
+    ("null", None),
+])
+def test_qwen_decoder_preserves_native_paper_reference_types(lookup, value, expected):
+    tool = registry.get_tool("get_paper_cache_status")
+    tools = [{"type": "function", "function": tool}]
+    raw = f"<tool_call><function=get_paper_cache_status><parameter=ref>{value}</parameter></function></tool_call>"
+    _, call = _decode_qwen_tool_call(raw, tools)
+    assert json.loads(call["function"]["arguments"]) == {"ref": expected}
+
+
 @pytest.fixture
 def local_qwen(monkeypatch):
     torch = pytest.importorskip("torch")

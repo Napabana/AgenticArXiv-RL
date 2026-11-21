@@ -40,13 +40,19 @@ def _decode_qwen_tool_call(content: str, tools: list[dict]) -> tuple[str, Option
         if param is None or param[1] in args:
             return content, None
         key, value = param.groups()
-        if properties.get(key, {}).get("type") != "string":
+        spec = properties.get(key, {})
+        if spec.get("type") != "string":
             try:
                 typed = json.loads({"None": "null", "True": "true", "False": "false"}.get(value, value))
                 json.dumps(typed, allow_nan=False)
             except (ValueError, RecursionError):
                 pass
             else:
+                if isinstance(typed, float):
+                    types = spec.get("type") or [item.get("type") for item in spec.get("anyOf", [])]
+                    # Native XML omits JSON quotes around IDs such as 2608.14528.
+                    if "string" in types and "number" not in types:
+                        typed = value
                 value = typed
         args[key] = value
         pos = param.end()
