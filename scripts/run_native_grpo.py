@@ -21,7 +21,7 @@ from generate_parametric_sft_data import sha256_file
 from rl.grpo_reward import SUPPORTED_TOOL_NAMES, make_grpo_reward_fn
 from rl.model_loading import (assert_grpo_reference_adapter, load_text_causal_lm,
                               trainable_parameter_fingerprint, validate_qwen35_lora_targets)
-from rl.native_grpo_rollout import NativeRollout, generate_native_turn
+from rl.native_grpo_rollout import NativeRollout, _QWEN_CHAT_END, generate_native_turn
 from rl.reward import RewardCalculator
 from rl.rollout_audit import RolloutAuditWriter
 from rl.step_credit import StepCreditCollector, align_step_advantages, compute_batch_step_credit, summarize
@@ -202,10 +202,13 @@ def train(args, split, tokenizer, rollout, runtime):
     tasks = {task["id"]: task for task in split["tasks"]}
     if not tasks or args.micro_batch not in (1, 2, 4):
         raise ValueError("Need selected tasks and a micro-batch that divides G=4")
+    smoke_seed = None
     if args.stage == "smoke":
-        # Exercise the strongest observed signal during the short training smoke.
+        # Replay one informative Probe seed with fresh samples from the same frozen start.
+        # Later Smoke groups and all formal training groups use the continuing RNG stream.
         decisions = split["probe"]["decisions"]
         best = max(tasks, key=lambda tid: decisions[tid]["informative"] / len(decisions[tid]["groups"]))
+        smoke_seed = next(group["seed"] for group in decisions[best]["groups"] if group["mode"] != "none")
         tasks = {best: tasks[best]}
     rows = Dataset.from_list([{"prompt": tid, "task_id": tid} for tid in tasks])
     collector = StepCreditCollector(tasks, G, use_progress=True, beta=1.0, scale="group")
@@ -213,6 +216,8 @@ def train(args, split, tokenizer, rollout, runtime):
     reward = make_grpo_reward_fn(tasks, reward_calc=REWARD, auditor=audit, step_credit=collector, native_group_size=G)
 
     def native_rollout(prompts, trainer):
+        if smoke_seed is not None and trainer.state.global_step == 0:
+            torch.manual_seed(smoke_seed)
         batch = run_rollout(rollout, split, tokenizer, trainer.accelerator.unwrap_model(trainer.model),
                             [tasks[tid] for tid in prompts])
         if not all(batch["completion_ids"]):
@@ -247,6 +252,10 @@ def train(args, split, tokenizer, rollout, runtime):
         rollout_func=native_rollout, callbacks=[FiniteMetrics()], step_credit_collector=collector,
         step_credit_weight=TRAIN_CONFIG["step_credit_weight"],
     )
+    # TRL infers EOS from the base tokenizer. Qwen native answers also end at im_end.
+    chat_end = tokenizer.convert_tokens_to_ids(_QWEN_CHAT_END)
+    if chat_end not in trainer.eos_token_ids:
+        trainer.eos_token_ids = [*trainer.eos_token_ids, chat_end]
     reference = assert_grpo_reference_adapter(trainer.model, beta=config.beta)
     before = trainable_parameter_fingerprint(trainer.model)
     result = trainer.train(resume_from_checkpoint=str(args.resume) if args.resume else None)
@@ -269,6 +278,7 @@ def train(args, split, tokenizer, rollout, runtime):
         "micro_batch": args.micro_batch, "gradient_accumulation_steps": G // args.micro_batch,
         "lora_before": before, "lora_after": after, "reference": reference,
         "split_sha256": sha256_file(args.tasks), "step_credit_counts": counts,
+        "smoke_probe_seed": smoke_seed,
         "max_conservation_error": trainer.step_credit_max_conservation_error,
         "adapter_sha256": sha256_file(args.output / "adapter" / "adapter_model.safetensors"),
         "metrics": steps,

@@ -10,23 +10,32 @@ python_bin=${PYTHON_BIN:-python}
 export PYTHON_BIN="$python_bin" HF_HUB_OFFLINE=1 PYTHONUNBUFFERED=1 STORE_BACKEND=memory
 cd "$(dirname "$0")/.."
 
-mkdir "$out"
-started=$(date +%s)
+reuse_probe=${GRPO_REUSE_PROBE:-0}
+if [[ "$reuse_probe" == 1 ]]; then
+    test -s "$out/preflight/preflight.json"
+    test -s "$out/probe/train_split.json"
+    started=$(date -r "$out/gpu.csv" +%s)
+else
+    mkdir "$out"
+    started=$(date +%s)
+    nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv > "$out/gpu.csv"
+fi
 finish() {
     code=$?
     printf '%s\n' "$code" > "$out/status"
     printf '%s\n' "$(( $(date +%s) - started ))" > "$out/wall_seconds"
 }
 trap finish EXIT
-nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv > "$out/gpu.csv"
 flags=(--base "$base" --adapter "$adapter" --snapshot "$snapshot")
 stage() {
     printf '%s\n' "$1" > "$out/phase"
     "$python_bin" -u scripts/run_native_grpo.py "$1" "${flags[@]}" --tasks "$2" --output "$out/$1" \
         --micro-batch "${GRPO_MICRO_BATCH:-4}" 2>&1 | tee "$out/$1.log"
 }
-stage preflight "$tasks"
-stage probe "$tasks"
+if [[ "$reuse_probe" != 1 ]]; then
+    stage preflight "$tasks"
+    stage probe "$tasks"
+fi
 split="$out/probe/train_split.json"
 stage smoke "$split"
 stage train "$split"
