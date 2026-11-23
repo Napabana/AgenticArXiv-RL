@@ -177,7 +177,7 @@ def gold_replay(rollout, tokenizer, task, root, *, strict=True):
     }
 
 
-def build(snapshot: Path, tokenizer_path: Path, adapter: Path, frozen_data: Path) -> tuple[dict, list[dict]]:
+def build(snapshot: Path, tokenizer_path: Path, adapter: Path, frozen_data: Path, *, followup=False) -> tuple[dict, list[dict]]:
     from transformers import AutoTokenizer
 
     if (sha256_file(snapshot), sha256_file(adapter / "adapter_model.safetensors"), sha256_file(SPLIT)) != (
@@ -210,6 +210,13 @@ def build(snapshot: Path, tokenizer_path: Path, adapter: Path, frozen_data: Path
             raise ValueError(f"Native tokenizer source hash differs: {name}")
     rollout = NativeRollout(snapshot)
     candidates = make_candidates()
+    if followup:
+        from native_grpo_followup_data import additions, check_rankings
+        prior = load_json(ROOT / "data/splits/native_grpo_qwen35_train_v1.json")
+        controls = {task["id"] for task in prior["tasks"]}
+        candidates = [task for task in candidates if task["id"] in controls]
+        candidates.extend(additions(SPECS, SEARCH, CACHE, DL))
+    seen_ids, seen_prompts, seen_signatures = set(), set(), set()
     audits = []
     with TemporaryDirectory(prefix="native-grpo-task-audit-") as temp:
         # Tool registration must precede signature formation.
@@ -225,6 +232,13 @@ def build(snapshot: Path, tokenizer_path: Path, adapter: Path, frozen_data: Path
                    "terminal_reason": task.get("expected_terminal_reason")}
             signature = task_signature(row)
             text = text_signature(task["task"])
+            # A conditional pair can share a request across distinct initial states.
+            prompt = (text, json.dumps(row["setup"], sort_keys=True))
+            if key in seen_ids or prompt in seen_prompts or signature in seen_signatures:
+                raise ValueError(f"{key}: duplicate training example")
+            seen_ids.add(key)
+            seen_prompts.add(prompt)
+            seen_signatures.add(signature)
             if key in {s.id for s in heldout_specs} or text in heldout_text or signature in heldout_sigs:
                 raise ValueError(f"{key}: held-out ID, text or setup+effective action signature overlap")
             if key != parent and (text in sft_text or signature in sft_sigs):
@@ -235,6 +249,8 @@ def build(snapshot: Path, tokenizer_path: Path, adapter: Path, frozen_data: Path
                 if re.sub(r"v\d+$", "", paper) in snapshot.read_text(encoding="utf-8"):
                     raise ValueError(f"{key}: blocked paper is present in the snapshot")
             audits.append(gold_replay(rollout, tokenizer, task, Path(temp) / key))
+            if task.get("decision_focus"):
+                audits[-1]["ranking"] = check_rankings(rollout, task, Path(temp) / key / "rankings", gold_xml)
     first = audits[0]["native_messages"]
     from tools.tool_registry import registry
     tools = [registry.model_tool(tool["name"]) for tool in registry.list_tools()]
@@ -267,15 +283,21 @@ def build(snapshot: Path, tokenizer_path: Path, adapter: Path, frozen_data: Path
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--followup", action="store_true")
     for argument in ("snapshot", "tokenizer", "adapter", "frozen-data", "output"):
         parser.add_argument(f"--{argument}", required=True, type=Path)
     args = parser.parse_args()
-    manifest, audits = build(args.snapshot, args.tokenizer, args.adapter, args.frozen_data)
+    manifest, audits = build(args.snapshot, args.tokenizer, args.adapter, args.frozen_data, followup=args.followup)
     args.output.mkdir(parents=True, exist_ok=False)
     (args.output / "candidates.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     with (args.output / "gold_replay.jsonl").open("w", encoding="utf-8") as handle:
         for audit in audits:
             handle.write(json.dumps(audit, ensure_ascii=False) + "\n")
+    failures = {a["task_id"]: a["ranking"]["failed_contrasts"] for a in audits
+                if a.get("ranking", {}).get("failed_contrasts")}
+    if failures:
+        (args.output / "candidates.json").unlink()
+        raise ValueError(f"Counterfactual rankings failed: {failures}")
     print(f'{manifest["candidate_count"]} Native candidates passed offline gold replay', flush=True)
 
 

@@ -234,7 +234,7 @@ def train(args, split, tokenizer, rollout, runtime):
     started = time.monotonic()
     torch.cuda.reset_peak_memory_stats()
     policy = load_policy(args, trainable=True)
-    max_steps = 4 if args.stage == "smoke" else 100
+    max_steps = 4 if args.stage == "smoke" else args.train_steps
     config = GRPOConfig(
         output_dir=str(args.output), max_steps=max_steps, per_device_train_batch_size=args.micro_batch,
         gradient_accumulation_steps=G // args.micro_batch, num_generations=G,
@@ -292,6 +292,8 @@ def main():
         parser.add_argument(f"--{key}", required=True, type=Path)
     parser.add_argument("--cpu", action="store_true", help="Verify files and pinned libraries without loading weights")
     parser.add_argument("--micro-batch", type=int, default=4)
+    parser.add_argument("--train-steps", type=int, choices=(25, 100), default=100,
+                        help="Use 25 for the follow-up Dev pilot, 100 for the full run")
     parser.add_argument("--resume", type=Path)
     args = parser.parse_args()
     if args.cpu and args.stage != "preflight":
