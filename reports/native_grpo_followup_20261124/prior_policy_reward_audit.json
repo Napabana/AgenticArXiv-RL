@@ -1,0 +1,21 @@
+{
+  "probe": {
+    "groups": 88,
+    "rescored": 348,
+    "strict": 205,
+    "full_reward_failed_strict": 0,
+    "full_phi_failed_strict": 0,
+    "environment_invalid_groups": 1,
+    "mixed_strict_groups": 24,
+    "nonseparating_mixed_groups": 0
+  },
+  "train": {
+    "groups": 100,
+    "rescored": 400,
+    "strict": 243,
+    "full_reward_failed_strict": 0,
+    "full_phi_failed_strict": 0,
+    "mixed_strict_groups": 50,
+    "nonseparating_mixed_groups": 0
+  }
+}

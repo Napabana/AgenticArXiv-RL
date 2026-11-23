@@ -1,0 +1,2384 @@
+[
+  {
+    "task_id": "native_grpo_v2_scope_all_5_0",
+    "focus": "search_scope",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.75,
+          "format": 1.0,
+          "tool": -1.0,
+          "argument": -1.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": -1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "hard_invalid"
+          ]
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_scope": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_storage": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_scope_all_5_1",
+    "focus": "search_scope",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.75,
+          "format": 1.0,
+          "tool": -1.0,
+          "argument": -1.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": -1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "hard_invalid"
+          ]
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_scope": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_storage": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_scope_CL_5_0",
+    "focus": "search_scope",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.75,
+          "format": 1.0,
+          "tool": -1.0,
+          "argument": -1.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": -1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "hard_invalid"
+          ]
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_scope": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_storage": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_scope_CL_5_1",
+    "focus": "search_scope",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.75,
+          "format": 1.0,
+          "tool": -1.0,
+          "argument": -1.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": -1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "hard_invalid"
+          ]
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_scope": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_storage": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_scope_all_12_0",
+    "focus": "search_scope",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.75,
+          "format": 1.0,
+          "tool": -1.0,
+          "argument": -1.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": -1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "hard_invalid"
+          ]
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_scope": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_storage": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_scope_all_12_1",
+    "focus": "search_scope",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.75,
+          "format": 1.0,
+          "tool": -1.0,
+          "argument": -1.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": -1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "hard_invalid"
+          ]
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_scope": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_storage": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_scope_CV_12_0",
+    "focus": "search_scope",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.75,
+          "format": 1.0,
+          "tool": -1.0,
+          "argument": -1.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": -1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "hard_invalid"
+          ]
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_scope": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_storage": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_scope_CV_12_1",
+    "focus": "search_scope",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.75,
+          "format": 1.0,
+          "tool": -1.0,
+          "argument": -1.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": -1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "hard_invalid"
+          ]
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_scope": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_storage": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_scope_all_19_0",
+    "focus": "search_scope",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.75,
+          "format": 1.0,
+          "tool": -1.0,
+          "argument": -1.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": -1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "hard_invalid"
+          ]
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_scope": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_storage": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_scope_all_19_1",
+    "focus": "search_scope",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.75,
+          "format": 1.0,
+          "tool": -1.0,
+          "argument": -1.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": -1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "hard_invalid"
+          ]
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_scope": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_storage": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_scope_AI_19_0",
+    "focus": "search_scope",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.75,
+          "format": 1.0,
+          "tool": -1.0,
+          "argument": -1.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": -1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "hard_invalid"
+          ]
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_scope": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_storage": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_scope_AI_19_1",
+    "focus": "search_scope",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.75,
+          "format": 1.0,
+          "tool": -1.0,
+          "argument": -1.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": -1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "hard_invalid"
+          ]
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_scope": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      },
+      "wrong_storage": {
+        "reward": {
+          "total": 0.75,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.5,
+          "process": 1.0,
+          "outcome": 0.5,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.0,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_pair_CV_3",
+    "focus": "two_paper_cache",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.333333,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      },
+      "repeat_first_paper": {
+        "reward": {
+          "total": 0.575,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_pair_CV_1",
+    "focus": "two_paper_cache",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.333333,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      },
+      "repeat_first_paper": {
+        "reward": {
+          "total": 0.575,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_conditional_CV_0",
+    "focus": "conditional_cache",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.6,
+          "argument": 0.333333,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.5,
+        "strict": false
+      },
+      "repeat_first_paper": {
+        "reward": {
+          "total": 0.666667,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.333333,
+          "process": 1.0,
+          "outcome": 0.333333,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.5,
+        "strict": false
+      },
+      "wrong_download_branch": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.6,
+          "argument": -0.333333,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.25,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_conditional_CV_1",
+    "focus": "conditional_cache",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.333333,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      },
+      "repeat_first_paper": {
+        "reward": {
+          "total": 0.575,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      },
+      "wrong_download_branch": {
+        "reward": {
+          "total": 0.445,
+          "format": 1.0,
+          "tool": 0.6,
+          "argument": 0.0,
+          "process": 0.9,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 0.5,
+          "efficiency": 0.0,
+          "safety_gates": []
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_pair_AI_2",
+    "focus": "two_paper_cache",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.333333,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      },
+      "repeat_first_paper": {
+        "reward": {
+          "total": 0.575,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_pair_AI_4",
+    "focus": "two_paper_cache",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.333333,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      },
+      "repeat_first_paper": {
+        "reward": {
+          "total": 0.575,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_conditional_AI_0",
+    "focus": "conditional_cache",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.6,
+          "argument": 0.333333,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.5,
+        "strict": false
+      },
+      "repeat_first_paper": {
+        "reward": {
+          "total": 0.666667,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.333333,
+          "process": 1.0,
+          "outcome": 0.333333,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.5,
+        "strict": false
+      },
+      "wrong_download_branch": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.6,
+          "argument": -0.333333,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.25,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_conditional_AI_1",
+    "focus": "conditional_cache",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.333333,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      },
+      "repeat_first_paper": {
+        "reward": {
+          "total": 0.575,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      },
+      "wrong_download_branch": {
+        "reward": {
+          "total": 0.445,
+          "format": 1.0,
+          "tool": 0.6,
+          "argument": 0.0,
+          "process": 0.9,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 0.5,
+          "efficiency": 0.0,
+          "safety_gates": []
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_pair_RO_4",
+    "focus": "two_paper_cache",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.333333,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      },
+      "repeat_first_paper": {
+        "reward": {
+          "total": 0.575,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_pair_RO_2",
+    "focus": "two_paper_cache",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.333333,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      },
+      "repeat_first_paper": {
+        "reward": {
+          "total": 0.575,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_conditional_RO_0",
+    "focus": "conditional_cache",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.6,
+          "argument": 0.333333,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.5,
+        "strict": false
+      },
+      "repeat_first_paper": {
+        "reward": {
+          "total": 0.666667,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.333333,
+          "process": 1.0,
+          "outcome": 0.333333,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.5,
+        "strict": false
+      },
+      "wrong_download_branch": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.6,
+          "argument": -0.333333,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.25,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  },
+  {
+    "task_id": "native_grpo_v2_conditional_RO_1",
+    "focus": "conditional_cache",
+    "scores": {
+      "gold": {
+        "reward": {
+          "total": 1.0,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 1.0,
+          "process": 1.0,
+          "outcome": 1.0,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 1.0,
+        "strict": true
+      },
+      "early_finish": {
+        "reward": {
+          "total": -0.25,
+          "format": 1.0,
+          "tool": 0.333333,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": [
+            "false_finish"
+          ]
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      },
+      "repeat_first_paper": {
+        "reward": {
+          "total": 0.575,
+          "format": 1.0,
+          "tool": 1.0,
+          "argument": 0.0,
+          "process": 1.0,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 1.0,
+          "efficiency": 1.0,
+          "safety_gates": []
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      },
+      "wrong_download_branch": {
+        "reward": {
+          "total": 0.445,
+          "format": 1.0,
+          "tool": 0.6,
+          "argument": 0.0,
+          "process": 0.9,
+          "outcome": 0.25,
+          "weights": {
+            "format": 1.0,
+            "tool": 3.0,
+            "argument": 2.0,
+            "process": 1.0,
+            "outcome": 3.0,
+            "result_quality": 0.0,
+            "efficiency": 0.0
+          },
+          "result_quality": 0.5,
+          "efficiency": 0.0,
+          "safety_gates": []
+        },
+        "phi": 0.3333333333333333,
+        "strict": false
+      }
+    },
+    "failed_contrasts": []
+  }
+]
