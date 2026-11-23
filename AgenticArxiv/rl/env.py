@@ -84,6 +84,8 @@ class MockArxivEnv:
         mode: str = "auto",
         offline_download: bool = True,
         snapshot_tools: Optional[Set[str]] = None,
+        session_store: Any = None,
+        pdf_root: Optional[Path] = None,
     ):
         """
         Args:
@@ -98,6 +100,8 @@ class MockArxivEnv:
         self.snapshot_path = Path(snapshot_path) if snapshot_path else None
         self.mode = mode
         self.offline_download = offline_download
+        self.store = store if session_store is None else session_store
+        self.pdf_root = pdf_root
         self.snapshot_tools = snapshot_tools or set(DEFAULT_SNAPSHOT_TOOLS)
         self.snapshot: Dict[str, Dict[str, Any]] = {}
         # 只记录当前 rollout 进程内的离线下载状态。不能用磁盘文件是否存在
@@ -140,6 +144,10 @@ class MockArxivEnv:
         # 2) 非快照工具（纯本地，如缓存查询）→ 直接真实执行
         if tool_name not in self.snapshot_tools:
             self.stats["real_calls"] += 1
+            if tool_name == "get_paper_cache_status" and self.store is not store:
+                from tools.cache_status_tool import get_paper_cache_status
+
+                return get_paper_cache_status(**args, _store=self.store)
             return registry.execute_tool(tool_name, args)
 
         # 3) 快照工具
@@ -147,15 +155,15 @@ class MockArxivEnv:
         if tool_name == _KEYWORD_SEARCH_TOOL:
             key = self._keyword_search_key(args)
         elif tool_name == _PAPER_CONTENT_TOOL:
-            key = self._paper_content_key(args, resolved_paper_id=resolved_paper_id)
+            key = self._paper_content_key(args, resolved_paper_id, session_store=self.store)
         elif tool_name == _PAPER_SUMMARY_TOOL:
-            key = self._paper_summary_key(args, resolved_paper_id=resolved_paper_id)
+            key = self._paper_summary_key(args, resolved_paper_id, session_store=self.store)
         elif tool_name == _PAPER_FIGURES_TOOL:
-            key = self._paper_figures_key(args, resolved_paper_id=resolved_paper_id)
+            key = self._paper_figures_key(args, resolved_paper_id, session_store=self.store)
         elif tool_name == _FIGURE_ANALYSIS_TOOL:
-            key = self._figure_analysis_key(args, resolved_paper_id=resolved_paper_id)
+            key = self._figure_analysis_key(args, resolved_paper_id, session_store=self.store)
         elif tool_name == _TRANSLATED_CONTENT_TOOL:
-            key = self._translated_content_key(args, resolved_paper_id=resolved_paper_id)
+            key = self._translated_content_key(args, resolved_paper_id, session_store=self.store)
         tool_data = self.snapshot.get(tool_name, {})
 
         # record 模式必须每次都真打，否则派生逻辑会"帮倒忙"：
@@ -271,7 +279,6 @@ class MockArxivEnv:
             if session_id:
                 try:
                     from models.schemas import Paper
-                    from models.store import store
 
                     papers = [
                         Paper(
@@ -285,7 +292,7 @@ class MockArxivEnv:
                         else paper
                         for paper in result
                     ]
-                    store.set_last_papers(session_id, papers)
+                    self.store.set_last_papers(session_id, papers)
                 except Exception:
                     pass
 
@@ -424,7 +431,7 @@ class MockArxivEnv:
 
         from config import settings
         from models.schemas import PdfAsset
-        from models.store import store
+        store = self.store
 
         session_id = args.get("session_id", "default")
         ref = args.get("ref")
@@ -437,7 +444,7 @@ class MockArxivEnv:
                 )
             paper = store.resolve_paper(session_id, paper_id)
         else:
-            paper = store.resolve_paper(session_id, ref)
+            paper = self.store.resolve_paper(session_id, ref)
             if paper is None:
                 raise ValueError(
                     "未找到论文：请先调用 /arxiv/recent 写入 session 记忆，或检查 ref 是否正确"
@@ -450,8 +457,9 @@ class MockArxivEnv:
         store.set_last_active_paper_id(session_id, paper_id)
 
         safe_id = str(paper_id).replace("/", "_")
-        os.makedirs(settings.pdf_raw_path, exist_ok=True)
-        local_path = os.path.join(settings.pdf_raw_path, f"{safe_id}.pdf")
+        pdf_root = self.pdf_root if self.pdf_root is not None else settings.pdf_raw_path
+        os.makedirs(pdf_root, exist_ok=True)
+        local_path = os.path.join(pdf_root, f"{safe_id}.pdf")
 
         download_key = (str(session_id), str(paper_id))
         existed = download_key in self._offline_downloaded
@@ -507,7 +515,7 @@ class MockArxivEnv:
 
     @staticmethod
     def _paper_content_key(
-        args: Dict[str, Any], resolved_paper_id: Optional[str] = None
+        args: Dict[str, Any], resolved_paper_id: Optional[str] = None, *, session_store: Any = store
     ) -> str:
         """Key paper reads by resolved paper id, not session-local ``ref``.
 
@@ -520,7 +528,7 @@ class MockArxivEnv:
         if resolved_paper_id:
             paper_id = str(resolved_paper_id)
         else:
-            paper = store.resolve_paper(session_id, ref)
+            paper = session_store.resolve_paper(session_id, ref)
             if paper is None:
                 raise ValueError("Paper not found; search for the paper and check the ref.")
             paper_id = paper.id
@@ -534,7 +542,7 @@ class MockArxivEnv:
 
     @staticmethod
     def _paper_summary_key(
-        args: Dict[str, Any], resolved_paper_id: Optional[str] = None
+        args: Dict[str, Any], resolved_paper_id: Optional[str] = None, *, session_store: Any = store
     ) -> str:
         """Key summaries by (paper, style, bucketed budget).
 
@@ -551,7 +559,7 @@ class MockArxivEnv:
         if resolved_paper_id:
             paper_id = str(resolved_paper_id)
         else:
-            paper = store.resolve_paper(session_id, ref)
+            paper = session_store.resolve_paper(session_id, ref)
             if paper is None:
                 raise ValueError("Paper not found; search for the paper and check the ref.")
             paper_id = paper.id
@@ -568,7 +576,7 @@ class MockArxivEnv:
 
     @staticmethod
     def _paper_figures_key(
-        args: Dict[str, Any], resolved_paper_id: Optional[str] = None
+        args: Dict[str, Any], resolved_paper_id: Optional[str] = None, *, session_store: Any = store
     ) -> str:
         """Key figure extraction by resolved paper id (no other arguments)."""
         session_id = str((args or {}).get("session_id") or "default")
@@ -576,7 +584,7 @@ class MockArxivEnv:
         if resolved_paper_id:
             paper_id = str(resolved_paper_id)
         else:
-            paper = store.resolve_paper(session_id, ref)
+            paper = session_store.resolve_paper(session_id, ref)
             if paper is None:
                 raise ValueError("Paper not found; search for the paper and check the ref.")
             paper_id = paper.id
@@ -584,7 +592,7 @@ class MockArxivEnv:
 
     @staticmethod
     def _figure_analysis_key(
-        args: Dict[str, Any], resolved_paper_id: Optional[str] = None
+        args: Dict[str, Any], resolved_paper_id: Optional[str] = None, *, session_store: Any = store
     ) -> str:
         """Key figure analyses by (paper, figure_no, question).
 
@@ -601,7 +609,7 @@ class MockArxivEnv:
         if resolved_paper_id:
             paper_id = str(resolved_paper_id)
         else:
-            paper = store.resolve_paper(session_id, ref)
+            paper = session_store.resolve_paper(session_id, ref)
             if paper is None:
                 raise ValueError("Paper not found; search for the paper and check the ref.")
             paper_id = paper.id
@@ -618,7 +626,7 @@ class MockArxivEnv:
 
     @staticmethod
     def _translated_content_key(
-        args: Dict[str, Any], resolved_paper_id: Optional[str] = None
+        args: Dict[str, Any], resolved_paper_id: Optional[str] = None, *, session_store: Any = store
     ) -> str:
         """Key translation reads by (resolved paper, page).
 
@@ -634,7 +642,7 @@ class MockArxivEnv:
         if resolved_paper_id:
             paper_id = str(resolved_paper_id)
         else:
-            paper = store.resolve_paper(session_id, ref)
+            paper = session_store.resolve_paper(session_id, ref)
             if paper is None:
                 raise ValueError("Paper not found; search for the paper and check the ref.")
             paper_id = paper.id

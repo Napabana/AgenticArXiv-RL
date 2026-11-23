@@ -120,22 +120,24 @@ class TestMultiTurnTrajectory(unittest.TestCase):
                 "content": "先搜索",
                 "tool_calls": [{
                     "type": "function",
+                    "id": "search",
                     "function": {
                         "name": "get_recently_submitted_cs_papers",
-                        "arguments": {"aspect": "CV", "days": 7, "max_results": 3},
+                        "arguments": '{"aspect":"CV","days":7,"max_results":3}',
                     },
                 }],
             },
-            {"role": "tool", "name": "get_recently_submitted_cs_papers", "content": "3 papers"},
+            {"role": "tool", "tool_call_id": "search", "content": "3 papers"},
             {
                 "role": "assistant",
                 "content": "再下载",
                 "tool_calls": [{
                     "type": "function",
-                    "function": {"name": "download_arxiv_pdf", "arguments": {"ref": 1}},
+                    "id": "download",
+                    "function": {"name": "download_arxiv_pdf", "arguments": '{"ref":1}'},
                 }],
             },
-            {"role": "tool", "name": "download_arxiv_pdf", "content": "READY"},
+            {"role": "tool", "tool_call_id": "download", "content": "READY"},
             {"role": "assistant", "content": "已完成"},
         ]
         traj = messages_to_trajectory(completion)
@@ -151,19 +153,19 @@ class TestMultiTurnTrajectory(unittest.TestCase):
         completion = [
             {
                 "role": "assistant", "content": "",
-                "tool_calls": [{"type": "function", "function": {
+                "tool_calls": [{"type": "function", "id": "search", "function": {
                     "name": "get_recently_submitted_cs_papers",
-                    "arguments": {"aspect": "CV", "days": 7, "max_results": 3},
+                    "arguments": '{"aspect":"CV","days":7,"max_results":3}',
                 }}],
             },
-            {"role": "tool", "name": "get_recently_submitted_cs_papers", "content": "3 papers"},
+            {"role": "tool", "tool_call_id": "search", "content": "3 papers"},
             {
                 "role": "assistant", "content": "",
-                "tool_calls": [{"type": "function", "function": {
-                    "name": "download_arxiv_pdf", "arguments": {"ref": 1},
+                "tool_calls": [{"type": "function", "id": "download", "function": {
+                    "name": "download_arxiv_pdf", "arguments": '{"ref":1}',
                 }}],
             },
-            {"role": "tool", "name": "download_arxiv_pdf", "content": "READY"},
+            {"role": "tool", "tool_call_id": "download", "content": "READY"},
             {"role": "assistant", "content": "done"},
         ]
         fn = make_grpo_reward_fn(TASKS)

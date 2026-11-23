@@ -266,16 +266,16 @@ class BuilderIntegrationTest(unittest.TestCase):
             manifest = json.loads(
                 Path(str(output) + ".manifest.json").read_text(encoding="utf-8")
             )
+            rows = [
+                json.loads(line)
+                for line in output.read_text(encoding="utf-8").splitlines()
+                if line.strip()
+            ]
 
         self.assertEqual(manifest["summary"]["chains"], 1)
         self.assertEqual(manifest["summary"]["completed_chains"], 1)
         self.assertEqual(manifest["summary"]["truncated_chains"], 0)
         self.assertEqual(manifest["summary"]["failure_counts"], {})
-        rows = [
-            json.loads(line)
-            for line in output.read_text(encoding="utf-8").splitlines()
-            if line.strip()
-        ]
         self.assertEqual(len(rows), 1)
         self.assertTrue(rows[0]["chain_id"])
         self.assertEqual(manifest["summary"]["unique_chain_ids"], 1)

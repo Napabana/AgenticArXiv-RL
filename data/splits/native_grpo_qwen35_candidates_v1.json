@@ -1,0 +1,634 @@
+{
+  "schema_version": 1,
+  "status": "LOCAL_PASS",
+  "base_model": "Qwen/Qwen3.5-2B-Base",
+  "source_git_sha": "ecab507a11ed7813cc28a3fbad93377eddeba8ad",
+  "adapter_sha256": "789af8cf28960892a1fde034d32f9b8ddf230e8450552be70d15024c964ed6c8",
+  "sft_train_manifest_sha256": "34196a2639203ca290a43c1012daa1f82f4621a4f8beb2203c597713d013bf70",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "holdout_split_sha256": "0a176b0f67b8b61d4f84e27a40071ab81a5be3d2040c2a58aa695432f5a6eacc",
+  "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+  "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+  "chat_template_sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+  "frozen_data_sha256": "776da5eec24985ae3d75aa11f5ba5abe2e693a197adac15322d11d5449dffc34",
+  "holdout_count": 31,
+  "native_sft_catalog_count": 188,
+  "candidate_count": 18,
+  "tasks": [
+    {
+      "id": "state_cache_before_dl",
+      "task": "先看看第2篇有没有下载过，没有的话下载它",
+      "expected_tools": [
+        "get_paper_cache_status",
+        "download_arxiv_pdf"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": 2
+        },
+        {
+          "ref": 2
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "state",
+      "difficulty": "medium",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          }
+        }
+      ],
+      "parent_task_id": "state_cache_before_dl",
+      "source": "legacy_probe_template",
+      "grpo_family": "A",
+      "pdf_ready_by_step": {
+        "0": false
+      },
+      "task_signature_sha256": "04ec52a906a5d457babfc133bf356d5ac84463ef41aa4615ac1e74d123c9faf0",
+      "expected_paper_ids": [
+        "2608.14530v1",
+        "2608.14530v1"
+      ]
+    },
+    {
+      "id": "constraint_download_only",
+      "task": "只下载第1篇论文，不要翻译，也不要额外检查缓存状态",
+      "expected_tools": [
+        "download_arxiv_pdf"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": 1
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "constraint",
+      "difficulty": "hard",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          }
+        }
+      ],
+      "parent_task_id": "constraint_download_only",
+      "source": "legacy_probe_template",
+      "grpo_family": "A",
+      "task_signature_sha256": "20b3db5cc562eb95831140a7c7d55244ae3a531c91bb717d0cbf23bb1eb0957a",
+      "expected_paper_ids": [
+        "2608.14539v1"
+      ]
+    },
+    {
+      "id": "constraint_cache_only",
+      "task": "只查看第2篇论文的缓存状态，不要下载，也不要翻译",
+      "expected_tools": [
+        "get_paper_cache_status"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": 2
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "constraint",
+      "difficulty": "hard",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          }
+        }
+      ],
+      "parent_task_id": "constraint_cache_only",
+      "source": "legacy_probe_template",
+      "grpo_family": "A",
+      "task_signature_sha256": "61b6bfac1a28f14202046b63e9da9b3bde6c87ebecc998a266809879436b221a",
+      "expected_paper_ids": [
+        "2608.14530v1"
+      ]
+    },
+    {
+      "id": "chain_ro5_dl_three",
+      "task": "检索最近7天机器人学(cs.RO)论文5篇，把前三篇依次下载下来",
+      "expected_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "download_arxiv_pdf",
+        "download_arxiv_pdf"
+      ],
+      "expected_tool_args": [
+        {
+          "aspect": "RO",
+          "days": 7,
+          "max_results": 5
+        },
+        {
+          "ref": 1
+        },
+        {
+          "ref": 2
+        },
+        {
+          "ref": 3
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "long_chain",
+      "difficulty": "hard",
+      "note": "同一工具连调三次、只有 ref 递增，考察是否会漏调或重复调同一篇",
+      "parent_task_id": "chain_ro5_dl_three",
+      "source": "legacy_probe_template",
+      "grpo_family": "C",
+      "task_signature_sha256": "9eda8d04696f304f7b904cf61c06a34ef1d45edc238a6b53e9e1453afbe4c944",
+      "expected_paper_ids": [
+        null,
+        "2611.18562v1",
+        "2611.18546v1",
+        "2611.18505v1"
+      ]
+    },
+    {
+      "id": "chain_lg10_dl_tr_last",
+      "task": "获取最近14天机器学习(cs.LG)论文10篇，下载最后一篇，然后翻译它并保留双语",
+      "expected_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "translate_arxiv_pdf"
+      ],
+      "expected_tool_args": [
+        {
+          "aspect": "LG",
+          "days": 14,
+          "max_results": 10
+        },
+        {
+          "ref": 10
+        },
+        {
+          "ref": 10,
+          "keep_dual": true
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "long_chain",
+      "difficulty": "hard",
+      "note": "把「最后一篇」的序数推断和可选参数叠在同一条链上",
+      "parent_task_id": "chain_lg10_dl_tr_last",
+      "source": "legacy_probe_template",
+      "grpo_family": "C",
+      "task_signature_sha256": "8c8d83171f8a6a017c004891cdfdf860937dae714b970192c0112d6f74630915",
+      "expected_paper_ids": [
+        null,
+        "2611.18516v1",
+        "2611.18516v1"
+      ]
+    },
+    {
+      "id": "trread_ai5_default",
+      "task": "读一下第1篇论文的中文译文开头（标题与摘要）",
+      "expected_tools": [
+        "get_translated_content"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": 1,
+          "page": 1
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "translation_reading",
+      "difficulty": "medium",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 1
+          }
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 1
+          }
+        }
+      ],
+      "requires_offline": true,
+      "note": "默认读第 1 页：省略 page 或传 1 都算对",
+      "parent_task_id": "trread_ai5_default",
+      "source": "legacy_probe_template",
+      "grpo_family": "A",
+      "task_signature_sha256": "37e13adb8a7a353b849ed880ec9cb2a907ea9acb5cc7476026e971f46c03a90e",
+      "expected_paper_ids": [
+        "2608.14539v1"
+      ]
+    },
+    {
+      "id": "infeasible_no_session",
+      "task": "把刚才那篇论文翻译一下",
+      "expected_tools": [],
+      "expected_tool_args": [],
+      "expected_termination": "FINISH",
+      "category": "infeasible",
+      "difficulty": "hard",
+      "expected_terminal_mode": "blocked",
+      "expected_terminal_reason": "missing_context",
+      "note": "没有 setup，会话是空的——「刚才那篇」无从指代。这是与 ref_ctrl_null_translate 的对照组：同样的话术，有会话时该调用，没会话时不该调用",
+      "parent_task_id": "infeasible_no_session",
+      "source": "legacy_probe_template",
+      "grpo_family": "E",
+      "task_signature_sha256": "3ee1b82316512ed24bd6c240bbe0a6986b09ec7aa62ddb3d830fe561bdaab8f2",
+      "expected_paper_ids": []
+    },
+    {
+      "id": "infeasible_unknown_id",
+      "task": "下载 2999.99999v1 这篇论文",
+      "expected_tools": [],
+      "expected_tool_args": [],
+      "expected_termination": "FINISH",
+      "category": "infeasible",
+      "difficulty": "hard",
+      "expected_terminal_mode": "blocked",
+      "expected_terminal_reason": "paper_not_found",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          }
+        }
+      ],
+      "requires_offline": true,
+      "note": "该 arXiv ID 不在快照里；解析不到就不应该调用下载",
+      "parent_task_id": "infeasible_unknown_id",
+      "source": "legacy_probe_template",
+      "grpo_family": "E",
+      "task_signature_sha256": "7be3c9996c4fed88be2e2dac2ef497c74918011c9292febafcda064be3699474",
+      "expected_paper_ids": []
+    },
+    {
+      "id": "native_grpo_download_only_title",
+      "task": "候选列表里标题包含「CPI-Bench」的论文只下载 PDF，不查缓存，不翻译。",
+      "expected_tools": [
+        "download_arxiv_pdf"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": "CPI-Bench"
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "constraint",
+      "difficulty": "hard",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "CV",
+            "days": 14,
+            "max_results": 4
+          }
+        }
+      ],
+      "parent_task_id": "constraint_download_only",
+      "source": "native_sft_error_variant",
+      "grpo_family": "A/D",
+      "task_signature_sha256": "7656d1a0a23b67495248f898f33b7828f8773ccfc33ba93af6f349a358897eb4",
+      "expected_paper_ids": [
+        "2608.14546v1"
+      ]
+    },
+    {
+      "id": "native_grpo_download_then_cache",
+      "task": "下载候选列表里的第2篇 PDF，然后查刚下载论文的缓存状态。到这里就结束。",
+      "expected_tools": [
+        "download_arxiv_pdf",
+        "get_paper_cache_status"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": 2
+        },
+        {
+          "ref": null
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "constraint",
+      "difficulty": "hard",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "RO",
+            "days": 7,
+            "max_results": 4
+          }
+        }
+      ],
+      "parent_task_id": "constraint_download_only",
+      "source": "native_sft_error_variant",
+      "grpo_family": "A/D",
+      "pdf_ready_by_step": {
+        "1": true
+      },
+      "task_signature_sha256": "5b40693930e998af9e7f38a1f60bcb01eab6dcdf076341341c7974f2605d124e",
+      "expected_paper_ids": [
+        "2611.18546v1",
+        "2611.18546v1"
+      ]
+    },
+    {
+      "id": "native_grpo_cache_hit_condition",
+      "task": "先查候选列表第4篇的 PDF 缓存。只有未下载才下载，已有缓存就报告状态。",
+      "expected_tools": [
+        "get_paper_cache_status"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": 4
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "state",
+      "difficulty": "medium",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "CV",
+            "days": 7,
+            "max_results": 6
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 4
+          }
+        }
+      ],
+      "parent_task_id": "state_cache_before_dl",
+      "source": "native_sft_error_variant",
+      "grpo_family": "A",
+      "pdf_ready_by_step": {
+        "0": true
+      },
+      "task_signature_sha256": "c9dbfcff74c292b1920d29a96bade4bc57e6470bbd16b05406b666fe5c7a24cf",
+      "expected_paper_ids": [
+        "2611.18559v1"
+      ]
+    },
+    {
+      "id": "native_grpo_cs_return_only",
+      "task": "横跨全部计算机科学子类检索最近14天内的新论文，最多4篇。只列出论文，结果不要写入文件。",
+      "expected_tools": [
+        "get_recently_submitted_cs_papers"
+      ],
+      "expected_tool_args": [
+        {
+          "aspect": "*",
+          "days": 14,
+          "max_results": 4,
+          "save_to_file": false
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "constraint",
+      "difficulty": "hard",
+      "parent_task_id": "constraint_search_only",
+      "source": "native_sft_error_variant",
+      "grpo_family": "B",
+      "task_signature_sha256": "44613db96ef014740dd4ca390be7b808f1555103feb661519a213f69c6a2b579",
+      "expected_paper_ids": [
+        null
+      ]
+    },
+    {
+      "id": "native_grpo_cs_save",
+      "task": "横跨全部计算机科学子类检索最近3天内的新论文，最多6篇。把检索结果保存到文件并列出论文。",
+      "expected_tools": [
+        "get_recently_submitted_cs_papers"
+      ],
+      "expected_tool_args": [
+        {
+          "aspect": "*",
+          "days": 3,
+          "max_results": 6,
+          "save_to_file": true
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "constraint",
+      "difficulty": "hard",
+      "parent_task_id": "constraint_search_only",
+      "source": "native_sft_error_variant",
+      "grpo_family": "B",
+      "task_signature_sha256": "bd0bf07ee8faf67fe37004001b16b5889f9d600804153138167d9dd01cfc284c",
+      "expected_paper_ids": [
+        null
+      ]
+    },
+    {
+      "id": "native_grpo_two_targets",
+      "task": "检索最近14天 cs.CL 论文4篇，下载第2篇的 PDF，再查看第3篇的缓存状态。",
+      "expected_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_cache_status"
+      ],
+      "expected_tool_args": [
+        {
+          "aspect": "CL",
+          "days": 14,
+          "max_results": 4
+        },
+        {
+          "ref": 2
+        },
+        {
+          "ref": 3
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "constraint",
+      "difficulty": "hard",
+      "parent_task_id": "constraint_two_downloads_only",
+      "source": "native_sft_error_variant",
+      "grpo_family": "C/D",
+      "pdf_ready_by_step": {
+        "2": false
+      },
+      "task_signature_sha256": "10cfd7b0afcce60d8d20aea743776dd9c8c41a6c85e7f0b48f54e164dc72dbb4",
+      "expected_paper_ids": [
+        null,
+        "2611.18527v1",
+        "2611.18514v1"
+      ]
+    },
+    {
+      "id": "native_grpo_versioned_download_cache_translate",
+      "task": "下载 2608.14543v1 的 PDF，检查刚下载的是不是已经缓存，确认后提交它的翻译任务。",
+      "expected_tools": [
+        "download_arxiv_pdf",
+        "get_paper_cache_status",
+        "translate_arxiv_pdf"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": "2608.14543v1"
+        },
+        {
+          "ref": null
+        },
+        {
+          "ref": null
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "long_chain",
+      "difficulty": "hard",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "CV",
+            "days": 7,
+            "max_results": 6
+          }
+        }
+      ],
+      "note": "5 次工具调用 + FINISH，默认 5 轮预算不够，显式给到 7",
+      "parent_task_id": "chain_cv5_cache_dl_tr_cache",
+      "source": "native_sft_error_variant",
+      "grpo_family": "A/C/D",
+      "pdf_ready_by_step": {
+        "1": true
+      },
+      "task_signature_sha256": "63b0529094aaa8fffa7d08163e72e561df116302276288c80b98d0b302aa4f21",
+      "expected_paper_ids": [
+        "2608.14543v1",
+        "2608.14543v1",
+        "2608.14543v1"
+      ]
+    },
+    {
+      "id": "native_grpo_unsupported",
+      "task": "请用邮件附件把当前候选列表第2篇论文的 PDF 发给我，无需在对话里提供内容。",
+      "expected_tools": [],
+      "expected_tool_args": [],
+      "expected_termination": "FINISH",
+      "category": "infeasible",
+      "difficulty": "hard",
+      "expected_terminal_mode": "blocked",
+      "expected_terminal_reason": "unsupported_capability",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "RO",
+            "days": 3,
+            "max_results": 4
+          }
+        }
+      ],
+      "note": "没有 setup，会话是空的——「刚才那篇」无从指代。这是与 ref_ctrl_null_translate 的对照组：同样的话术，有会话时该调用，没会话时不该调用",
+      "parent_task_id": "infeasible_no_session",
+      "source": "native_sft_error_variant",
+      "grpo_family": "E",
+      "task_signature_sha256": "490b91f435829c00a2ab08e4030ccf13346a857012f15eb70662b726e909b496",
+      "expected_paper_ids": []
+    },
+    {
+      "id": "native_grpo_invalid_index",
+      "task": "可以下载当前列表中编号为 0 的论文吗？请直接处理我指定的编号。",
+      "expected_tools": [],
+      "expected_tool_args": [],
+      "expected_termination": "FINISH",
+      "category": "infeasible",
+      "difficulty": "hard",
+      "expected_terminal_mode": "blocked",
+      "expected_terminal_reason": "invalid_reference",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "CL",
+            "days": 14,
+            "max_results": 4
+          }
+        }
+      ],
+      "note": "ref 从 1 起编号，0 是非法索引；正确反应是说明做不到，而不是编一个 ref 去调用（与 infeasible_index_out_of_range 互补：前者测上界越界，这条测下界边界）",
+      "parent_task_id": "infeasible_zero_index",
+      "source": "native_sft_error_variant",
+      "grpo_family": "E",
+      "task_signature_sha256": "0a0e735aca5653df6da85db5dba47baccd0a3d4574fd4eb5b92b26ef825026fe",
+      "expected_paper_ids": []
+    },
+    {
+      "id": "native_grpo_search_download_abstract",
+      "task": "查最近7天 cs.AI 的4篇论文，下载第2篇并读取这篇的摘要。",
+      "expected_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_content"
+      ],
+      "expected_tool_args": [
+        {
+          "aspect": "AI",
+          "days": 7,
+          "max_results": 4
+        },
+        {
+          "ref": 2
+        },
+        {
+          "ref": 2,
+          "section": "abstract"
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "paper_reading",
+      "difficulty": "hard",
+      "requires_offline": true,
+      "note": "section 必须缺省；要的是 title+abstract，不是正文章节",
+      "parent_task_id": "read_ai5_default",
+      "source": "native_sft_error_variant",
+      "grpo_family": "C",
+      "task_signature_sha256": "1779d30847c381048758a0267e30eba918046361fd27bd8bd3f7dccaa1021461",
+      "expected_paper_ids": [
+        null,
+        "2608.14530v1",
+        "2608.14530v1"
+      ]
+    }
+  ],
+  "max_turns": 5,
+  "gold_max_context_tokens": 4798,
+  "gold_max_completion_tokens": 1378,
+  "gold_max_turn_tokens": 637,
+  "max_completion_length": 1792,
+  "max_new_tokens_per_turn": 704
+}

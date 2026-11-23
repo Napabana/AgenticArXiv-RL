@@ -44,15 +44,19 @@ class StepCreditGRPOTrainer(GRPOTrainer):
         aligned, error = align_step_advantages(groups, advantages.detach().tolist(), self.num_generations)
         self.step_credit_max_conservation_error = max(self.step_credit_max_conservation_error, error)
         rows = []
+        invalid_rows = []
         progress_signal_groups = 0
         for group_index, group in enumerate(groups):
             self.step_credit_counts[group.mode] += 1
             self.step_credit_counts["groups"] += 1
             self.step_credit_counts["truncated"] += int(group.category == "truncated")
+            self.step_credit_counts["environment_invalid"] += int(group.category == "environment_invalid")
             if group.mode == "progress":
                 group_has_signal = False
             for j, steps in enumerate(group.steps):
                 i = group_index * self.num_generations + j
+                if group.category == "environment_invalid":
+                    invalid_rows.append(i)
                 valid = int(completion_mask[i].sum().item())
                 if valid < 0 or valid > width or not bool(completion_mask[i, :valid].all()) or bool(completion_mask[i, valid:].any()):
                     raise RuntimeError(f"completion mask is not right padded at row {i}")
@@ -92,6 +96,11 @@ class StepCreditGRPOTrainer(GRPOTrainer):
         if len(rows) != batch:
             raise RuntimeError("Step Credit group rows do not match TRL batch")
         output["advantages"] = advantages.new_tensor(rows)
+        if invalid_rows:
+            removed = (output["tool_mask"][invalid_rows] * completion_mask[invalid_rows]).sum()
+            if "num_items_in_batch" in output:
+                output["num_items_in_batch"] = output["num_items_in_batch"] - removed
+            output["tool_mask"][invalid_rows] = 0
         self.step_credit_counts["progress_signal"] += progress_signal_groups
         n = len(groups)
         stats = summarize(groups)
@@ -100,6 +109,7 @@ class StepCreditGRPOTrainer(GRPOTrainer):
             "progress_group_fraction": sum(g.mode == "progress" for g in groups) / n,
             "none_group_fraction": sum(g.mode == "none" for g in groups) / n,
             "truncated_group_fraction": sum(g.category == "truncated" for g in groups) / n,
+            "environment_invalid_group_fraction": len(invalid_rows) / batch,
             "progress_signal_fraction": progress_signal_groups / n,
             "singleton_step_fraction": stats["singleton_step_fraction"],
             "credit_coverage": stats["credit_coverage"],

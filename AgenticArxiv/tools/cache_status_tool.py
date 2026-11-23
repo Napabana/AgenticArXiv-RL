@@ -10,30 +10,33 @@ def get_paper_cache_status(
     session_id: str = "default",
     ref: Union[str, int, None] = None,
     paper_id: Optional[str] = None,
+    *,
+    _store: Any = None,
 ) -> Dict[str, Any]:
     """
     查询某篇论文的本地缓存状态：
     - ref 支持 null：表示最近一次操作的论文
     - 若给 paper_id 则优先用 paper_id
     """
+    _store = store if _store is None else _store
     # 解析 paper_id
     if not paper_id:
         if ref is None:
-            last = store.get_last_active_paper_id(session_id)
+            last = _store.get_last_active_paper_id(session_id)
             if not last:
                 raise ValueError("请提供 ref 或 paper_id, 或先下载/翻译/查状态某篇论文以产生 last_active_paper_id")
             paper_id = last
         else:
-            paper = store.resolve_paper(session_id, ref)
+            paper = _store.resolve_paper(session_id, ref)
             if paper is None:
                 raise ValueError("未找到论文：请先 /arxiv/recent 写入 session 记忆，或直接传 paper_id")
             paper_id = paper.id
 
     # 更新 last_active：查状态也算“操作”
-    store.set_last_active_paper_id(session_id, paper_id)
+    _store.set_last_active_paper_id(session_id, paper_id)
 
-    pdf = store.get_pdf_asset(paper_id)
-    tr = store.get_translate_asset(paper_id)
+    pdf = _store.get_pdf_asset(paper_id)
+    tr = _store.get_translate_asset(paper_id)
 
     return {
         "paper_id": paper_id,

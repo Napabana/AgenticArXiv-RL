@@ -148,8 +148,10 @@ class CanonicalKeyTest(unittest.TestCase):
 
     def test_refs_resolving_to_the_same_paper_share_a_key(self):
         by_index = call("download_arxiv_pdf", {"ref": 1}, "{'paper_id': '2601.00001v1'}")
-        by_id = call("download_arxiv_pdf", {"ref": "2601.00001"}, "{'paper_id': '2601.00001v2'}")
+        by_id = call("download_arxiv_pdf", {"ref": "2601.00001"}, "{'paper_id': '2601.00001v1'}")
         self.assertEqual(canonical_action_key(by_index), canonical_action_key(by_id))
+        other_version = call("download_arxiv_pdf", {"ref": "2601.00001v2"}, "{'paper_id': '2601.00001v2'}")
+        self.assertNotEqual(canonical_action_key(by_index), canonical_action_key(other_version))
 
     def test_terminal_and_parse_errors(self):
         self.assertEqual(canonical_action_key(FIN), "FINISH")

@@ -768,7 +768,7 @@ def _count_tool_failures(history: List[Dict]) -> int:
     error_markers = ["错误:", "工具执行失败:", "命令失败", "命令执行超时", "命令执行异常"]
     for step in history:
         action = step.get("action", "")
-        if action in NON_TOOL_ACTIONS:
+        if action in NON_TOOL_ACTIONS and step.get("tool_issue") != "pending_claimed_ready":
             continue
         if step.get("tool_issue") or observation_reports(step.get("observation", ""), error_markers, action):
             failures += 1

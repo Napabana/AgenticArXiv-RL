@@ -755,6 +755,7 @@ class BaseAgent(ABC):
         """统一处理 session_id 覆盖、翻译异步、paper 状态写入等副作用"""
         self._last_tool_result = None
         self._last_tool_issue = None
+        self._last_tool_exception = None
         try:
             tool_name = action_dict["name"]
             args = action_dict.get("args", {}) or {}
@@ -883,6 +884,7 @@ class BaseAgent(ABC):
                 return str(result)[:1000]
 
         except Exception as e:
+            self._last_tool_exception = e
             self._last_tool_issue = getattr(e, "tool_issue", "tool_error")
             error_msg = f"工具执行失败: {str(e)}"
             log.exception("{}", error_msg)

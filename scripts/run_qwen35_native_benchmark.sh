@@ -26,7 +26,13 @@ trap 'code=$?; printf "%s\n" "$code" > "$out/status"' EXIT
 export STORE_BACKEND=memory TOOL_ROUTER=policy PYTHONUNBUFFERED=1 HF_HUB_OFFLINE=1
 unset AA_EVAL_GREEDY
 "$python_bin" -c 'import torch, transformers; assert torch.cuda.is_available(); print(torch.__version__, transformers.__version__, torch.cuda.get_device_name())' > "$out/runtime.txt"
-for name in dev iid_test ood_test; do
+parts=("${@:5}")
+if (( ${#parts[@]} == 0 )); then parts=(dev iid_test ood_test); fi
+for name in "${parts[@]}"; do
+    case "$name" in
+        dev|iid_test|ood_test) ;;
+        *) printf 'Invalid Native benchmark split %s\n' "$name" >&2; exit 2 ;;
+    esac
     assets="$out/$name-assets"
     PDF_RAW_PATH="$assets/pdf_raw" PDF_TRANSLATED_PATH="$assets/pdf_translated" \
         PDF_TRANSLATED_LOG_PATH="$assets/pdf_logs" PDF_FIGURES_PATH="$assets/pdf_figures" \

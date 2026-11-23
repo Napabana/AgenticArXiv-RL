@@ -489,9 +489,9 @@ class BuilderPureFunctions(unittest.TestCase):
     def test_gold_rows_end_with_finish(self):
         """gold 链的决策点数 = len(expected_tools) + 1（链尾 FINISH）。"""
         # 该行为由 DatasetBuilder.gold_rows 的循环结构保证，这里用
-        # 离线快照做一次真实小回放（snapshot 是仓库冻结资产，CPU 可跑）。
+        # 用仓库内的小型 replay fixture，避免依赖本地未跟踪的实验快照。
         builder = self.builder.DatasetBuilder(
-            snapshot_path=REPO_ROOT / "data" / "mock_arxiv_snapshot.json",
+            snapshot_path=Path(__file__).parent / "fixtures" / "jev_integration_snapshot.json",
             split_file=REPO_ROOT / "data" / "splits" / "v3_81.json",
             max_state_chars=12000,
             replay_check=True,

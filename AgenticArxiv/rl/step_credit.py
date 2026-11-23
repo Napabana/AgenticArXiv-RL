@@ -23,7 +23,6 @@ import argparse
 import json
 import math
 import os
-import re
 import sys
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass, field
@@ -36,17 +35,16 @@ if PACKAGE_ROOT not in sys.path:
 from benchmark.metrics import (  # noqa: E402
     NON_TOOL_ACTIONS,
     _count_tool_failures,
-    _match_arg_value,
     _parse_tool_action,
-    _same_paper,
+    argument_match_score,
     classify_blocked_terminal_semantics,
     observation_reports,
     resolved_paper_id,
 )
 from rl.reward import _has_figure_answer  # noqa: E402
+from tools.tool_registry import registry  # noqa: E402
 
 PARSE_ERROR_KEY = "PARSE_ERROR"
-_VERSION_SUFFIX = re.compile(r"v\d+$")
 # 与 TRL 的 GRPO 归一化保持一致：样本标准差（torch.std 默认 correction=1）+ 1e-4。
 DEFAULT_EPS = 1e-4
 _ZERO = 1e-8
@@ -90,27 +88,21 @@ def canonical_action_key(step: Mapping[str, Any]) -> str:
     实际解析到同一篇论文）。漏合并只会让对照变少，错合并才会给出错误信号。
     思考文本不进键。
     """
+    if _is_parse_failure(step):
+        return PARSE_ERROR_KEY
     terminal = _terminal_of(step.get("action", ""))
     if terminal is not None:
         return terminal
-    if _is_parse_failure(step):
-        return PARSE_ERROR_KEY
     parsed = _parse_tool_action(step.get("action", ""))
     if parsed is None:
         return PARSE_ERROR_KEY
     name = str(parsed.get("name", ""))
     args = dict(parsed.get("parameters", parsed.get("args", {})) or {})
-    args.pop("session_id", None)
-    normalized: Dict[str, Any] = {}
-    for key, value in args.items():
-        if key == "aspect" and isinstance(value, str):
-            value = value.strip().upper()
-            value = value[3:] if value.startswith("CS.") else value
-        normalized[key] = value
+    normalized = registry.effective_arguments(name, args)
     if "ref" in normalized:
         paper = resolved_paper_id(step.get("observation"))
         if paper:
-            normalized["ref"] = "paper:" + _VERSION_SUFFIX.sub("", paper.strip())
+            normalized["ref"] = "paper:" + paper.strip()
     return name + json.dumps(normalized, sort_keys=True, ensure_ascii=False, default=str)
 
 
@@ -127,6 +119,8 @@ def gold_items(task_def: Mapping[str, Any]) -> List[GoldItem]:
     tools = list(task_def.get("expected_tools") or [])
     args = list(task_def.get("expected_tool_args") or [None] * len(tools))
     papers = list(task_def.get("expected_paper_ids") or [None] * len(tools))
+    if len(tools) == 1 and not papers[0] and task_def.get("expected_paper"):
+        papers[0] = task_def["expected_paper"]
     items = [
         GoldItem(tool, args[i] if i < len(args) else None, papers[i] if i < len(papers) else None)
         for i, tool in enumerate(tools)
@@ -147,15 +141,10 @@ def _tool_step_matches(step: Mapping[str, Any], gold: GoldItem) -> Tuple[bool, s
         return False, "tool_fail"
     if gold.tool == "analyze_figure" and not _has_figure_answer(str(step.get("observation", "") or "")):
         return False, "tool_fail"
-    predicted = dict(parsed.get("parameters", parsed.get("args", {})) or {})
-    for key, expected in (gold.args or {}).items():
-        if key == "ref" and gold.paper_id:
-            resolved = resolved_paper_id(step.get("observation"))
-            ok = bool(resolved) and _same_paper(resolved, str(gold.paper_id))
-        else:
-            ok = _match_arg_value(predicted.get(key), expected, key)
-        if not ok:
-            return False, "wrong_args"
+    if gold.args is not None and argument_match_score(
+        [step], [gold.args], [gold.tool], [gold.paper_id],
+    ) != 1.0:
+        return False, "wrong_args"
     return True, ""
 
 
@@ -184,10 +173,14 @@ def label_trajectory(task_def: Mapping[str, Any], history: Sequence[Mapping[str,
         if first_error is not None:
             labels.append(OFF_PREFIX)
             continue
+        if matched == len(gold):
+            first_error, kind = index, "after_finish"
+            labels.append(WRONG)
+            continue
         target = gold[matched]
         terminal = _terminal_of(step.get("action", ""))
         if target.tool == "FINISH":
-            if terminal == "FINISH":
+            if terminal == "FINISH" and not _is_parse_failure(step) and not step.get("tool_issue"):
                 ok = True
                 if blocked:
                     ok = classify_blocked_terminal_semantics(dict(task_def), list(history[: index + 1])) == "explained_block"
@@ -380,10 +373,11 @@ def compute_batch_step_credit(
         task_def = tasks_by_id[ids.pop()]
         histories = [list((traj or {}).get("history") or []) for traj in trajectories[start:start + num_generations]]
         group = compute_group_step_credit(task_def, histories, rewards[start:start + num_generations], **kwargs)
-        if any((traj or {}).get("clipped") or (traj or {}).get("reached_max_turns")
-               for traj in trajectories[start:start + num_generations]):
+        members = trajectories[start:start + num_generations]
+        invalid = any((traj or {}).get("environment_invalid") for traj in members)
+        if invalid or any((traj or {}).get("clipped") or (traj or {}).get("reached_max_turns") for traj in members):
             group.mode = "none"
-            group.category = "truncated"
+            group.category = "environment_invalid" if invalid else "truncated"
             for row in group.steps:
                 for step in row:
                     step.advantage = 0.0
@@ -443,7 +437,7 @@ def align_step_advantages(
             factor = 1.0
             if group.mode == "reward":
                 expected = group.trajectory_advantages[j]
-                if abs(expected) <= _ZERO and abs(actual[j]) > _ZERO:
+                if abs(expected) <= _ZERO and abs(actual[j]) > 1e-5:
                     raise ValueError("cannot align nonzero TRL advantage with zero tree advantage")
                 factor = actual[j] / expected if abs(expected) > _ZERO else 0.0
             values = [info.advantage * factor for info in row]

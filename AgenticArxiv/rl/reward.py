@@ -96,6 +96,7 @@ class RewardBreakdown:
     # comparable; severe failures cap the final reward below.
     result_quality: float = 0.0
     efficiency: float = 0.0
+    safety_gates: Tuple[str, ...] = ()
 
     def to_dict(self) -> Dict[str, Any]:
         data = asdict(self)
@@ -196,6 +197,7 @@ class RewardCalculator:
         }
         denominator = sum(abs(weight) for weight in active.values()) or 1.0
         total = sum(active[name] * components[name] for name in active) / denominator
+        safety_gates = []
         total = self._apply_safety_gates(
             total,
             result=result,
@@ -203,6 +205,7 @@ class RewardCalculator:
             metrics=metrics,
             result_quality=components["result_quality"],
             efficiency=components["efficiency"],
+            safety_gates=safety_gates,
         )
         breakdown = RewardBreakdown(
             total=round(_clip(total), 6),
@@ -214,6 +217,7 @@ class RewardCalculator:
             weights=schedule,
             result_quality=round(components["result_quality"], 6),
             efficiency=round(components["efficiency"], 6),
+            safety_gates=tuple(safety_gates),
         )
         return breakdown, metrics
 
@@ -468,6 +472,7 @@ class RewardCalculator:
         metrics: TaskMetrics,
         result_quality: float,
         efficiency: float,
+        safety_gates: Optional[list[str]] = None,
     ) -> float:
         """在原有加权分数之后应用不可补偿的失败上限。"""
         capped = float(total)
@@ -482,8 +487,12 @@ class RewardCalculator:
             # 执行失败或图表空答案不能靠格式分、工具分补偿；
             # 严重失败也须与普通的虚假 FINISH 保持区分。
             capped = min(capped, -0.75)
+            if safety_gates is not None:
+                safety_gates.append("hard_invalid")
         elif metrics.false_finish:
             capped = min(capped, -0.25)
+            if safety_gates is not None:
+                safety_gates.append("false_finish")
 
         # ``synthesize_trajectory`` 用框架自动补的 FINISH 让单步 rollout 成形。
         # 「不拿完整终止奖励」由 `_outcome_score` 的 forced_finish 分支在
@@ -493,6 +502,8 @@ class RewardCalculator:
 
         if efficiency <= -0.75:
             capped = min(capped, -0.25)
+            if safety_gates is not None:
+                safety_gates.append("inefficiency")
         # history 已用于逐步检查图表分析，避免平均分掩盖无效答案。
         return _clip(capped)
 

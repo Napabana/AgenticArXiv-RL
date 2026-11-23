@@ -313,43 +313,9 @@ def messages_to_trajectory(completion: Any) -> Dict[str, Any]:
     if not isinstance(completion, list):
         return synthesize_trajectory(_completion_text(completion))
 
-    history: List[Dict[str, Any]] = []
-    pending: List[int] = []
-    for message in completion:
-        if not isinstance(message, dict):
-            continue
-        role = message.get("role")
-        if role == "assistant":
-            calls = message.get("tool_calls") or []
-            if calls:
-                for call in calls:
-                    function = call.get("function", call) if isinstance(call, dict) else {}
-                    name = function.get("name")
-                    args = function.get("arguments", {})
-                    if isinstance(args, str):
-                        try:
-                            args = json.loads(args)
-                        except json.JSONDecodeError:
-                            args = {}
-                    action = {"name": name, "args": args or {}}
-                    history.append({
-                        "thought": str(message.get("content") or ""),
-                        "action": json.dumps(action, ensure_ascii=False),
-                        "observation": "",
-                    })
-                    pending.append(len(history) - 1)
-            elif str(message.get("content") or "").strip():
-                history.append({
-                    "thought": str(message.get("content") or ""),
-                    "action": "FINISH",
-                    "observation": "任务完成",
-                })
-        elif role == "tool" and pending:
-            index = pending.pop(0)
-            history[index]["observation"] = str(message.get("content") or "")
+    from rl.native_grpo_rollout import native_history
 
-    if not history:
-        return synthesize_trajectory(_completion_text(completion))
+    history = native_history(completion)
     return {
         "history": history,
         "timing": {},
@@ -365,6 +331,7 @@ def make_grpo_reward_fn(
     tracker: Any = None,
     auditor: Any = None,
     step_credit: Any = None,
+    native_group_size: Optional[int] = None,
 ) -> Callable[..., List[float]]:
     """构造 TRL GRPOTrainer 用的 reward function。
 
@@ -405,7 +372,21 @@ def make_grpo_reward_fn(
         breakdowns: List[Any] = []
         resolved_trajectories: List[Dict[str, Any]] = []
         trajectories = trajectory_results or [None] * len(completions)
-        for completion, tid, rollout_result in zip(completions, ids, trajectories):
+        invalid_groups = set()
+        if native_group_size is not None:
+            if len(trajectories) != len(ids) or len(ids) % native_group_size:
+                raise ValueError("Native GRPO reward batch does not contain complete groups")
+            for index, (tid, result) in enumerate(zip(ids, trajectories)):
+                if not result or result.get("task_id") != tid or tid not in tasks_by_id:
+                    raise ValueError(f"Native GRPO rollout and reward task disagree at row {index}")
+                if result.get("environment_invalid"):
+                    invalid_groups.add(index // native_group_size)
+        for index, (completion, tid, rollout_result) in enumerate(zip(completions, ids, trajectories)):
+            if native_group_size and index // native_group_size in invalid_groups:
+                rewards.append(0.0)
+                breakdowns.append(None)
+                resolved_trajectories.append(rollout_result)
+                continue
             task_def = tasks_by_id.get(tid)
             if task_def is None:
                 rewards.append(0.0)
