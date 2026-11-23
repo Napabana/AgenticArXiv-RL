@@ -8,7 +8,7 @@
 - 五维 Reward 保持 `1 / 3 / 2 / 1 / 3`，课程步数为 0。Prefix-tree 使用 `progress`、权重 0.5、β 1.0，组内最终 Reward 有差异时优先使用 Reward Credit。整组含环境错误时排除 policy loss，含截断时关闭 Step Credit。
 - WSL2 Ubuntu 22.04，Python 3.11.15，PyTorch 2.15.0+cpu。独立环境为 `~/.venvs/arxivfetch-native-grpo-cpu`，固定 Transformers 5.22.2、TRL 1.17.1、PEFT 0.21.2、Accelerate 1.15.0、Datasets 5.2.0。
 - 从本分支根目录执行 `python -m pytest AgenticArxiv/tests/ -q --tb=short`，1014 通过、7 跳过、701 个子测试通过。基线复现的五个历史失败来自三处测试夹具，修复了临时文件读取时机、JEV 的冻结快照路径和 BenchmarkRunner 的初始化。
-- CPU 集成测试使用微型 Qwen3.5，完成一条真实 TRL 优化步，验证工具和 padding mask、冻结 KL 参考 Adapter、有限 loss、LoRA 指纹变化和 Step Credit 守恒。两个 Bash 启动器通过 `bash -n`，变更的 Python 文件通过语法检查，实际 Qwen tokenizer 通过停止边界预检。
+- CPU 集成测试使用微型 Qwen3.5，在微批次 4 和微批次 1 下各完成一条真实 TRL 优化步。两种配置均通过工具和 padding mask、冻结 KL 参考 Adapter、有限 loss、LoRA 指纹变化和 Step Credit 守恒检查。新增微批次 1 后的聚焦套件 13 项通过。两个 Bash 启动器通过 `bash -n`，变更的 Python 文件通过语法检查，实际 Qwen tokenizer 通过停止边界预检。
 
 ## 任务和数据
 
