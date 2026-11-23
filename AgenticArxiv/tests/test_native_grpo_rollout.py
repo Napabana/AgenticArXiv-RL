@@ -208,6 +208,27 @@ def test_truncated_or_environment_invalid_groups(rollout, tmp_path):
     assert (step_credit.mode, step_credit.category) == ("none", "environment_invalid")
 
 
+def test_benchmark_cache_completion_uses_ordered_trace_calls(tmp_path, monkeypatch):
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[2] / "scripts"))
+    from report_native_grpo import metrics
+
+    task_id = "state_dl_then_cache"
+    dev = tmp_path / "dev"
+    dev.mkdir()
+    row = {"task_id": task_id, "trial": 0, "tools": f"{DOWNLOAD},{CACHE}",
+           "completed": True, "tool_accurate": True, "arg_applicable": False,
+           "ref_applicable": False, "terminal_semantics_applicable": False, "termination": "FINISH"}
+    (dev / "summary.json").write_text(json.dumps({"details": [row]}), encoding="utf-8")
+    trace = {"task_id": task_id, "trial": 0,
+             "history": [{"action": json.dumps({"name": name, "args": {"ref": 1}}),
+                          "observation": "{}"} for name in (DOWNLOAD, CACHE)],
+             "protocol": {"pending_submission": False, "tool_calls_executed": 2,
+                          "unexpected_repeat_calls": 0, "tool_execution_errors": 0, "turns": []}}
+    (dev / "traces.jsonl").write_text(json.dumps(trace) + "\n", encoding="utf-8")
+    result = metrics(tmp_path, "dev", {(task_id, 0): True})
+    assert result["cache", "n"] == result["cache", "d"] == 1
+
+
 @pytest.mark.parametrize("micro_batch", [1, 4])
 def test_pinned_trl_cpu_step_through_native_rollout(rollout, tmp_path, monkeypatch, micro_batch):
     """Exercise TRL masking, KL and a LoRA update on a tiny text policy."""

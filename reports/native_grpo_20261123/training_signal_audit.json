@@ -1,0 +1,114 @@
+{
+  "rows": 400,
+  "groups": 100,
+  "by_task": {
+    "chain_lg10_dl_tr_last": {
+      "rows": 48,
+      "groups": 12,
+      "full_reward": 35,
+      "reward_mean": 0.8090277916666666,
+      "stops": {
+        "finish": 46,
+        "token_budget": 1,
+        "schema_error": 1
+      }
+    },
+    "chain_ro5_dl_three": {
+      "rows": 44,
+      "groups": 11,
+      "full_reward": 35,
+      "reward_mean": 0.795,
+      "stops": {
+        "finish": 40,
+        "max_turns": 2,
+        "schema_error": 2
+      }
+    },
+    "constraint_cache_only": {
+      "rows": 44,
+      "groups": 11,
+      "full_reward": 42,
+      "reward_mean": 0.9204545454545454,
+      "stops": {
+        "finish": 44
+      }
+    },
+    "infeasible_no_session": {
+      "rows": 44,
+      "groups": 11,
+      "full_reward": 21,
+      "reward_mean": 0.6784090909090909,
+      "stops": {
+        "finish": 43,
+        "schema_error": 1
+      }
+    },
+    "native_grpo_invalid_index": {
+      "rows": 44,
+      "groups": 11,
+      "full_reward": 5,
+      "reward_mean": 0.3715909090909091,
+      "stops": {
+        "finish": 36,
+        "schema_error": 8
+      }
+    },
+    "native_grpo_search_download_abstract": {
+      "rows": 44,
+      "groups": 11,
+      "full_reward": 28,
+      "reward_mean": 0.7910353181818182,
+      "stops": {
+        "finish": 35,
+        "parse_error": 2,
+        "token_budget": 6,
+        "max_turns": 1
+      }
+    },
+    "native_grpo_two_targets": {
+      "rows": 44,
+      "groups": 11,
+      "full_reward": 41,
+      "reward_mean": 0.9494318181818182,
+      "stops": {
+        "finish": 44
+      }
+    },
+    "native_grpo_versioned_download_cache_translate": {
+      "rows": 44,
+      "groups": 11,
+      "full_reward": 1,
+      "reward_mean": -0.24628788636363635,
+      "stops": {
+        "finish": 42,
+        "max_turns": 1,
+        "token_budget": 1
+      }
+    },
+    "trread_ai5_default": {
+      "rows": 44,
+      "groups": 11,
+      "full_reward": 35,
+      "reward_mean": 0.8488636363636364,
+      "stops": {
+        "token_budget": 7,
+        "finish": 37
+      }
+    }
+  },
+  "stops": {
+    "finish": 367,
+    "schema_error": 12,
+    "parse_error": 2,
+    "token_budget": 15,
+    "max_turns": 4
+  },
+  "safety_gates": {
+    "false_finish": 42,
+    "hard_invalid": 32,
+    "inefficiency": 9
+  },
+  "assistant_tokens_mean": 250.2375,
+  "reward_mean": 0.6590180525,
+  "step_seconds_median": 73.64292735452182
+}

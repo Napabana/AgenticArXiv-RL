@@ -1,0 +1,1094 @@
+{
+  "schema_version": 1,
+  "status": "GPU_PASS",
+  "base_model": "Qwen/Qwen3.5-2B-Base",
+  "source_git_sha": "ecab507a11ed7813cc28a3fbad93377eddeba8ad",
+  "adapter_sha256": "789af8cf28960892a1fde034d32f9b8ddf230e8450552be70d15024c964ed6c8",
+  "sft_train_manifest_sha256": "34196a2639203ca290a43c1012daa1f82f4621a4f8beb2203c597713d013bf70",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "holdout_split_sha256": "0a176b0f67b8b61d4f84e27a40071ab81a5be3d2040c2a58aa695432f5a6eacc",
+  "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+  "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+  "chat_template_sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+  "frozen_data_sha256": "776da5eec24985ae3d75aa11f5ba5abe2e693a197adac15322d11d5449dffc34",
+  "holdout_count": 31,
+  "native_sft_catalog_count": 188,
+  "candidate_count": 18,
+  "tasks": [
+    {
+      "id": "constraint_cache_only",
+      "task": "只查看第2篇论文的缓存状态，不要下载，也不要翻译",
+      "expected_tools": [
+        "get_paper_cache_status"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": 2
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "constraint",
+      "difficulty": "hard",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          }
+        }
+      ],
+      "parent_task_id": "constraint_cache_only",
+      "source": "legacy_probe_template",
+      "grpo_family": "A",
+      "task_signature_sha256": "61b6bfac1a28f14202046b63e9da9b3bde6c87ebecc998a266809879436b221a",
+      "expected_paper_ids": [
+        "2608.14530v1"
+      ]
+    },
+    {
+      "id": "chain_ro5_dl_three",
+      "task": "检索最近7天机器人学(cs.RO)论文5篇，把前三篇依次下载下来",
+      "expected_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "download_arxiv_pdf",
+        "download_arxiv_pdf"
+      ],
+      "expected_tool_args": [
+        {
+          "aspect": "RO",
+          "days": 7,
+          "max_results": 5
+        },
+        {
+          "ref": 1
+        },
+        {
+          "ref": 2
+        },
+        {
+          "ref": 3
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "long_chain",
+      "difficulty": "hard",
+      "note": "同一工具连调三次、只有 ref 递增，考察是否会漏调或重复调同一篇",
+      "parent_task_id": "chain_ro5_dl_three",
+      "source": "legacy_probe_template",
+      "grpo_family": "C",
+      "task_signature_sha256": "9eda8d04696f304f7b904cf61c06a34ef1d45edc238a6b53e9e1453afbe4c944",
+      "expected_paper_ids": [
+        null,
+        "2611.18562v1",
+        "2611.18546v1",
+        "2611.18505v1"
+      ]
+    },
+    {
+      "id": "chain_lg10_dl_tr_last",
+      "task": "获取最近14天机器学习(cs.LG)论文10篇，下载最后一篇，然后翻译它并保留双语",
+      "expected_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "translate_arxiv_pdf"
+      ],
+      "expected_tool_args": [
+        {
+          "aspect": "LG",
+          "days": 14,
+          "max_results": 10
+        },
+        {
+          "ref": 10
+        },
+        {
+          "ref": 10,
+          "keep_dual": true
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "long_chain",
+      "difficulty": "hard",
+      "note": "把「最后一篇」的序数推断和可选参数叠在同一条链上",
+      "parent_task_id": "chain_lg10_dl_tr_last",
+      "source": "legacy_probe_template",
+      "grpo_family": "C",
+      "task_signature_sha256": "8c8d83171f8a6a017c004891cdfdf860937dae714b970192c0112d6f74630915",
+      "expected_paper_ids": [
+        null,
+        "2611.18516v1",
+        "2611.18516v1"
+      ]
+    },
+    {
+      "id": "trread_ai5_default",
+      "task": "读一下第1篇论文的中文译文开头（标题与摘要）",
+      "expected_tools": [
+        "get_translated_content"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": 1,
+          "page": 1
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "translation_reading",
+      "difficulty": "medium",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 1
+          }
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 1
+          }
+        }
+      ],
+      "requires_offline": true,
+      "note": "默认读第 1 页：省略 page 或传 1 都算对",
+      "parent_task_id": "trread_ai5_default",
+      "source": "legacy_probe_template",
+      "grpo_family": "A",
+      "task_signature_sha256": "37e13adb8a7a353b849ed880ec9cb2a907ea9acb5cc7476026e971f46c03a90e",
+      "expected_paper_ids": [
+        "2608.14539v1"
+      ]
+    },
+    {
+      "id": "infeasible_no_session",
+      "task": "把刚才那篇论文翻译一下",
+      "expected_tools": [],
+      "expected_tool_args": [],
+      "expected_termination": "FINISH",
+      "category": "infeasible",
+      "difficulty": "hard",
+      "expected_terminal_mode": "blocked",
+      "expected_terminal_reason": "missing_context",
+      "note": "没有 setup，会话是空的——「刚才那篇」无从指代。这是与 ref_ctrl_null_translate 的对照组：同样的话术，有会话时该调用，没会话时不该调用",
+      "parent_task_id": "infeasible_no_session",
+      "source": "legacy_probe_template",
+      "grpo_family": "E",
+      "task_signature_sha256": "3ee1b82316512ed24bd6c240bbe0a6986b09ec7aa62ddb3d830fe561bdaab8f2",
+      "expected_paper_ids": []
+    },
+    {
+      "id": "native_grpo_two_targets",
+      "task": "检索最近14天 cs.CL 论文4篇，下载第2篇的 PDF，再查看第3篇的缓存状态。",
+      "expected_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_cache_status"
+      ],
+      "expected_tool_args": [
+        {
+          "aspect": "CL",
+          "days": 14,
+          "max_results": 4
+        },
+        {
+          "ref": 2
+        },
+        {
+          "ref": 3
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "constraint",
+      "difficulty": "hard",
+      "parent_task_id": "constraint_two_downloads_only",
+      "source": "native_sft_error_variant",
+      "grpo_family": "C/D",
+      "pdf_ready_by_step": {
+        "2": false
+      },
+      "task_signature_sha256": "10cfd7b0afcce60d8d20aea743776dd9c8c41a6c85e7f0b48f54e164dc72dbb4",
+      "expected_paper_ids": [
+        null,
+        "2611.18527v1",
+        "2611.18514v1"
+      ]
+    },
+    {
+      "id": "native_grpo_versioned_download_cache_translate",
+      "task": "下载 2608.14543v1 的 PDF，检查刚下载的是不是已经缓存，确认后提交它的翻译任务。",
+      "expected_tools": [
+        "download_arxiv_pdf",
+        "get_paper_cache_status",
+        "translate_arxiv_pdf"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": "2608.14543v1"
+        },
+        {
+          "ref": null
+        },
+        {
+          "ref": null
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "long_chain",
+      "difficulty": "hard",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "CV",
+            "days": 7,
+            "max_results": 6
+          }
+        }
+      ],
+      "note": "5 次工具调用 + FINISH，默认 5 轮预算不够，显式给到 7",
+      "parent_task_id": "chain_cv5_cache_dl_tr_cache",
+      "source": "native_sft_error_variant",
+      "grpo_family": "A/C/D",
+      "pdf_ready_by_step": {
+        "1": true
+      },
+      "task_signature_sha256": "63b0529094aaa8fffa7d08163e72e561df116302276288c80b98d0b302aa4f21",
+      "expected_paper_ids": [
+        "2608.14543v1",
+        "2608.14543v1",
+        "2608.14543v1"
+      ]
+    },
+    {
+      "id": "native_grpo_invalid_index",
+      "task": "可以下载当前列表中编号为 0 的论文吗？请直接处理我指定的编号。",
+      "expected_tools": [],
+      "expected_tool_args": [],
+      "expected_termination": "FINISH",
+      "category": "infeasible",
+      "difficulty": "hard",
+      "expected_terminal_mode": "blocked",
+      "expected_terminal_reason": "invalid_reference",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "CL",
+            "days": 14,
+            "max_results": 4
+          }
+        }
+      ],
+      "note": "ref 从 1 起编号，0 是非法索引；正确反应是说明做不到，而不是编一个 ref 去调用（与 infeasible_index_out_of_range 互补：前者测上界越界，这条测下界边界）",
+      "parent_task_id": "infeasible_zero_index",
+      "source": "native_sft_error_variant",
+      "grpo_family": "E",
+      "task_signature_sha256": "0a0e735aca5653df6da85db5dba47baccd0a3d4574fd4eb5b92b26ef825026fe",
+      "expected_paper_ids": []
+    },
+    {
+      "id": "native_grpo_search_download_abstract",
+      "task": "查最近7天 cs.AI 的4篇论文，下载第2篇并读取这篇的摘要。",
+      "expected_tools": [
+        "get_recently_submitted_cs_papers",
+        "download_arxiv_pdf",
+        "get_paper_content"
+      ],
+      "expected_tool_args": [
+        {
+          "aspect": "AI",
+          "days": 7,
+          "max_results": 4
+        },
+        {
+          "ref": 2
+        },
+        {
+          "ref": 2,
+          "section": "abstract"
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "paper_reading",
+      "difficulty": "hard",
+      "requires_offline": true,
+      "note": "section 必须缺省；要的是 title+abstract，不是正文章节",
+      "parent_task_id": "read_ai5_default",
+      "source": "native_sft_error_variant",
+      "grpo_family": "C",
+      "task_signature_sha256": "1779d30847c381048758a0267e30eba918046361fd27bd8bd3f7dccaa1021461",
+      "expected_paper_ids": [
+        null,
+        "2608.14530v1",
+        "2608.14530v1"
+      ]
+    }
+  ],
+  "max_turns": 5,
+  "gold_max_context_tokens": 4798,
+  "gold_max_completion_tokens": 1378,
+  "gold_max_turn_tokens": 637,
+  "max_completion_length": 1792,
+  "max_new_tokens_per_turn": 704,
+  "probe": {
+    "status": "GPU_PASS",
+    "runtime": {
+      "python": "3.13.5",
+      "platform": "Linux-5.4.0-216-generic-x86_64-with-glibc2.39",
+      "torch": "2.8.0+cu128",
+      "cuda": "12.8",
+      "versions": {
+        "transformers": "5.22.2",
+        "trl": "1.17.1",
+        "peft": "0.21.2",
+        "accelerate": "1.15.0",
+        "datasets": "5.2.0"
+      },
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "memory_bytes": 23649648640
+    },
+    "seconds": 3723.1805121090147,
+    "candidate_manifest_sha256": "bbe1cb5bdf69dca8dd573ca7f06ea01979d604c121f7034ebdad96e5af54ed25",
+    "decision_seed": 42,
+    "groups_per_task": {
+      "state_cache_before_dl": 4,
+      "constraint_download_only": 4,
+      "constraint_cache_only": 4,
+      "chain_ro5_dl_three": 4,
+      "chain_lg10_dl_tr_last": 4,
+      "trread_ai5_default": 4,
+      "infeasible_no_session": 4,
+      "infeasible_unknown_id": 4,
+      "native_grpo_download_only_title": 8,
+      "native_grpo_download_then_cache": 8,
+      "native_grpo_cache_hit_condition": 4,
+      "native_grpo_cs_return_only": 8,
+      "native_grpo_cs_save": 4,
+      "native_grpo_two_targets": 4,
+      "native_grpo_versioned_download_cache_translate": 4,
+      "native_grpo_unsupported": 8,
+      "native_grpo_invalid_index": 4,
+      "native_grpo_search_download_abstract": 4
+    },
+    "frozen_learning_rate": 0.0,
+    "experiment": {
+      "num_generations": 4,
+      "learning_rate": 5e-06,
+      "beta": 0.04,
+      "seed": 42,
+      "temperature": 1.0,
+      "scale_rewards": "group",
+      "dynamic_sampling": false,
+      "step_credit": "progress",
+      "step_credit_beta": 1.0,
+      "step_credit_weight": 0.5,
+      "reward_curriculum_steps": 0,
+      "weights": {
+        "format": 1.0,
+        "tool": 3.0,
+        "argument": 2.0,
+        "process": 1.0,
+        "outcome": 3.0,
+        "result_quality": 0.0,
+        "efficiency": 0.0
+      }
+    },
+    "informative_tasks": 13,
+    "selected_task_ids": [
+      "constraint_cache_only",
+      "chain_ro5_dl_three",
+      "chain_lg10_dl_tr_last",
+      "trread_ai5_default",
+      "infeasible_no_session",
+      "native_grpo_two_targets",
+      "native_grpo_versioned_download_cache_translate",
+      "native_grpo_invalid_index",
+      "native_grpo_search_download_abstract"
+    ],
+    "decisions": {
+      "state_cache_before_dl": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "no_signal",
+            "seed": 42
+          },
+          {
+            "mode": "none",
+            "category": "no_signal",
+            "seed": 43
+          },
+          {
+            "mode": "none",
+            "category": "no_signal",
+            "seed": 44
+          },
+          {
+            "mode": "none",
+            "category": "environment_invalid",
+            "seed": 45
+          }
+        ],
+        "counts": {
+          "no_signal": 3,
+          "environment_invalid": 1
+        },
+        "informative": 0,
+        "selected": false,
+        "reason": "below_half_informative"
+      },
+      "constraint_download_only": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 50
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 51
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 52
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 53
+          }
+        ],
+        "counts": {
+          "ceiling_control": 4
+        },
+        "informative": 0,
+        "selected": false,
+        "reason": "below_half_informative"
+      },
+      "constraint_cache_only": {
+        "groups": [
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 58
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 59
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 60
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 61
+          }
+        ],
+        "counts": {
+          "informative": 3,
+          "ceiling_control": 1
+        },
+        "informative": 3,
+        "selected": true,
+        "reason": "at_least_half_informative"
+      },
+      "chain_ro5_dl_three": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 66
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 67
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 68
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 69
+          }
+        ],
+        "counts": {
+          "ceiling_control": 2,
+          "informative": 2
+        },
+        "informative": 2,
+        "selected": true,
+        "reason": "at_least_half_informative"
+      },
+      "chain_lg10_dl_tr_last": {
+        "groups": [
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 74
+          },
+          {
+            "mode": "none",
+            "category": "truncated",
+            "seed": 75
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 76
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 77
+          }
+        ],
+        "counts": {
+          "informative": 2,
+          "truncated": 1,
+          "ceiling_control": 1
+        },
+        "informative": 2,
+        "selected": true,
+        "reason": "at_least_half_informative"
+      },
+      "trread_ai5_default": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 82
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 83
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 84
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 85
+          }
+        ],
+        "counts": {
+          "ceiling_control": 2,
+          "informative": 2
+        },
+        "informative": 2,
+        "selected": true,
+        "reason": "at_least_half_informative"
+      },
+      "infeasible_no_session": {
+        "groups": [
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 90
+          },
+          {
+            "mode": "none",
+            "category": "truncated",
+            "seed": 91
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 92
+          },
+          {
+            "mode": "none",
+            "category": "no_signal",
+            "seed": 93
+          }
+        ],
+        "counts": {
+          "informative": 2,
+          "truncated": 1,
+          "no_signal": 1
+        },
+        "informative": 2,
+        "selected": true,
+        "reason": "at_least_half_informative"
+      },
+      "infeasible_unknown_id": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "truncated",
+            "seed": 98
+          },
+          {
+            "mode": "none",
+            "category": "truncated",
+            "seed": 99
+          },
+          {
+            "mode": "none",
+            "category": "truncated",
+            "seed": 100
+          },
+          {
+            "mode": "none",
+            "category": "truncated",
+            "seed": 101
+          }
+        ],
+        "counts": {
+          "truncated": 4
+        },
+        "informative": 0,
+        "selected": false,
+        "reason": "below_half_informative"
+      },
+      "native_grpo_download_only_title": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 106
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 107
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 108
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 109
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 110
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 111
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 112
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 113
+          }
+        ],
+        "counts": {
+          "ceiling_control": 5,
+          "informative": 3
+        },
+        "informative": 3,
+        "selected": false,
+        "reason": "below_half_informative"
+      },
+      "native_grpo_download_then_cache": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 114
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 115
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 116
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 117
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 118
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 119
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 120
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 121
+          }
+        ],
+        "counts": {
+          "ceiling_control": 7,
+          "informative": 1
+        },
+        "informative": 1,
+        "selected": false,
+        "reason": "below_half_informative"
+      },
+      "native_grpo_cache_hit_condition": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 122
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 123
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 124
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 125
+          }
+        ],
+        "counts": {
+          "ceiling_control": 4
+        },
+        "informative": 0,
+        "selected": false,
+        "reason": "below_half_informative"
+      },
+      "native_grpo_cs_return_only": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 130
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 131
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 132
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 133
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 134
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 135
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 136
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 137
+          }
+        ],
+        "counts": {
+          "ceiling_control": 6,
+          "informative": 2
+        },
+        "informative": 2,
+        "selected": false,
+        "reason": "below_half_informative"
+      },
+      "native_grpo_cs_save": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 138
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 139
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 140
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 141
+          }
+        ],
+        "counts": {
+          "ceiling_control": 4
+        },
+        "informative": 0,
+        "selected": false,
+        "reason": "below_half_informative"
+      },
+      "native_grpo_two_targets": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 146
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 147
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 148
+          },
+          {
+            "mode": "none",
+            "category": "ceiling_control",
+            "seed": 149
+          }
+        ],
+        "counts": {
+          "ceiling_control": 2,
+          "informative": 2
+        },
+        "informative": 2,
+        "selected": true,
+        "reason": "at_least_half_informative"
+      },
+      "native_grpo_versioned_download_cache_translate": {
+        "groups": [
+          {
+            "mode": "progress",
+            "category": "plateau_recoverable",
+            "seed": 154
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 155
+          },
+          {
+            "mode": "progress",
+            "category": "plateau_recoverable",
+            "seed": 156
+          },
+          {
+            "mode": "none",
+            "category": "truncated",
+            "seed": 157
+          }
+        ],
+        "counts": {
+          "plateau_recoverable": 2,
+          "informative": 1,
+          "truncated": 1
+        },
+        "informative": 3,
+        "selected": true,
+        "reason": "at_least_half_informative"
+      },
+      "native_grpo_unsupported": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "no_signal",
+            "seed": 162
+          },
+          {
+            "mode": "none",
+            "category": "no_signal",
+            "seed": 163
+          },
+          {
+            "mode": "none",
+            "category": "no_signal",
+            "seed": 164
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 165
+          },
+          {
+            "mode": "none",
+            "category": "no_signal",
+            "seed": 166
+          },
+          {
+            "mode": "none",
+            "category": "no_signal",
+            "seed": 167
+          },
+          {
+            "mode": "none",
+            "category": "no_signal",
+            "seed": 168
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 169
+          }
+        ],
+        "counts": {
+          "no_signal": 6,
+          "informative": 2
+        },
+        "informative": 2,
+        "selected": false,
+        "reason": "below_half_informative"
+      },
+      "native_grpo_invalid_index": {
+        "groups": [
+          {
+            "mode": "none",
+            "category": "no_signal",
+            "seed": 170
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 171
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 172
+          },
+          {
+            "mode": "none",
+            "category": "no_signal",
+            "seed": 173
+          }
+        ],
+        "counts": {
+          "no_signal": 2,
+          "informative": 2
+        },
+        "informative": 2,
+        "selected": true,
+        "reason": "at_least_half_informative"
+      },
+      "native_grpo_search_download_abstract": {
+        "groups": [
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 178
+          },
+          {
+            "mode": "none",
+            "category": "truncated",
+            "seed": 179
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 180
+          },
+          {
+            "mode": "reward",
+            "category": "informative",
+            "seed": 181
+          }
+        ],
+        "counts": {
+          "informative": 3,
+          "truncated": 1
+        },
+        "informative": 3,
+        "selected": true,
+        "reason": "at_least_half_informative"
+      }
+    },
+    "step_credit": {
+      "group_count": 88,
+      "mode_fraction": {
+        "none": 0.6704545454545454,
+        "progress": 0.022727272727272728,
+        "reward": 0.3068181818181818
+      },
+      "category_count": {
+        "environment_invalid": 1,
+        "flat": 2,
+        "identical": 48,
+        "informative": 27,
+        "plateau_recoverable": 2,
+        "truncated": 8
+      },
+      "informative_fraction_grpo": 0.3068181818181818,
+      "informative_fraction_with_progress": 0.32954545454545453,
+      "plateau_reward_levels": {
+        "-0.25": 2
+      },
+      "singleton_step_fraction": 0.04903078677309008,
+      "credit_coverage": 0.15912208504801098,
+      "credit_accuracy": 0.9051724137931034,
+      "first_error_kinds": {
+        "extra_call": 56,
+        "bad_terminal": 30,
+        "wrong_args": 27,
+        "wrong_tool": 23,
+        "early_finish": 8,
+        "tool_fail": 2,
+        "parse_error": 1
+      },
+      "unfinished_fraction": 0.0
+    },
+    "max_conservation_error": 1.3322676295501878e-15
+  }
+}

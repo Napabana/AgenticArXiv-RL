@@ -1,0 +1,251 @@
+{
+  "dev": [
+    {
+      "task_id": "constraint_search_no_file",
+      "trial": 0,
+      "direction": "pass_to_fail",
+      "sft": {
+        "tools": "get_recently_submitted_cs_papers",
+        "expected": "get_recently_submitted_cs_papers",
+        "termination": "FINISH",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": false
+      },
+      "grpo": {
+        "tools": "get_recently_submitted_cs_papers",
+        "expected": "get_recently_submitted_cs_papers",
+        "termination": "FINISH",
+        "arg_score": 0.75,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": false
+      }
+    },
+    {
+      "task_id": "constraint_search_no_file",
+      "trial": 1,
+      "direction": "pass_to_fail",
+      "sft": {
+        "tools": "get_recently_submitted_cs_papers",
+        "expected": "get_recently_submitted_cs_papers",
+        "termination": "FINISH",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": false
+      },
+      "grpo": {
+        "tools": "get_recently_submitted_cs_papers",
+        "expected": "get_recently_submitted_cs_papers",
+        "termination": "FINISH",
+        "arg_score": 0.75,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": false
+      }
+    },
+    {
+      "task_id": "constraint_search_no_file",
+      "trial": 2,
+      "direction": "pass_to_fail",
+      "sft": {
+        "tools": "get_recently_submitted_cs_papers",
+        "expected": "get_recently_submitted_cs_papers",
+        "termination": "FINISH",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": false
+      },
+      "grpo": {
+        "tools": "get_recently_submitted_cs_papers",
+        "expected": "get_recently_submitted_cs_papers",
+        "termination": "FINISH",
+        "arg_score": 0.75,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": false
+      }
+    }
+  ],
+  "iid_test": [
+    {
+      "task_id": "state_cache_two",
+      "trial": 0,
+      "direction": "pass_to_fail",
+      "sft": {
+        "tools": "get_paper_cache_status,get_paper_cache_status",
+        "expected": "get_paper_cache_status,get_paper_cache_status",
+        "termination": "FINISH",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": false
+      },
+      "grpo": {
+        "tools": "get_paper_cache_status",
+        "expected": "get_paper_cache_status,get_paper_cache_status",
+        "termination": "FINISH",
+        "arg_score": 0.5,
+        "ref_score": 0.5,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": true
+      }
+    },
+    {
+      "task_id": "state_cache_two",
+      "trial": 1,
+      "direction": "pass_to_fail",
+      "sft": {
+        "tools": "get_paper_cache_status,get_paper_cache_status",
+        "expected": "get_paper_cache_status,get_paper_cache_status",
+        "termination": "FINISH",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": false
+      },
+      "grpo": {
+        "tools": "get_paper_cache_status",
+        "expected": "get_paper_cache_status,get_paper_cache_status",
+        "termination": "FINISH",
+        "arg_score": 0.5,
+        "ref_score": 0.5,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": true
+      }
+    },
+    {
+      "task_id": "state_cache_two",
+      "trial": 2,
+      "direction": "pass_to_fail",
+      "sft": {
+        "tools": "get_paper_cache_status,get_paper_cache_status",
+        "expected": "get_paper_cache_status,get_paper_cache_status",
+        "termination": "FINISH",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": false
+      },
+      "grpo": {
+        "tools": "get_paper_cache_status",
+        "expected": "get_paper_cache_status,get_paper_cache_status",
+        "termination": "FINISH",
+        "arg_score": 0.5,
+        "ref_score": 0.5,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": true
+      }
+    },
+    {
+      "task_id": "trread_ro5_page2",
+      "trial": 2,
+      "direction": "pass_to_fail",
+      "sft": {
+        "tools": "get_translated_content",
+        "expected": "get_translated_content",
+        "termination": "FINISH",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": false
+      },
+      "grpo": {
+        "tools": "get_translated_content",
+        "expected": "get_translated_content",
+        "termination": "ERROR",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 1,
+        "tool_fail": 0,
+        "false_finish": false
+      }
+    }
+  ],
+  "ood_test": [
+    {
+      "task_id": "multi_cl5_dl2_cache",
+      "trial": 2,
+      "direction": "fail_to_pass",
+      "sft": {
+        "tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "expected": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "termination": "ERROR",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 1,
+        "tool_fail": 0,
+        "false_finish": false
+      },
+      "grpo": {
+        "tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "expected": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "termination": "FINISH",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": false
+      }
+    },
+    {
+      "task_id": "multi_cl5_dl2_cache",
+      "trial": 1,
+      "direction": "pass_to_fail",
+      "sft": {
+        "tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "expected": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "termination": "FINISH",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 0,
+        "tool_fail": 0,
+        "false_finish": false
+      },
+      "grpo": {
+        "tools": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "expected": "get_recently_submitted_cs_papers,download_arxiv_pdf,get_paper_cache_status",
+        "termination": "ERROR",
+        "arg_score": 1.0,
+        "ref_score": 1.0,
+        "terminal_semantics_accurate": true,
+        "parse_fail": 1,
+        "tool_fail": 0,
+        "false_finish": false
+      }
+    }
+  ]
+}

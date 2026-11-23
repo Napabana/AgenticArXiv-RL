@@ -37,6 +37,7 @@ def select(run: Path):
 
 def metrics(root, part, strict):
     from audit_native_sft_data import jsonl
+    from benchmark.metrics import _parse_tool_action
     from benchmark.tasks_expanded import EXPANDED_TASKS
 
     tasks = {task["id"]: task for task in EXPANDED_TASKS}
@@ -47,7 +48,6 @@ def metrics(root, part, strict):
         key = row["task_id"], row["trial"]
         task, record = tasks[key[0]], traces[key]
         protocol = record["protocol"]
-        actual = row["tools"]
         expected = task["expected_tools"]
 
         def record_metric(name, success, denom=1):
@@ -61,10 +61,11 @@ def metrics(root, part, strict):
             record_metric("conditional", strict[key])
         if CACHE in expected:
             # Count only cache calls in their expected position and with a real observation.
-            history = [step for step in record["history"] if step.get("action") not in {"FINISH", "ERROR", "FORCE_STOP"}]
+            actual = [(action["name"], step) for step in record["history"]
+                      if (action := _parse_tool_action(step.get("action")))]
             expected_cache = [i for i, name in enumerate(expected) if name == CACHE]
-            ok = sum(i < len(actual) and actual[i] == CACHE and i < len(history)
-                     and not history[i].get("tool_issue") for i in expected_cache)
+            ok = sum(i < len(actual) and actual[i][0] == CACHE
+                     and not actual[i][1].get("tool_issue") for i in expected_cache)
             record_metric("cache", ok, len(expected_cache))
         if row["arg_applicable"]:
             record_metric("arguments", row["arg_score"])
@@ -142,9 +143,17 @@ def finish_report(run: Path, sft_adapter: Path, gpu_seconds: float):
         values = [readable(total[key, "n"], total[key, "d"]) for total in (sft_total, grpo_total)]
         lines.append(f"| {label} | {values[0]} | {values[1]} |")
     delta = grpo_total["strict", "n"] - sft_total["strict", "n"]
-    improved = [label for key, label in labels.items() if key not in {"strict", "repeats", "errors", "truncated"}
-                and sft_total[key, "d"] and grpo_total[key, "d"]
-                and grpo_total[key, "n"] / grpo_total[key, "d"] > sft_total[key, "n"] / sft_total[key, "d"]]
+    lower_is_better = {"repeats", "errors", "truncated"}
+    improved, regressed = [], []
+    for key, label in labels.items():
+        if key == "strict" or not (sft_total[key, "d"] and grpo_total[key, "d"]):
+            continue
+        change = grpo_total[key, "n"] / grpo_total[key, "d"] - sft_total[key, "n"] / sft_total[key, "d"]
+        direction = -change if key in lower_is_better else change
+        if direction > 0:
+            improved.append(label)
+        elif direction < 0:
+            regressed.append(label)
     from audit_native_sft_data import jsonl
     traces = list(jsonl(run / "train/rollouts.jsonl"))
     scored = [r["reward_breakdown"] for r in traces if r["reward_breakdown"] is not None]
@@ -182,7 +191,8 @@ def finish_report(run: Path, sft_adapter: Path, gpu_seconds: float):
         f"- 选中 Adapter SHA256 `{selection['adapter_sha256']}`。SFT Adapter SHA256 `{ADAPTER_SHA}`。",
         "", "## 结论", "",
         f"配对 Strict Success 变化为 {delta:+d}/93。历史 Native SFT 为 {historical}/93，本轮表格使用当前环境重跑的 SFT。",
-        ("比率上升的能力包括" + "、".join(improved) + "。" if improved else "其余列出的能力指标没有出现比率上升。"),
+        ("改善的指标为" + "、".join(improved) + "。" if improved else "其余列出的指标均未改善。"),
+        ("回退的指标为" + "、".join(regressed) + "。" if regressed else ""),
         "本实验估计 Native GRPO 与 Prefix-tree Step Credit 的组合效果。分离 Prefix-tree 的独立贡献需要普通 GRPO 对照。",
         "",
     ]
