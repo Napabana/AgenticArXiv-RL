@@ -1,0 +1,321 @@
+{
+  "status": "GPU_PASS",
+  "decision": "stop_after_dev_keep_frozen_sft",
+  "started": "2026-11-24T04:28:28+08:00",
+  "ended": "2026-11-24T07:07:32+08:00",
+  "wall_seconds": 9544,
+  "smoke": {
+    "adapter_sha256": "5ab926d551fd49d6cbd25b13c3f7587ffd83377ba417727b4a91ab13b70a7b51",
+    "optimizer_steps": 4,
+    "seconds": 329.05746449297294,
+    "training_loss": 0.03833744302392006,
+    "step_credit_counts": {
+      "reward": 3,
+      "groups": 4,
+      "truncated": 1,
+      "environment_invalid": 0,
+      "progress_signal": 0,
+      "none": 1
+    },
+    "max_cuda_allocated_bytes": 6375929344,
+    "max_conservation_error": 4.440892098500626e-16,
+    "runtime": {
+      "python": "3.13.5",
+      "platform": "Linux-5.4.0-216-generic-x86_64-with-glibc2.39",
+      "torch": "2.8.0+cu128",
+      "cuda": "12.8",
+      "versions": {
+        "transformers": "5.22.2",
+        "trl": "1.17.1",
+        "peft": "0.21.2",
+        "accelerate": "1.15.0",
+        "datasets": "5.2.0"
+      },
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "memory_bytes": 23649648640
+    },
+    "experiment": {
+      "num_generations": 4,
+      "learning_rate": 5e-06,
+      "beta": 0.04,
+      "seed": 42,
+      "temperature": 1.0,
+      "scale_rewards": "group",
+      "dynamic_sampling": false,
+      "step_credit": "progress",
+      "step_credit_beta": 1.0,
+      "step_credit_weight": 0.5,
+      "reward_curriculum_steps": 0,
+      "weights": {
+        "format": 1.0,
+        "tool": 3.0,
+        "argument": 2.0,
+        "process": 1.0,
+        "outcome": 3.0,
+        "result_quality": 0.0,
+        "efficiency": 0.0
+      }
+    }
+  },
+  "pilot": {
+    "adapter_sha256": "73a9a3721aa57d658417968488f6e79a6c74e4e9f3f1e0c6af6607bd9fc8d940",
+    "optimizer_steps": 25,
+    "seconds": 1514.8461717730388,
+    "training_loss": 0.04798744970215921,
+    "step_credit_counts": {
+      "none": 15,
+      "groups": 25,
+      "truncated": 3,
+      "environment_invalid": 0,
+      "progress_signal": 0,
+      "reward": 10
+    },
+    "max_cuda_allocated_bytes": 6456559616,
+    "max_conservation_error": 2.220446049250313e-16,
+    "runtime": {
+      "python": "3.13.5",
+      "platform": "Linux-5.4.0-216-generic-x86_64-with-glibc2.39",
+      "torch": "2.8.0+cu128",
+      "cuda": "12.8",
+      "versions": {
+        "transformers": "5.22.2",
+        "trl": "1.17.1",
+        "peft": "0.21.2",
+        "accelerate": "1.15.0",
+        "datasets": "5.2.0"
+      },
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "memory_bytes": 23649648640
+    },
+    "experiment": {
+      "num_generations": 4,
+      "learning_rate": 5e-06,
+      "beta": 0.04,
+      "seed": 42,
+      "temperature": 1.0,
+      "scale_rewards": "group",
+      "dynamic_sampling": false,
+      "step_credit": "progress",
+      "step_credit_beta": 1.0,
+      "step_credit_weight": 0.5,
+      "reward_curriculum_steps": 0,
+      "weights": {
+        "format": 1.0,
+        "tool": 3.0,
+        "argument": 2.0,
+        "process": 1.0,
+        "outcome": 3.0,
+        "result_quality": 0.0,
+        "efficiency": 0.0
+      }
+    }
+  },
+  "pilot_kl_mean": 0.005001729237808377,
+  "pilot_grad_norm_mean": 0.6280787278991192,
+  "pilot_full_reward_trajectories": 64,
+  "all_cs_training_groups": [
+    {
+      "task_id": "native_grpo_v2_scope_all_5_0",
+      "training_step": 0,
+      "samples": [
+        {
+          "reward": 1.0,
+          "actions": [
+            {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 3,
+                "aspect": "*",
+                "days": 5,
+                "output_path": null,
+                "save_to_file": false
+              }
+            }
+          ]
+        },
+        {
+          "reward": 1.0,
+          "actions": [
+            {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 3,
+                "aspect": "*",
+                "days": 5,
+                "output_path": null,
+                "save_to_file": false
+              }
+            }
+          ]
+        },
+        {
+          "reward": 1.0,
+          "actions": [
+            {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 3,
+                "aspect": "*",
+                "days": 5,
+                "output_path": null,
+                "save_to_file": false
+              }
+            }
+          ]
+        },
+        {
+          "reward": 1.0,
+          "actions": [
+            {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 3,
+                "aspect": "*",
+                "days": 5,
+                "output_path": null,
+                "save_to_file": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "native_grpo_v2_scope_all_19_0",
+      "training_step": 4,
+      "samples": [
+        {
+          "reward": 1.0,
+          "actions": [
+            {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 2,
+                "aspect": "*",
+                "days": 19,
+                "output_path": null,
+                "save_to_file": false
+              }
+            }
+          ]
+        },
+        {
+          "reward": 0.75,
+          "actions": [
+            {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 2,
+                "aspect": "*",
+                "days": 19,
+                "output_path": null,
+                "save_to_file": true
+              }
+            }
+          ]
+        },
+        {
+          "reward": 1.0,
+          "actions": [
+            {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 2,
+                "aspect": "*",
+                "days": 19,
+                "output_path": null,
+                "save_to_file": false
+              }
+            }
+          ]
+        },
+        {
+          "reward": 1.0,
+          "actions": [
+            {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 2,
+                "aspect": "*",
+                "days": 19,
+                "output_path": null,
+                "save_to_file": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "native_grpo_v2_scope_all_19_1",
+      "training_step": 15,
+      "samples": [
+        {
+          "reward": 1.0,
+          "actions": [
+            {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 2,
+                "aspect": "*",
+                "days": 19,
+                "output_path": null,
+                "save_to_file": true
+              }
+            }
+          ]
+        },
+        {
+          "reward": 1.0,
+          "actions": [
+            {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 2,
+                "aspect": "*",
+                "days": 19,
+                "output_path": null,
+                "save_to_file": true
+              }
+            }
+          ]
+        },
+        {
+          "reward": 1.0,
+          "actions": [
+            {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 2,
+                "aspect": "*",
+                "days": 19,
+                "output_path": null,
+                "save_to_file": true
+              }
+            }
+          ]
+        },
+        {
+          "reward": 1.0,
+          "actions": [
+            {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 2,
+                "aspect": "*",
+                "days": 19,
+                "output_path": null,
+                "save_to_file": true
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "archive_sha256": {
+    "checkpoint.tar.gz": "cf717fa1ecf21337746e1189617ba58c4e1dc1ee19d35908081a28b9e3f5bfcc",
+    "results.tar.gz": "4bdd8931404b9f60fe20d0b29dcbb79ce535da9efe138c88ef2d92d00132e01b",
+    "probe_results.tar.gz": "524692338ecfbf345ca596397c3e2f8c938ef1194c25d8407759991019d12fa3"
+  }
+}

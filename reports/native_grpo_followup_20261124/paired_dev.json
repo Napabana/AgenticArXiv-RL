@@ -1,0 +1,125 @@
+{
+  "split": "dev",
+  "sft": {
+    "arguments": {
+      "count": 21.5,
+      "total": 24
+    },
+    "blocked": {
+      "count": 0,
+      "total": 3
+    },
+    "cache": {
+      "count": 2,
+      "total": 3
+    },
+    "conditional": {
+      "count": 5,
+      "total": 6
+    },
+    "errors": {
+      "count": 0,
+      "total": 28
+    },
+    "multi_step": {
+      "count": 5,
+      "total": 6
+    },
+    "pending_ready": {
+      "count": 2,
+      "total": 2
+    },
+    "references": {
+      "count": 11.5,
+      "total": 12
+    },
+    "repeats": {
+      "count": 0,
+      "total": 28
+    },
+    "strict": {
+      "count": 20,
+      "total": 24
+    },
+    "truncated": {
+      "count": 0,
+      "total": 24
+    }
+  },
+  "pilot": {
+    "arguments": {
+      "count": 21.25,
+      "total": 24
+    },
+    "blocked": {
+      "count": 0,
+      "total": 3
+    },
+    "cache": {
+      "count": 3,
+      "total": 3
+    },
+    "conditional": {
+      "count": 3,
+      "total": 6
+    },
+    "errors": {
+      "count": 6,
+      "total": 37
+    },
+    "multi_step": {
+      "count": 6,
+      "total": 6
+    },
+    "pending_ready": {
+      "count": 0,
+      "total": 2
+    },
+    "references": {
+      "count": 12.0,
+      "total": 12
+    },
+    "repeats": {
+      "count": 4,
+      "total": 37
+    },
+    "strict": {
+      "count": 18,
+      "total": 24
+    },
+    "truncated": {
+      "count": 2,
+      "total": 24
+    }
+  },
+  "sft_files": {
+    "trace_sha256": "f4328cc606893e87d8718e094dc7de81e43efa47f680a3c096449ff046220fe4",
+    "details_sha256": "b8c147b689bcd37fadb37f6d1317cb531498233c8f38dfb89df7d1fc05fd7265"
+  },
+  "pilot_files": {
+    "trace_sha256": "f8fa951323088fbd1d4c2aa16811def853317b22df8934653aa9e33a2a41f7d7",
+    "details_sha256": "9eddbb9eb64ba889b5037c915fb9a0d846256597b46ba46f29a3c871ef7ac40b"
+  },
+  "adapter_sha256": "73a9a3721aa57d658417968488f6e79a6c74e4e9f3f1e0c6af6607bd9fc8d940",
+  "fail_to_pass": [
+    [
+      "state_dl_then_cache",
+      0
+    ]
+  ],
+  "pass_to_fail": [
+    [
+      "constraint_search_no_file",
+      0
+    ],
+    [
+      "constraint_search_no_file",
+      1
+    ],
+    [
+      "constraint_search_no_file",
+      2
+    ]
+  ],
+  "advance_to_heldout": false
+}
