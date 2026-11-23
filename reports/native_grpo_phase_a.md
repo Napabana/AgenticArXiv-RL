@@ -30,16 +30,18 @@
 
 ## GPU 阶段
 
-计划使用单张 48 GB、支持 BF16 的 CUDA GPU。历史 SFT 机器的 Base 路径为 `/root/sj-tmp/models/Qwen3.5-2B-Base`，Snapshot 路径为 `/root/sj-tmp/AgenticArXiv-RL/data/mock_arxiv_snapshot.json`。GPU 预检运行时核对实际 Base 文件和 Adapter 路径、SHA256、Torch、CUDA 和驱动。Base 缓存不齐时按 [已验证的 ModelScope 文件清单](native_sft_final_20261121/base_model_modelscope_files.json) 恢复。
+首选上次实验使用的单张 RTX 4090（24 GB）。上次 312 步 ReAct GRPO 实测约 169 分钟，G=4、单卡 batch 4、completion 上限 1,024 tokens。本轮 Native completion 上限为 1,792 tokens，含工具反馈。24 GB 起步使用微批次 1、累积 4，整组采样继续使用 G=4。上机以 Smoke 的峰值显存和吞吐核验。
 
-Probe 首轮 72 组、288 条轨迹。只有首轮 1/4 组有信号的边缘候选补采到 8 组。Probe 通过后跑 4 步 Smoke，再从冻结 SFT Adapter 起跑 100 步训练，每 25 步保存。使用单进程、G=4、单卡 batch 4、累积 1、学习率 `5e-6`、KL β `0.04`、seed 42 和 `step_credit=progress`。四个检查点先测 Dev，再在选定检查点与冻结 SFT Adapter 上完成 93 试次的同协议配对 Benchmark。
+历史 SFT 机器的 Base 路径为 `/root/sj-tmp/models/Qwen3.5-2B-Base`，Snapshot 路径为 `/root/sj-tmp/AgenticArXiv-RL/data/mock_arxiv_snapshot.json`。GPU 预检运行时核对实际 Base 文件和 Adapter 路径、SHA256、Torch、CUDA 和驱动。Base 缓存不齐时按 [已验证的 ModelScope 文件清单](native_sft_final_20261121/base_model_modelscope_files.json) 恢复。
 
-连续占用建议预留 **4–6 小时**，包含环境校验、Probe、Smoke、正式训练、选模和配对评测。估算以同机历史 Native SFT 单次 93 试次约 36 分钟为参考，训练采样速度以 GPU Smoke 实测更新。GPU 所有阶段当前为 `NOT_RUN`。
+Probe 首轮 72 组、288 条轨迹。只有首轮 1/4 组有信号的边缘候选补采到 8 组。Probe 通过后跑 4 步 Smoke，再从冻结 SFT Adapter 起跑 100 步训练，每 25 步保存。使用单进程、G=4、每个优化步 4 条轨迹、学习率 `5e-6`、KL β `0.04`、seed 42 和 `step_credit=progress`。四个检查点先测 Dev，再在选定检查点与冻结 SFT Adapter 上完成 93 试次的同协议配对 Benchmark。
+
+Base、Adapter 和 Snapshot 在实例本地已有缓存时，预计连续占用 **3–5 小时**，包含环境校验、Probe、Smoke、正式训练、选模和配对评测。同机历史 Native SFT 单次 93 试次约 36 分钟，旧 GRPO 每步约 32.5 秒。实际租用时间随本轮 Native 轨迹长度和实例吞吐变化，Smoke 后重新估算。GPU 所有阶段当前为 `NOT_RUN`。
 
 在目标机的独立 GRPO Python 环境中，从分支根目录执行以下命令。由流水线按顺序推进，结果路径应是新目录。
 
 ```bash
-PYTHON_BIN="$GRPO_PYTHON" bash scripts/run_qwen35_native_grpo_pipeline.sh \
+GRPO_MICRO_BATCH=1 PYTHON_BIN="$GRPO_PYTHON" bash scripts/run_qwen35_native_grpo_pipeline.sh \
   "$BASE_MODEL" "$NATIVE_SFT_ADAPTER" "$SNAPSHOT" \
   data/splits/native_grpo_qwen35_candidates_v1.json "$RUN_DIR"
 ```

@@ -208,7 +208,8 @@ def test_truncated_or_environment_invalid_groups(rollout, tmp_path):
     assert (step_credit.mode, step_credit.category) == ("none", "environment_invalid")
 
 
-def test_pinned_trl_cpu_step_through_native_rollout(rollout, tmp_path, monkeypatch):
+@pytest.mark.parametrize("micro_batch", [1, 4])
+def test_pinned_trl_cpu_step_through_native_rollout(rollout, tmp_path, monkeypatch, micro_batch):
     """Exercise TRL masking, KL and a LoRA update on a tiny text policy."""
     import torch
     from datasets import Dataset
@@ -257,7 +258,8 @@ def test_pinned_trl_cpu_step_through_native_rollout(rollout, tmp_path, monkeypat
 
     config = GRPOConfig(
         output_dir=str(tmp_path / "train"), use_cpu=True, bf16=False,
-        gradient_checkpointing=False, max_steps=1, per_device_train_batch_size=4,
+        gradient_checkpointing=False, max_steps=1, per_device_train_batch_size=micro_batch,
+        gradient_accumulation_steps=4 // micro_batch,
         num_generations=4, max_completion_length=512, beta=0.04, learning_rate=5e-6,
         save_strategy="no", report_to="none", logging_steps=1, disable_tqdm=True,
     )
