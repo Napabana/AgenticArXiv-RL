@@ -1,0 +1,222 @@
+{
+  "decision": {
+    "decision": "run_dev_pilot",
+    "criterion": "At least two independent selected G=4 groups per target with a strict success rewarded above a naturally finished wrong-scope or missing-second-cache example.",
+    "selected_informative_groups_by_focus": {
+      "search_scope": 12,
+      "two_paper_cache": 18,
+      "conditional_cache": 9
+    },
+    "target_contrast_groups": {
+      "search_scope": [
+        {
+          "task_id": "native_grpo_v2_scope_all_5_0",
+          "group": 2,
+          "seed": 116,
+          "correct_min": 1.0,
+          "error_max": 0.75
+        },
+        {
+          "task_id": "native_grpo_v2_scope_all_19_0",
+          "group": 0,
+          "seed": 178,
+          "correct_min": 1.0,
+          "error_max": 0.75
+        },
+        {
+          "task_id": "native_grpo_v2_scope_all_19_0",
+          "group": 1,
+          "seed": 179,
+          "correct_min": 1.0,
+          "error_max": 0.75
+        }
+      ],
+      "two_paper_cache": [
+        {
+          "task_id": "native_grpo_v2_pair_CV_3",
+          "group": 0,
+          "seed": 210,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_CV_3",
+          "group": 1,
+          "seed": 211,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_AI_2",
+          "group": 0,
+          "seed": 242,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_AI_2",
+          "group": 1,
+          "seed": 243,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_AI_2",
+          "group": 2,
+          "seed": 244,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_AI_2",
+          "group": 3,
+          "seed": 245,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_AI_4",
+          "group": 0,
+          "seed": 250,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_AI_4",
+          "group": 1,
+          "seed": 251,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_AI_4",
+          "group": 2,
+          "seed": 252,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_AI_4",
+          "group": 3,
+          "seed": 253,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_RO_4",
+          "group": 0,
+          "seed": 274,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_RO_4",
+          "group": 1,
+          "seed": 275,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_RO_4",
+          "group": 2,
+          "seed": 276,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_RO_2",
+          "group": 3,
+          "seed": 285,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_RO_2",
+          "group": 5,
+          "seed": 287,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_RO_2",
+          "group": 6,
+          "seed": 288,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        },
+        {
+          "task_id": "native_grpo_v2_pair_RO_2",
+          "group": 7,
+          "seed": 289,
+          "correct_min": 1.0,
+          "error_max": -0.25
+        }
+      ]
+    }
+  },
+  "families": {
+    "v1_control": {
+      "tasks": 9,
+      "selected": 6,
+      "groups": 40,
+      "ceiling_control": 13,
+      "strict": 89,
+      "valid_trajectories": 160,
+      "informative": 18,
+      "truncated": 6,
+      "plateau_recoverable": 1,
+      "no_signal": 2
+    },
+    "search_scope": {
+      "tasks": 12,
+      "selected": 4,
+      "groups": 60,
+      "informative": 18,
+      "strict": 219,
+      "valid_trajectories": 240,
+      "ceiling_control": 42
+    },
+    "two_paper_cache": {
+      "tasks": 6,
+      "selected": 5,
+      "groups": 32,
+      "informative": 20,
+      "strict": 102,
+      "valid_trajectories": 128,
+      "ceiling_control": 12
+    },
+    "conditional_cache": {
+      "tasks": 6,
+      "selected": 3,
+      "groups": 36,
+      "no_signal": 16,
+      "strict": 36,
+      "valid_trajectories": 144,
+      "truncated": 5,
+      "informative": 10,
+      "ceiling_control": 4,
+      "plateau_recoverable": 1
+    }
+  },
+  "groups": 168,
+  "selected_task_ids": [
+    "chain_ro5_dl_three",
+    "chain_lg10_dl_tr_last",
+    "infeasible_no_session",
+    "native_grpo_versioned_download_cache_translate",
+    "native_grpo_invalid_index",
+    "native_grpo_search_download_abstract",
+    "native_grpo_v2_scope_all_5_0",
+    "native_grpo_v2_scope_CV_12_1",
+    "native_grpo_v2_scope_all_19_0",
+    "native_grpo_v2_scope_all_19_1",
+    "native_grpo_v2_pair_CV_3",
+    "native_grpo_v2_conditional_CV_1",
+    "native_grpo_v2_pair_AI_2",
+    "native_grpo_v2_pair_AI_4",
+    "native_grpo_v2_conditional_AI_1",
+    "native_grpo_v2_pair_RO_4",
+    "native_grpo_v2_pair_RO_2",
+    "native_grpo_v2_conditional_RO_1"
+  ]
+}
