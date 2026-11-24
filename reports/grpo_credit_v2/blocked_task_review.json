@@ -1,0 +1,451 @@
+{
+  "scope": "5 explicit blocked TaskSpecs. Original SFT and E4 complete. Current SFT complete; current E4 only previously completed email benchmark. Candidate not run before shutdown.",
+  "results": {
+    "infeasible_unsupported_action": {
+      "original": {
+        "SFT": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "当前会话候选列表为空，无法按指定引用 1。请提供论文引用。"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 1,
+            "reason_passed": false,
+            "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 1,
+            "reason_passed": false,
+            "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+          }
+        ],
+        "E4": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 1,
+            "reason_passed": false,
+            "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 1,
+            "reason_passed": false,
+            "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID。"
+          }
+        ]
+      },
+      "current": {
+        "SFT": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID（保留版本后缀）。"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID（保留版本后缀）。"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID。"
+          }
+        ],
+        "E4": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID（保留版本后缀）。"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID（保留版本后缀）。"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID。"
+          }
+        ]
+      }
+    },
+    "infeasible_index_out_of_range": {
+      "original": {
+        "SFT": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "FORCE_STOP",
+            "calls": 5,
+            "reason_passed": false,
+            "final": "迭代限制"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "FORCE_STOP",
+            "calls": 5,
+            "reason_passed": false,
+            "final": "迭代限制"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "FORCE_STOP",
+            "calls": 5,
+            "reason_passed": false,
+            "final": "迭代限制"
+          }
+        ],
+        "E4": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 1,
+            "reason_passed": false,
+            "final": "无法解析工具调用响应: finish_reason:length"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "FORCE_STOP",
+            "calls": 5,
+            "reason_passed": false,
+            "final": "迭代限制"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 1,
+            "reason_passed": false,
+            "final": "无法解析工具调用响应: finish_reason:length"
+          }
+        ]
+      },
+      "current": {
+        "SFT": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "FORCE_STOP",
+            "calls": 5,
+            "reason_passed": false,
+            "final": "迭代限制"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "FORCE_STOP",
+            "calls": 5,
+            "reason_passed": false,
+            "final": "迭代限制"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "FORCE_STOP",
+            "calls": 5,
+            "reason_passed": false,
+            "final": "迭代限制"
+          }
+        ]
+      }
+    },
+    "infeasible_zero_index": {
+      "original": {
+        "SFT": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "Schema 校验失败: invalid_value:ref"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "Schema 校验失败: invalid_value:ref"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "Schema 校验失败: invalid_value:ref"
+          }
+        ],
+        "E4": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "Schema 校验失败: invalid_value:ref"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "Schema 校验失败: invalid_value:ref"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "Schema 校验失败: invalid_value:ref"
+          }
+        ]
+      },
+      "current": {
+        "SFT": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "Schema 校验失败: invalid_value:ref"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "Schema 校验失败: invalid_value:ref"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 0,
+            "reason_passed": false,
+            "final": "Schema 校验失败: invalid_value:ref"
+          }
+        ]
+      }
+    },
+    "infeasible_unknown_id": {
+      "original": {
+        "SFT": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 1,
+            "reason_passed": true,
+            "final": "已使用指定引用 2999.99999v1。\n\n接下来使用指定引用 2999.99999v1。我会下载 PDF。\n（工具执行失败: 未找到论文：请先调用 /arxiv/recent 写入 session 记忆，或检查 ref 是否正确）\n。"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 1,
+            "reason_passed": true,
+            "final": "已使用指定引用 2999.99999v1。\n\n接下来使用指定引用 2999.99999v1。我会下载 PDF。\n（工具执行失败: 未找到论文：请先调用 /arxiv/recent 写入 session 记忆，或检查 ref 是否正确）"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 1,
+            "reason_passed": true,
+            "final": "已使用指定引用 2999.99999v1。\n\n接下来使用指定引用 2999.99999v1。我会下载 PDF。\n（工具执行失败: 未找到论文：请先调用 /arxiv/recent 写入 session 记忆，或检查 ref 是否正确）"
+          }
+        ],
+        "E4": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 1,
+            "reason_passed": false,
+            "final": "无法解析工具调用响应: finish_reason:length"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 1,
+            "reason_passed": false,
+            "final": "无法解析工具调用响应: finish_reason:length"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "ERROR",
+            "calls": 1,
+            "reason_passed": false,
+            "final": "无法解析工具调用响应: finish_reason:length"
+          }
+        ]
+      },
+      "current": {
+        "SFT": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "FORCE_STOP",
+            "calls": 5,
+            "reason_passed": false,
+            "final": "迭代限制"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "FORCE_STOP",
+            "calls": 5,
+            "reason_passed": false,
+            "final": "迭代限制"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "FORCE_STOP",
+            "calls": 5,
+            "reason_passed": false,
+            "final": "迭代限制"
+          }
+        ]
+      }
+    },
+    "infeasible_no_session": {
+      "original": {
+        "SFT": [
+          {
+            "trial": 0,
+            "strict": true,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": true,
+            "final": "当前会话没有指定论文引用。请提供 1-based 序号、完整 arXiv ID（保留版本后缀）或标题片段。"
+          },
+          {
+            "trial": 1,
+            "strict": true,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": true,
+            "final": "当前会话没有指定论文引用。请提供 1-based 序号、完整 arXiv ID（保留版本后缀）或标题片段。"
+          },
+          {
+            "trial": 2,
+            "strict": true,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": true,
+            "final": "当前会话没有指定论文引用。请提供 1-based 序号、完整 arXiv ID（保留版本后缀）或标题片段。"
+          }
+        ],
+        "E4": [
+          {
+            "trial": 0,
+            "strict": true,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": true,
+            "final": "当前会话没有指定论文引用。请提供 1-based 序号、完整 arXiv ID（保留版本后缀）或标题片段。"
+          },
+          {
+            "trial": 1,
+            "strict": true,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": true,
+            "final": "当前会话没有指定论文引用。请先提供候选列表中的 1-based 序号、完整 arXiv ID（保留版本后缀）或标题片段。"
+          },
+          {
+            "trial": 2,
+            "strict": true,
+            "termination": "FINISH",
+            "calls": 0,
+            "reason_passed": true,
+            "final": "当前会话没有指定论文引用。请提供 1-based 序号、完整 arXiv ID（保留版本后缀）或标题片段。"
+          }
+        ]
+      },
+      "current": {
+        "SFT": [
+          {
+            "trial": 0,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 1,
+            "reason_passed": true,
+            "final": "未找到指代对象：当前会话没有可翻译的论文，请先检索/下载论文，或明确提供 ref/paper_id。"
+          },
+          {
+            "trial": 1,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 1,
+            "reason_passed": true,
+            "final": "未找到指代对象：当前会话没有可翻译的论文，请先检索/下载论文，或明确提供 ref/paper_id。"
+          },
+          {
+            "trial": 2,
+            "strict": false,
+            "termination": "FINISH",
+            "calls": 1,
+            "reason_passed": true,
+            "final": "未找到指代对象：当前会话没有可翻译的论文，请先检索/下载论文，或明确提供 ref/paper_id。"
+          }
+        ]
+      }
+    }
+  }
+}

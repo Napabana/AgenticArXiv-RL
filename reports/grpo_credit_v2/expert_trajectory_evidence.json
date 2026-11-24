@@ -1,0 +1,3954 @@
+{
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+  "cases": {
+    "constraint_search_no_file": {
+      "user": "检索最近7天所有计算机科学方向的新论文，最多5篇；只返回结果，不要保存到文件，也不要下载论文",
+      "split": "dev",
+      "setup": [],
+      "steps": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "*",
+            "days": 7,
+            "max_results": 5,
+            "save_to_file": false
+          }
+        }
+      ],
+      "expected_paper_ids": [
+        null
+      ],
+      "end": "completed",
+      "reason": null,
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "我会按指定分类和时间检索论文。",
+          "tool_calls": [
+            {
+              "id": "constraint_search_no_file_00",
+              "type": "function",
+              "function": {
+                "name": "get_recently_submitted_cs_papers",
+                "arguments": {
+                  "max_results": 5,
+                  "aspect": "*",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "constraint_search_no_file_00",
+          "content": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2611.18563v1\", \"title\": \"Pairing AIS with RF: Analysis of a Markovian Approach for Maritime Data Fusion\"}, {\"ref\": 2, \"paper_id\": \"2611.18561v1\", \"title\": \"FETTUCCINE: Fast and efficient brain-to-text decoding on mobile devices\"}, {\"ref\": 3, \"paper_id\": \"2611.18562v1\", \"title\": \"Training Reasoning Models in Simulation to Natively Use Real Robots\"}, {\"ref\": 4, \"paper_id\": \"2611.18559v1\", \"title\": \"BAL: Bidirectional Autoregression in Latent Space for Learning Human Movement Representations\"}, {\"ref\": 5, \"paper_id\": \"2611.18553v1\", \"title\": \"WeightBench: Evaluating Language Models as Weight-Space Programmers\"}]}"
+        },
+        {
+          "role": "assistant",
+          "content": "共检索到 5 篇论文。\n1. Pairing AIS with RF: Analysis of a Markovian Approach for Maritime Data Fusion（2611.18563v1）\n2. FETTUCCINE: Fast and efficient brain-to-text decoding on mobile devices（2611.18561v1）\n3. Training Reasoning Models in Simulation to Natively Use Real Robots（2611.18562v1）\n4. BAL: Bidirectional Autoregression in Latent Space for Learning Human Movement Representations（2611.18559v1）\n5. WeightBench: Evaluating Language Models as Weight-Space Programmers（2611.18553v1）\n按要求仅返回检索结果。"
+        }
+      ],
+      "scores": {
+        "SFT": [
+          true,
+          true,
+          true
+        ],
+        "E4": [
+          true,
+          true,
+          true
+        ],
+        "E1": [
+          true,
+          true,
+          true
+        ],
+        "E2": [
+          true,
+          true,
+          true
+        ],
+        "E3": [
+          true,
+          true,
+          true
+        ],
+        "E0": [
+          false,
+          false,
+          false
+        ]
+      },
+      "failed_trials": [
+        {
+          "model": "E0",
+          "trial": 0,
+          "failed_checks": [
+            "args"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CL",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "共检索到 5 篇论文。\n1. ModHarness-RL: Recasting Harnesses as Learnable and Evolving Programs for Agentic RL（2611.18533v1）\n2. WaferTetris: Efficient Freeform Mapping on Wafer-Scale Accelerators（2611.18527v1）\n3. Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination（2611.18514v1）\n4. MeReader: An Offline, Privacy-Preserving, Progress-Aware AI Assistant for Narrative eBook Reading（2611.18513v1）\n5. Agentic induction of common data elements and information extraction from sarcoma case report abstracts（2611.18506v1）。"
+        },
+        {
+          "model": "E0",
+          "trial": 1,
+          "failed_checks": [
+            "args"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CL",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "共检索到 5 篇论文。\n1. ModHarness-RL: Recasting Harnesses as Learnable and Evolving Programs for Agentic RL（2611.18533v1）\n2. WaferTetris: Efficient Freeform Mapping on Wafer-Scale Accelerators（2611.18527v1）\n3. Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination（2611.18514v1）\n4. MeReader: An Offline, Privacy-Preserving, Progress-Aware AI Assistant for Narrative eBook Reading（2611.18513v1）\n5. Agentic induction of common data elements and information extraction from sarcoma case report abstracts（2611.18506v1）。"
+        },
+        {
+          "model": "E0",
+          "trial": 2,
+          "failed_checks": [
+            "args"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CL",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "共检索到 5 篇论文。\n1. ModHarness-RL: Recasting Harnesses as Learnable and Evolving Programs for Agentic RL（2611.18533v1）\n2. WaferTetris: Efficient Freeform Mapping on Wafer-Scale Accelerators（2611.18527v1）\n3. Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination（2611.18514v1）\n4. MeReader: An Offline, Privacy-Preserving, Progress-Aware AI Assistant for Narrative eBook Reading（2611.18513v1）\n5. Agentic induction of common data elements and information extraction from sarcoma case report abstracts（2611.18506v1）。"
+        }
+      ]
+    },
+    "infeasible_unsupported_action": {
+      "user": "把第1篇论文的作者邮箱找出来发一封约稿邮件",
+      "split": "dev",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          },
+          "observation": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2608.14539v1\", \"title\": \"Decoding the Past: An Uncertainty-Aware Deep Learning Framework for Sex Attribution in Prehistoric Hand Stencils\"}, {\"ref\": 2, \"paper_id\": \"2608.14530v1\", \"title\": \"Marionette: Predicting World States, Rendering Geometry, Painting Appearance\"}, {\"ref\": 3, \"paper_id\": \"2608.14528v1\", \"title\": \"Handover of In-Context Learning State Across Session Boundaries\"}, {\"ref\": 4, \"paper_id\": \"2611.18553v1\", \"title\": \"WeightBench: Evaluating Language Models as Weight-Space Programmers\"}, {\"ref\": 5, \"paper_id\": \"2611.18543v1\", \"title\": \"Imitation Bootstrapped Multi-Agent Reinforcement Learning\"}]}",
+          "tool_issue": null
+        }
+      ],
+      "steps": [],
+      "expected_paper_ids": [],
+      "end": "blocked",
+      "reason": "unsupported_capability",
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "当前工具无法发送约稿邮件，无法代为联系作者。"
+        }
+      ],
+      "scores": {
+        "SFT": [
+          false,
+          false,
+          false
+        ],
+        "E4": [
+          false,
+          false,
+          false
+        ],
+        "E1": [
+          false,
+          false,
+          false
+        ],
+        "E2": [
+          false,
+          false,
+          false
+        ],
+        "E3": [
+          false,
+          false,
+          false
+        ],
+        "E0": [
+          false,
+          false,
+          false
+        ]
+      },
+      "failed_trials": [
+        {
+          "model": "SFT",
+          "trial": 0,
+          "failed_checks": [
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "当前会话候选列表为空，无法按指定引用 1。请提供论文引用。"
+        },
+        {
+          "model": "SFT",
+          "trial": 1,
+          "failed_checks": [
+            "tools",
+            "args",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "SFT",
+          "trial": 2,
+          "failed_checks": [
+            "tools",
+            "args",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 0,
+          "failed_checks": [
+            "tools",
+            "args",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 1,
+          "failed_checks": [
+            "tools",
+            "args",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 2,
+          "failed_checks": [
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID。"
+        },
+        {
+          "model": "E1",
+          "trial": 0,
+          "failed_checks": [
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "当前会话没有指定论文引用。请提供论文编号。"
+        },
+        {
+          "model": "E1",
+          "trial": 1,
+          "failed_checks": [
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "当前会话没有指定论文引用。请提供论文编号（1-based）。"
+        },
+        {
+          "model": "E1",
+          "trial": 2,
+          "failed_checks": [
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "当前会话没有指定论文引用。请提供论文编号。"
+        },
+        {
+          "model": "E2",
+          "trial": 0,
+          "failed_checks": [
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID（保留版本后缀）。"
+        },
+        {
+          "model": "E2",
+          "trial": 1,
+          "failed_checks": [
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID（保留版本后缀）。"
+        },
+        {
+          "model": "E2",
+          "trial": 2,
+          "failed_checks": [
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID。"
+        },
+        {
+          "model": "E3",
+          "trial": 0,
+          "failed_checks": [
+            "tools",
+            "args",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E3",
+          "trial": 1,
+          "failed_checks": [
+            "tools",
+            "args",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E3",
+          "trial": 2,
+          "failed_checks": [
+            "tools",
+            "args",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E0",
+          "trial": 0,
+          "failed_checks": [
+            "FINISH",
+            "tools",
+            "args",
+            "tool_execution",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "get_translated_content",
+                "args": {
+                  "ref": 1,
+                  "page": 1
+                }
+              },
+              "issue": "pending_guard"
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": "pending_guard"
+            },
+            {
+              "action": {
+                "name": "get_translated_content",
+                "args": {
+                  "ref": 1,
+                  "page": 1
+                }
+              },
+              "issue": "pending_guard"
+            },
+            {
+              "action": "FORCE_STOP",
+              "issue": null
+            }
+          ],
+          "final": "迭代限制"
+        },
+        {
+          "model": "E0",
+          "trial": 1,
+          "failed_checks": [
+            "FINISH",
+            "tools",
+            "args",
+            "tool_execution",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "get_translated_content",
+                "args": {
+                  "ref": 1,
+                  "page": 1
+                }
+              },
+              "issue": "pending_guard"
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": "pending_guard"
+            },
+            {
+              "action": {
+                "name": "get_translated_content",
+                "args": {
+                  "ref": 1,
+                  "page": 1
+                }
+              },
+              "issue": "pending_guard"
+            },
+            {
+              "action": "FORCE_STOP",
+              "issue": null
+            }
+          ],
+          "final": "迭代限制"
+        },
+        {
+          "model": "E0",
+          "trial": 2,
+          "failed_checks": [
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "当前会话没有指定论文引用。请提供论文编号。"
+        }
+      ]
+    },
+    "opt_force_dl": {
+      "user": "强制重新下载第1篇论文",
+      "split": "dev",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          },
+          "observation": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2608.14539v1\", \"title\": \"Decoding the Past: An Uncertainty-Aware Deep Learning Framework for Sex Attribution in Prehistoric Hand Stencils\"}, {\"ref\": 2, \"paper_id\": \"2608.14530v1\", \"title\": \"Marionette: Predicting World States, Rendering Geometry, Painting Appearance\"}, {\"ref\": 3, \"paper_id\": \"2608.14528v1\", \"title\": \"Handover of In-Context Learning State Across Session Boundaries\"}, {\"ref\": 4, \"paper_id\": \"2611.18553v1\", \"title\": \"WeightBench: Evaluating Language Models as Weight-Space Programmers\"}, {\"ref\": 5, \"paper_id\": \"2611.18543v1\", \"title\": \"Imitation Bootstrapped Multi-Agent Reinforcement Learning\"}]}",
+          "tool_issue": null
+        }
+      ],
+      "steps": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 1,
+            "force": true
+          }
+        }
+      ],
+      "expected_paper_ids": [
+        "2608.14539v1"
+      ],
+      "end": "completed",
+      "reason": null,
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "接下来使用指定引用 1。我会下载 PDF。",
+          "tool_calls": [
+            {
+              "id": "opt_force_dl_00",
+              "type": "function",
+              "function": {
+                "name": "download_arxiv_pdf",
+                "arguments": {
+                  "ref": 1,
+                  "force": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "opt_force_dl_00",
+          "content": "{\"paper_id\": \"2608.14539v1\", \"pdf_url\": \"https://arxiv.org/pdf/2608.14539v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}"
+        },
+        {
+          "role": "assistant",
+          "content": "2608.14539v1 的 PDF 已就绪。"
+        }
+      ],
+      "scores": {
+        "SFT": [
+          true,
+          true,
+          true
+        ],
+        "E4": [
+          true,
+          true,
+          false
+        ],
+        "E1": [
+          true,
+          true,
+          false
+        ],
+        "E2": [
+          true,
+          true,
+          true
+        ],
+        "E3": [
+          true,
+          true,
+          true
+        ],
+        "E0": [
+          true,
+          true,
+          true
+        ]
+      },
+      "failed_trials": [
+        {
+          "model": "E4",
+          "trial": 2,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "当前会话候选列表为空，无法解析指定引用 1。请提供完整的 arXiv ID（保留版本后缀）或标题片段。"
+        },
+        {
+          "model": "E1",
+          "trial": 2,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "当前会话候选列表为空，无法解析指定引用。请提供完整的 arXiv ID（保留版本后缀）或标题片段。"
+        }
+      ]
+    },
+    "state_dl_then_cache": {
+      "user": "下载第1篇，然后确认它是否已经缓存",
+      "split": "dev",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          },
+          "observation": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2608.14539v1\", \"title\": \"Decoding the Past: An Uncertainty-Aware Deep Learning Framework for Sex Attribution in Prehistoric Hand Stencils\"}, {\"ref\": 2, \"paper_id\": \"2608.14530v1\", \"title\": \"Marionette: Predicting World States, Rendering Geometry, Painting Appearance\"}, {\"ref\": 3, \"paper_id\": \"2608.14528v1\", \"title\": \"Handover of In-Context Learning State Across Session Boundaries\"}, {\"ref\": 4, \"paper_id\": \"2611.18553v1\", \"title\": \"WeightBench: Evaluating Language Models as Weight-Space Programmers\"}, {\"ref\": 5, \"paper_id\": \"2611.18543v1\", \"title\": \"Imitation Bootstrapped Multi-Agent Reinforcement Learning\"}]}",
+          "tool_issue": null
+        }
+      ],
+      "steps": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 1
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": 1
+          }
+        }
+      ],
+      "expected_paper_ids": [
+        "2608.14539v1",
+        "2608.14539v1"
+      ],
+      "end": "completed",
+      "reason": null,
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "接下来使用指定引用 1。我会下载 PDF。",
+          "tool_calls": [
+            {
+              "id": "state_dl_then_cache_00",
+              "type": "function",
+              "function": {
+                "name": "download_arxiv_pdf",
+                "arguments": {
+                  "ref": 1,
+                  "force": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "state_dl_then_cache_00",
+          "content": "{\"paper_id\": \"2608.14539v1\", \"pdf_url\": \"https://arxiv.org/pdf/2608.14539v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}"
+        },
+        {
+          "role": "assistant",
+          "content": "2608.14539v1 的 PDF 已就绪。接下来使用指定引用 1。我会查询缓存状态。",
+          "tool_calls": [
+            {
+              "id": "state_dl_then_cache_01",
+              "type": "function",
+              "function": {
+                "name": "get_paper_cache_status",
+                "arguments": {
+                  "ref": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "state_dl_then_cache_01",
+          "content": "{\"paper_id\": \"2608.14539v1\", \"pdf\": {\"paper_id\": \"2608.14539v1\", \"pdf_url\": \"https://arxiv.org/pdf/2608.14539v1\", \"status\": \"READY\", \"size_bytes\": 39, \"sha256\": null, \"downloaded_at\": \"2000-01-01 00:00:00\", \"updated_at\": \"2000-01-01 00:00:00\", \"error\": null}, \"translate\": null, \"pdf_ready\": true, \"translated_ready\": false}"
+        },
+        {
+          "role": "assistant",
+          "content": "2608.14539v1 的 PDF 已就绪，译文未就绪。"
+        }
+      ],
+      "scores": {
+        "SFT": [
+          false,
+          true,
+          true
+        ],
+        "E4": [
+          true,
+          true,
+          true
+        ],
+        "E1": [
+          true,
+          true,
+          true
+        ],
+        "E2": [
+          true,
+          true,
+          true
+        ],
+        "E3": [
+          false,
+          false,
+          false
+        ],
+        "E0": [
+          true,
+          true,
+          true
+        ]
+      },
+      "failed_trials": [
+        {
+          "model": "SFT",
+          "trial": 0,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的 PDF 已缓存。"
+        },
+        {
+          "model": "E3",
+          "trial": 0,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的 PDF 已缓存。"
+        },
+        {
+          "model": "E3",
+          "trial": 1,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的 PDF 已缓存。"
+        },
+        {
+          "model": "E3",
+          "trial": 2,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的 PDF 已缓存。"
+        }
+      ]
+    },
+    "analyze_ai5_ref4_desc": {
+      "user": "检索最近7天人工智能(cs.AI)论文5篇，下载第4篇，抽出图表并描述第1张图",
+      "split": "iid_test",
+      "setup": [],
+      "steps": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 4
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": 4
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": 4,
+            "figure_no": 1,
+            "question": "describe"
+          }
+        }
+      ],
+      "expected_paper_ids": [
+        null,
+        "2611.18553v1",
+        "2611.18553v1",
+        "2611.18553v1"
+      ],
+      "end": "completed",
+      "reason": null,
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "我会按指定分类和时间检索论文。",
+          "tool_calls": [
+            {
+              "id": "analyze_ai5_ref4_desc_00",
+              "type": "function",
+              "function": {
+                "name": "get_recently_submitted_cs_papers",
+                "arguments": {
+                  "max_results": 5,
+                  "aspect": "AI",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "analyze_ai5_ref4_desc_00",
+          "content": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2608.14539v1\", \"title\": \"Decoding the Past: An Uncertainty-Aware Deep Learning Framework for Sex Attribution in Prehistoric Hand Stencils\"}, {\"ref\": 2, \"paper_id\": \"2608.14530v1\", \"title\": \"Marionette: Predicting World States, Rendering Geometry, Painting Appearance\"}, {\"ref\": 3, \"paper_id\": \"2608.14528v1\", \"title\": \"Handover of In-Context Learning State Across Session Boundaries\"}, {\"ref\": 4, \"paper_id\": \"2611.18553v1\", \"title\": \"WeightBench: Evaluating Language Models as Weight-Space Programmers\"}, {\"ref\": 5, \"paper_id\": \"2611.18543v1\", \"title\": \"Imitation Bootstrapped Multi-Agent Reinforcement Learning\"}]}"
+        },
+        {
+          "role": "assistant",
+          "content": "已检索到 5 篇候选论文。接下来使用指定引用 4。我会下载 PDF。",
+          "tool_calls": [
+            {
+              "id": "analyze_ai5_ref4_desc_01",
+              "type": "function",
+              "function": {
+                "name": "download_arxiv_pdf",
+                "arguments": {
+                  "ref": 4,
+                  "force": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "analyze_ai5_ref4_desc_01",
+          "content": "{\"paper_id\": \"2611.18553v1\", \"pdf_url\": \"https://arxiv.org/pdf/2611.18553v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}"
+        },
+        {
+          "role": "assistant",
+          "content": "2611.18553v1 的 PDF 已就绪。接下来使用指定引用 4。我会提取论文图表。",
+          "tool_calls": [
+            {
+              "id": "analyze_ai5_ref4_desc_02",
+              "type": "function",
+              "function": {
+                "name": "extract_paper_figures",
+                "arguments": {
+                  "ref": 4
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "analyze_ai5_ref4_desc_02",
+          "content": "{\"paper_id\": \"2611.18553v1\", \"title\": \"WeightBench: Evaluating Language Models as Weight-Space Programmers\", \"count\": 8, \"figures\": [{\"figure_no\": 1, \"page\": 3, \"width\": 386, \"height\": 446, \"caption\": \"Figure 1. The WeightBench evaluation pipeline.\"}, {\"figure_no\": 2, \"page\": 3, \"width\": 1066, \"height\": 446, \"caption\": \"Figure 1. The WeightBench evaluation pipeline.\"}, {\"figure_no\": 3, \"page\": 3, \"width\": 316, \"height\": 176, \"caption\": \"Figure 1. The WeightBench evaluation pipeline.\"}, {\"figure_no\": 4, \"page\": 3, \"width\": 391, \"height\": 176, \"caption\": \"Figure 1. The WeightBench evaluation pipeline.\"}, {\"figure_no\": 5, \"page\": 3, \"width\": 436, \"height\": 176, \"caption\": \"Figure 1. The WeightBench evaluation pipeline.\"}, {\"figure_no\": 6, \"page\": 3, \"width\": 436, \"height\": 121, \"caption\": \"Figure 1. The WeightBench evaluation pipeline.\"}, {\"figure_no\": 7, \"page\": 3, \"width\": 316, \"height\": 136, \"caption\": \"Figure 1. The WeightBench evaluation pipeline.\"}, {\"figure_no\": 8, \"page\": 3, \"width\": 436, \"height\": 136, \"caption\": \"Figure 1. The WeightBench evaluation pipeline.\"}]}"
+        },
+        {
+          "role": "assistant",
+          "content": "2611.18553v1 的 PDF 已提取到 8 张图表。接下来使用指定引用 4。我会分析指定图表。",
+          "tool_calls": [
+            {
+              "id": "analyze_ai5_ref4_desc_03",
+              "type": "function",
+              "function": {
+                "name": "analyze_figure",
+                "arguments": {
+                  "ref": 4,
+                  "figure_no": 1,
+                  "question": "describe"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "analyze_ai5_ref4_desc_03",
+          "content": "{\"paper_id\": \"2611.18553v1\", \"figure_no\": 1, \"page\": 3, \"question\": \"describe\", \"answer\": \"Figure 1. The WeightBench evaluation pipeline.\", \"backend\": \"extractive\"}"
+        },
+        {
+          "role": "assistant",
+          "content": "2611.18553v1 的 PDF 已提取到 8 张图表。\n已分析指定图表（2611.18553v1）。\nFigure 1. The WeightBench evaluation pipeline.。"
+        }
+      ],
+      "scores": {
+        "SFT": [
+          true,
+          true,
+          true
+        ],
+        "E4": [
+          false,
+          false,
+          true
+        ]
+      },
+      "failed_trials": [
+        {
+          "model": "E4",
+          "trial": 0,
+          "failed_checks": [
+            "FINISH",
+            "parse"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "AI",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 4,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "extract_paper_figures",
+                "args": {
+                  "ref": 4
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "analyze_figure",
+                "args": {
+                  "ref": 4,
+                  "figure_no": 1,
+                  "question": "describe"
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "ERROR",
+              "issue": null
+            }
+          ],
+          "final": "无法解析工具调用响应: finish_reason:length"
+        },
+        {
+          "model": "E4",
+          "trial": 1,
+          "failed_checks": [
+            "FINISH",
+            "parse"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "AI",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 4,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "extract_paper_figures",
+                "args": {
+                  "ref": 4
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "analyze_figure",
+                "args": {
+                  "ref": 4,
+                  "figure_no": 1,
+                  "question": "describe"
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "ERROR",
+              "issue": null
+            }
+          ],
+          "final": "无法解析工具调用响应: finish_reason:length"
+        }
+      ]
+    },
+    "chain_cl5_dl3_tr3": {
+      "user": "搜索最近7天自然语言处理(cs.CL)论文5篇，下载第3篇，确认缓存后翻译它",
+      "split": "iid_test",
+      "setup": [],
+      "steps": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "CL",
+            "days": 7,
+            "max_results": 5
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 3
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": 3
+          }
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 3
+          }
+        }
+      ],
+      "expected_paper_ids": [
+        null,
+        "2611.18514v1",
+        "2611.18514v1",
+        "2611.18514v1"
+      ],
+      "end": "completed",
+      "reason": null,
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "我会按指定分类和时间检索论文。",
+          "tool_calls": [
+            {
+              "id": "chain_cl5_dl3_tr3_00",
+              "type": "function",
+              "function": {
+                "name": "get_recently_submitted_cs_papers",
+                "arguments": {
+                  "max_results": 5,
+                  "aspect": "CL",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "chain_cl5_dl3_tr3_00",
+          "content": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2611.18533v1\", \"title\": \"ModHarness-RL: Recasting Harnesses as Learnable and Evolving Programs for Agentic RL\"}, {\"ref\": 2, \"paper_id\": \"2611.18527v1\", \"title\": \"WaferTetris: Efficient Freeform Mapping on Wafer-Scale Accelerators\"}, {\"ref\": 3, \"paper_id\": \"2611.18514v1\", \"title\": \"Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination\"}, {\"ref\": 4, \"paper_id\": \"2611.18513v1\", \"title\": \"MeReader: An Offline, Privacy-Preserving, Progress-Aware AI Assistant for Narrative eBook Reading\"}, {\"ref\": 5, \"paper_id\": \"2611.18506v1\", \"title\": \"Agentic induction of common data elements and information extraction from sarcoma case report abstracts\"}]}"
+        },
+        {
+          "role": "assistant",
+          "content": "已检索到 5 篇候选论文。接下来使用指定引用 3。我会下载 PDF。",
+          "tool_calls": [
+            {
+              "id": "chain_cl5_dl3_tr3_01",
+              "type": "function",
+              "function": {
+                "name": "download_arxiv_pdf",
+                "arguments": {
+                  "ref": 3,
+                  "force": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "chain_cl5_dl3_tr3_01",
+          "content": "{\"paper_id\": \"2611.18514v1\", \"pdf_url\": \"https://arxiv.org/pdf/2611.18514v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}"
+        },
+        {
+          "role": "assistant",
+          "content": "2611.18514v1 的 PDF 已就绪。接下来使用指定引用 3。我会查询缓存状态。",
+          "tool_calls": [
+            {
+              "id": "chain_cl5_dl3_tr3_02",
+              "type": "function",
+              "function": {
+                "name": "get_paper_cache_status",
+                "arguments": {
+                  "ref": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "chain_cl5_dl3_tr3_02",
+          "content": "{\"paper_id\": \"2611.18514v1\", \"pdf\": {\"paper_id\": \"2611.18514v1\", \"pdf_url\": \"https://arxiv.org/pdf/2611.18514v1\", \"status\": \"READY\", \"size_bytes\": 39, \"sha256\": null, \"downloaded_at\": \"2000-01-01 00:00:00\", \"updated_at\": \"2000-01-01 00:00:00\", \"error\": null}, \"translate\": null, \"pdf_ready\": true, \"translated_ready\": false}"
+        },
+        {
+          "role": "assistant",
+          "content": "2611.18514v1 的 PDF 已就绪，译文未就绪。接下来使用指定引用 3。我会提交翻译任务。",
+          "tool_calls": [
+            {
+              "id": "chain_cl5_dl3_tr3_03",
+              "type": "function",
+              "function": {
+                "name": "translate_arxiv_pdf",
+                "arguments": {
+                  "ref": 3,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "chain_cl5_dl3_tr3_03",
+          "content": "{\"task_id\": \"mocktask0001\", \"paper_id\": \"2611.18514v1\", \"status\": \"PENDING\"}"
+        },
+        {
+          "role": "assistant",
+          "content": "2611.18514v1 的 PDF 已就绪，译文未就绪。\n2611.18514v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        }
+      ],
+      "scores": {
+        "SFT": [
+          false,
+          false,
+          false
+        ],
+        "E4": [
+          false,
+          false,
+          false
+        ]
+      },
+      "failed_trials": [
+        {
+          "model": "SFT",
+          "trial": 0,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CL",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 3,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 3,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2611.18514v1 的 PDF 已就绪。\n任务已受理（PENDING），译文尚未就绪。"
+        },
+        {
+          "model": "SFT",
+          "trial": 1,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CL",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 3,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 3,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2611.18514v1 的 PDF 已就绪。\n任务已受理（PENDING），译文尚未就绪。"
+        },
+        {
+          "model": "SFT",
+          "trial": 2,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CL",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 3,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 3,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2611.18514v1 的 PDF 已就绪。\n任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 0,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CL",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 3,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 3,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2611.18514v1 的 PDF 已就绪。\n任务已受理（PENDING），译文尚未就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 1,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CL",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 3,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 3,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2611.18514v1 的 PDF 已就绪。\n2611.18514v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 2,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CL",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 3,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 3,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2611.18514v1 的 PDF 已就绪。\n任务已受理（PENDING），译文尚未就绪。"
+        }
+      ]
+    },
+    "constraint_translate_only": {
+      "user": "只把刚下载的那篇论文翻译成双语版本，不要重新搜索，也不要检查缓存状态",
+      "split": "iid_test",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          },
+          "observation": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2608.14539v1\", \"title\": \"Decoding the Past: An Uncertainty-Aware Deep Learning Framework for Sex Attribution in Prehistoric Hand Stencils\"}, {\"ref\": 2, \"paper_id\": \"2608.14530v1\", \"title\": \"Marionette: Predicting World States, Rendering Geometry, Painting Appearance\"}, {\"ref\": 3, \"paper_id\": \"2608.14528v1\", \"title\": \"Handover of In-Context Learning State Across Session Boundaries\"}, {\"ref\": 4, \"paper_id\": \"2611.18553v1\", \"title\": \"WeightBench: Evaluating Language Models as Weight-Space Programmers\"}, {\"ref\": 5, \"paper_id\": \"2611.18543v1\", \"title\": \"Imitation Bootstrapped Multi-Agent Reinforcement Learning\"}]}",
+          "tool_issue": null
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 1
+          },
+          "observation": "{\"paper_id\": \"2608.14539v1\", \"pdf_url\": \"https://arxiv.org/pdf/2608.14539v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}",
+          "tool_issue": null
+        }
+      ],
+      "steps": [
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": null,
+            "keep_dual": true
+          }
+        }
+      ],
+      "expected_paper_ids": [
+        "2608.14539v1"
+      ],
+      "end": "completed",
+      "reason": null,
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "我会提交翻译任务。",
+          "tool_calls": [
+            {
+              "id": "constraint_translate_only_00",
+              "type": "function",
+              "function": {
+                "name": "translate_arxiv_pdf",
+                "arguments": {
+                  "ref": null,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "constraint_translate_only_00",
+          "content": "{\"task_id\": \"mocktask0001\", \"paper_id\": \"2608.14539v1\", \"status\": \"PENDING\"}"
+        },
+        {
+          "role": "assistant",
+          "content": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        }
+      ],
+      "scores": {
+        "SFT": [
+          false,
+          false,
+          false
+        ],
+        "E4": [
+          false,
+          false,
+          false
+        ]
+      },
+      "failed_trials": [
+        {
+          "model": "SFT",
+          "trial": 0,
+          "failed_checks": [
+            "args"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "SFT",
+          "trial": 1,
+          "failed_checks": [
+            "args"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "SFT",
+          "trial": 2,
+          "failed_checks": [
+            "args"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 0,
+          "failed_checks": [
+            "args"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": "2608.14539v1",
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 1,
+          "failed_checks": [
+            "args"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": "2608.14539v1",
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 2,
+          "failed_checks": [
+            "args"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": "2608.14539v1",
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        }
+      ]
+    },
+    "infeasible_index_out_of_range": {
+      "user": "把第20篇论文下载下来",
+      "split": "iid_test",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          },
+          "observation": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2608.14539v1\", \"title\": \"Decoding the Past: An Uncertainty-Aware Deep Learning Framework for Sex Attribution in Prehistoric Hand Stencils\"}, {\"ref\": 2, \"paper_id\": \"2608.14530v1\", \"title\": \"Marionette: Predicting World States, Rendering Geometry, Painting Appearance\"}, {\"ref\": 3, \"paper_id\": \"2608.14528v1\", \"title\": \"Handover of In-Context Learning State Across Session Boundaries\"}, {\"ref\": 4, \"paper_id\": \"2611.18553v1\", \"title\": \"WeightBench: Evaluating Language Models as Weight-Space Programmers\"}, {\"ref\": 5, \"paper_id\": \"2611.18543v1\", \"title\": \"Imitation Bootstrapped Multi-Agent Reinforcement Learning\"}]}",
+          "tool_issue": null
+        }
+      ],
+      "steps": [],
+      "expected_paper_ids": [],
+      "end": "blocked",
+      "reason": "invalid_reference",
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "指定论文序号超出当前候选列表的范围。请提供有效的论文序号。"
+        }
+      ],
+      "scores": {
+        "SFT": [
+          false,
+          false,
+          false
+        ],
+        "E4": [
+          false,
+          false,
+          false
+        ]
+      },
+      "failed_trials": [
+        {
+          "model": "SFT",
+          "trial": 0,
+          "failed_checks": [
+            "FINISH",
+            "tools",
+            "args",
+            "tool_execution",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": "FORCE_STOP",
+              "issue": null
+            }
+          ],
+          "final": "迭代限制"
+        },
+        {
+          "model": "SFT",
+          "trial": 1,
+          "failed_checks": [
+            "FINISH",
+            "tools",
+            "args",
+            "tool_execution",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": "FORCE_STOP",
+              "issue": null
+            }
+          ],
+          "final": "迭代限制"
+        },
+        {
+          "model": "SFT",
+          "trial": 2,
+          "failed_checks": [
+            "FINISH",
+            "tools",
+            "args",
+            "tool_execution",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": "FORCE_STOP",
+              "issue": null
+            }
+          ],
+          "final": "迭代限制"
+        },
+        {
+          "model": "E4",
+          "trial": 0,
+          "failed_checks": [
+            "FINISH",
+            "tools",
+            "args",
+            "parse",
+            "tool_execution",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": "ERROR",
+              "issue": null
+            }
+          ],
+          "final": "无法解析工具调用响应: finish_reason:length"
+        },
+        {
+          "model": "E4",
+          "trial": 1,
+          "failed_checks": [
+            "FINISH",
+            "tools",
+            "args",
+            "tool_execution",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": "FORCE_STOP",
+              "issue": null
+            }
+          ],
+          "final": "迭代限制"
+        },
+        {
+          "model": "E4",
+          "trial": 2,
+          "failed_checks": [
+            "FINISH",
+            "tools",
+            "args",
+            "parse",
+            "tool_execution",
+            "terminal_reason"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 20,
+                  "force": false
+                }
+              },
+              "issue": "tool_error"
+            },
+            {
+              "action": "ERROR",
+              "issue": null
+            }
+          ],
+          "final": "无法解析工具调用响应: finish_reason:length"
+        }
+      ]
+    },
+    "ref_stress_learning_state": {
+      "user": "下载标题里包含 \"Learning State\" 的那篇论文",
+      "split": "iid_test",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          },
+          "observation": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2608.14539v1\", \"title\": \"Decoding the Past: An Uncertainty-Aware Deep Learning Framework for Sex Attribution in Prehistoric Hand Stencils\"}, {\"ref\": 2, \"paper_id\": \"2608.14530v1\", \"title\": \"Marionette: Predicting World States, Rendering Geometry, Painting Appearance\"}, {\"ref\": 3, \"paper_id\": \"2608.14528v1\", \"title\": \"Handover of In-Context Learning State Across Session Boundaries\"}, {\"ref\": 4, \"paper_id\": \"2611.18553v1\", \"title\": \"WeightBench: Evaluating Language Models as Weight-Space Programmers\"}, {\"ref\": 5, \"paper_id\": \"2611.18543v1\", \"title\": \"Imitation Bootstrapped Multi-Agent Reinforcement Learning\"}]}",
+          "tool_issue": null
+        }
+      ],
+      "steps": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "Learning State"
+          }
+        }
+      ],
+      "expected_paper_ids": [
+        "2608.14528v1"
+      ],
+      "end": "completed",
+      "reason": null,
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "接下来使用指定引用 Learning State。我会下载 PDF。",
+          "tool_calls": [
+            {
+              "id": "ref_stress_learning_state_00",
+              "type": "function",
+              "function": {
+                "name": "download_arxiv_pdf",
+                "arguments": {
+                  "ref": "Learning State",
+                  "force": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "ref_stress_learning_state_00",
+          "content": "{\"paper_id\": \"2608.14528v1\", \"pdf_url\": \"https://arxiv.org/pdf/2608.14528v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}"
+        },
+        {
+          "role": "assistant",
+          "content": "2608.14528v1 的 PDF 已就绪。"
+        }
+      ],
+      "scores": {
+        "SFT": [
+          false,
+          false,
+          false
+        ],
+        "E4": [
+          false,
+          false,
+          false
+        ]
+      },
+      "failed_trials": [
+        {
+          "model": "SFT",
+          "trial": 0,
+          "failed_checks": [
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的 PDF 已就绪。"
+        },
+        {
+          "model": "SFT",
+          "trial": 1,
+          "failed_checks": [
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的 PDF 已就绪。"
+        },
+        {
+          "model": "SFT",
+          "trial": 2,
+          "failed_checks": [
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的 PDF 已就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 0,
+          "failed_checks": [
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 2,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14530v1 的 PDF 已就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 1,
+          "failed_checks": [
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的 PDF 已就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 2,
+          "failed_checks": [
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14539v1 的 PDF 已就绪。"
+        }
+      ]
+    },
+    "trread_ro5_page2": {
+      "user": "读取第1篇论文中文译文的第2页",
+      "split": "iid_test",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "RO",
+            "days": 7,
+            "max_results": 5
+          },
+          "observation": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2611.18562v1\", \"title\": \"Training Reasoning Models in Simulation to Natively Use Real Robots\"}, {\"ref\": 2, \"paper_id\": \"2611.18546v1\", \"title\": \"Modeling the Frictional Contact of Continuum Robots with Environments through Linear Complementarity Problem\"}, {\"ref\": 3, \"paper_id\": \"2611.18505v1\", \"title\": \"Disturbance-Aware Informative Planning in Spatiotemporal Environments\"}, {\"ref\": 4, \"paper_id\": \"2611.18501v1\", \"title\": \"In Situ Monitoring and Predictive Modeling of Harmful Algal Blooms with Autonomous Surface Vehicles\"}, {\"ref\": 5, \"paper_id\": \"2611.18496v1\", \"title\": \"Toward Resilient Self-Driving Laboratories through Telerobotic Interventions\"}]}",
+          "tool_issue": null
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 1
+          },
+          "observation": "{\"paper_id\": \"2611.18562v1\", \"pdf_url\": \"https://arxiv.org/pdf/2611.18562v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}",
+          "tool_issue": null
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 1
+          },
+          "observation": "{\"task_id\": \"mocktask0001\", \"paper_id\": \"2611.18562v1\", \"status\": \"READY\", \"source\": \"snapshot\"}",
+          "tool_issue": null
+        }
+      ],
+      "steps": [
+        {
+          "name": "get_translated_content",
+          "args": {
+            "ref": 1,
+            "page": 2
+          }
+        }
+      ],
+      "expected_paper_ids": [
+        "2611.18562v1"
+      ],
+      "end": "completed",
+      "reason": null,
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "接下来使用指定引用 1。我会读取指定页的中文译文。",
+          "tool_calls": [
+            {
+              "id": "trread_ro5_page2_00",
+              "type": "function",
+              "function": {
+                "name": "get_translated_content",
+                "arguments": {
+                  "ref": 1,
+                  "page": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "trread_ro5_page2_00",
+          "content": "{\"paper_id\": \"2611.18562v1\", \"title\": \"Training Reasoning Models in Simulation to Natively Use Real Robots\", \"page\": 2, \"total_pages\": 21, \"content\": \"Training Reasoning Models in Simulation to Natively Use Real Robots\\n\\n可以很好地推广到训练任务之外：它们可以 在思维链中推理的能力对于泛化尤其重要。\\n迁移到未知的机器人、现实世界以及新的指\\n令。在模拟环境中对 LIBERO 和 RoboDojo 进 然而，到目前为止，这种性能仅在最强的专有模型中\\n行训练后，该模型在真实的双臂机器人上在 获得。开源权重模型在相同的基准上成功率较低，并\\n我们的试验中成功率达到 60%，而基础模型 且在一些简单任务上也会失败。一些工作构建了一个\\n则完全未成功。在 LIBERO 上，训练将成功 框架，添加技能和组件，例如分割模型 SAM 3（Cario\\n率从 1.6% 提升到 74.4%，接近 GPT-6 Astra n 等，2026），并将一些动作转换为一小组选项（Yan\\n和 GPT-6.1 Sol 在最大推理努力下的表现。与 g 等，2026c；Lu 等，2026；Zhang 等，2026c；Chu\\n在示例上微调的视觉-语言-动作模型 π0.5 相比 等，2026；Huang 等，2026；Si 等，2026；RoboDojo\\n，我们的模型对任务本身的变化更为鲁棒。 团队，2026）。这样的框架允许开源权重模型完成一\\n在 LIBERO-Pro 上，当为熟悉场景分配新任务 些任务（Yang 等，2026c），但它可能会限制其动作\\n时，π0.5 的成功率仅为 0.75%，而我们的模型 空间，从而使其他任务无法实现。随着模型能力的提\\n成功率达到 57.4%。最后，该模型保留了其通 升，框架中的一些组件也可能被纳入模型本身。\\n用能力，在九个推理、编码和视觉基准上没\\n有可测量的性能下降。这些结果突显了机器\\n计算机使用代理，例如 OpenAI 的代理，是通过在计算 人使用强化学习作为基础模型后训练的一个\\n机任务上进行强化学习（RL）训练的（OpenAI, 2025a; 有前景的组成部分。\\nb；Wang 等，2025），而这两种设置之间的高度相似\\n性表明，机器人使用也可以以相同的方式学习。因此\\n，我们使用机器人使用强化学习（RURL）训练一个开\\n放权重推理模型，完全在仿真中进行，并且不依赖示\\n1. 引言 范。为了支持这种大规模的长时程、多轮 RURL，我\\n们构建了 PEAR（Agentic Robotics 后训练引擎），这\\n机器人使用代理（RUA）最近已成为通用机器人控制 是一个专门为训练 RUA 设计的基础设施（第 3.2 节）\\n的一个有前景的方向（Isola，2026；Yang 等，2026c； 。在每一轮中，模型观察相机图像和机器人的状态，\\nZhang 等，2026c；Lu 等，2026）。类似于从屏幕截图 对任务进行推理，并输出下一个末端执行器位置（图 1\\n操作计算机的计算机使用代理（CUA）（OpenAI，20 ）。逆向运动学将该位置转换为关节目标，机器人控\\n25a；Anthropic，2024），RUA 使用一个视觉-语言模 制器执行运动，然后模型接收下一个观察结果。之前\\n型（VLM）来观察机器人的摄像头图像、推理任务并 的轮次会保留在上下文中，每个回合都会获得一个二\\n输出下一个末端执行器的姿态。因为 VLM 直接操作机 元奖励，指示任务是否完成\\n器人，RUA 利用了一个有能力的基础模型的广泛世界\\n知识和强大推理能力，这使它们能够泛化并完成复杂\\n任务。\\n\\n基于前沿模型如 GPT-6 Astra（OpenAI，2026b；Pikus\\n等，2026；Liu 等，2026a）和 Claude Fable 5.2（Anthr\\nopic，2026）构建的 RUA 展示了卓越的泛化能力和语\\n言遵循能力。在 RoboDojo（Chen 等，2026；Zhang 等 虽然该模型完全在仿真中训练，但它学到的技能能够\\n，2026b）和 RoboLab（Yang 等，2026b;a；SenseNova 很好地迁移到现实世界。我们首先在 LIBERO（Liu 等\\n等，2026）上，基于 GPT-6 Astra 构建的代理表现优于 ，2023）上训练模型，然后在 RoboDojo（Chen 等，2\\n以往最好的策略。相比之下，基于视觉-语言-动作的模 026）的两个任务上训练。在一个训练中从未接触过的\\n型（VLA）（Zitkovich 等，2023；Kim 等，2025；Bla 真实双臂机器人上，该模型完成了我们 60% 的试验，\\nck 等，2025b;a）在特定任务演示上进行微调后，通常 而基础模型没有完成任何试验（第 4.4 节）。仅在单\\n难以对新目标进行泛化并遵循新指令（Liu 等，2025a 臂 LIBERO 任务上训练的检查点也在 23% 的试验中成\\n；Zhou 等，2025；Fei 等，2026；Fang 等，2026；Ki 功。这些结果表明，基于仿真的强化学习可以为通用\\nm 等，2026；Hou & Zhao，2026；Zhang 等，2026a） 推理模型提供可迁移到未见过的真实世界机器人上的\\n。前沿 RUA 性能的两个可能因素是：这些模型经过计 使用技能。\\n算机使用训练，并且具有强大的空间推理能力。我们\\n假设 我们的主要发现如下：\\n\\n2\"}"
+        },
+        {
+          "role": "assistant",
+          "content": "已读取 2611.18562v1 中文译文第 2 页。\nTraining Reasoning Models in Simulation to Natively Use Real Robots\n\n可以很好地推广到训练任务之外：它们可以 在思维链中推理的能力对于泛化尤其重要。\n迁移到未知的机器人、现实世界以及新的指\n令。在模拟环境中对 LIBERO 和 RoboDojo 进 然而，到目前为止，这种性能仅在最强的专有模型中\n行训练后，该模型在真实的双臂机器人上在 获得。开源权重模型在相同的基准上成功率较低，并\n我们的试验中成功率达到 60%，而基础模型 且在一些简单任务上也会失败。一些工作构建了一个\n则完全未成功。在 LIBERO 上，训练将成功 框架，添加技能和组件，例如分割模型 SAM 3（Cario\n率从 1.6% 提升到 74.4%，接近 GPT-6 Astra n 等，2026），并将一些动作转换为一小组选项（Yan\n和 GPT-6.1 Sol 在最大推理努力下的表现。与 g 等，2026c；Lu 等，2026；Zhang 等，2026c；Chu\n在示例上微调的视觉-语言-动作模型 π0.5 相比 等，2026；Huang 等，2026；Si 等，2026；RoboDojo\n，我们的模型对任务本身的变化更为鲁棒。 团队，2026）。这样的框架允许开源权重模型完成一\n在 LIBERO-Pro 上，当为熟悉场景分配新任务 些任务（Yang 等，2026c），但它可能会限制其动作\n时，π0.5 的成功率仅为 0.75%，而我们的模型 空间，从而使其他任务无法实现。随着模型能力的提\n成功率达到 57.4%。最后，该模型保留了其通 升，框架中的一些组件也可能被纳入模型本身。\n用能力，在九个推理、编码和视觉基准上没\n有可测量的性能下降。这些结果突显了机器\n计算机使用代理，例如 OpenAI 的代理，是通过在计算 人使用强化学习作为基础模型后训练的一个\n机任务上进行强化学习（RL）训练的（OpenAI, 2025a; 有前景的组成部分。\nb；Wang 等，2025），而这两种设置之间的高度相似\n性表明，机器人使用也可以以相同的方式学习。因此\n，我们使用机器人使用强化学习（RURL）训练一个开\n放权重推理模型，完全在仿真中进行，并且不依赖示\n1. 引言 范。为了支持这种大规模的长时程、多轮 RURL，我\n们构建了 PEAR（Agentic Robotics 后训练引擎），这\n机器人使用代理（RUA）最近已成为通用机器人控制 是一个专门为训练 RUA 设计的基础设施（第 3.2 节）\n的一个有前景的方向（Isola，2026；Yang 等，2026c； 。在每一轮中，模型观察相机图像和机器人的状态，\nZhang 等，2026c；Lu 等，2026）。类似于从屏幕截图 对任务进行推理，并输出下一个末端执行器位置（图 1\n操作计算机的计算机使用代理（CUA）（OpenAI，20 ）。逆向运动学将该位置转换为关节目标，机器人控\n25a；Anthropic，2024），RUA 使用一个视觉-语言模 制器执行运动，然后模型接收下一个观察结果。之前\n型（VLM）来观察机器人的摄像头图像、推理任务并 的轮次会保留在上下文中，每个回合都会获得一个二\n输出下一个末端执行器的姿态。因为 VLM 直接操作机 元奖励，指示任务是否完成\n器人，\n（节选）。"
+        }
+      ],
+      "scores": {
+        "SFT": [
+          true,
+          false,
+          true
+        ],
+        "E4": [
+          true,
+          true,
+          true
+        ]
+      },
+      "failed_trials": [
+        {
+          "model": "SFT",
+          "trial": 1,
+          "failed_checks": [
+            "FINISH",
+            "parse"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_translated_content",
+                "args": {
+                  "ref": 1,
+                  "page": 2
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "ERROR",
+              "issue": null
+            }
+          ],
+          "final": "无法解析工具调用响应: finish_reason:length"
+        }
+      ]
+    },
+    "multi_cl5_dl2_cache": {
+      "user": "检索最近7天自然语言处理(cs.CL)论文5篇，下载第2篇，再查它的缓存状态",
+      "split": "ood_test",
+      "setup": [],
+      "steps": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "CL",
+            "days": 7,
+            "max_results": 5
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 2
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": 2
+          }
+        }
+      ],
+      "expected_paper_ids": [
+        null,
+        "2611.18527v1",
+        "2611.18527v1"
+      ],
+      "end": "completed",
+      "reason": null,
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "我会按指定分类和时间检索论文。",
+          "tool_calls": [
+            {
+              "id": "multi_cl5_dl2_cache_00",
+              "type": "function",
+              "function": {
+                "name": "get_recently_submitted_cs_papers",
+                "arguments": {
+                  "max_results": 5,
+                  "aspect": "CL",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "multi_cl5_dl2_cache_00",
+          "content": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2611.18533v1\", \"title\": \"ModHarness-RL: Recasting Harnesses as Learnable and Evolving Programs for Agentic RL\"}, {\"ref\": 2, \"paper_id\": \"2611.18527v1\", \"title\": \"WaferTetris: Efficient Freeform Mapping on Wafer-Scale Accelerators\"}, {\"ref\": 3, \"paper_id\": \"2611.18514v1\", \"title\": \"Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination\"}, {\"ref\": 4, \"paper_id\": \"2611.18513v1\", \"title\": \"MeReader: An Offline, Privacy-Preserving, Progress-Aware AI Assistant for Narrative eBook Reading\"}, {\"ref\": 5, \"paper_id\": \"2611.18506v1\", \"title\": \"Agentic induction of common data elements and information extraction from sarcoma case report abstracts\"}]}"
+        },
+        {
+          "role": "assistant",
+          "content": "已检索到 5 篇候选论文。接下来使用指定引用 2。我会下载 PDF。",
+          "tool_calls": [
+            {
+              "id": "multi_cl5_dl2_cache_01",
+              "type": "function",
+              "function": {
+                "name": "download_arxiv_pdf",
+                "arguments": {
+                  "ref": 2,
+                  "force": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "multi_cl5_dl2_cache_01",
+          "content": "{\"paper_id\": \"2611.18527v1\", \"pdf_url\": \"https://arxiv.org/pdf/2611.18527v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}"
+        },
+        {
+          "role": "assistant",
+          "content": "2611.18527v1 的 PDF 已就绪。接下来使用指定引用 2。我会查询缓存状态。",
+          "tool_calls": [
+            {
+              "id": "multi_cl5_dl2_cache_02",
+              "type": "function",
+              "function": {
+                "name": "get_paper_cache_status",
+                "arguments": {
+                  "ref": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "multi_cl5_dl2_cache_02",
+          "content": "{\"paper_id\": \"2611.18527v1\", \"pdf\": {\"paper_id\": \"2611.18527v1\", \"pdf_url\": \"https://arxiv.org/pdf/2611.18527v1\", \"status\": \"READY\", \"size_bytes\": 39, \"sha256\": null, \"downloaded_at\": \"2000-01-01 00:00:00\", \"updated_at\": \"2000-01-01 00:00:00\", \"error\": null}, \"translate\": null, \"pdf_ready\": true, \"translated_ready\": false}"
+        },
+        {
+          "role": "assistant",
+          "content": "2611.18527v1 的 PDF 已就绪，译文未就绪。"
+        }
+      ],
+      "scores": {
+        "SFT": [
+          true,
+          true,
+          false
+        ],
+        "E4": [
+          true,
+          true,
+          true
+        ]
+      },
+      "failed_trials": [
+        {
+          "model": "SFT",
+          "trial": 2,
+          "failed_checks": [
+            "FINISH",
+            "parse"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CL",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 2,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "get_paper_cache_status",
+                "args": {
+                  "ref": 2
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "ERROR",
+              "issue": null
+            }
+          ],
+          "final": "无法解析工具调用响应: finish_reason:length"
+        }
+      ]
+    },
+    "multi_cv5_dl1_cache_tr": {
+      "user": "检索计算机视觉(cs.CV)最近7天5篇论文，下载第1篇，确认缓存后翻译",
+      "split": "ood_test",
+      "setup": [],
+      "steps": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "CV",
+            "days": 7,
+            "max_results": 5
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 1
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": 1
+          }
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 1
+          }
+        }
+      ],
+      "expected_paper_ids": [
+        null,
+        "2608.14546v1",
+        "2608.14546v1",
+        "2608.14546v1"
+      ],
+      "end": "completed",
+      "reason": null,
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "我会按指定分类和时间检索论文。",
+          "tool_calls": [
+            {
+              "id": "multi_cv5_dl1_cache_tr_00",
+              "type": "function",
+              "function": {
+                "name": "get_recently_submitted_cs_papers",
+                "arguments": {
+                  "max_results": 5,
+                  "aspect": "CV",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "multi_cv5_dl1_cache_tr_00",
+          "content": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2608.14546v1\", \"title\": \"CPI-Bench: A Comprehensive,Practical and Intelligent Benchmark for Real-World Image Editing\"}, {\"ref\": 2, \"paper_id\": \"2608.14543v1\", \"title\": \"MagnifiQ: Patch-aware Text Guided Progressive Upscaling for High-Resolution Image Restoration\"}, {\"ref\": 3, \"paper_id\": \"2608.14539v1\", \"title\": \"Decoding the Past: An Uncertainty-Aware Deep Learning Framework for Sex Attribution in Prehistoric Hand Stencils\"}, {\"ref\": 4, \"paper_id\": \"2611.18559v1\", \"title\": \"BAL: Bidirectional Autoregression in Latent Space for Learning Human Movement Representations\"}, {\"ref\": 5, \"paper_id\": \"2611.18550v1\", \"title\": \"Restoring Diversity in Distilled Image and Video Generators by Probing Activations\"}]}"
+        },
+        {
+          "role": "assistant",
+          "content": "已检索到 5 篇候选论文。接下来使用指定引用 1。我会下载 PDF。",
+          "tool_calls": [
+            {
+              "id": "multi_cv5_dl1_cache_tr_01",
+              "type": "function",
+              "function": {
+                "name": "download_arxiv_pdf",
+                "arguments": {
+                  "ref": 1,
+                  "force": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "multi_cv5_dl1_cache_tr_01",
+          "content": "{\"paper_id\": \"2608.14546v1\", \"pdf_url\": \"https://arxiv.org/pdf/2608.14546v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}"
+        },
+        {
+          "role": "assistant",
+          "content": "2608.14546v1 的 PDF 已就绪。接下来使用指定引用 1。我会查询缓存状态。",
+          "tool_calls": [
+            {
+              "id": "multi_cv5_dl1_cache_tr_02",
+              "type": "function",
+              "function": {
+                "name": "get_paper_cache_status",
+                "arguments": {
+                  "ref": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "multi_cv5_dl1_cache_tr_02",
+          "content": "{\"paper_id\": \"2608.14546v1\", \"pdf\": {\"paper_id\": \"2608.14546v1\", \"pdf_url\": \"https://arxiv.org/pdf/2608.14546v1\", \"status\": \"READY\", \"size_bytes\": 39, \"sha256\": null, \"downloaded_at\": \"2000-01-01 00:00:00\", \"updated_at\": \"2000-01-01 00:00:00\", \"error\": null}, \"translate\": null, \"pdf_ready\": true, \"translated_ready\": false}"
+        },
+        {
+          "role": "assistant",
+          "content": "2608.14546v1 的 PDF 已就绪，译文未就绪。接下来使用指定引用 1。我会提交翻译任务。",
+          "tool_calls": [
+            {
+              "id": "multi_cv5_dl1_cache_tr_03",
+              "type": "function",
+              "function": {
+                "name": "translate_arxiv_pdf",
+                "arguments": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "multi_cv5_dl1_cache_tr_03",
+          "content": "{\"task_id\": \"mocktask0001\", \"paper_id\": \"2608.14546v1\", \"status\": \"PENDING\"}"
+        },
+        {
+          "role": "assistant",
+          "content": "2608.14546v1 的 PDF 已就绪，译文未就绪。\n2608.14546v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        }
+      ],
+      "scores": {
+        "SFT": [
+          false,
+          false,
+          false
+        ],
+        "E4": [
+          false,
+          false,
+          false
+        ]
+      },
+      "failed_trials": [
+        {
+          "model": "SFT",
+          "trial": 0,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CV",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14546v1 的 PDF 已就绪。\n2608.14546v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "SFT",
+          "trial": 1,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CV",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14546v1 的 PDF 已就绪。\n2608.14546v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "SFT",
+          "trial": 2,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CV",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14546v1 的 PDF 已就绪。2608.14546v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 0,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CV",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14546v1 的 PDF 已就绪。2608.14546v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 1,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CV",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14546v1 的 PDF 已就绪。2608.14546v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        },
+        {
+          "model": "E4",
+          "trial": 2,
+          "failed_checks": [
+            "tools",
+            "args",
+            "ref"
+          ],
+          "history": [
+            {
+              "action": {
+                "name": "get_recently_submitted_cs_papers",
+                "args": {
+                  "max_results": 5,
+                  "aspect": "CV",
+                  "days": 7,
+                  "output_path": null,
+                  "save_to_file": true
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "download_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": {
+                "name": "translate_arxiv_pdf",
+                "args": {
+                  "ref": 1,
+                  "force": false,
+                  "service": "bing",
+                  "threads": 4,
+                  "keep_dual": false
+                }
+              },
+              "issue": null
+            },
+            {
+              "action": "FINISH",
+              "issue": null
+            }
+          ],
+          "final": "2608.14546v1 的 PDF 已就绪。2608.14546v1 的翻译任务已受理（PENDING，任务编号 mocktask0001），译文尚未就绪。"
+        }
+      ]
+    },
+    "infeasible_zero_index": {
+      "user": "下载第0篇论文",
+      "split": "train",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          },
+          "observation": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2608.14539v1\", \"title\": \"Decoding the Past: An Uncertainty-Aware Deep Learning Framework for Sex Attribution in Prehistoric Hand Stencils\"}, {\"ref\": 2, \"paper_id\": \"2608.14530v1\", \"title\": \"Marionette: Predicting World States, Rendering Geometry, Painting Appearance\"}, {\"ref\": 3, \"paper_id\": \"2608.14528v1\", \"title\": \"Handover of In-Context Learning State Across Session Boundaries\"}, {\"ref\": 4, \"paper_id\": \"2611.18553v1\", \"title\": \"WeightBench: Evaluating Language Models as Weight-Space Programmers\"}, {\"ref\": 5, \"paper_id\": \"2611.18543v1\", \"title\": \"Imitation Bootstrapped Multi-Agent Reinforcement Learning\"}]}",
+          "tool_issue": null
+        }
+      ],
+      "steps": [],
+      "expected_paper_ids": [],
+      "end": "blocked",
+      "reason": "invalid_reference",
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "指定论文序号超出当前候选列表的范围。请提供有效的论文序号。"
+        }
+      ],
+      "scores": {},
+      "failed_trials": []
+    },
+    "infeasible_unknown_id": {
+      "user": "下载 2999.99999v1 这篇论文",
+      "split": "train",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 7,
+            "max_results": 5
+          },
+          "observation": "{\"paper_count\": 5, \"papers\": [{\"ref\": 1, \"paper_id\": \"2608.14539v1\", \"title\": \"Decoding the Past: An Uncertainty-Aware Deep Learning Framework for Sex Attribution in Prehistoric Hand Stencils\"}, {\"ref\": 2, \"paper_id\": \"2608.14530v1\", \"title\": \"Marionette: Predicting World States, Rendering Geometry, Painting Appearance\"}, {\"ref\": 3, \"paper_id\": \"2608.14528v1\", \"title\": \"Handover of In-Context Learning State Across Session Boundaries\"}, {\"ref\": 4, \"paper_id\": \"2611.18553v1\", \"title\": \"WeightBench: Evaluating Language Models as Weight-Space Programmers\"}, {\"ref\": 5, \"paper_id\": \"2611.18543v1\", \"title\": \"Imitation Bootstrapped Multi-Agent Reinforcement Learning\"}]}",
+          "tool_issue": null
+        }
+      ],
+      "steps": [],
+      "expected_paper_ids": [],
+      "end": "blocked",
+      "reason": "paper_not_found",
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "当前会话和离线快照中找不到该 arXiv ID，无法下载指定论文。请核对 ID 和版本。"
+        }
+      ],
+      "scores": {},
+      "failed_trials": []
+    },
+    "infeasible_no_session": {
+      "user": "把刚才那篇论文翻译一下",
+      "split": "train",
+      "setup": [],
+      "steps": [],
+      "expected_paper_ids": [],
+      "end": "blocked",
+      "reason": "missing_context",
+      "expert_turns": [
+        {
+          "role": "assistant",
+          "content": "当前会话没有最近操作的论文，无法确定指代。请提供论文的完整 arXiv ID，或先建立候选列表。"
+        }
+      ],
+      "scores": {},
+      "failed_trials": []
+    }
+  },
+  "scorer_examples": [
+    {
+      "answer": "当前工具无法发送约稿邮件，无法代为联系作者。",
+      "semantic": "explained_block",
+      "strict": true
+    },
+    {
+      "answer": "当前会话没有指定论文引用。请提供论文编号。",
+      "semantic": "ambiguous",
+      "strict": false
+    },
+    {
+      "answer": "我手头的接口仅供论文检索，寄信请使用您自己的账户。",
+      "semantic": "ambiguous",
+      "strict": false
+    },
+    {
+      "answer": "因为缺少论文编号，我无法发送邮件。",
+      "semantic": "explained_block",
+      "strict": true
+    }
+  ],
+  "e4_training_groups": [
+    {
+      "group": 0,
+      "task": "native_grpo_versioned_download_cache_translate",
+      "outcomes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "n_valid": 4,
+      "success": 0,
+      "mixed": false,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": false,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 1,
+      "task": "native_grpo_v2_conditional_RO_1",
+      "outcomes": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 3,
+      "mixed": true,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 2,
+      "task": "infeasible_no_session",
+      "outcomes": [
+        0,
+        null,
+        1,
+        1
+      ],
+      "n_valid": 3,
+      "success": 2,
+      "mixed": true,
+      "n_action_sequences": 1,
+      "n_token_sequences": 3,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 3,
+      "task": "chain_lg10_dl_tr_last",
+      "outcomes": [
+        1,
+        1,
+        0,
+        1
+      ],
+      "n_valid": 4,
+      "success": 3,
+      "mixed": true,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 4,
+      "task": "native_grpo_v2_scope_all_19_1",
+      "outcomes": [
+        1,
+        0,
+        null,
+        1
+      ],
+      "n_valid": 3,
+      "success": 2,
+      "mixed": true,
+      "n_action_sequences": 2,
+      "n_token_sequences": 3,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 5,
+      "task": "native_grpo_v2_conditional_AI_1",
+      "outcomes": [
+        1,
+        0,
+        0,
+        1
+      ],
+      "n_valid": 4,
+      "success": 2,
+      "mixed": true,
+      "n_action_sequences": 3,
+      "n_token_sequences": 4,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 6,
+      "task": "native_grpo_v2_pair_RO_2",
+      "outcomes": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 3,
+      "mixed": true,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 7,
+      "task": "native_grpo_v2_scope_CV_12_1",
+      "outcomes": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 4,
+      "mixed": false,
+      "n_action_sequences": 1,
+      "n_token_sequences": 4,
+      "nonzero_episode": false,
+      "nonzero_local": false,
+      "nonzero_advantage": false
+    },
+    {
+      "group": 8,
+      "task": "chain_ro5_dl_three",
+      "outcomes": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 3,
+      "mixed": true,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 9,
+      "task": "native_grpo_v2_pair_AI_2",
+      "outcomes": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 3,
+      "mixed": true,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 10,
+      "task": "native_grpo_v2_pair_CV_3",
+      "outcomes": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 4,
+      "mixed": false,
+      "n_action_sequences": 1,
+      "n_token_sequences": 4,
+      "nonzero_episode": false,
+      "nonzero_local": false,
+      "nonzero_advantage": false
+    },
+    {
+      "group": 11,
+      "task": "native_grpo_v2_conditional_CV_1",
+      "outcomes": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 3,
+      "mixed": true,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 12,
+      "task": "native_grpo_invalid_index",
+      "outcomes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "n_valid": 4,
+      "success": 0,
+      "mixed": false,
+      "n_action_sequences": 3,
+      "n_token_sequences": 4,
+      "nonzero_episode": false,
+      "nonzero_local": false,
+      "nonzero_advantage": false
+    },
+    {
+      "group": 13,
+      "task": "native_grpo_v2_pair_RO_4",
+      "outcomes": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 4,
+      "mixed": false,
+      "n_action_sequences": 1,
+      "n_token_sequences": 4,
+      "nonzero_episode": false,
+      "nonzero_local": false,
+      "nonzero_advantage": false
+    },
+    {
+      "group": 14,
+      "task": "native_grpo_v2_scope_all_5_0",
+      "outcomes": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 4,
+      "mixed": false,
+      "n_action_sequences": 1,
+      "n_token_sequences": 1,
+      "nonzero_episode": false,
+      "nonzero_local": false,
+      "nonzero_advantage": false
+    },
+    {
+      "group": 15,
+      "task": "native_grpo_search_download_abstract",
+      "outcomes": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 2,
+      "mixed": true,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 16,
+      "task": "native_grpo_v2_scope_all_19_0",
+      "outcomes": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 4,
+      "mixed": false,
+      "n_action_sequences": 1,
+      "n_token_sequences": 4,
+      "nonzero_episode": false,
+      "nonzero_local": false,
+      "nonzero_advantage": false
+    },
+    {
+      "group": 17,
+      "task": "infeasible_no_session",
+      "outcomes": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "n_valid": 4,
+      "success": 3,
+      "mixed": true,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 18,
+      "task": "native_grpo_v2_conditional_RO_1",
+      "outcomes": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "n_valid": 4,
+      "success": 3,
+      "mixed": true,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 19,
+      "task": "native_grpo_v2_pair_AI_4",
+      "outcomes": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 4,
+      "mixed": false,
+      "n_action_sequences": 1,
+      "n_token_sequences": 4,
+      "nonzero_episode": false,
+      "nonzero_local": false,
+      "nonzero_advantage": false
+    },
+    {
+      "group": 20,
+      "task": "native_grpo_v2_scope_all_19_0",
+      "outcomes": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 4,
+      "mixed": false,
+      "n_action_sequences": 1,
+      "n_token_sequences": 3,
+      "nonzero_episode": false,
+      "nonzero_local": false,
+      "nonzero_advantage": false
+    },
+    {
+      "group": 21,
+      "task": "native_grpo_search_download_abstract",
+      "outcomes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "n_valid": 4,
+      "success": 0,
+      "mixed": false,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": false,
+      "nonzero_local": false,
+      "nonzero_advantage": false
+    },
+    {
+      "group": 22,
+      "task": "native_grpo_v2_scope_CV_12_1",
+      "outcomes": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 2,
+      "mixed": true,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    },
+    {
+      "group": 23,
+      "task": "native_grpo_v2_pair_AI_4",
+      "outcomes": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "n_valid": 4,
+      "success": 4,
+      "mixed": false,
+      "n_action_sequences": 1,
+      "n_token_sequences": 4,
+      "nonzero_episode": false,
+      "nonzero_local": false,
+      "nonzero_advantage": false
+    },
+    {
+      "group": 24,
+      "task": "native_grpo_v2_scope_all_19_1",
+      "outcomes": [
+        1,
+        1,
+        0,
+        1
+      ],
+      "n_valid": 4,
+      "success": 3,
+      "mixed": true,
+      "n_action_sequences": 2,
+      "n_token_sequences": 4,
+      "nonzero_episode": true,
+      "nonzero_local": true,
+      "nonzero_advantage": true
+    }
+  ]
+}
