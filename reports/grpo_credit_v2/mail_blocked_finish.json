@@ -1,0 +1,160 @@
+{
+  "task_id": "infeasible_unsupported_action",
+  "seed": 42,
+  "repeat": 3,
+  "prompt_sha256": "0e0f184420b26a013b5b22df0a29b624b6ea237403d012db73e80668c6eedfd2",
+  "gpu_archive_sha256": "da3040f8361d3cbcebc4649235420cbdca6022a4930ab8ee9b16b48ffd9f9def",
+  "sft_data": {
+    "train_sha256": "42002233e1fe03cd4e4fbb31b44f9565f588ec1d0de5e42995f540aa87c58e68",
+    "decisions": 505,
+    "trajectories": 188,
+    "examples": [
+      {
+        "task_id": "native_unsupported_email_pdf",
+        "request": "我想把已下载的论文 PDF 作为附件发送到我的邮箱，请直接帮我发送。",
+        "terminal_reason": "unsupported_capability",
+        "partial_reason": null,
+        "supervised_completions": [
+          [
+            {
+              "role": "assistant",
+              "content": "当前工具无法发送邮件附件，因此无法代为发送这篇论文的 PDF。"
+            }
+          ]
+        ]
+      },
+      {
+        "task_id": "native_final_move",
+        "request": "把已下载的第一篇 PDF 移到我的桌面。",
+        "terminal_reason": "unsupported_capability",
+        "partial_reason": null,
+        "supervised_completions": [
+          [
+            {
+              "role": "assistant",
+              "content": "当前工具不支持移动文件，无法把该 PDF 移到桌面。"
+            }
+          ]
+        ]
+      },
+      {
+        "task_id": "native_final_watermark",
+        "request": "给已下载的第一篇 PDF 添加水印。",
+        "terminal_reason": "unsupported_capability",
+        "partial_reason": null,
+        "supervised_completions": [
+          [
+            {
+              "role": "assistant",
+              "content": "当前工具不支持编辑 PDF 或添加水印。"
+            }
+          ]
+        ]
+      },
+      {
+        "task_id": "native_final_partial",
+        "request": "先告诉我第 1 篇还有没有 PDF 缓存，再帮这份 PDF 添加水印。",
+        "terminal_reason": null,
+        "partial_reason": "当前工具不支持给 PDF 添加水印。",
+        "supervised_completions": [
+          [
+            {
+              "role": "assistant",
+              "content": "接下来使用指定引用 1。我会查询缓存状态。",
+              "tool_calls": [
+                {
+                  "id": "native_final_partial_00",
+                  "type": "function",
+                  "function": {
+                    "name": "get_paper_cache_status",
+                    "arguments": {
+                      "ref": 1
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "role": "assistant",
+              "content": "2608.14546v1 的 PDF 已就绪，译文未就绪。\n当前工具不支持给 PDF 添加水印。"
+            }
+          ]
+        ]
+      }
+    ]
+  },
+  "runs": {
+    "SFT": {
+      "adapter_sha256": "789af8cf28960892a1fde034d32f9b8ddf230e8450552be70d15024c964ed6c8",
+      "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+      "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+      "trace_sha256": "97e0136b8269fee7ef20868f26a7ee4ba77aa5550fdac912f09d47323173adf5",
+      "summary_sha256": "4c8a41a7e89bb1d22d4c10ac9e6431a80e4cabeb452370dbad1fe4c5f00c9abb",
+      "strict": 0,
+      "zero_calls": 3,
+      "trials": [
+        {
+          "trial": 0,
+          "strict": false,
+          "tool_calls_executed": 0,
+          "termination": "FINISH",
+          "explained_block": false,
+          "final_answer": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID（保留版本后缀）。"
+        },
+        {
+          "trial": 1,
+          "strict": false,
+          "tool_calls_executed": 0,
+          "termination": "FINISH",
+          "explained_block": false,
+          "final_answer": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID（保留版本后缀）。"
+        },
+        {
+          "trial": 2,
+          "strict": false,
+          "tool_calls_executed": 0,
+          "termination": "FINISH",
+          "explained_block": false,
+          "final_answer": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID。"
+        }
+      ]
+    },
+    "E4": {
+      "adapter_sha256": "694e82de8b234be615e87a5f1e02c923bc2a00a4261ffdf7981b080004f878e1",
+      "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+      "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+      "trace_sha256": "5a8794dd8679d1922a671076d06eb951f20e9a4577bbe187e5ec63ca756059f3",
+      "summary_sha256": "0571f5a5937cbcc34339c8325a7866752e49319341443fdde768a1a9f1bad01a",
+      "strict": 0,
+      "zero_calls": 3,
+      "trials": [
+        {
+          "trial": 0,
+          "strict": false,
+          "tool_calls_executed": 0,
+          "termination": "FINISH",
+          "explained_block": false,
+          "final_answer": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID（保留版本后缀）。"
+        },
+        {
+          "trial": 1,
+          "strict": false,
+          "tool_calls_executed": 0,
+          "termination": "FINISH",
+          "explained_block": false,
+          "final_answer": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID（保留版本后缀）。"
+        },
+        {
+          "trial": 2,
+          "strict": false,
+          "tool_calls_executed": 0,
+          "termination": "FINISH",
+          "explained_block": false,
+          "final_answer": "当前会话没有指定论文引用。请提供论文编号（1-based）或完整 arXiv ID。"
+        }
+      ]
+    }
+  }
+}
