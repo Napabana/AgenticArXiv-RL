@@ -1,0 +1,194 @@
+{
+  "probe_groups": 168,
+  "e0_groups": 25,
+  "probe": {
+    "histograms": {
+      "anchor_reasons": {
+        "identical_action": {
+          "numerator": 810,
+          "denominator": 1707,
+          "rate": 0.47451669595782076
+        },
+        "signal": {
+          "numerator": 320,
+          "denominator": 1707,
+          "rate": 0.18746338605741067
+        },
+        "singleton_state": {
+          "numerator": 464,
+          "denominator": 1707,
+          "rate": 0.27182190978324544
+        },
+        "zero_variance": {
+          "numerator": 57,
+          "denominator": 1707,
+          "rate": 0.033391915641476276
+        },
+        "truncation": {
+          "numerator": 56,
+          "denominator": 1707,
+          "rate": 0.032806092560046865
+        }
+      },
+      "dfa_reasons": {
+        "identical_action": {
+          "numerator": 1144,
+          "denominator": 1707,
+          "rate": 0.6701816051552432
+        },
+        "signal": {
+          "numerator": 278,
+          "denominator": 1707,
+          "rate": 0.1628588166373755
+        },
+        "unverified": {
+          "numerator": 159,
+          "denominator": 1707,
+          "rate": 0.09314586994727592
+        },
+        "singleton_state": {
+          "numerator": 10,
+          "denominator": 1707,
+          "rate": 0.005858230814294083
+        },
+        "truncation": {
+          "numerator": 56,
+          "denominator": 1707,
+          "rate": 0.032806092560046865
+        },
+        "zero_variance": {
+          "numerator": 60,
+          "denominator": 1707,
+          "rate": 0.0351493848857645
+        }
+      },
+      "anchor_sizes": {
+        "4": {
+          "numerator": 209,
+          "denominator": 815,
+          "rate": 0.25644171779141106
+        },
+        "3": {
+          "numerator": 67,
+          "denominator": 815,
+          "rate": 0.08220858895705521
+        },
+        "2": {
+          "numerator": 75,
+          "denominator": 815,
+          "rate": 0.09202453987730061
+        },
+        "1": {
+          "numerator": 464,
+          "denominator": 815,
+          "rate": 0.5693251533742332
+        }
+      }
+    },
+    "ranking": {
+      "numerator": 118,
+      "denominator": 137,
+      "rate": 0.8613138686131386
+    },
+    "coverage": {
+      "numerator": 320,
+      "denominator": 1651,
+      "rate": 0.19382192610539067
+    }
+  },
+  "e0_replay": {
+    "histograms": {
+      "anchor_reasons": {
+        "identical_action": {
+          "numerator": 114,
+          "denominator": 271,
+          "rate": 0.42066420664206644
+        },
+        "singleton_state": {
+          "numerator": 77,
+          "denominator": 271,
+          "rate": 0.28413284132841327
+        },
+        "signal": {
+          "numerator": 60,
+          "denominator": 271,
+          "rate": 0.22140221402214022
+        },
+        "truncation": {
+          "numerator": 17,
+          "denominator": 271,
+          "rate": 0.06273062730627306
+        },
+        "zero_variance": {
+          "numerator": 3,
+          "denominator": 271,
+          "rate": 0.01107011070110701
+        }
+      },
+      "dfa_reasons": {
+        "identical_action": {
+          "numerator": 182,
+          "denominator": 271,
+          "rate": 0.6715867158671587
+        },
+        "signal": {
+          "numerator": 45,
+          "denominator": 271,
+          "rate": 0.16605166051660517
+        },
+        "unverified": {
+          "numerator": 21,
+          "denominator": 271,
+          "rate": 0.07749077490774908
+        },
+        "singleton_state": {
+          "numerator": 3,
+          "denominator": 271,
+          "rate": 0.01107011070110701
+        },
+        "truncation": {
+          "numerator": 17,
+          "denominator": 271,
+          "rate": 0.06273062730627306
+        },
+        "zero_variance": {
+          "numerator": 3,
+          "denominator": 271,
+          "rate": 0.01107011070110701
+        }
+      },
+      "anchor_sizes": {
+        "4": {
+          "numerator": 28,
+          "denominator": 131,
+          "rate": 0.21374045801526717
+        },
+        "3": {
+          "numerator": 13,
+          "denominator": 131,
+          "rate": 0.09923664122137404
+        },
+        "1": {
+          "numerator": 77,
+          "denominator": 131,
+          "rate": 0.5877862595419847
+        },
+        "2": {
+          "numerator": 13,
+          "denominator": 131,
+          "rate": 0.09923664122137404
+        }
+      }
+    },
+    "ranking": {
+      "numerator": 23,
+      "denominator": 25,
+      "rate": 0.92
+    },
+    "coverage": {
+      "numerator": 60,
+      "denominator": 254,
+      "rate": 0.23622047244094488
+    }
+  }
+}

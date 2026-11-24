@@ -1,0 +1,720 @@
+{
+  "historical_evidence_sha256": {
+    "reports/native_grpo_20261123/native_grpo_report.md": "57186f25496231c9a63d4217ea8bbda49f4d17029881915c1c637bdfc4433aa3",
+    "reports/native_grpo_20261123/native_grpo_report.json": "a231babcb22fdbe22f44798b9793cb29b1b3f8b834476c9e5acf20c91dede536",
+    "reports/native_grpo_20261123/paired_case_audit.json": "e377d85b1d7a227d2f74c1e4252129745585e31d3da9c946882c277cb517530a",
+    "reports/native_grpo_20261123/training_signal_audit.json": "5ae5ab018dcb757b9be5f41534c8cbd39f25e6d177b1afd38b4ad03af76daee8",
+    "reports/native_grpo_followup_20261124/experiment.md": "d95251faa80d0faac25c6f0a4a8e8720f93b647151f87656ef947fa404f834f9",
+    "reports/native_grpo_followup_20261124/paired_dev.json": "262e2a50a3acd3973a75792b051c493576bf592b5aae59e115559a5b0eded862",
+    "reports/native_grpo_followup_20261124/pilot_summary.json": "2803903fccf1282eea4f9f92ad252b8001acf84594391b0e10a39a8b7028cc0a",
+    "reports/native_grpo_followup_20261124/probe_summary.json": "9e07c628646b3cdccc23aac6eda6601a7bd22bccff034df8c2e5be172dc5ac0a",
+    "reports/native_grpo_followup_20261124/prior_policy_reward_audit.json": "3db1f595641ead9e5f8627099d54537309be8d2a4d20250cb764f1ab1358f7ec"
+  },
+  "weaknesses": [
+    {
+      "weakness_id": "all_cs_scope",
+      "error_type": "all_cs_scope",
+      "task_family": [
+        "search_scope"
+      ],
+      "priority": "P0",
+      "evidence_source": [
+        "native_grpo_20261123/paired_case_audit.json",
+        "native_grpo_followup_20261124/paired_dev.json",
+        "frozen Probe raw trajectories",
+        "E0 raw training trajectories"
+      ],
+      "pass_to_fail_count": 6,
+      "fail_to_pass_count": 0,
+      "historical_metric": {
+        "name": "conditional",
+        "sft93": {
+          "count": 11,
+          "total": 15
+        },
+        "grpo93": {
+          "count": 5,
+          "total": 15
+        },
+        "sft_dev": {
+          "count": 5,
+          "total": 6
+        },
+        "e0_dev": {
+          "count": 3,
+          "total": 6
+        }
+      },
+      "probe_groups": 12,
+      "informative_groups": 3,
+      "train_task_ids": [
+        "native_grpo_v2_scope_all_5_0",
+        "native_grpo_v2_scope_all_19_0",
+        "native_grpo_v2_scope_all_19_1"
+      ],
+      "train_exposure_groups": 3,
+      "train_observed_errors": 0,
+      "last_observed_checkpoint": "E0/checkpoint-25",
+      "status": "unresolved"
+    },
+    {
+      "weakness_id": "second_cache",
+      "error_type": "second_cache",
+      "task_family": [
+        "conditional_cache",
+        "two_paper_cache"
+      ],
+      "priority": "P0",
+      "evidence_source": [
+        "native_grpo_20261123/paired_case_audit.json",
+        "native_grpo_followup_20261124/paired_dev.json",
+        "frozen Probe raw trajectories",
+        "E0 raw training trajectories"
+      ],
+      "pass_to_fail_count": 3,
+      "fail_to_pass_count": 0,
+      "historical_metric": {
+        "name": "cache",
+        "sft93": {
+          "count": 20,
+          "total": 27
+        },
+        "grpo93": {
+          "count": 17,
+          "total": 27
+        },
+        "sft_dev": {
+          "count": 2,
+          "total": 3
+        },
+        "e0_dev": {
+          "count": 3,
+          "total": 3
+        }
+      },
+      "probe_groups": 40,
+      "informative_groups": 27,
+      "train_task_ids": [
+        "native_grpo_v2_pair_CV_3",
+        "native_grpo_v2_conditional_CV_1",
+        "native_grpo_v2_pair_AI_2",
+        "native_grpo_v2_pair_AI_4",
+        "native_grpo_v2_conditional_AI_1",
+        "native_grpo_v2_pair_RO_4",
+        "native_grpo_v2_pair_RO_2",
+        "native_grpo_v2_conditional_RO_1"
+      ],
+      "train_exposure_groups": 11,
+      "train_observed_errors": 9,
+      "last_observed_checkpoint": "E0/checkpoint-25",
+      "status": "unresolved"
+    },
+    {
+      "weakness_id": "pending",
+      "error_type": "pending",
+      "task_family": [
+        "A/C/D",
+        "C"
+      ],
+      "priority": "P0",
+      "evidence_source": [
+        "native_grpo_20261123/paired_case_audit.json",
+        "native_grpo_followup_20261124/paired_dev.json",
+        "frozen Probe raw trajectories",
+        "E0 raw training trajectories"
+      ],
+      "pass_to_fail_count": null,
+      "fail_to_pass_count": null,
+      "historical_metric": {
+        "name": "pending_ready",
+        "sft93": {
+          "count": 20,
+          "total": 20
+        },
+        "grpo93": {
+          "count": 18,
+          "total": 18
+        },
+        "sft_dev": {
+          "count": 2,
+          "total": 2
+        },
+        "e0_dev": {
+          "count": 0,
+          "total": 2
+        }
+      },
+      "probe_groups": 8,
+      "informative_groups": 0,
+      "train_task_ids": [
+        "chain_lg10_dl_tr_last",
+        "native_grpo_versioned_download_cache_translate"
+      ],
+      "train_exposure_groups": 3,
+      "train_observed_errors": 2,
+      "last_observed_checkpoint": "E0/checkpoint-25",
+      "status": "no_signal"
+    },
+    {
+      "weakness_id": "early_finish",
+      "error_type": "early_finish",
+      "task_family": [
+        "A/C/D",
+        "C",
+        "conditional_cache",
+        "two_paper_cache"
+      ],
+      "priority": "P0",
+      "evidence_source": [
+        "native_grpo_20261123/paired_case_audit.json",
+        "native_grpo_followup_20261124/paired_dev.json",
+        "frozen Probe raw trajectories",
+        "E0 raw training trajectories"
+      ],
+      "pass_to_fail_count": null,
+      "fail_to_pass_count": null,
+      "historical_metric": {
+        "name": "multi_step",
+        "sft93": {
+          "count": 31,
+          "total": 39
+        },
+        "grpo93": {
+          "count": 28,
+          "total": 39
+        },
+        "sft_dev": {
+          "count": 5,
+          "total": 6
+        },
+        "e0_dev": {
+          "count": 6,
+          "total": 6
+        }
+      },
+      "probe_groups": 56,
+      "informative_groups": 25,
+      "train_task_ids": [
+        "chain_ro5_dl_three",
+        "chain_lg10_dl_tr_last",
+        "native_grpo_versioned_download_cache_translate",
+        "native_grpo_search_download_abstract",
+        "native_grpo_v2_pair_CV_3",
+        "native_grpo_v2_conditional_CV_1",
+        "native_grpo_v2_pair_AI_2",
+        "native_grpo_v2_pair_AI_4",
+        "native_grpo_v2_conditional_AI_1",
+        "native_grpo_v2_pair_RO_4",
+        "native_grpo_v2_pair_RO_2",
+        "native_grpo_v2_conditional_RO_1"
+      ],
+      "train_exposure_groups": 16,
+      "train_observed_errors": 7,
+      "last_observed_checkpoint": "E0/checkpoint-25",
+      "status": "unresolved"
+    },
+    {
+      "weakness_id": "reference_argument",
+      "error_type": "reference_argument",
+      "task_family": [
+        "A/C/D",
+        "C",
+        "conditional_cache",
+        "search_scope",
+        "two_paper_cache"
+      ],
+      "priority": "P1",
+      "evidence_source": [
+        "native_grpo_20261123/paired_case_audit.json",
+        "native_grpo_followup_20261124/paired_dev.json",
+        "frozen Probe raw trajectories",
+        "E0 raw training trajectories"
+      ],
+      "pass_to_fail_count": null,
+      "fail_to_pass_count": null,
+      "historical_metric": {
+        "name": "references",
+        "sft93": {
+          "count": 58.5,
+          "total": 66
+        },
+        "grpo93": {
+          "count": 57.0,
+          "total": 66
+        },
+        "sft_dev": {
+          "count": 11.5,
+          "total": 12
+        },
+        "e0_dev": {
+          "count": 12.0,
+          "total": 12
+        }
+      },
+      "probe_groups": 76,
+      "informative_groups": 22,
+      "train_task_ids": [
+        "chain_ro5_dl_three",
+        "chain_lg10_dl_tr_last",
+        "native_grpo_versioned_download_cache_translate",
+        "native_grpo_search_download_abstract",
+        "native_grpo_v2_scope_all_5_0",
+        "native_grpo_v2_scope_CV_12_1",
+        "native_grpo_v2_scope_all_19_0",
+        "native_grpo_v2_scope_all_19_1",
+        "native_grpo_v2_pair_CV_3",
+        "native_grpo_v2_conditional_CV_1",
+        "native_grpo_v2_pair_AI_2",
+        "native_grpo_v2_pair_AI_4",
+        "native_grpo_v2_conditional_AI_1",
+        "native_grpo_v2_pair_RO_4",
+        "native_grpo_v2_pair_RO_2",
+        "native_grpo_v2_conditional_RO_1"
+      ],
+      "train_exposure_groups": 21,
+      "train_observed_errors": 7,
+      "last_observed_checkpoint": "E0/checkpoint-25",
+      "status": "unresolved"
+    },
+    {
+      "weakness_id": "repeat",
+      "error_type": "repeat",
+      "task_family": [
+        "A/C/D",
+        "C",
+        "E",
+        "conditional_cache",
+        "search_scope",
+        "two_paper_cache"
+      ],
+      "priority": "P2",
+      "evidence_source": [
+        "native_grpo_20261123/paired_case_audit.json",
+        "native_grpo_followup_20261124/paired_dev.json",
+        "frozen Probe raw trajectories",
+        "E0 raw training trajectories"
+      ],
+      "pass_to_fail_count": null,
+      "fail_to_pass_count": null,
+      "historical_metric": {
+        "name": "repeats",
+        "sft93": {
+          "count": 12,
+          "total": 172
+        },
+        "grpo93": {
+          "count": 0,
+          "total": 155
+        },
+        "sft_dev": {
+          "count": 0,
+          "total": 28
+        },
+        "e0_dev": {
+          "count": 4,
+          "total": 37
+        }
+      },
+      "probe_groups": 84,
+      "informative_groups": 2,
+      "train_task_ids": [
+        "chain_ro5_dl_three",
+        "chain_lg10_dl_tr_last",
+        "infeasible_no_session",
+        "native_grpo_versioned_download_cache_translate",
+        "native_grpo_invalid_index",
+        "native_grpo_search_download_abstract",
+        "native_grpo_v2_scope_all_5_0",
+        "native_grpo_v2_scope_CV_12_1",
+        "native_grpo_v2_scope_all_19_0",
+        "native_grpo_v2_scope_all_19_1",
+        "native_grpo_v2_pair_CV_3",
+        "native_grpo_v2_conditional_CV_1",
+        "native_grpo_v2_pair_AI_2",
+        "native_grpo_v2_pair_AI_4",
+        "native_grpo_v2_conditional_AI_1",
+        "native_grpo_v2_pair_RO_4",
+        "native_grpo_v2_pair_RO_2",
+        "native_grpo_v2_conditional_RO_1"
+      ],
+      "train_exposure_groups": 25,
+      "train_observed_errors": 5,
+      "last_observed_checkpoint": "E0/checkpoint-25",
+      "status": "unresolved"
+    },
+    {
+      "weakness_id": "tool_parse",
+      "error_type": "tool_parse",
+      "task_family": [
+        "A/C/D",
+        "C",
+        "E",
+        "conditional_cache",
+        "search_scope",
+        "two_paper_cache"
+      ],
+      "priority": "P2",
+      "evidence_source": [
+        "native_grpo_20261123/paired_case_audit.json",
+        "native_grpo_followup_20261124/paired_dev.json",
+        "frozen Probe raw trajectories",
+        "E0 raw training trajectories"
+      ],
+      "pass_to_fail_count": null,
+      "fail_to_pass_count": null,
+      "historical_metric": {
+        "name": "errors",
+        "sft93": {
+          "count": 15,
+          "total": 172
+        },
+        "grpo93": {
+          "count": 3,
+          "total": 155
+        },
+        "sft_dev": {
+          "count": 0,
+          "total": 28
+        },
+        "e0_dev": {
+          "count": 6,
+          "total": 37
+        }
+      },
+      "probe_groups": 84,
+      "informative_groups": 4,
+      "train_task_ids": [
+        "chain_ro5_dl_three",
+        "chain_lg10_dl_tr_last",
+        "infeasible_no_session",
+        "native_grpo_versioned_download_cache_translate",
+        "native_grpo_invalid_index",
+        "native_grpo_search_download_abstract",
+        "native_grpo_v2_scope_all_5_0",
+        "native_grpo_v2_scope_CV_12_1",
+        "native_grpo_v2_scope_all_19_0",
+        "native_grpo_v2_scope_all_19_1",
+        "native_grpo_v2_pair_CV_3",
+        "native_grpo_v2_conditional_CV_1",
+        "native_grpo_v2_pair_AI_2",
+        "native_grpo_v2_pair_AI_4",
+        "native_grpo_v2_conditional_AI_1",
+        "native_grpo_v2_pair_RO_4",
+        "native_grpo_v2_pair_RO_2",
+        "native_grpo_v2_conditional_RO_1"
+      ],
+      "train_exposure_groups": 25,
+      "train_observed_errors": 16,
+      "last_observed_checkpoint": "E0/checkpoint-25",
+      "status": "unresolved"
+    }
+  ],
+  "plan": [
+    {
+      "group_id": 0,
+      "task_id": "native_grpo_versioned_download_cache_translate",
+      "prompt": "native_grpo_versioned_download_cache_translate",
+      "stratum": "p0",
+      "weakness_ids": [
+        "early_finish",
+        "pending",
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 1,
+      "task_id": "native_grpo_v2_conditional_RO_1",
+      "prompt": "native_grpo_v2_conditional_RO_1",
+      "stratum": "multistep",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "second_cache",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 2,
+      "task_id": "infeasible_no_session",
+      "prompt": "infeasible_no_session",
+      "stratum": "control",
+      "weakness_ids": [
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 3,
+      "task_id": "chain_lg10_dl_tr_last",
+      "prompt": "chain_lg10_dl_tr_last",
+      "stratum": "p0",
+      "weakness_ids": [
+        "early_finish",
+        "pending",
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 4,
+      "task_id": "native_grpo_v2_scope_all_19_1",
+      "prompt": "native_grpo_v2_scope_all_19_1",
+      "stratum": "p0",
+      "weakness_ids": [
+        "all_cs_scope",
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 5,
+      "task_id": "native_grpo_v2_conditional_AI_1",
+      "prompt": "native_grpo_v2_conditional_AI_1",
+      "stratum": "multistep",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "second_cache",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 6,
+      "task_id": "native_grpo_v2_pair_RO_2",
+      "prompt": "native_grpo_v2_pair_RO_2",
+      "stratum": "p0",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "second_cache",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 7,
+      "task_id": "native_grpo_v2_scope_CV_12_1",
+      "prompt": "native_grpo_v2_scope_CV_12_1",
+      "stratum": "control",
+      "weakness_ids": [
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 8,
+      "task_id": "chain_ro5_dl_three",
+      "prompt": "chain_ro5_dl_three",
+      "stratum": "multistep",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 9,
+      "task_id": "native_grpo_v2_pair_AI_2",
+      "prompt": "native_grpo_v2_pair_AI_2",
+      "stratum": "p0",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "second_cache",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 10,
+      "task_id": "native_grpo_v2_pair_CV_3",
+      "prompt": "native_grpo_v2_pair_CV_3",
+      "stratum": "p0",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "second_cache",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 11,
+      "task_id": "native_grpo_v2_conditional_CV_1",
+      "prompt": "native_grpo_v2_conditional_CV_1",
+      "stratum": "multistep",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "second_cache",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 12,
+      "task_id": "native_grpo_invalid_index",
+      "prompt": "native_grpo_invalid_index",
+      "stratum": "control",
+      "weakness_ids": [
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 13,
+      "task_id": "native_grpo_v2_pair_RO_4",
+      "prompt": "native_grpo_v2_pair_RO_4",
+      "stratum": "p0",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "second_cache",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 14,
+      "task_id": "native_grpo_v2_scope_all_5_0",
+      "prompt": "native_grpo_v2_scope_all_5_0",
+      "stratum": "p0",
+      "weakness_ids": [
+        "all_cs_scope",
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 15,
+      "task_id": "native_grpo_search_download_abstract",
+      "prompt": "native_grpo_search_download_abstract",
+      "stratum": "multistep",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 16,
+      "task_id": "native_grpo_v2_scope_all_19_0",
+      "prompt": "native_grpo_v2_scope_all_19_0",
+      "stratum": "p0",
+      "weakness_ids": [
+        "all_cs_scope",
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 17,
+      "task_id": "infeasible_no_session",
+      "prompt": "infeasible_no_session",
+      "stratum": "control",
+      "weakness_ids": [
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 18,
+      "task_id": "native_grpo_v2_conditional_RO_1",
+      "prompt": "native_grpo_v2_conditional_RO_1",
+      "stratum": "multistep",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "second_cache",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 19,
+      "task_id": "native_grpo_v2_pair_AI_4",
+      "prompt": "native_grpo_v2_pair_AI_4",
+      "stratum": "p0",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "second_cache",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 20,
+      "task_id": "native_grpo_v2_scope_all_19_0",
+      "prompt": "native_grpo_v2_scope_all_19_0",
+      "stratum": "p0",
+      "weakness_ids": [
+        "all_cs_scope",
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 21,
+      "task_id": "native_grpo_search_download_abstract",
+      "prompt": "native_grpo_search_download_abstract",
+      "stratum": "multistep",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 22,
+      "task_id": "native_grpo_v2_scope_CV_12_1",
+      "prompt": "native_grpo_v2_scope_CV_12_1",
+      "stratum": "control",
+      "weakness_ids": [
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 23,
+      "task_id": "native_grpo_v2_pair_AI_4",
+      "prompt": "native_grpo_v2_pair_AI_4",
+      "stratum": "p0",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "second_cache",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 24,
+      "task_id": "native_grpo_v2_scope_all_19_1",
+      "prompt": "native_grpo_v2_scope_all_19_1",
+      "stratum": "p0",
+      "weakness_ids": [
+        "all_cs_scope",
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    }
+  ],
+  "e0_reused": true,
+  "train_sha256": "3e55a419d4fe5d5c91410043926fb1d13624f3f4b32cf0b70da95cce53a63a39"
+}

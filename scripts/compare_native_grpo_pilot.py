@@ -10,9 +10,9 @@ from report_native_grpo import metrics, pack
 from run_native_grpo import write_json
 
 
-def compare(part, sft_run, sft_adapter, pilot_run, checkpoint, prior_report):
+def compare(part, sft_run, sft_adapter, pilot_run, checkpoint, prior_report, *, archived_adapter_path=None):
     expected = {(tid, trial) for tid in load_json(SPLIT)["split"][part] for trial in range(3)}
-    sft, before, source = paired(sft_run, part, expected, sft_adapter)
+    sft, before, source = paired(sft_run, part, expected, archived_adapter_path or sft_adapter)
     pilot, after, destination = paired(pilot_run, part, expected, checkpoint)
     if source != prior_report["benchmark"][part]["sft_files"] or sha256_file(
         sft_adapter / "adapter_model.safetensors"

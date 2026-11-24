@@ -192,6 +192,33 @@ def test_rollout_context_and_token_mask_use_generated_ids_and_real_feedback(roll
     assert "pdf_ready" not in tokenizer.decode([tok for tok, policy in zip(tokens, mask) if policy])
 
 
+def test_anchor_uses_actual_assistant_ids_and_checks_tool_feedback(rollout, tmp_path):
+    from copy import deepcopy
+    from rl.anchor_state import fingerprints
+
+    spec = task([CACHE], [{"ref": 1}], expected_papers=[PAPER])
+    tokenizer = CharTokenizer()
+    rollout.audit_tokenizer = tokenizer
+    def sample_call(text):
+        scripted = iter([(text, False), (FINISH + "\0", True)])
+        def generate(contexts, _budget):
+            text, done = next(scripted)
+            return [(tokenizer.encode(text), done)]
+        batch = rollout.run([spec], tokenizer, generate, max_turns=2, max_completion_length=4000, max_new_tokens=300)
+        return batch["trajectory_results"][0]
+    sample = sample_call(xml(CACHE, ref=1))
+    states = fingerprints(rollout, spec, sample, tmp_path / "original")
+    assert states == fingerprints(rollout, spec, sample, tmp_path / "replay")
+    end = sample["turn_token_spans"][0][1]
+    changed = sample_call("  " + xml(CACHE, ref=1))
+    changed_states = fingerprints(rollout, spec, changed, tmp_path / "alternate")
+    assert states[0] == changed_states[0] and states[1] != changed_states[1]
+    changed = deepcopy(sample)
+    changed["completion_ids"][end] += 1
+    with pytest.raises(ValueError, match="context tokens"):
+        fingerprints(rollout, spec, changed, tmp_path / "corrupt")
+
+
 def test_truncated_or_environment_invalid_groups(rollout, tmp_path):
     spec = task([CACHE], [{"ref": 1}], expected_papers=[PAPER])
     malformed = [{"role": "assistant", "content": "partials", "truncated": True}]
@@ -229,8 +256,8 @@ def test_benchmark_cache_completion_uses_ordered_trace_calls(tmp_path, monkeypat
     assert result["cache", "n"] == result["cache", "d"] == 1
 
 
-@pytest.mark.parametrize("micro_batch", [1, 4])
-def test_pinned_trl_cpu_step_through_native_rollout(rollout, tmp_path, monkeypatch, micro_batch):
+@pytest.mark.parametrize(("micro_batch", "experiment"), [(1,None),(4,None),*( (1,f"E{i}") for i in range(1,5))])
+def test_pinned_trl_cpu_step_through_native_rollout(rollout, tmp_path, monkeypatch, micro_batch, experiment):
     """Exercise TRL masking, KL and a LoRA update on a tiny text policy."""
     import torch
     from datasets import Dataset
@@ -277,23 +304,53 @@ def test_pinned_trl_cpu_step_through_native_rollout(rollout, tmp_path, monkeypat
         return rollout.run([spec] * len(prompts), tokenizer, turns,
                            max_turns=2, max_completion_length=512, max_new_tokens=256)
 
+    resume_test = experiment == "E4"
+    if resume_test:
+        from copy import deepcopy
+        from transformers import TrainerCallback
+        initial_policy = deepcopy(policy)
+        class StopAtFirstCheckpoint(TrainerCallback):
+            def on_step_end(self, args, state, control, **kwargs):
+                if state.global_step == 1:
+                    control.should_training_stop = True
+
     config = GRPOConfig(
         output_dir=str(tmp_path / "train"), use_cpu=True, bf16=False,
-        gradient_checkpointing=False, max_steps=1, per_device_train_batch_size=micro_batch,
+        gradient_checkpointing=False, max_steps=2 if resume_test else 1, per_device_train_batch_size=micro_batch,
         gradient_accumulation_steps=4 // micro_batch,
         num_generations=4, max_completion_length=512, beta=0.04, learning_rate=5e-6,
-        save_strategy="no", report_to="none", logging_steps=1, disable_tqdm=True,
+        save_strategy="steps" if resume_test else "no", save_steps=1, shuffle_dataset=False,
+        report_to="none", logging_steps=1, disable_tqdm=True,
     )
-    trainer = StepCreditGRPOTrainer(
-        model=policy, processing_class=tokenizer, args=config, reward_funcs=reward,
-        train_dataset=Dataset.from_list([{"prompt": key, "task_id": key}]),
-        rollout_func=scripted_rollout, step_credit_collector=collector,
-    )
+    plan = [{"prompt": key, "task_id": key, "group_id": i} for i in range(config.max_steps)]
+    common = dict(model=policy, processing_class=tokenizer, args=config,
+                  train_dataset=Dataset.from_list(plan), rollout_func=scripted_rollout)
+    if experiment:
+        from rl.credit_v2_trainer import StrictGroupReward, CreditV2Trainer
+        rollout.audit_tokenizer = tokenizer
+        if resume_test:
+            common["callbacks"] = [StopAtFirstCheckpoint()]
+        strict = StrictGroupReward({key: spec}, rollout, experiment, plan, tmp_path)
+        trainer = CreditV2Trainer(**common, credit_reward=strict)
+    else:
+        trainer = StepCreditGRPOTrainer(**common, reward_funcs=reward, step_credit_collector=collector)
     assert assert_grpo_reference_adapter(trainer.model, beta=config.beta)["reference_frozen"]
     before = trainable_parameter_fingerprint(trainer.model)
     trained = trainer.train()
     assert trained.global_step == 1 and torch.isfinite(torch.tensor(trained.training_loss))
     assert trainable_parameter_fingerprint(trainer.model) != before
-    assert trainer.step_credit_counts["reward"] == 1
-    assert trainer.step_credit_max_conservation_error < 1e-5
+    if experiment:
+        captured = json.loads((tmp_path / "groups/group_000.json").read_text())
+        assert captured["strict_outcomes"] == [1,1,0,0]
+        assert all(row["decisions"] for row in captured["rows"])
+        if resume_test:
+            common.update(model=initial_policy, callbacks=[])
+            fresh_reward = StrictGroupReward({key: spec}, rollout, experiment, plan, tmp_path)
+            resumed = CreditV2Trainer(**common, credit_reward=fresh_reward)
+            assert resumed.train(resume_from_checkpoint=str(tmp_path / "train/checkpoint-1")).global_step == 2
+            assert json.loads((tmp_path / "groups/group_000.json").read_text()) == captured
+            assert json.loads((tmp_path / "groups/group_001.json").read_text())["strict_outcomes"] == [1,1,0,0]
+    else:
+        assert trainer.step_credit_counts["reward"] == 1
+        assert trainer.step_credit_max_conservation_error < 1e-5
     assert "kl" in trainer.state.log_history[0]

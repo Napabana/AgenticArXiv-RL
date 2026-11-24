@@ -1,0 +1,1034 @@
+{
+  "probe": {
+    "E1": {
+      "get_paper_cache_status": {
+        "strict_success": 324,
+        "zero": 543,
+        "verified": 529,
+        "conflicts": 0,
+        "strict_failure": 219,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 529,
+          "rate": 0.0
+        }
+      },
+      "FINISH": {
+        "strict_success": 446,
+        "zero": 637,
+        "verified": 510,
+        "conflicts": 0,
+        "strict_failure": 191,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 510,
+          "rate": 0.0
+        }
+      },
+      "ERROR": {
+        "strict_failure": 21,
+        "zero": 21,
+        "verified": 21,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 21,
+          "rate": 0.0
+        }
+      },
+      "get_recently_submitted_cs_papers": {
+        "strict_failure": 37,
+        "zero": 297,
+        "verified": 297,
+        "conflicts": 0,
+        "strict_success": 260,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 297,
+          "rate": 0.0
+        }
+      },
+      "download_arxiv_pdf": {
+        "strict_failure": 58,
+        "zero": 120,
+        "verified": 107,
+        "conflicts": 0,
+        "strict_success": 62,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 107,
+          "rate": 0.0
+        }
+      },
+      "translate_arxiv_pdf": {
+        "strict_success": 9,
+        "zero": 41,
+        "verified": 17,
+        "conflicts": 0,
+        "strict_failure": 32,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 17,
+          "rate": 0.0
+        }
+      },
+      "get_translated_content": {
+        "strict_success": 12,
+        "zero": 22,
+        "verified": 19,
+        "conflicts": 0,
+        "strict_failure": 10,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 19,
+          "rate": 0.0
+        }
+      },
+      "FORCE_STOP": {
+        "strict_failure": 8,
+        "zero": 8,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        }
+      },
+      "get_paper_content": {
+        "strict_success": 7,
+        "zero": 17,
+        "verified": 15,
+        "conflicts": 0,
+        "strict_failure": 10,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        }
+      },
+      "analyze_figure": {
+        "strict_failure": 1,
+        "zero": 1,
+        "verified": 1,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 1,
+          "rate": 0.0
+        }
+      }
+    },
+    "E2": {
+      "get_paper_cache_status": {
+        "strict_success": 324,
+        "zero": 451,
+        "verified": 529,
+        "conflicts": 0,
+        "positive": 86,
+        "strict_failure": 219,
+        "negative": 6,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 529,
+          "rate": 0.0
+        }
+      },
+      "FINISH": {
+        "strict_success": 446,
+        "zero": 587,
+        "verified": 510,
+        "conflicts": 0,
+        "strict_failure": 191,
+        "negative": 39,
+        "positive": 11,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 510,
+          "rate": 0.0
+        }
+      },
+      "ERROR": {
+        "strict_failure": 21,
+        "negative": 11,
+        "verified": 21,
+        "conflicts": 0,
+        "zero": 10,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 21,
+          "rate": 0.0
+        }
+      },
+      "get_recently_submitted_cs_papers": {
+        "strict_failure": 37,
+        "negative": 17,
+        "verified": 297,
+        "conflicts": 0,
+        "positive": 56,
+        "strict_success": 260,
+        "zero": 224,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 297,
+          "rate": 0.0
+        }
+      },
+      "download_arxiv_pdf": {
+        "strict_failure": 58,
+        "zero": 89,
+        "verified": 107,
+        "conflicts": 0,
+        "strict_success": 62,
+        "positive": 17,
+        "negative": 14,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 107,
+          "rate": 0.0
+        }
+      },
+      "translate_arxiv_pdf": {
+        "strict_success": 9,
+        "zero": 36,
+        "verified": 17,
+        "conflicts": 0,
+        "strict_failure": 32,
+        "negative": 5,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 17,
+          "rate": 0.0
+        }
+      },
+      "get_translated_content": {
+        "strict_success": 12,
+        "zero": 21,
+        "verified": 19,
+        "conflicts": 0,
+        "strict_failure": 10,
+        "negative": 1,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 19,
+          "rate": 0.0
+        }
+      },
+      "FORCE_STOP": {
+        "strict_failure": 8,
+        "zero": 8,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        }
+      },
+      "get_paper_content": {
+        "strict_success": 7,
+        "positive": 7,
+        "verified": 15,
+        "conflicts": 0,
+        "strict_failure": 10,
+        "negative": 7,
+        "zero": 3,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        }
+      },
+      "analyze_figure": {
+        "strict_failure": 1,
+        "negative": 1,
+        "verified": 1,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 1,
+          "rate": 0.0
+        }
+      }
+    },
+    "E3": {
+      "get_paper_cache_status": {
+        "strict_success": 324,
+        "zero": 406,
+        "verified": 529,
+        "conflicts": 42,
+        "positive": 94,
+        "strict_failure": 219,
+        "negative": 43,
+        "status": "unresolved",
+        "misalignment": {
+          "numerator": 42,
+          "denominator": 529,
+          "rate": 0.07939508506616257
+        }
+      },
+      "FINISH": {
+        "strict_success": 446,
+        "zero": 613,
+        "verified": 510,
+        "conflicts": 0,
+        "strict_failure": 191,
+        "positive": 4,
+        "negative": 20,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 510,
+          "rate": 0.0
+        }
+      },
+      "ERROR": {
+        "strict_failure": 21,
+        "negative": 10,
+        "verified": 21,
+        "conflicts": 0,
+        "zero": 11,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 21,
+          "rate": 0.0
+        }
+      },
+      "get_recently_submitted_cs_papers": {
+        "strict_failure": 37,
+        "zero": 193,
+        "verified": 297,
+        "conflicts": 17,
+        "strict_success": 260,
+        "positive": 72,
+        "negative": 32,
+        "status": "unresolved",
+        "misalignment": {
+          "numerator": 17,
+          "denominator": 297,
+          "rate": 0.05723905723905724
+        }
+      },
+      "download_arxiv_pdf": {
+        "strict_failure": 58,
+        "zero": 82,
+        "verified": 107,
+        "conflicts": 8,
+        "strict_success": 62,
+        "positive": 20,
+        "negative": 18,
+        "status": "unresolved",
+        "misalignment": {
+          "numerator": 8,
+          "denominator": 107,
+          "rate": 0.07476635514018691
+        }
+      },
+      "translate_arxiv_pdf": {
+        "strict_success": 9,
+        "zero": 37,
+        "verified": 17,
+        "conflicts": 0,
+        "strict_failure": 32,
+        "negative": 4,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 17,
+          "rate": 0.0
+        }
+      },
+      "get_translated_content": {
+        "strict_success": 12,
+        "zero": 21,
+        "verified": 19,
+        "conflicts": 0,
+        "strict_failure": 10,
+        "negative": 1,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 19,
+          "rate": 0.0
+        }
+      },
+      "FORCE_STOP": {
+        "strict_failure": 8,
+        "zero": 8,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        }
+      },
+      "get_paper_content": {
+        "strict_success": 7,
+        "positive": 1,
+        "verified": 15,
+        "conflicts": 0,
+        "strict_failure": 10,
+        "zero": 15,
+        "negative": 1,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        }
+      },
+      "analyze_figure": {
+        "strict_failure": 1,
+        "zero": 1,
+        "verified": 1,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 1,
+          "rate": 0.0
+        }
+      }
+    },
+    "E4": {
+      "get_paper_cache_status": {
+        "strict_success": 324,
+        "zero": 387,
+        "verified": 529,
+        "conflicts": 0,
+        "positive": 150,
+        "strict_failure": 219,
+        "negative": 6,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 529,
+          "rate": 0.0
+        }
+      },
+      "FINISH": {
+        "strict_success": 446,
+        "zero": 587,
+        "verified": 510,
+        "conflicts": 0,
+        "strict_failure": 191,
+        "negative": 39,
+        "positive": 11,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 510,
+          "rate": 0.0
+        }
+      },
+      "ERROR": {
+        "strict_failure": 21,
+        "negative": 11,
+        "verified": 21,
+        "conflicts": 0,
+        "zero": 10,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 21,
+          "rate": 0.0
+        }
+      },
+      "get_recently_submitted_cs_papers": {
+        "strict_failure": 37,
+        "negative": 17,
+        "verified": 297,
+        "conflicts": 0,
+        "positive": 74,
+        "strict_success": 260,
+        "zero": 206,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 297,
+          "rate": 0.0
+        }
+      },
+      "download_arxiv_pdf": {
+        "strict_failure": 58,
+        "zero": 81,
+        "verified": 107,
+        "conflicts": 0,
+        "strict_success": 62,
+        "positive": 25,
+        "negative": 14,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 107,
+          "rate": 0.0
+        }
+      },
+      "translate_arxiv_pdf": {
+        "strict_success": 9,
+        "zero": 36,
+        "verified": 17,
+        "conflicts": 0,
+        "strict_failure": 32,
+        "negative": 5,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 17,
+          "rate": 0.0
+        }
+      },
+      "get_translated_content": {
+        "strict_success": 12,
+        "zero": 21,
+        "verified": 19,
+        "conflicts": 0,
+        "strict_failure": 10,
+        "negative": 1,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 19,
+          "rate": 0.0
+        }
+      },
+      "FORCE_STOP": {
+        "strict_failure": 8,
+        "zero": 8,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        }
+      },
+      "get_paper_content": {
+        "strict_success": 7,
+        "positive": 7,
+        "verified": 15,
+        "conflicts": 0,
+        "strict_failure": 10,
+        "negative": 7,
+        "zero": 3,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        }
+      },
+      "analyze_figure": {
+        "strict_failure": 1,
+        "negative": 1,
+        "verified": 1,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 1,
+          "rate": 0.0
+        }
+      }
+    }
+  },
+  "e0_replay": {
+    "E1": {
+      "get_recently_submitted_cs_papers": {
+        "strict_success": 28,
+        "zero": 36,
+        "verified": 36,
+        "conflicts": 0,
+        "strict_failure": 8,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 36,
+          "rate": 0.0
+        }
+      },
+      "FINISH": {
+        "strict_success": 64,
+        "zero": 87,
+        "verified": 73,
+        "conflicts": 0,
+        "strict_failure": 23,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 73,
+          "rate": 0.0
+        }
+      },
+      "get_paper_cache_status": {
+        "strict_failure": 20,
+        "zero": 87,
+        "verified": 81,
+        "conflicts": 0,
+        "strict_success": 67,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 81,
+          "rate": 0.0
+        }
+      },
+      "download_arxiv_pdf": {
+        "strict_failure": 11,
+        "zero": 30,
+        "verified": 29,
+        "conflicts": 0,
+        "strict_success": 19,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 29,
+          "rate": 0.0
+        }
+      },
+      "translate_arxiv_pdf": {
+        "strict_failure": 13,
+        "zero": 17,
+        "verified": 11,
+        "conflicts": 0,
+        "strict_success": 4,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 11,
+          "rate": 0.0
+        }
+      },
+      "ERROR": {
+        "strict_failure": 9,
+        "zero": 9,
+        "verified": 9,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 9,
+          "rate": 0.0
+        }
+      },
+      "FORCE_STOP": {
+        "strict_failure": 1,
+        "zero": 1,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        }
+      },
+      "get_paper_content": {
+        "strict_success": 3,
+        "zero": 3,
+        "verified": 3,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 3,
+          "rate": 0.0
+        }
+      },
+      "get_translated_content": {
+        "strict_failure": 1,
+        "zero": 1,
+        "verified": 1,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 1,
+          "rate": 0.0
+        }
+      }
+    },
+    "E2": {
+      "get_recently_submitted_cs_papers": {
+        "strict_success": 28,
+        "zero": 28,
+        "verified": 36,
+        "conflicts": 0,
+        "positive": 6,
+        "strict_failure": 8,
+        "negative": 2,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 36,
+          "rate": 0.0
+        }
+      },
+      "FINISH": {
+        "strict_success": 64,
+        "zero": 80,
+        "verified": 73,
+        "conflicts": 0,
+        "strict_failure": 23,
+        "negative": 5,
+        "positive": 2,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 73,
+          "rate": 0.0
+        }
+      },
+      "get_paper_cache_status": {
+        "strict_failure": 20,
+        "zero": 76,
+        "verified": 81,
+        "conflicts": 0,
+        "strict_success": 67,
+        "positive": 11,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 81,
+          "rate": 0.0
+        }
+      },
+      "download_arxiv_pdf": {
+        "strict_failure": 11,
+        "positive": 6,
+        "verified": 29,
+        "conflicts": 0,
+        "strict_success": 19,
+        "negative": 3,
+        "zero": 21,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 29,
+          "rate": 0.0
+        }
+      },
+      "translate_arxiv_pdf": {
+        "strict_failure": 13,
+        "negative": 6,
+        "verified": 11,
+        "conflicts": 0,
+        "strict_success": 4,
+        "zero": 11,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 11,
+          "rate": 0.0
+        }
+      },
+      "ERROR": {
+        "strict_failure": 9,
+        "zero": 8,
+        "verified": 9,
+        "conflicts": 0,
+        "negative": 1,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 9,
+          "rate": 0.0
+        }
+      },
+      "FORCE_STOP": {
+        "strict_failure": 1,
+        "zero": 1,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        }
+      },
+      "get_paper_content": {
+        "strict_success": 3,
+        "positive": 3,
+        "verified": 3,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 3,
+          "rate": 0.0
+        }
+      },
+      "get_translated_content": {
+        "strict_failure": 1,
+        "zero": 1,
+        "verified": 1,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 1,
+          "rate": 0.0
+        }
+      }
+    },
+    "E3": {
+      "get_recently_submitted_cs_papers": {
+        "strict_success": 28,
+        "zero": 20,
+        "verified": 36,
+        "conflicts": 2,
+        "positive": 12,
+        "strict_failure": 8,
+        "negative": 4,
+        "status": "unresolved",
+        "misalignment": {
+          "numerator": 2,
+          "denominator": 36,
+          "rate": 0.05555555555555555
+        }
+      },
+      "FINISH": {
+        "strict_success": 64,
+        "zero": 82,
+        "verified": 73,
+        "conflicts": 0,
+        "strict_failure": 23,
+        "negative": 3,
+        "positive": 2,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 73,
+          "rate": 0.0
+        }
+      },
+      "get_paper_cache_status": {
+        "strict_failure": 20,
+        "negative": 4,
+        "verified": 81,
+        "conflicts": 4,
+        "strict_success": 67,
+        "positive": 15,
+        "zero": 68,
+        "status": "unresolved",
+        "misalignment": {
+          "numerator": 4,
+          "denominator": 81,
+          "rate": 0.04938271604938271
+        }
+      },
+      "download_arxiv_pdf": {
+        "strict_failure": 11,
+        "negative": 6,
+        "verified": 29,
+        "conflicts": 3,
+        "strict_success": 19,
+        "positive": 6,
+        "zero": 18,
+        "status": "unresolved",
+        "misalignment": {
+          "numerator": 3,
+          "denominator": 29,
+          "rate": 0.10344827586206896
+        }
+      },
+      "translate_arxiv_pdf": {
+        "strict_failure": 13,
+        "zero": 12,
+        "verified": 11,
+        "conflicts": 0,
+        "negative": 5,
+        "strict_success": 4,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 11,
+          "rate": 0.0
+        }
+      },
+      "ERROR": {
+        "strict_failure": 9,
+        "zero": 8,
+        "verified": 9,
+        "conflicts": 0,
+        "negative": 1,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 9,
+          "rate": 0.0
+        }
+      },
+      "FORCE_STOP": {
+        "strict_failure": 1,
+        "zero": 1,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        }
+      },
+      "get_paper_content": {
+        "strict_success": 3,
+        "zero": 1,
+        "verified": 3,
+        "conflicts": 0,
+        "positive": 2,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 3,
+          "rate": 0.0
+        }
+      },
+      "get_translated_content": {
+        "strict_failure": 1,
+        "zero": 1,
+        "verified": 1,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 1,
+          "rate": 0.0
+        }
+      }
+    },
+    "E4": {
+      "get_recently_submitted_cs_papers": {
+        "strict_success": 28,
+        "zero": 22,
+        "verified": 36,
+        "conflicts": 0,
+        "positive": 12,
+        "strict_failure": 8,
+        "negative": 2,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 36,
+          "rate": 0.0
+        }
+      },
+      "FINISH": {
+        "strict_success": 64,
+        "zero": 80,
+        "verified": 73,
+        "conflicts": 0,
+        "strict_failure": 23,
+        "negative": 5,
+        "positive": 2,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 73,
+          "rate": 0.0
+        }
+      },
+      "get_paper_cache_status": {
+        "strict_failure": 20,
+        "zero": 66,
+        "verified": 81,
+        "conflicts": 0,
+        "strict_success": 67,
+        "positive": 21,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 81,
+          "rate": 0.0
+        }
+      },
+      "download_arxiv_pdf": {
+        "strict_failure": 11,
+        "zero": 21,
+        "verified": 29,
+        "conflicts": 0,
+        "strict_success": 19,
+        "positive": 6,
+        "negative": 3,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 29,
+          "rate": 0.0
+        }
+      },
+      "translate_arxiv_pdf": {
+        "strict_failure": 13,
+        "negative": 6,
+        "verified": 11,
+        "conflicts": 0,
+        "strict_success": 4,
+        "zero": 11,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 11,
+          "rate": 0.0
+        }
+      },
+      "ERROR": {
+        "strict_failure": 9,
+        "zero": 8,
+        "verified": 9,
+        "conflicts": 0,
+        "negative": 1,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 9,
+          "rate": 0.0
+        }
+      },
+      "FORCE_STOP": {
+        "strict_failure": 1,
+        "zero": 1,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null
+        }
+      },
+      "get_paper_content": {
+        "strict_success": 3,
+        "positive": 3,
+        "verified": 3,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 3,
+          "rate": 0.0
+        }
+      },
+      "get_translated_content": {
+        "strict_failure": 1,
+        "zero": 1,
+        "verified": 1,
+        "conflicts": 0,
+        "status": "observed",
+        "misalignment": {
+          "numerator": 0,
+          "denominator": 1,
+          "rate": 0.0
+        }
+      }
+    }
+  }
+}

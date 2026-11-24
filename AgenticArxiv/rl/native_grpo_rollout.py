@@ -112,6 +112,7 @@ class NativeEpisode:
     messages: list[dict] = field(default_factory=list)
     raw_turns: list[str] = field(default_factory=list)
     stop: str = ""
+    audit_alignment: bool = False
 
     def add_text(self, text: str) -> bool:
         """Validate a single policy turn and append real tool feedback if needed."""
@@ -169,8 +170,16 @@ class NativeEpisode:
         self.mask.extend([int(assistant)] * len(ids))
 
     def result(self) -> dict:
-        history = native_history(self.messages)
+        invalid = {}
+        try:
+            history = native_history(self.messages)
+        except ValueError as exc:
+            if not self.audit_alignment:
+                raise
+            history = []
+            invalid["alignment_error"] = str(exc)
         return {
+            **invalid,
             "task_id": self.task_id, "history": history, "iteration_count": len(history),
             "native_messages": [*self.prompt, *self.messages], "setup_receipts": self.setup_receipts,
             "raw_assistant_turns": self.raw_turns, "turn_token_spans": self.spans,
@@ -184,7 +193,8 @@ class NativeEpisode:
 class NativeRollout:
     """Run one turn at a time against the same snapshots and schemas as Native SFT."""
 
-    def __init__(self, snapshot: Path):
+    def __init__(self, snapshot: Path, *, audit_alignment=False):
+        self.audit_alignment = audit_alignment
         require_all_tools("Native GRPO")
         if not snapshot.is_file():
             raise FileNotFoundError(snapshot)
@@ -203,7 +213,8 @@ class NativeRollout:
         valid = not any(receipt["tool_issue"] for receipt in receipts)
         prompt, options = agent.build_messages(task["task"], "", agent.setup_context(receipts) if valid else "")
         stop = "" if valid else "setup_failure"
-        return NativeEpisode(task["id"], agent, prompt, receipts, options["tools"], stop=stop)
+        return NativeEpisode(task["id"], agent, prompt, receipts, options["tools"], stop=stop,
+                             audit_alignment=self.audit_alignment)
 
     @staticmethod
     def prompt_ids(tokenizer, episode: NativeEpisode) -> list[int]:
