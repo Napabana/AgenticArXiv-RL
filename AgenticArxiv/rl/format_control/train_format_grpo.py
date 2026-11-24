@@ -4,6 +4,7 @@ import math
 from pathlib import Path
 
 from .runtime import DATA, TOKENS, V1, arguments, digest, ends, load, observation, read, rendered, save, split_rows
+from .runtime import train_prompt_sha
 
 
 def main():
@@ -17,6 +18,7 @@ def main():
     args = parser.parse_args()
     gate = read(args.probe)
     if (not gate["passed"] or gate["adapter_sha256"] != V1 or gate["train_sha256"] != digest(DATA/"train.jsonl")
+            or gate["train_prompt_sha256"] != train_prompt_sha()
             or gate["raw_sha256"] != digest(args.probe.parent/"probe_groups.jsonl")):
         raise ValueError("Missing or mismatched frozen-probe gate")
     tasks = {t["id"]: t for t in split_rows("train")}
@@ -70,7 +72,8 @@ def main():
         for row in logs:
             print(json.dumps(row), file=f)
     save(args.output/"training_manifest.json", dict(steps=25, adapter_sha256=adapter_sha, source_sha256=V1,
-         probe_sha256=digest(args.probe), raw_sha256=digest(args.output/"train_rollouts.jsonl"),
+         probe_sha256=digest(args.probe), train_prompt_sha256=train_prompt_sha(),
+         raw_sha256=digest(args.output/"train_rollouts.jsonl"),
          effective_samples=4*mixed, informative_groups=mixed, reference=ref, config=config.to_dict(),
          fingerprint_before=before, fingerprint_after=after, peak_bytes=torch.cuda.max_memory_allocated(),
          gpu=torch.cuda.get_device_name() if torch.cuda.is_available() else "CPU integration test",

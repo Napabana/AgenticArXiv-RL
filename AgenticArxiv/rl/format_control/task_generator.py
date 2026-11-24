@@ -1,5 +1,6 @@
 """Deterministic tasks. Test inputs and rule combinations are fixed before sampling."""
 import json
+import os
 import random
 import string
 from collections import Counter
@@ -19,7 +20,15 @@ SIZES = {"train": 24, "dev": 30, "test": 120}
 def prompt(row):
     order = ", ".join(row["order"])
     record = json.dumps(row["record"], ensure_ascii=False)
-    return f"{RULES}\n字段顺序：{order}\n输入：{record}"
+    rules = RULES
+    version = os.getenv("FORMAT_PROMPT_VERSION", "rules")
+    if version == "example":
+        rules += ('\n示例输入：{"flag":true,"code":"az"}\n示例字段顺序：code, flag'
+                  '\n示例输出（恰好两行）：\n@ROW|code=az|flag=YES\n@END'
+                  '\n现在转换下面的新记录。键和值之间不加空格，每个键取它自己在输入中的值。')
+    elif version != "rules":
+        raise ValueError(f"Unknown format prompt version: {version}")
+    return f"{rules}\n字段顺序：{order}\n输入：{record}"
 
 
 def dataset(split, seed=42):

@@ -36,6 +36,11 @@ def split_rows(split):
     return [json.loads(x) for x in path.read_text(encoding="utf8").splitlines()]
 
 
+def train_prompt_sha():
+    prompts = [prompt(row) for row in split_rows("train")]
+    return hashlib.sha256(json.dumps(prompts, ensure_ascii=False).encode()).hexdigest()
+
+
 def verify_assets(base, adapter, adapter_sha):
     origin = ROOT / "reports/native_sft_final_20261121"
     for line in (origin / "base_model.sha256").read_text().splitlines():

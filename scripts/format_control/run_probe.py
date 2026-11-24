@@ -2,6 +2,7 @@
 import json
 import statistics
 from rl.format_control.runtime import arguments, digest, load, sample, save, split_rows, V1, DATA
+from rl.format_control.runtime import train_prompt_sha
 
 
 def summarize(groups, tasks):
@@ -37,7 +38,7 @@ def main():
                 groups.append(row)
                 print(json.dumps(row, ensure_ascii=False), file=f, flush=True)
     result = dict(**summarize(groups, tasks), adapter_sha256=V1, train_sha256=digest(DATA/"train.jsonl"),
-                  raw_sha256=digest(path))
+                  raw_sha256=digest(path), train_prompt_sha256=train_prompt_sha())
     save(args.output/"probe.json", result)
     (args.output/"probe_report.md").write_text(
         f"# Frozen Probe\n\n{len(groups)} groups, informative fraction {result['informative_fraction']:.1%}, "

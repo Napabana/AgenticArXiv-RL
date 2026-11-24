@@ -52,7 +52,7 @@ def test_format_trainer_cpu(tmp_path, monkeypatch):
     from tokenizers import Tokenizer, decoders, models, pre_tokenizers
     from transformers import PreTrainedTokenizerFast, Qwen3_5ForCausalLM, Qwen3_5TextConfig
     from rl.format_control import train_format_grpo as entry
-    from rl.format_control.runtime import save
+    from rl.format_control.runtime import save, train_prompt_sha
     from format_control.run_probe import summarize
 
     rows=dataset("train")
@@ -65,7 +65,8 @@ def test_format_trainer_cpu(tmp_path, monkeypatch):
     assert not summarize([{**g,"std":0,"samples":[{"strict":0}]*4} for g in groups],rows)["passed"]
     raw=tmp_path/"probe_groups.jsonl"
     raw.write_text("".join(json.dumps(g)+"\n" for g in groups))
-    save(tmp_path/"probe.json",dict(**gate,adapter_sha256=V1,train_sha256=digest(DATA/"train.jsonl"),raw_sha256=digest(raw)))
+    save(tmp_path/"probe.json",dict(**gate,adapter_sha256=V1,train_sha256=digest(DATA/"train.jsonl"),
+                                    train_prompt_sha256=train_prompt_sha(), raw_sha256=digest(raw)))
     vocab={t:i for i,t in enumerate(["<pad>","<|im_end|>",*sorted(pre_tokenizers.ByteLevel.alphabet())])}
     backend=Tokenizer(models.BPE(vocab=vocab,merges=[]))
     backend.pre_tokenizer=pre_tokenizers.ByteLevel(add_prefix_space=False)

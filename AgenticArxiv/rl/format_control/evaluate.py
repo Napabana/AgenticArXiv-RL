@@ -7,6 +7,7 @@ from statistics import mean
 import gc
 
 from .runtime import DATA, V1, arguments, digest, load, read, sample, save, split_rows
+from .runtime import train_prompt_sha
 
 SEEDS = (701, 1701, 2701)
 
@@ -52,7 +53,7 @@ def main():
     parser.add_argument("--training", type=Path, required=True)
     args = parser.parse_args()
     training = read(args.training/"training_manifest.json")
-    if training["source_sha256"] != V1 or training["steps"] != 25:
+    if training["source_sha256"] != V1 or training["steps"] != 25 or training["train_prompt_sha256"] != train_prompt_sha():
         raise ValueError("Missing verified 25-step adapter")
     args.output.mkdir(parents=True, exist_ok=False)
     policies = (("v1", args.adapter, V1), ("grpo", args.training/"adapter", training["adapter_sha256"]))
