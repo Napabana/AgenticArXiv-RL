@@ -11,3 +11,5 @@ data/splits/v4_86.json text eol=crlf
 scripts/format_control/run_control.sh text eol=lf
 data/format_control/*.json* text eol=lf
 reports/format_control/dataset_manifest.json text eol=lf
+reports/format_control/**/*.jsonl text eol=lf
+reports/format_control/**/*.json text eol=lf

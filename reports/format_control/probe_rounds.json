@@ -1,0 +1,28 @@
+[
+  {
+    "prompt_version": "rules",
+    "commit": "4f2156e",
+    "groups": 192,
+    "samples": 768,
+    "correct": 41,
+    "informative": 35,
+    "admitted": 7,
+    "truncated": 3,
+    "passed": false,
+    "prompt_sha": null,
+    "raw_sha": "da229a439292a0d0c8c3aa63ba5fda82b6bd145fe8d46a0cdcd69fdfd5e198d4"
+  },
+  {
+    "prompt_version": "example",
+    "commit": "7943167",
+    "groups": 192,
+    "samples": 768,
+    "correct": 171,
+    "informative": 70,
+    "admitted": 11,
+    "truncated": 4,
+    "passed": true,
+    "prompt_sha": "99ebe53c6c0eb95ce63fd6f660d2fa8a801d5bc89e3c5edabc50b5c1cabe8fe4",
+    "raw_sha": "e311595f0de722341e6dabb48a2baa61a32716a3fc68fbd18ce96fe5e183e5c4"
+  }
+]

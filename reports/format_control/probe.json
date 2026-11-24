@@ -1,0 +1,122 @@
+{
+  "passed": true,
+  "eligible": [
+    "train-000",
+    "train-002",
+    "train-006",
+    "train-007",
+    "train-008",
+    "train-009",
+    "train-010",
+    "train-014",
+    "train-016",
+    "train-017",
+    "train-022"
+  ],
+  "informative_fraction": 0.3645833333333333,
+  "per_task": {
+    "train-000": {
+      "success": 0.5625,
+      "informative_groups": 8
+    },
+    "train-001": {
+      "success": 0.0,
+      "informative_groups": 0
+    },
+    "train-002": {
+      "success": 0.0625,
+      "informative_groups": 2
+    },
+    "train-003": {
+      "success": 0.0,
+      "informative_groups": 0
+    },
+    "train-004": {
+      "success": 0.0,
+      "informative_groups": 0
+    },
+    "train-005": {
+      "success": 0.0,
+      "informative_groups": 0
+    },
+    "train-006": {
+      "success": 0.78125,
+      "informative_groups": 6
+    },
+    "train-007": {
+      "success": 0.0625,
+      "informative_groups": 2
+    },
+    "train-008": {
+      "success": 0.59375,
+      "informative_groups": 7
+    },
+    "train-009": {
+      "success": 0.1875,
+      "informative_groups": 6
+    },
+    "train-010": {
+      "success": 0.625,
+      "informative_groups": 8
+    },
+    "train-011": {
+      "success": 0.03125,
+      "informative_groups": 1
+    },
+    "train-012": {
+      "success": 0.03125,
+      "informative_groups": 1
+    },
+    "train-013": {
+      "success": 0.0,
+      "informative_groups": 0
+    },
+    "train-014": {
+      "success": 0.53125,
+      "informative_groups": 7
+    },
+    "train-015": {
+      "success": 0.0,
+      "informative_groups": 0
+    },
+    "train-016": {
+      "success": 0.625,
+      "informative_groups": 8
+    },
+    "train-017": {
+      "success": 0.5,
+      "informative_groups": 7
+    },
+    "train-018": {
+      "success": 0.0,
+      "informative_groups": 0
+    },
+    "train-019": {
+      "success": 0.03125,
+      "informative_groups": 1
+    },
+    "train-020": {
+      "success": 0.0,
+      "informative_groups": 0
+    },
+    "train-021": {
+      "success": 0.0,
+      "informative_groups": 0
+    },
+    "train-022": {
+      "success": 0.71875,
+      "informative_groups": 6
+    },
+    "train-023": {
+      "success": 0.0,
+      "informative_groups": 0
+    }
+  },
+  "groups": 192,
+  "completions": 768,
+  "optimizer_updates": 0,
+  "adapter_sha256": "789af8cf28960892a1fde034d32f9b8ddf230e8450552be70d15024c964ed6c8",
+  "train_sha256": "8a20f797f0baa5570cd295d8a631e695310754f54552761a7541d4da701fddba",
+  "raw_sha256": "e311595f0de722341e6dabb48a2baa61a32716a3fc68fbd18ce96fe5e183e5c4",
+  "train_prompt_sha256": "99ebe53c6c0eb95ce63fd6f660d2fa8a801d5bc89e3c5edabc50b5c1cabe8fe4"
+}

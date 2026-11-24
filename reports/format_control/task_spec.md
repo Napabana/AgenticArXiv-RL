@@ -25,4 +25,6 @@ export FORMAT_OUT=outputs/format_control/run1
 bash scripts/format_control/run_control.sh
 ~~~
 
+复现第一次难度校准时使用提交 `7943167`，在同一命令前设置 `FORMAT_PROMPT_VERSION=example FORMAT_OUT=outputs/format_control/example1`。完整语法、输入值、切分、评分和采样种子沿用首轮，只增加一个与所有题目不同的固定两字段演示及其说明。该版本的训练与评测均检查 Train 提示指纹与已通过的 Probe 一致。
+
 租用预算按单张 24 GB RTX 4090 预估。初轮 Probe 192 组，按组并行生成 4 条。预留 20–60 分钟。若通过，训练和两模型三种子的配对评测另预留约 45–120 分钟。冷启动、传模型和难度校准另计。首批实测后按实际 token/s 更新 ETA。这些是运行前的规划值。
