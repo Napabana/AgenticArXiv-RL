@@ -1,6 +1,8 @@
 scripts/run_qwen35_native_benchmark.sh text eol=lf
 scripts/run_qwen35_native_grpo_pipeline.sh text eol=lf
 scripts/run_grpo_credit_v2_ablation.sh text eol=lf
+data/splits/pending_task_v1_candidates.json text eol=lf
+scripts/run_pending_task_v1_probe.sh text eol=lf
 data/splits/native_grpo_qwen35_candidates_v1.json text eol=lf
 data/splits/native_grpo_qwen35_train_v1.json text eol=lf
 data/splits/native_grpo_qwen35_candidates_v2.json text eol=lf

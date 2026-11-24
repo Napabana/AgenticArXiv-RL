@@ -5,7 +5,15 @@ from itertools import combinations
 
 from benchmark.metrics import extract_metrics, is_strict_success, _parse_tool_action
 from rl.credit_v2 import GOOD
-from rl.weakness_sampling import targets, observed, pending_before_decisions, CACHE, SEARCH
+from rl.weakness_sampling import (
+    targets,
+    observed,
+    pending_before_decisions,
+    pending_behavior,
+    PENDING_BEHAVIORS,
+    CACHE,
+    SEARCH,
+)
 
 
 LOCAL_CHANNELS = ("raw_dfa_adv", "raw_anchor_adv", "raw_combined_local", "effective_local")
@@ -62,6 +70,7 @@ class Diagnostics:
         self.exposure = defaultdict(Counter)
         self.families = Counter()
         self.terminations = Counter()
+        self.pending_behaviors = defaultdict(Counter)
 
     def count(self, key, test):
         self.counts[key]["d"] += 1
@@ -91,6 +100,18 @@ class Diagnostics:
                 good, bad = label in GOOD, label == "first_error"
                 spans = sample["turn_token_spans"]
                 tokens = spans[i][1] - spans[i][0] if i < len(spans) else 0
+                behavior = (
+                    pending_behavior(sample["history"][i], d, pending[i])
+                    if row["strict_success"] is not None
+                    else None
+                )
+                if behavior:
+                    stats = self.pending_behaviors[behavior]
+                    stats["decisions"] += 1
+                    stats["nonzero_advantage_tokens"] += tokens * int(
+                        d["policy_mask"] and d["advantage"] != 0
+                    )
+                    stats["nonzero_local_tokens"] += tokens * int(d["effective_local"] != 0)
                 active = (mode in ("E2", "E4") and d["dfa_reason"] == "signal") or (
                     mode in ("E3", "E4") and d["anchor_reason"] == "signal"
                 )
@@ -177,8 +198,7 @@ class Diagnostics:
                             and name == CACHE
                             and CACHE in task["expected_tools"][:i]
                             or aim == "pending"
-                            and label == "accept"
-                            and pending[i]
+                            and behavior in ("pending_check_once_correct", "pending_stop_correct")
                             or aim == "early_finish"
                             and name not in ("FINISH", "ERROR")
                             or aim in ("reference_argument", "tool_parse", "repeat")
@@ -246,6 +266,13 @@ class Diagnostics:
             },
             group_exposure_by_family=dict(self.families),
             terminal_states=dict(self.terminations),
+            pending_behaviors={
+                kind: {
+                    key: self.pending_behaviors[kind][key]
+                    for key in ("decisions", "nonzero_advantage_tokens", "nonzero_local_tokens")
+                }
+                for kind in PENDING_BEHAVIORS
+            },
             histograms={
                 k: {str(x): rate(n, sum(v.values())) for x, n in v.items()} for k, v in self.hist.items()
             },

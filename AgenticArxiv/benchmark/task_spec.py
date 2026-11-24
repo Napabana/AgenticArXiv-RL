@@ -44,6 +44,7 @@ _BLOCKED_TERMINAL_THOUGHTS = {
         "指定的 arXiv 论文 ID 不在快照记录中，无法下载该论文",
         "快照中不存在指定的 arXiv 论文 ID，因此找不到该论文，不能下载",
     ),
+    "translation_pending": ("翻译仍在处理中，译文尚未就绪，暂时无法读取。", "翻译状态为 PENDING，目前没有可读取的译文。"),
     "unsupported_capability": (
         "现有工具能力不支持该操作，任务超出工具范围",
         "现有工具不支持所需功能，该请求超出能力边界，无法执行",
@@ -117,7 +118,7 @@ class TaskSpec:
             )
         valid_reasons = {
             "missing_context", "invalid_reference", "paper_not_found",
-            "unsupported_capability",
+            "unsupported_capability", "translation_pending",
         }
         if self.terminal_mode == "blocked" and self.terminal_reason not in valid_reasons:
             raise ValueError(

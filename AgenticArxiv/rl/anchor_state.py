@@ -106,7 +106,7 @@ def fingerprints(rollout, task, sample, root):
     visible = prompt(msgs[:n], sample["setup_receipts"])
     if ep.stop or visible != prompt(ep.prompt, ep.setup_receipts):
         raise ValueError("setup context mismatch")
-    if native_history(msgs[n:]) != sample["history"]:
+    if native_history(msgs[n:], ep.setup_receipts) != sample["history"]:
         raise ValueError("native history/receipt mismatch")
     raw, spans = sample["raw_assistant_turns"], sample["turn_token_spans"]
     if len(raw) != len(spans) or len(spans) != len(sample["history"]):

@@ -152,7 +152,7 @@ def gold_replay(rollout, tokenizer, task, root, *, strict=True):
         snapshots.append(obs)
         papers.append(paper)
         episode.append_tokens(rollout.feedback_ids(tokenizer, episode), assistant=False)
-    if not calls:
+    if not calls or task.get("expected_terminal_mode") == "blocked":
         answer = reference_terminal_thought(task)
     else:
         answer = format_final([{"name": name, "args": args} for name, args in calls], snapshots, task)
@@ -177,7 +177,7 @@ def gold_replay(rollout, tokenizer, task, root, *, strict=True):
     }
 
 
-def build(snapshot: Path, tokenizer_path: Path, adapter: Path, frozen_data: Path, *, followup=False) -> tuple[dict, list[dict]]:
+def build(snapshot: Path, tokenizer_path: Path, adapter: Path, frozen_data: Path, *, followup=False, pending=False, excluded_papers=()) -> tuple[dict, list[dict]]:
     from transformers import AutoTokenizer
 
     if (sha256_file(snapshot), sha256_file(adapter / "adapter_model.safetensors"), sha256_file(SPLIT)) != (
@@ -216,6 +216,9 @@ def build(snapshot: Path, tokenizer_path: Path, adapter: Path, frozen_data: Path
         controls = {task["id"] for task in prior["tasks"]}
         candidates = [task for task in candidates if task["id"] in controls]
         candidates.extend(additions(SPECS, SEARCH, CACHE, DL))
+    if pending:
+        from pending_task_v1 import candidates_from_snapshot
+        candidates = candidates_from_snapshot(rollout, heldout_specs, excluded_papers)
     seen_ids, seen_prompts, seen_signatures = set(), set(), set()
     audits = []
     with TemporaryDirectory(prefix="native-grpo-task-audit-") as temp:
@@ -249,7 +252,10 @@ def build(snapshot: Path, tokenizer_path: Path, adapter: Path, frozen_data: Path
                 if re.sub(r"v\d+$", "", paper) in snapshot.read_text(encoding="utf-8"):
                     raise ValueError(f"{key}: blocked paper is present in the snapshot")
             audits.append(gold_replay(rollout, tokenizer, task, Path(temp) / key))
-            if task.get("decision_focus"):
+            if pending:
+                from pending_task_v1 import check_pending_contract
+                audits[-1]["pending_contract"] = check_pending_contract(rollout, task, Path(temp)/key)
+            elif task.get("decision_focus"):
                 audits[-1]["ranking"] = check_rankings(rollout, task, Path(temp) / key / "rankings", gold_xml)
     first = audits[0]["native_messages"]
     from tools.tool_registry import registry

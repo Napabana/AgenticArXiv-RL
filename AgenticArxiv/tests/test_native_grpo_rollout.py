@@ -167,6 +167,36 @@ class CharTokenizer:
         return "".join(map(chr, ids))
 
 
+def test_pending_setup_anchor_pipeline_with_scripted_turns(tmp_path, monkeypatch):
+    # Controls for the CPU integration test only; never enter the frozen policy sample set.
+    from rl.credit_v2 import prepare, credits
+
+    root = Path(__file__).resolve().parents[2]
+    monkeypatch.syspath_prepend(str(root / "scripts"))
+    from run_pending_task_v1 import group_evidence, CANDIDATES
+
+    snapshot = root / "data/mock_arxiv_snapshot.json"
+    if not snapshot.is_file():
+        pytest.skip("local frozen snapshot unavailable")
+    task = next(t for t in json.loads(CANDIDATES.read_bytes())["tasks"] if t["pending_type"] == "B")
+    native = NativeRollout(snapshot)
+    tok = CharTokenizer()
+    native.audit_tokenizer = tok
+
+    def generate(contexts, budget):
+        cache = (tok.encode(xml(CACHE, **task["expected_tool_args"][0])), False)
+        early = (tok.encode("译文已就绪。\0"), True)
+        done = (tok.encode("翻译尚未完成，暂时无法读取译文。\0"), True)
+        return [cache, cache, early, early] if len(contexts) == 4 else [done] * len(contexts)
+
+    batch = native.run([task] * 4, tok, generate, max_turns=5, max_completion_length=4000, max_new_tokens=256)
+    samples = batch["trajectory_results"]
+    rows = credits(prepare(task, samples, native), "E4")
+    group = group_evidence(rows, samples)
+    assert group["strict"] == [1, 1, 0, 0] and group["valid"] and group["informative"]
+    assert group["pending_dfa_pairs"] == group["pending_anchor_pairs"] == group["pending_e4_pairs"] == 4
+
+
 def test_rollout_context_and_token_mask_use_generated_ids_and_real_feedback(rollout):
     spec = task([DOWNLOAD, CACHE], [{"ref": 1}, {"ref": None}], expected_papers=[PAPER, PAPER])
     script = iter([(xml(DOWNLOAD, ref=1), False), (xml(CACHE), False), (FINISH + "\0", True)])

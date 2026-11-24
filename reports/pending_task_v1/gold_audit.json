@@ -1,0 +1,206 @@
+{
+  "candidate_sha256": "9960cbc79ef72bf2cfb0a97896c023d0b3273836139719a868dc475ab6bcba20",
+  "candidate_count": 6,
+  "source_snapshot": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "heldout_sft_trace_sha256": {
+    "dev": "f4328cc606893e87d8718e094dc7de81e43efa47f680a3c096449ff046220fe4",
+    "iid_test": "530263182d247dca9ed73c02f701ffd64cb9e7503377c0b3bb8ca860ce6e7bb7",
+    "ood_test": "e2d56d1326a1770d4c4ad5feac3721f93829dcf88b8f41aaec20a118ab37215f"
+  },
+  "audited_holdout": 31,
+  "audited_sft": 188,
+  "tasks": [
+    {
+      "task_id": "pending_v1_a_cv",
+      "paper_id": "2611.18549v1",
+      "kind": "A",
+      "initial_state_digest": "75b2d495dc68e09be4269937782a5061e7227e998b60850486cc75e38a1d220f",
+      "verified_resets": 4,
+      "first_check": "PENDING",
+      "strict_gold": true,
+      "guards": {
+        "premature_read": "pending_guard",
+        "duplicate_submit": "pending_guard",
+        "repeat_poll": "pending_guard"
+      },
+      "setup_receipts": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 6
+          },
+          "observation": "{\"paper_id\": \"2611.18549v1\", \"pdf_url\": \"https://arxiv.org/pdf/2611.18549v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}",
+          "tool_issue": null
+        }
+      ],
+      "gold_max_turn_tokens": 41,
+      "gold_completion_tokens": 319
+    },
+    {
+      "task_id": "pending_v1_a_ai",
+      "paper_id": "2611.18531v1",
+      "kind": "A",
+      "initial_state_digest": "b9cea8ef0ccb4aab0b34cb8794431e6d9f42b404945c2722bf582057bf52b482",
+      "verified_resets": 4,
+      "first_check": "PENDING",
+      "strict_gold": true,
+      "guards": {
+        "premature_read": "pending_guard",
+        "duplicate_submit": "pending_guard",
+        "repeat_poll": "pending_guard"
+      },
+      "setup_receipts": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 8
+          },
+          "observation": "{\"paper_id\": \"2611.18531v1\", \"pdf_url\": \"https://arxiv.org/pdf/2611.18531v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}",
+          "tool_issue": null
+        }
+      ],
+      "gold_max_turn_tokens": 52,
+      "gold_completion_tokens": 341
+    },
+    {
+      "task_id": "pending_v1_b_ro",
+      "paper_id": "2611.18491v1",
+      "kind": "B",
+      "initial_state_digest": "9738235ae82ee94011abf30683a977d84e2abe564271b72ae3c6cb8e67a16c04",
+      "verified_resets": 4,
+      "first_check": "PENDING",
+      "strict_gold": true,
+      "guards": {
+        "premature_read": "pending_guard",
+        "duplicate_submit": "pending_guard",
+        "repeat_poll": "pending_guard"
+      },
+      "setup_receipts": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 6
+          },
+          "observation": "{\"paper_id\": \"2611.18491v1\", \"pdf_url\": \"https://arxiv.org/pdf/2611.18491v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}",
+          "tool_issue": null
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 6,
+            "keep_dual": true
+          },
+          "observation": "{\"task_id\": \"mocktask0001\", \"paper_id\": \"2611.18491v1\", \"status\": \"PENDING\"}",
+          "tool_issue": null
+        }
+      ],
+      "gold_max_turn_tokens": 27,
+      "gold_completion_tokens": 223
+    },
+    {
+      "task_id": "pending_v1_b_cl",
+      "paper_id": "2611.18485v1",
+      "kind": "B",
+      "initial_state_digest": "120261dbc2b8f33567e3145051f27b4fc95887be5d799a63faac42bc8af87517",
+      "verified_resets": 4,
+      "first_check": "PENDING",
+      "strict_gold": true,
+      "guards": {
+        "premature_read": "pending_guard",
+        "duplicate_submit": "pending_guard",
+        "repeat_poll": "pending_guard"
+      },
+      "setup_receipts": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 6
+          },
+          "observation": "{\"paper_id\": \"2611.18485v1\", \"pdf_url\": \"https://arxiv.org/pdf/2611.18485v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}",
+          "tool_issue": null
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 6,
+            "keep_dual": true
+          },
+          "observation": "{\"task_id\": \"mocktask0001\", \"paper_id\": \"2611.18485v1\", \"status\": \"PENDING\"}",
+          "tool_issue": null
+        }
+      ],
+      "gold_max_turn_tokens": 35,
+      "gold_completion_tokens": 231
+    },
+    {
+      "task_id": "pending_v1_c_cr",
+      "paper_id": "2611.18358v1",
+      "kind": "C",
+      "initial_state_digest": "ffc5c6aa361d602477500c908f147a6f9e48bc90d78de419c5fc0134bca89930",
+      "verified_resets": 4,
+      "first_check": "PENDING",
+      "strict_gold": true,
+      "guards": {
+        "premature_read": "pending_guard",
+        "duplicate_submit": "pending_guard",
+        "repeat_poll": "pending_guard"
+      },
+      "setup_receipts": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 6
+          },
+          "observation": "{\"paper_id\": \"2611.18358v1\", \"pdf_url\": \"https://arxiv.org/pdf/2611.18358v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}",
+          "tool_issue": null
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 6,
+            "keep_dual": true
+          },
+          "observation": "{\"task_id\": \"mocktask0001\", \"paper_id\": \"2611.18358v1\", \"status\": \"PENDING\"}",
+          "tool_issue": null
+        }
+      ],
+      "gold_max_turn_tokens": 38,
+      "gold_completion_tokens": 234
+    },
+    {
+      "task_id": "pending_v1_c_lg",
+      "paper_id": "2611.18511v1",
+      "kind": "C",
+      "initial_state_digest": "c918516289a8dd6b50346fce5801b761b76bae5d20d5d5e2d8d82b096a68e82e",
+      "verified_resets": 4,
+      "first_check": "PENDING",
+      "strict_gold": true,
+      "guards": {
+        "premature_read": "pending_guard",
+        "duplicate_submit": "pending_guard",
+        "repeat_poll": "pending_guard"
+      },
+      "setup_receipts": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 11
+          },
+          "observation": "{\"paper_id\": \"2611.18511v1\", \"pdf_url\": \"https://arxiv.org/pdf/2611.18511v1\", \"status\": \"READY\", \"existed\": false, \"size_bytes\": 39, \"sha256\": null}",
+          "tool_issue": null
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 11,
+            "keep_dual": true
+          },
+          "observation": "{\"task_id\": \"mocktask0001\", \"paper_id\": \"2611.18511v1\", \"status\": \"PENDING\"}",
+          "tool_issue": null
+        }
+      ],
+      "gold_max_turn_tokens": 28,
+      "gold_completion_tokens": 224
+    }
+  ]
+}

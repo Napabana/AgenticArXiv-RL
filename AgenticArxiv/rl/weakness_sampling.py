@@ -5,6 +5,7 @@ from collections import defaultdict
 
 from benchmark.metrics import _parse_tool_action
 from tools.tool_registry import registry
+from rl.native_grpo_rollout import setup_pending_papers
 
 SEARCH = "get_recently_submitted_cs_papers"
 CACHE = "get_paper_cache_status"
@@ -29,7 +30,7 @@ def targets(task):
         result.add("all_cs_scope")
     if tools.count(CACHE) >= 2:
         result.add("second_cache")
-    if TRANSLATE in tools:
+    if TRANSLATE in tools or any(step["name"] == TRANSLATE for step in task.get("setup", ())):
         result.add("pending")
     if len(tools) >= 2:
         result.add("early_finish")
@@ -71,7 +72,7 @@ def pending_before_decisions(sample):
         for m in sample.get("native_messages", [])
         if m["role"] == "tool" and m.get("tool_call_id")
     }
-    pending = set()
+    pending = setup_pending_papers(sample.get("setup_receipts", ()))
     before = []
     for step in sample["history"]:
         before.append(bool(pending))
@@ -83,6 +84,43 @@ def pending_before_decisions(sample):
             elif state == "READY":
                 pending.discard(paper)
     return before
+
+
+PENDING_BEHAVIORS = (
+    "pending_check_once_correct",
+    "pending_stop_correct",
+    "pending_premature_read",
+    "pending_duplicate_submit",
+    "pending_repeat_poll",
+    "pending_false_ready_claim",
+)
+
+
+def pending_behavior(step, decision, pending):
+    if not pending:
+        return None
+    action = _parse_tool_action(step["action"]) or {}
+    name, issue = action.get("name"), step.get("tool_issue")
+    if issue == "pending_claimed_ready":
+        return "pending_false_ready_claim"
+    if issue == "pending_guard":
+        return {
+            CACHE: "pending_repeat_poll",
+            TRANSLATE: "pending_duplicate_submit",
+            "get_translated_content": "pending_premature_read",
+        }.get(name)
+    if name == "get_translated_content" and issue == "translation_not_ready":
+        return "pending_premature_read"
+    if decision["transition_label"] == "accept":
+        return "pending_stop_correct"
+    if decision["transition_label"] == "correct" and name == CACHE:
+        # A group may have several papers. Count only a receipt for a pending translation.
+        import json
+
+        receipt = json.loads(step["observation"])
+        if (receipt.get("translate") or {}).get("status") == "PENDING":
+            return "pending_check_once_correct"
+    return None
 
 
 def observed(task, sample, row):

@@ -1,0 +1,323 @@
+{
+  "schema_version": 1,
+  "status": "LOCAL_PASS",
+  "base_model": "Qwen/Qwen3.5-2B-Base",
+  "adapter_sha256": "789af8cf28960892a1fde034d32f9b8ddf230e8450552be70d15024c964ed6c8",
+  "sft_train_manifest_sha256": "34196a2639203ca290a43c1012daa1f82f4621a4f8beb2203c597713d013bf70",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "holdout_split_sha256": "0a176b0f67b8b61d4f84e27a40071ab81a5be3d2040c2a58aa695432f5a6eacc",
+  "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+  "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+  "chat_template_sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+  "frozen_data_sha256": "776da5eec24985ae3d75aa11f5ba5abe2e693a197adac15322d11d5449dffc34",
+  "holdout_count": 31,
+  "native_sft_catalog_count": 188,
+  "candidate_count": 6,
+  "tasks": [
+    {
+      "id": "pending_v1_a_cv",
+      "task": "请把列表第6篇论文翻译成双语版，提交后查一次状态。若译文还没好，告诉我即可。",
+      "expected_tools": [
+        "translate_arxiv_pdf",
+        "get_paper_cache_status"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": 6,
+          "keep_dual": true
+        },
+        {
+          "ref": 6
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "long_chain",
+      "difficulty": "hard",
+      "expected_terminal_mode": "blocked",
+      "expected_terminal_reason": "translation_pending",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "CV",
+            "days": 30,
+            "max_results": 16
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 6
+          }
+        }
+      ],
+      "note": "5 次工具调用 + FINISH，默认 5 轮预算不够，显式给到 7",
+      "parent_task_id": "chain_cv5_cache_dl_tr_cache",
+      "grpo_family": "pending_handling",
+      "source": "pending_task_v1",
+      "pending_type": "A",
+      "target_paper_id": "2611.18549v1",
+      "task_signature_sha256": "6b28a29f2a83ce60852daffbe3b1862862b39a55189c6ed129274e6135641333",
+      "expected_paper_ids": [
+        "2611.18549v1",
+        "2611.18549v1"
+      ]
+    },
+    {
+      "id": "pending_v1_a_ai",
+      "task": "给2611.18531v1提交翻译，保留双语对照，再确认一次进度。只需要当前状态。",
+      "expected_tools": [
+        "translate_arxiv_pdf",
+        "get_paper_cache_status"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": "2611.18531v1",
+          "keep_dual": true
+        },
+        {
+          "ref": "2611.18531v1"
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "long_chain",
+      "difficulty": "hard",
+      "expected_terminal_mode": "blocked",
+      "expected_terminal_reason": "translation_pending",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "AI",
+            "days": 30,
+            "max_results": 16
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 8
+          }
+        }
+      ],
+      "note": "5 次工具调用 + FINISH，默认 5 轮预算不够，显式给到 7",
+      "parent_task_id": "chain_cv5_cache_dl_tr_cache",
+      "grpo_family": "pending_handling",
+      "source": "pending_task_v1",
+      "pending_type": "A",
+      "target_paper_id": "2611.18531v1",
+      "task_signature_sha256": "75edd68ccf7b57769baf200111abd2cf60f7066c5852764ac38ea80e2895ce6f",
+      "expected_paper_ids": [
+        "2611.18531v1",
+        "2611.18531v1"
+      ]
+    },
+    {
+      "id": "pending_v1_b_ro",
+      "task": "刚才那篇论文的翻译已经提交了，请查一次当前状态。尚未完成就说明情况，不要重新提交。",
+      "expected_tools": [
+        "get_paper_cache_status"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": null
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "long_chain",
+      "difficulty": "hard",
+      "expected_terminal_mode": "blocked",
+      "expected_terminal_reason": "translation_pending",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "RO",
+            "days": 30,
+            "max_results": 16
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 6
+          }
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 6,
+            "keep_dual": true
+          }
+        }
+      ],
+      "note": "5 次工具调用 + FINISH，默认 5 轮预算不够，显式给到 7",
+      "parent_task_id": "chain_cv5_cache_dl_tr_cache",
+      "grpo_family": "pending_handling",
+      "source": "pending_task_v1",
+      "pending_type": "B",
+      "target_paper_id": "2611.18491v1",
+      "task_signature_sha256": "9221d19cd780ebf00222c3f1e39fc33b5c89edc66b4100f19f52c90acd14ef6d",
+      "expected_paper_ids": [
+        "2611.18491v1"
+      ]
+    },
+    {
+      "id": "pending_v1_b_cl",
+      "task": "帮我看一下《Interactive Program Induction with Language Model Priors》之前那次翻译的进度。如果还在处理，就告诉我现在能否读取。",
+      "expected_tools": [
+        "get_paper_cache_status"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": "Interactive Program Induction with Language Model Priors"
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "long_chain",
+      "difficulty": "hard",
+      "expected_terminal_mode": "blocked",
+      "expected_terminal_reason": "translation_pending",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "CL",
+            "days": 30,
+            "max_results": 16
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 6
+          }
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 6,
+            "keep_dual": true
+          }
+        }
+      ],
+      "note": "5 次工具调用 + FINISH，默认 5 轮预算不够，显式给到 7",
+      "parent_task_id": "chain_cv5_cache_dl_tr_cache",
+      "grpo_family": "pending_handling",
+      "source": "pending_task_v1",
+      "pending_type": "B",
+      "target_paper_id": "2611.18485v1",
+      "task_signature_sha256": "79b2091f93ae09183c3bc830f04856fc284c9dc5bb8d6d7caec4a6d254cf032c",
+      "expected_paper_ids": [
+        "2611.18485v1"
+      ]
+    },
+    {
+      "id": "pending_v1_c_cr",
+      "task": "我想读2611.18358v1的中文摘要。先确认译文是否可用；如果还没好，请直接说明原因。",
+      "expected_tools": [
+        "get_paper_cache_status"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": "2611.18358v1"
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "long_chain",
+      "difficulty": "hard",
+      "expected_terminal_mode": "blocked",
+      "expected_terminal_reason": "translation_pending",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "CR",
+            "days": 30,
+            "max_results": 16
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 6
+          }
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 6,
+            "keep_dual": true
+          }
+        }
+      ],
+      "note": "5 次工具调用 + FINISH，默认 5 轮预算不够，显式给到 7",
+      "parent_task_id": "chain_cv5_cache_dl_tr_cache",
+      "grpo_family": "pending_handling",
+      "source": "pending_task_v1",
+      "pending_type": "C",
+      "target_paper_id": "2611.18358v1",
+      "task_signature_sha256": "0825873a51e7747640fc6cbd563db605de5943543a592b7210254cc0b323992c",
+      "expected_paper_ids": [
+        "2611.18358v1"
+      ]
+    },
+    {
+      "id": "pending_v1_c_lg",
+      "task": "请打开列表第11篇论文的中文摘要给我看。先查翻译状态，暂时读不了就告诉我为什么。",
+      "expected_tools": [
+        "get_paper_cache_status"
+      ],
+      "expected_tool_args": [
+        {
+          "ref": 11
+        }
+      ],
+      "expected_termination": "FINISH",
+      "category": "long_chain",
+      "difficulty": "hard",
+      "expected_terminal_mode": "blocked",
+      "expected_terminal_reason": "translation_pending",
+      "setup": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "aspect": "LG",
+            "days": 30,
+            "max_results": 16
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": 11
+          }
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": 11,
+            "keep_dual": true
+          }
+        }
+      ],
+      "note": "5 次工具调用 + FINISH，默认 5 轮预算不够，显式给到 7",
+      "parent_task_id": "chain_cv5_cache_dl_tr_cache",
+      "grpo_family": "pending_handling",
+      "source": "pending_task_v1",
+      "pending_type": "C",
+      "target_paper_id": "2611.18511v1",
+      "task_signature_sha256": "67afd0aa562468f0cb462385a6c45156d4dabaecf2d3a5f45076fbfbcc82f0cb",
+      "expected_paper_ids": [
+        "2611.18511v1"
+      ]
+    }
+  ],
+  "max_turns": 5,
+  "gold_max_context_tokens": 4247,
+  "gold_max_completion_tokens": 341,
+  "gold_max_turn_tokens": 52,
+  "max_completion_length": 1792,
+  "max_new_tokens_per_turn": 704,
+  "dataset": "pending_task_v1"
+}

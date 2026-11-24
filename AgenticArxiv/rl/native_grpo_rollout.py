@@ -25,6 +25,7 @@ _TOOL_SLOT = "__NATIVE_GRPO_TOOL_RESULT_4d9d522c__"
 _FORGED_ROLE = ("<tool_response", "</tool_response", "<|im_start|>")
 _PENDING_CLAIM = re.compile(
     r"(?:翻译|译文)[^。；，！？\n]{0,12}(?<!未)(?<!尚)已(?:经)?(?:翻译|生成|完成|就绪|可读)"
+    r"|(?:翻译|译文|状态)\s*(?:为|是|[:：])\s*ready\b|(?:已经|现已)可以读取译文"
     r"|(?:translation|translated (?:text|pdf))\s+(?:is |has been )?(?:ready|complete|available)\b",
     re.IGNORECASE,
 )
@@ -40,7 +41,23 @@ def _call_choice(text: str, tools: list[dict], turn: int) -> dict:
     return {"message": message}
 
 
-def native_history(messages: list[dict]) -> list[dict]:
+def setup_pending_papers(receipts):
+    pending = set()
+    for receipt in receipts:
+        if receipt.get("tool_issue") or receipt.get("name") not in {"translate_arxiv_pdf", "get_paper_cache_status"}:
+            continue
+        result = json.loads(receipt["observation"])
+        status = (result.get("status") if receipt["name"] == "translate_arxiv_pdf" else
+                  (result.get("translate") or {}).get("status"))
+        if result.get("paper_id"):
+            if status == "PENDING":
+                pending.add(result["paper_id"])
+            elif status == "READY":
+                pending.discard(result["paper_id"])
+    return pending
+
+
+def native_history(messages: list[dict], setup_receipts=()) -> list[dict]:
     """Convert recorded assistant turns using exact, unique tool call IDs."""
     by_id = {}
     for message in messages:
@@ -51,7 +68,7 @@ def native_history(messages: list[dict]) -> list[dict]:
             by_id[call_id] = message
 
     history = []
-    outstanding_pending = set()
+    outstanding_pending = setup_pending_papers(setup_receipts)
     for message in messages:
         if message["role"] != "assistant":
             continue
@@ -172,7 +189,7 @@ class NativeEpisode:
     def result(self) -> dict:
         invalid = {}
         try:
-            history = native_history(self.messages)
+            history = native_history(self.messages, self.setup_receipts)
         except ValueError as exc:
             if not self.audit_alignment:
                 raise
