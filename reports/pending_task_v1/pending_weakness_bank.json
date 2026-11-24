@@ -1,0 +1,9 @@
+{
+  "weakness": "pending",
+  "status": "no_signal",
+  "incomplete_ids": [],
+  "eligible_ids": [],
+  "sampled_groups": 18,
+  "informative_groups": 2,
+  "optimizer_update_tokens": 0
+}

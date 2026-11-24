@@ -1,0 +1,22 @@
+{
+  "runtime": {
+    "python": "3.13.5",
+    "platform": "Linux-5.4.0-216-generic-x86_64-with-glibc2.39",
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "versions": {
+      "transformers": "5.22.2",
+      "trl": "1.17.1",
+      "peft": "0.21.2",
+      "accelerate": "1.15.0",
+      "datasets": "5.2.0"
+    },
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "memory_bytes": 25250627584
+  },
+  "candidates": "9960cbc79ef72bf2cfb0a97896c023d0b3273836139719a868dc475ab6bcba20",
+  "adapter": "789af8cf28960892a1fde034d32f9b8ddf230e8450552be70d15024c964ed6c8",
+  "temperature": 1.0,
+  "groups_per_task": 3,
+  "generations": 4
+}

@@ -1,0 +1,3715 @@
+{
+  "tasks": {
+    "pending_v1_a_cv": {
+      "status": "no_signal",
+      "groups": [
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        },
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        },
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        }
+      ],
+      "diagnostics": {
+        "metrics": {
+          "zero_variance_outcome_groups": {
+            "numerator": 3,
+            "denominator": 3,
+            "rate": 1.0
+          },
+          "first_error_localization": {
+            "numerator": 12,
+            "denominator": 12,
+            "rate": 1.0
+          },
+          "prefix_final_nonnegative": {
+            "numerator": 2,
+            "denominator": 2,
+            "rate": 1.0
+          },
+          "anchor_coverage": {
+            "numerator": 0,
+            "denominator": 24,
+            "rate": 0.0
+          },
+          "anchor_pairwise_ranking": {
+            "numerator": 0,
+            "denominator": 6,
+            "rate": 0.0
+          },
+          "contract_correct_over_wrong": {
+            "numerator": 6,
+            "denominator": 6,
+            "rate": 1.0
+          }
+        },
+        "alignment_by_channel": {
+          "raw_dfa_adv": {
+            "prefix_preservation": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "first_error_suppression": {
+              "numerator": 6,
+              "denominator": 6,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 14,
+              "rate": 0.0
+            }
+          },
+          "raw_anchor_adv": {
+            "prefix_preservation": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "first_error_suppression": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "correct_action_promotion": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 14,
+              "rate": 0.0
+            }
+          },
+          "raw_combined_local": {
+            "prefix_preservation": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "first_error_suppression": {
+              "numerator": 6,
+              "denominator": 6,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 14,
+              "rate": 0.0
+            }
+          },
+          "effective_local": {
+            "prefix_preservation": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "first_error_suppression": {
+              "numerator": 6,
+              "denominator": 6,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 14,
+              "rate": 0.0
+            }
+          }
+        },
+        "group_exposure_by_family": {
+          "pending_handling": 3
+        },
+        "terminal_states": {
+          "q_error": 12
+        },
+        "pending_behaviors": {
+          "pending_check_once_correct": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_stop_correct": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_premature_read": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_duplicate_submit": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_repeat_poll": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_false_ready_claim": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          }
+        },
+        "histograms": {
+          "anchor_reasons": {
+            "zero_variance": {
+              "numerator": 8,
+              "denominator": 24,
+              "rate": 0.3333333333333333
+            },
+            "identical_action": {
+              "numerator": 11,
+              "denominator": 24,
+              "rate": 0.4583333333333333
+            },
+            "singleton_state": {
+              "numerator": 5,
+              "denominator": 24,
+              "rate": 0.20833333333333334
+            }
+          },
+          "dfa_reasons": {
+            "signal": {
+              "numerator": 8,
+              "denominator": 24,
+              "rate": 0.3333333333333333
+            },
+            "unverified": {
+              "numerator": 10,
+              "denominator": 24,
+              "rate": 0.4166666666666667
+            },
+            "singleton_state": {
+              "numerator": 2,
+              "denominator": 24,
+              "rate": 0.08333333333333333
+            },
+            "identical_action": {
+              "numerator": 4,
+              "denominator": 24,
+              "rate": 0.16666666666666666
+            }
+          },
+          "anchor_sizes": {
+            "4": {
+              "numerator": 3,
+              "denominator": 11,
+              "rate": 0.2727272727272727
+            },
+            "2": {
+              "numerator": 2,
+              "denominator": 11,
+              "rate": 0.18181818181818182
+            },
+            "1": {
+              "numerator": 5,
+              "denominator": 11,
+              "rate": 0.45454545454545453
+            },
+            "3": {
+              "numerator": 1,
+              "denominator": 11,
+              "rate": 0.09090909090909091
+            }
+          }
+        },
+        "channels": {
+          "episode_contribution": {
+            "n": 24,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 24,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 24,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 24,
+              "rate": 0.0
+            }
+          },
+          "local_contribution": {
+            "n": 24,
+            "sum": -4.163336342344337e-17,
+            "sum2": 0.374850044988003,
+            "negative": 6,
+            "token_sum": 0.12497500499899417,
+            "zero": 16,
+            "positive": 2,
+            "mean": -1.734723475976807e-18,
+            "variance": 0.015618751874500125,
+            "positive_fraction": {
+              "numerator": 2,
+              "denominator": 24,
+              "rate": 0.08333333333333333
+            },
+            "negative_fraction": {
+              "numerator": 6,
+              "denominator": 24,
+              "rate": 0.25
+            }
+          },
+          "raw_dfa_adv": {
+            "n": 24,
+            "sum": -1.6653345369377348e-16,
+            "sum2": 5.997600719808048,
+            "negative": 6,
+            "token_sum": 0.49990001999597666,
+            "zero": 16,
+            "positive": 2,
+            "mean": -6.938893903907228e-18,
+            "variance": 0.249900029992002,
+            "positive_fraction": {
+              "numerator": 2,
+              "denominator": 24,
+              "rate": 0.08333333333333333
+            },
+            "negative_fraction": {
+              "numerator": 6,
+              "denominator": 24,
+              "rate": 0.25
+            }
+          },
+          "raw_anchor_adv": {
+            "n": 24,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 24,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 24,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 24,
+              "rate": 0.0
+            }
+          },
+          "raw_combined_local": {
+            "n": 24,
+            "sum": -8.326672684688674e-17,
+            "sum2": 1.499400179952012,
+            "negative": 6,
+            "token_sum": 0.24995000999798833,
+            "zero": 16,
+            "positive": 2,
+            "mean": -3.469446951953614e-18,
+            "variance": 0.0624750074980005,
+            "positive_fraction": {
+              "numerator": 2,
+              "denominator": 24,
+              "rate": 0.08333333333333333
+            },
+            "negative_fraction": {
+              "numerator": 6,
+              "denominator": 24,
+              "rate": 0.25
+            }
+          },
+          "effective_local": {
+            "n": 24,
+            "sum": -8.326672684688674e-17,
+            "sum2": 1.499400179952012,
+            "negative": 6,
+            "token_sum": 0.24995000999798833,
+            "zero": 16,
+            "positive": 2,
+            "mean": -3.469446951953614e-18,
+            "variance": 0.0624750074980005,
+            "positive_fraction": {
+              "numerator": 2,
+              "denominator": 24,
+              "rate": 0.08333333333333333
+            },
+            "negative_fraction": {
+              "numerator": 6,
+              "denominator": 24,
+              "rate": 0.25
+            }
+          },
+          "advantage": {
+            "n": 24,
+            "sum": -4.163336342344337e-17,
+            "sum2": 0.374850044988003,
+            "negative": 6,
+            "token_sum": 0.12497500499899417,
+            "zero": 16,
+            "positive": 2,
+            "mean": -1.734723475976807e-18,
+            "variance": 0.015618751874500125,
+            "positive_fraction": {
+              "numerator": 2,
+              "denominator": 24,
+              "rate": 0.08333333333333333
+            },
+            "negative_fraction": {
+              "numerator": 6,
+              "denominator": 24,
+              "rate": 0.25
+            }
+          }
+        },
+        "action_calibration": {
+          "translate_arxiv_pdf": {
+            "strict_failure": 12,
+            "negative": 6,
+            "raw_conflicts": 0,
+            "verified": 12,
+            "conflicts": 0,
+            "positive": 2,
+            "zero": 4,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            }
+          },
+          "FINISH": {
+            "strict_failure": 12,
+            "zero": 12,
+            "raw_conflicts": 0,
+            "verified": 2,
+            "conflicts": 0,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            }
+          }
+        },
+        "exposure": {
+          "early_finish": {
+            "sampled_groups": 3,
+            "updated_correct_tokens": 180,
+            "nonzero_local_tokens": 180,
+            "target_correct": 2,
+            "correct_local_nonnegative": 2,
+            "correct_local_positive": 2,
+            "target_errors": 2,
+            "error_local_zero": 2,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 0,
+            "error_groups": 2,
+            "nonzero_advantage_tokens": 180,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            }
+          },
+          "pending": {
+            "sampled_groups": 3,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "reference_argument": {
+            "sampled_groups": 3,
+            "target_errors": 10,
+            "error_local_negative": 6,
+            "nonzero_local_tokens": 719,
+            "error_local_sum": -1.4997000599880024,
+            "updated_error_tokens": 539,
+            "updated_correct_tokens": 180,
+            "target_correct": 2,
+            "correct_local_nonnegative": 2,
+            "correct_local_positive": 2,
+            "error_groups": 3,
+            "error_local_zero": 4,
+            "nonzero_advantage_tokens": 719,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 6,
+              "denominator": 10,
+              "rate": 0.6
+            }
+          },
+          "repeat": {
+            "sampled_groups": 3,
+            "updated_correct_tokens": 180,
+            "nonzero_local_tokens": 180,
+            "target_correct": 2,
+            "correct_local_nonnegative": 2,
+            "correct_local_positive": 2,
+            "nonzero_advantage_tokens": 180,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "tool_parse": {
+            "sampled_groups": 3,
+            "updated_correct_tokens": 180,
+            "nonzero_local_tokens": 180,
+            "target_correct": 2,
+            "correct_local_nonnegative": 2,
+            "correct_local_positive": 2,
+            "nonzero_advantage_tokens": 180,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          }
+        }
+      }
+    },
+    "pending_v1_a_ai": {
+      "status": "no_signal",
+      "groups": [
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        },
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        },
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        }
+      ],
+      "diagnostics": {
+        "metrics": {
+          "zero_variance_outcome_groups": {
+            "numerator": 3,
+            "denominator": 3,
+            "rate": 1.0
+          },
+          "first_error_localization": {
+            "numerator": 12,
+            "denominator": 12,
+            "rate": 1.0
+          },
+          "prefix_final_nonnegative": {
+            "numerator": 1,
+            "denominator": 1,
+            "rate": 1.0
+          },
+          "anchor_coverage": {
+            "numerator": 0,
+            "denominator": 32,
+            "rate": 0.0
+          },
+          "anchor_pairwise_ranking": {
+            "numerator": 0,
+            "denominator": 3,
+            "rate": 0.0
+          },
+          "contract_correct_over_wrong": {
+            "numerator": 3,
+            "denominator": 3,
+            "rate": 1.0
+          }
+        },
+        "alignment_by_channel": {
+          "raw_dfa_adv": {
+            "prefix_preservation": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "first_error_suppression": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 13,
+              "rate": 0.0
+            }
+          },
+          "raw_anchor_adv": {
+            "prefix_preservation": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "first_error_suppression": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "correct_action_promotion": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 13,
+              "rate": 0.0
+            }
+          },
+          "raw_combined_local": {
+            "prefix_preservation": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "first_error_suppression": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 13,
+              "rate": 0.0
+            }
+          },
+          "effective_local": {
+            "prefix_preservation": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "first_error_suppression": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 13,
+              "rate": 0.0
+            }
+          }
+        },
+        "group_exposure_by_family": {
+          "pending_handling": 3
+        },
+        "terminal_states": {
+          "q_error": 12
+        },
+        "pending_behaviors": {
+          "pending_check_once_correct": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_stop_correct": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_premature_read": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_duplicate_submit": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_repeat_poll": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_false_ready_claim": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          }
+        },
+        "histograms": {
+          "anchor_reasons": {
+            "zero_variance": {
+              "numerator": 16,
+              "denominator": 32,
+              "rate": 0.5
+            },
+            "identical_action": {
+              "numerator": 6,
+              "denominator": 32,
+              "rate": 0.1875
+            },
+            "singleton_state": {
+              "numerator": 10,
+              "denominator": 32,
+              "rate": 0.3125
+            }
+          },
+          "dfa_reasons": {
+            "zero_variance": {
+              "numerator": 8,
+              "denominator": 32,
+              "rate": 0.25
+            },
+            "unverified": {
+              "numerator": 19,
+              "denominator": 32,
+              "rate": 0.59375
+            },
+            "signal": {
+              "numerator": 4,
+              "denominator": 32,
+              "rate": 0.125
+            },
+            "singleton_state": {
+              "numerator": 1,
+              "denominator": 32,
+              "rate": 0.03125
+            }
+          },
+          "anchor_sizes": {
+            "4": {
+              "numerator": 3,
+              "denominator": 18,
+              "rate": 0.16666666666666666
+            },
+            "2": {
+              "numerator": 5,
+              "denominator": 18,
+              "rate": 0.2777777777777778
+            },
+            "1": {
+              "numerator": 10,
+              "denominator": 18,
+              "rate": 0.5555555555555556
+            }
+          }
+        },
+        "channels": {
+          "episode_contribution": {
+            "n": 32,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 32,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 32,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 32,
+              "rate": 0.0
+            }
+          },
+          "local_contribution": {
+            "n": 32,
+            "sum": -2.7755575615628914e-17,
+            "sum2": 0.1874250224940015,
+            "zero": 28,
+            "token_sum": 4.499100179964003,
+            "negative": 3,
+            "positive": 1,
+            "mean": -8.673617379884035e-19,
+            "variance": 0.005857031952937547,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 32,
+              "rate": 0.03125
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 32,
+              "rate": 0.09375
+            }
+          },
+          "raw_dfa_adv": {
+            "n": 32,
+            "sum": -1.1102230246251565e-16,
+            "sum2": 2.998800359904024,
+            "zero": 28,
+            "token_sum": 17.996400719856013,
+            "negative": 3,
+            "positive": 1,
+            "mean": -3.469446951953614e-18,
+            "variance": 0.09371251124700075,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 32,
+              "rate": 0.03125
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 32,
+              "rate": 0.09375
+            }
+          },
+          "raw_anchor_adv": {
+            "n": 32,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 32,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 32,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 32,
+              "rate": 0.0
+            }
+          },
+          "raw_combined_local": {
+            "n": 32,
+            "sum": -5.551115123125783e-17,
+            "sum2": 0.749700089976006,
+            "zero": 28,
+            "token_sum": 8.998200359928006,
+            "negative": 3,
+            "positive": 1,
+            "mean": -1.734723475976807e-18,
+            "variance": 0.023428127811750188,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 32,
+              "rate": 0.03125
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 32,
+              "rate": 0.09375
+            }
+          },
+          "effective_local": {
+            "n": 32,
+            "sum": -5.551115123125783e-17,
+            "sum2": 0.749700089976006,
+            "zero": 28,
+            "token_sum": 8.998200359928006,
+            "negative": 3,
+            "positive": 1,
+            "mean": -1.734723475976807e-18,
+            "variance": 0.023428127811750188,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 32,
+              "rate": 0.03125
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 32,
+              "rate": 0.09375
+            }
+          },
+          "advantage": {
+            "n": 32,
+            "sum": -2.7755575615628914e-17,
+            "sum2": 0.1874250224940015,
+            "zero": 28,
+            "token_sum": 4.499100179964003,
+            "negative": 3,
+            "positive": 1,
+            "mean": -8.673617379884035e-19,
+            "variance": 0.005857031952937547,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 32,
+              "rate": 0.03125
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 32,
+              "rate": 0.09375
+            }
+          }
+        },
+        "action_calibration": {
+          "translate_arxiv_pdf": {
+            "strict_failure": 22,
+            "zero": 18,
+            "raw_conflicts": 0,
+            "verified": 12,
+            "conflicts": 0,
+            "negative": 3,
+            "positive": 1,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            }
+          },
+          "FINISH": {
+            "strict_failure": 10,
+            "zero": 10,
+            "raw_conflicts": 0,
+            "verified": 1,
+            "conflicts": 0,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            }
+          }
+        },
+        "exposure": {
+          "early_finish": {
+            "sampled_groups": 3,
+            "updated_correct_tokens": 101,
+            "nonzero_local_tokens": 101,
+            "target_correct": 1,
+            "correct_local_nonnegative": 1,
+            "correct_local_positive": 1,
+            "target_errors": 1,
+            "error_local_zero": 1,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 0,
+            "error_groups": 1,
+            "nonzero_advantage_tokens": 101,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            }
+          },
+          "pending": {
+            "sampled_groups": 3,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "reference_argument": {
+            "sampled_groups": 3,
+            "target_errors": 4,
+            "error_local_zero": 3,
+            "nonzero_local_tokens": 184,
+            "error_local_sum": -0.2499500099980004,
+            "updated_error_tokens": 83,
+            "error_groups": 3,
+            "error_local_negative": 1,
+            "updated_correct_tokens": 101,
+            "target_correct": 1,
+            "correct_local_nonnegative": 1,
+            "correct_local_positive": 1,
+            "nonzero_advantage_tokens": 184,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 1,
+              "denominator": 4,
+              "rate": 0.25
+            }
+          },
+          "repeat": {
+            "sampled_groups": 3,
+            "updated_correct_tokens": 101,
+            "nonzero_local_tokens": 101,
+            "target_correct": 1,
+            "correct_local_nonnegative": 1,
+            "correct_local_positive": 1,
+            "target_errors": 10,
+            "error_local_zero": 10,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 0,
+            "error_groups": 2,
+            "nonzero_advantage_tokens": 101,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 10,
+              "rate": 0.0
+            }
+          },
+          "tool_parse": {
+            "sampled_groups": 3,
+            "target_errors": 17,
+            "error_local_zero": 15,
+            "nonzero_local_tokens": 285,
+            "error_local_sum": -0.4999000199960008,
+            "updated_error_tokens": 184,
+            "error_groups": 3,
+            "updated_correct_tokens": 101,
+            "target_correct": 1,
+            "correct_local_nonnegative": 1,
+            "correct_local_positive": 1,
+            "error_local_negative": 2,
+            "nonzero_advantage_tokens": 285,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 2,
+              "denominator": 17,
+              "rate": 0.11764705882352941
+            }
+          }
+        }
+      }
+    },
+    "pending_v1_b_ro": {
+      "status": "no_signal",
+      "groups": [
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        },
+        {
+          "strict": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": true,
+          "pending_dfa_pairs": 3,
+          "pending_e4_pairs": 3,
+          "pending_anchor_pairs": 3,
+          "informative": true
+        },
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        }
+      ],
+      "diagnostics": {
+        "metrics": {
+          "zero_variance_outcome_groups": {
+            "numerator": 2,
+            "denominator": 3,
+            "rate": 0.6666666666666666
+          },
+          "first_error_localization": {
+            "numerator": 11,
+            "denominator": 11,
+            "rate": 1.0
+          },
+          "prefix_final_nonnegative": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "anchor_coverage": {
+            "numerator": 4,
+            "denominator": 24,
+            "rate": 0.16666666666666666
+          },
+          "anchor_pairwise_ranking": {
+            "numerator": 3,
+            "denominator": 3,
+            "rate": 1.0
+          },
+          "contract_correct_over_wrong": {
+            "numerator": 3,
+            "denominator": 3,
+            "rate": 1.0
+          }
+        },
+        "alignment_by_channel": {
+          "raw_dfa_adv": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 13,
+              "rate": 0.0
+            }
+          },
+          "raw_anchor_adv": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 13,
+              "rate": 0.0
+            }
+          },
+          "raw_combined_local": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 13,
+              "rate": 0.0
+            }
+          },
+          "effective_local": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 13,
+              "rate": 0.0
+            }
+          }
+        },
+        "group_exposure_by_family": {
+          "pending_handling": 3
+        },
+        "terminal_states": {
+          "q_error": 11,
+          "q_accept": 1
+        },
+        "pending_behaviors": {
+          "pending_check_once_correct": {
+            "decisions": 1,
+            "nonzero_advantage_tokens": 51,
+            "nonzero_local_tokens": 51
+          },
+          "pending_stop_correct": {
+            "decisions": 1,
+            "nonzero_advantage_tokens": 25,
+            "nonzero_local_tokens": 0
+          },
+          "pending_premature_read": {
+            "decisions": 8,
+            "nonzero_advantage_tokens": 53,
+            "nonzero_local_tokens": 53
+          },
+          "pending_duplicate_submit": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_repeat_poll": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_false_ready_claim": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          }
+        },
+        "histograms": {
+          "anchor_reasons": {
+            "zero_variance": {
+              "numerator": 8,
+              "denominator": 24,
+              "rate": 0.3333333333333333
+            },
+            "singleton_state": {
+              "numerator": 12,
+              "denominator": 24,
+              "rate": 0.5
+            },
+            "signal": {
+              "numerator": 4,
+              "denominator": 24,
+              "rate": 0.16666666666666666
+            }
+          },
+          "dfa_reasons": {
+            "zero_variance": {
+              "numerator": 8,
+              "denominator": 24,
+              "rate": 0.3333333333333333
+            },
+            "unverified": {
+              "numerator": 11,
+              "denominator": 24,
+              "rate": 0.4583333333333333
+            },
+            "signal": {
+              "numerator": 4,
+              "denominator": 24,
+              "rate": 0.16666666666666666
+            },
+            "singleton_state": {
+              "numerator": 1,
+              "denominator": 24,
+              "rate": 0.041666666666666664
+            }
+          },
+          "anchor_sizes": {
+            "4": {
+              "numerator": 3,
+              "denominator": 15,
+              "rate": 0.2
+            },
+            "1": {
+              "numerator": 12,
+              "denominator": 15,
+              "rate": 0.8
+            }
+          }
+        },
+        "channels": {
+          "episode_contribution": {
+            "n": 24,
+            "sum": 0.7498500299940012,
+            "sum2": 1.3119751574580105,
+            "zero": 19,
+            "token_sum": 22.49550089982004,
+            "negative": 3,
+            "positive": 2,
+            "mean": 0.03124375124975005,
+            "variance": 0.05368945956859418,
+            "positive_fraction": {
+              "numerator": 2,
+              "denominator": 24,
+              "rate": 0.08333333333333333
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          },
+          "local_contribution": {
+            "n": 24,
+            "sum": -5.551115123125783e-17,
+            "sum2": 0.749700089976006,
+            "zero": 20,
+            "token_sum": 3.749250149970006,
+            "negative": 3,
+            "positive": 1,
+            "mean": -2.3129646346357427e-18,
+            "variance": 0.03123750374900025,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 24,
+              "rate": 0.041666666666666664
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          },
+          "raw_dfa_adv": {
+            "n": 24,
+            "sum": -1.1102230246251565e-16,
+            "sum2": 2.998800359904024,
+            "zero": 20,
+            "token_sum": 7.498500299940012,
+            "negative": 3,
+            "positive": 1,
+            "mean": -4.625929269271485e-18,
+            "variance": 0.124950014996001,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 24,
+              "rate": 0.041666666666666664
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          },
+          "raw_anchor_adv": {
+            "n": 24,
+            "sum": -1.1102230246251565e-16,
+            "sum2": 2.998800359904024,
+            "zero": 20,
+            "token_sum": 7.498500299940012,
+            "negative": 3,
+            "positive": 1,
+            "mean": -4.625929269271485e-18,
+            "variance": 0.124950014996001,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 24,
+              "rate": 0.041666666666666664
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          },
+          "raw_combined_local": {
+            "n": 24,
+            "sum": -1.1102230246251565e-16,
+            "sum2": 2.998800359904024,
+            "zero": 20,
+            "token_sum": 7.498500299940012,
+            "negative": 3,
+            "positive": 1,
+            "mean": -4.625929269271485e-18,
+            "variance": 0.124950014996001,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 24,
+              "rate": 0.041666666666666664
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          },
+          "effective_local": {
+            "n": 24,
+            "sum": -1.1102230246251565e-16,
+            "sum2": 2.998800359904024,
+            "zero": 20,
+            "token_sum": 7.498500299940012,
+            "negative": 3,
+            "positive": 1,
+            "mean": -4.625929269271485e-18,
+            "variance": 0.124950014996001,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 24,
+              "rate": 0.041666666666666664
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          },
+          "advantage": {
+            "n": 24,
+            "sum": 0.749850029994001,
+            "sum2": 3.5610754273860286,
+            "zero": 19,
+            "token_sum": 26.244751049790047,
+            "negative": 3,
+            "positive": 2,
+            "mean": 0.03124375124975004,
+            "variance": 0.14740197081559495,
+            "positive_fraction": {
+              "numerator": 2,
+              "denominator": 24,
+              "rate": 0.08333333333333333
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          }
+        },
+        "action_calibration": {
+          "FINISH": {
+            "strict_failure": 9,
+            "zero": 10,
+            "raw_conflicts": 0,
+            "verified": 4,
+            "conflicts": 0,
+            "strict_success": 1,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 4,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 4,
+              "rate": 0.0
+            }
+          },
+          "get_paper_cache_status": {
+            "strict_failure": 4,
+            "zero": 2,
+            "raw_conflicts": 0,
+            "verified": 5,
+            "conflicts": 0,
+            "negative": 2,
+            "strict_success": 1,
+            "positive": 1,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 5,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 5,
+              "rate": 0.0
+            }
+          },
+          "get_translated_content": {
+            "strict_failure": 8,
+            "zero": 7,
+            "raw_conflicts": 0,
+            "verified": 4,
+            "conflicts": 0,
+            "negative": 1,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 4,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 4,
+              "rate": 0.0
+            }
+          },
+          "ERROR": {
+            "strict_failure": 1,
+            "zero": 1,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          }
+        },
+        "exposure": {
+          "pending": {
+            "sampled_groups": 3,
+            "target_errors": 8,
+            "error_local_zero": 7,
+            "nonzero_local_tokens": 104,
+            "error_local_sum": -0.4999000199960008,
+            "updated_error_tokens": 53,
+            "error_groups": 3,
+            "updated_correct_tokens": 76,
+            "target_correct": 2,
+            "correct_local_nonnegative": 2,
+            "correct_local_positive": 1,
+            "error_local_negative": 1,
+            "contrast_groups": 1,
+            "nonzero_advantage_tokens": 129,
+            "contrast_rate": {
+              "numerator": 1,
+              "denominator": 3,
+              "rate": 0.3333333333333333
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 1,
+              "denominator": 8,
+              "rate": 0.125
+            }
+          },
+          "reference_argument": {
+            "sampled_groups": 3,
+            "target_errors": 4,
+            "error_local_zero": 2,
+            "nonzero_local_tokens": 136,
+            "error_local_sum": -0.9998000399920016,
+            "updated_error_tokens": 85,
+            "error_groups": 3,
+            "error_local_negative": 2,
+            "updated_correct_tokens": 51,
+            "target_correct": 1,
+            "correct_local_nonnegative": 1,
+            "correct_local_positive": 1,
+            "contrast_groups": 1,
+            "nonzero_advantage_tokens": 136,
+            "contrast_rate": {
+              "numerator": 1,
+              "denominator": 3,
+              "rate": 0.3333333333333333
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 2,
+              "denominator": 4,
+              "rate": 0.5
+            }
+          },
+          "repeat": {
+            "sampled_groups": 3,
+            "updated_correct_tokens": 51,
+            "nonzero_local_tokens": 51,
+            "target_correct": 1,
+            "correct_local_nonnegative": 1,
+            "correct_local_positive": 1,
+            "nonzero_advantage_tokens": 51,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "tool_parse": {
+            "sampled_groups": 3,
+            "target_errors": 9,
+            "error_local_zero": 8,
+            "nonzero_local_tokens": 104,
+            "error_local_sum": -0.4999000199960008,
+            "updated_error_tokens": 53,
+            "error_groups": 3,
+            "updated_correct_tokens": 51,
+            "target_correct": 1,
+            "correct_local_nonnegative": 1,
+            "correct_local_positive": 1,
+            "error_local_negative": 1,
+            "contrast_groups": 1,
+            "nonzero_advantage_tokens": 104,
+            "contrast_rate": {
+              "numerator": 1,
+              "denominator": 3,
+              "rate": 0.3333333333333333
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 1,
+              "denominator": 9,
+              "rate": 0.1111111111111111
+            }
+          },
+          "early_finish": {
+            "target_errors": 3,
+            "error_local_zero": 3,
+            "nonzero_local_tokens": 0,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 0,
+            "error_groups": 2,
+            "sampled_groups": 0,
+            "nonzero_advantage_tokens": 0,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            }
+          }
+        }
+      }
+    },
+    "pending_v1_b_cl": {
+      "status": "no_signal",
+      "groups": [
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        },
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        },
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "valid": true,
+          "mixed": true,
+          "pending_dfa_pairs": 3,
+          "pending_e4_pairs": 3,
+          "pending_anchor_pairs": 3,
+          "informative": true
+        }
+      ],
+      "diagnostics": {
+        "metrics": {
+          "zero_variance_outcome_groups": {
+            "numerator": 2,
+            "denominator": 3,
+            "rate": 0.6666666666666666
+          },
+          "first_error_localization": {
+            "numerator": 11,
+            "denominator": 11,
+            "rate": 1.0
+          },
+          "prefix_final_nonnegative": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "anchor_coverage": {
+            "numerator": 4,
+            "denominator": 24,
+            "rate": 0.16666666666666666
+          },
+          "anchor_pairwise_ranking": {
+            "numerator": 3,
+            "denominator": 3,
+            "rate": 1.0
+          },
+          "contract_correct_over_wrong": {
+            "numerator": 3,
+            "denominator": 3,
+            "rate": 1.0
+          }
+        },
+        "alignment_by_channel": {
+          "raw_dfa_adv": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 13,
+              "rate": 0.0
+            }
+          },
+          "raw_anchor_adv": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 13,
+              "rate": 0.0
+            }
+          },
+          "raw_combined_local": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 13,
+              "rate": 0.0
+            }
+          },
+          "effective_local": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "correct_action_promotion": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 13,
+              "rate": 0.0
+            }
+          }
+        },
+        "group_exposure_by_family": {
+          "pending_handling": 3
+        },
+        "terminal_states": {
+          "q_error": 11,
+          "q_accept": 1
+        },
+        "pending_behaviors": {
+          "pending_check_once_correct": {
+            "decisions": 1,
+            "nonzero_advantage_tokens": 40,
+            "nonzero_local_tokens": 40
+          },
+          "pending_stop_correct": {
+            "decisions": 1,
+            "nonzero_advantage_tokens": 27,
+            "nonzero_local_tokens": 0
+          },
+          "pending_premature_read": {
+            "decisions": 10,
+            "nonzero_advantage_tokens": 175,
+            "nonzero_local_tokens": 175
+          },
+          "pending_duplicate_submit": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_repeat_poll": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_false_ready_claim": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          }
+        },
+        "histograms": {
+          "anchor_reasons": {
+            "zero_variance": {
+              "numerator": 8,
+              "denominator": 24,
+              "rate": 0.3333333333333333
+            },
+            "singleton_state": {
+              "numerator": 12,
+              "denominator": 24,
+              "rate": 0.5
+            },
+            "signal": {
+              "numerator": 4,
+              "denominator": 24,
+              "rate": 0.16666666666666666
+            }
+          },
+          "dfa_reasons": {
+            "zero_variance": {
+              "numerator": 8,
+              "denominator": 24,
+              "rate": 0.3333333333333333
+            },
+            "unverified": {
+              "numerator": 11,
+              "denominator": 24,
+              "rate": 0.4583333333333333
+            },
+            "signal": {
+              "numerator": 4,
+              "denominator": 24,
+              "rate": 0.16666666666666666
+            },
+            "singleton_state": {
+              "numerator": 1,
+              "denominator": 24,
+              "rate": 0.041666666666666664
+            }
+          },
+          "anchor_sizes": {
+            "4": {
+              "numerator": 3,
+              "denominator": 15,
+              "rate": 0.2
+            },
+            "1": {
+              "numerator": 12,
+              "denominator": 15,
+              "rate": 0.8
+            }
+          }
+        },
+        "channels": {
+          "episode_contribution": {
+            "n": 24,
+            "sum": 0.7498500299940012,
+            "sum2": 1.3119751574580105,
+            "zero": 19,
+            "token_sum": 6.498700259948013,
+            "negative": 3,
+            "positive": 2,
+            "mean": 0.03124375124975005,
+            "variance": 0.05368945956859418,
+            "positive_fraction": {
+              "numerator": 2,
+              "denominator": 24,
+              "rate": 0.08333333333333333
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          },
+          "local_contribution": {
+            "n": 24,
+            "sum": 0.0,
+            "sum2": 0.749700089976006,
+            "zero": 20,
+            "token_sum": -13.747250549890019,
+            "negative": 3,
+            "positive": 1,
+            "mean": 0.0,
+            "variance": 0.03123750374900025,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 24,
+              "rate": 0.041666666666666664
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          },
+          "raw_dfa_adv": {
+            "n": 24,
+            "sum": 0.0,
+            "sum2": 2.998800359904024,
+            "zero": 20,
+            "token_sum": -27.494501099780038,
+            "negative": 3,
+            "positive": 1,
+            "mean": 0.0,
+            "variance": 0.124950014996001,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 24,
+              "rate": 0.041666666666666664
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          },
+          "raw_anchor_adv": {
+            "n": 24,
+            "sum": 0.0,
+            "sum2": 2.998800359904024,
+            "zero": 20,
+            "token_sum": -27.494501099780038,
+            "negative": 3,
+            "positive": 1,
+            "mean": 0.0,
+            "variance": 0.124950014996001,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 24,
+              "rate": 0.041666666666666664
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          },
+          "raw_combined_local": {
+            "n": 24,
+            "sum": 0.0,
+            "sum2": 2.998800359904024,
+            "zero": 20,
+            "token_sum": -27.494501099780038,
+            "negative": 3,
+            "positive": 1,
+            "mean": 0.0,
+            "variance": 0.124950014996001,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 24,
+              "rate": 0.041666666666666664
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          },
+          "effective_local": {
+            "n": 24,
+            "sum": 0.0,
+            "sum2": 2.998800359904024,
+            "zero": 20,
+            "token_sum": -27.494501099780038,
+            "negative": 3,
+            "positive": 1,
+            "mean": 0.0,
+            "variance": 0.124950014996001,
+            "positive_fraction": {
+              "numerator": 1,
+              "denominator": 24,
+              "rate": 0.041666666666666664
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          },
+          "advantage": {
+            "n": 24,
+            "sum": 0.7498500299940012,
+            "sum2": 3.5610754273860286,
+            "zero": 19,
+            "token_sum": -7.248550289942006,
+            "negative": 3,
+            "positive": 2,
+            "mean": 0.03124375124975005,
+            "variance": 0.14740197081559492,
+            "positive_fraction": {
+              "numerator": 2,
+              "denominator": 24,
+              "rate": 0.08333333333333333
+            },
+            "negative_fraction": {
+              "numerator": 3,
+              "denominator": 24,
+              "rate": 0.125
+            }
+          }
+        },
+        "action_calibration": {
+          "get_translated_content": {
+            "strict_failure": 11,
+            "zero": 8,
+            "raw_conflicts": 0,
+            "verified": 11,
+            "conflicts": 0,
+            "negative": 3,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            }
+          },
+          "FINISH": {
+            "strict_failure": 11,
+            "zero": 12,
+            "strict_success": 1,
+            "raw_conflicts": 0,
+            "verified": 1,
+            "conflicts": 0,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            }
+          },
+          "get_paper_cache_status": {
+            "strict_success": 1,
+            "positive": 1,
+            "raw_conflicts": 0,
+            "verified": 1,
+            "conflicts": 0,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            }
+          }
+        },
+        "exposure": {
+          "pending": {
+            "sampled_groups": 3,
+            "target_errors": 11,
+            "error_local_zero": 8,
+            "nonzero_local_tokens": 215,
+            "error_local_sum": -1.4997000599880024,
+            "updated_error_tokens": 175,
+            "error_groups": 3,
+            "error_local_negative": 3,
+            "updated_correct_tokens": 67,
+            "target_correct": 2,
+            "correct_local_nonnegative": 2,
+            "correct_local_positive": 1,
+            "contrast_groups": 1,
+            "nonzero_advantage_tokens": 242,
+            "contrast_rate": {
+              "numerator": 1,
+              "denominator": 3,
+              "rate": 0.3333333333333333
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 3,
+              "denominator": 11,
+              "rate": 0.2727272727272727
+            }
+          },
+          "reference_argument": {
+            "sampled_groups": 3,
+            "updated_correct_tokens": 40,
+            "nonzero_local_tokens": 40,
+            "target_correct": 1,
+            "correct_local_nonnegative": 1,
+            "correct_local_positive": 1,
+            "nonzero_advantage_tokens": 40,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "repeat": {
+            "sampled_groups": 3,
+            "updated_correct_tokens": 40,
+            "nonzero_local_tokens": 40,
+            "target_correct": 1,
+            "correct_local_nonnegative": 1,
+            "correct_local_positive": 1,
+            "nonzero_advantage_tokens": 40,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "tool_parse": {
+            "sampled_groups": 3,
+            "target_errors": 11,
+            "error_local_zero": 8,
+            "nonzero_local_tokens": 215,
+            "error_local_sum": -1.4997000599880024,
+            "updated_error_tokens": 175,
+            "error_groups": 3,
+            "error_local_negative": 3,
+            "updated_correct_tokens": 40,
+            "target_correct": 1,
+            "correct_local_nonnegative": 1,
+            "correct_local_positive": 1,
+            "contrast_groups": 1,
+            "nonzero_advantage_tokens": 215,
+            "contrast_rate": {
+              "numerator": 1,
+              "denominator": 3,
+              "rate": 0.3333333333333333
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 3,
+              "denominator": 11,
+              "rate": 0.2727272727272727
+            }
+          }
+        }
+      }
+    },
+    "pending_v1_c_cr": {
+      "status": "no_signal",
+      "groups": [
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        },
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        },
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        }
+      ],
+      "diagnostics": {
+        "metrics": {
+          "zero_variance_outcome_groups": {
+            "numerator": 3,
+            "denominator": 3,
+            "rate": 1.0
+          },
+          "first_error_localization": {
+            "numerator": 12,
+            "denominator": 12,
+            "rate": 1.0
+          },
+          "prefix_final_nonnegative": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "anchor_coverage": {
+            "numerator": 0,
+            "denominator": 27,
+            "rate": 0.0
+          },
+          "anchor_pairwise_ranking": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "contract_correct_over_wrong": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        },
+        "alignment_by_channel": {
+          "raw_dfa_adv": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "correct_action_promotion": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            }
+          },
+          "raw_anchor_adv": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "correct_action_promotion": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            }
+          },
+          "raw_combined_local": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "correct_action_promotion": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            }
+          },
+          "effective_local": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "correct_action_promotion": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            }
+          }
+        },
+        "group_exposure_by_family": {
+          "pending_handling": 3
+        },
+        "terminal_states": {
+          "q_error": 12
+        },
+        "pending_behaviors": {
+          "pending_check_once_correct": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_stop_correct": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_premature_read": {
+            "decisions": 7,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_duplicate_submit": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_repeat_poll": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_false_ready_claim": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          }
+        },
+        "histograms": {
+          "anchor_reasons": {
+            "zero_variance": {
+              "numerator": 14,
+              "denominator": 27,
+              "rate": 0.5185185185185185
+            },
+            "singleton_state": {
+              "numerator": 8,
+              "denominator": 27,
+              "rate": 0.2962962962962963
+            },
+            "identical_action": {
+              "numerator": 5,
+              "denominator": 27,
+              "rate": 0.18518518518518517
+            }
+          },
+          "dfa_reasons": {
+            "zero_variance": {
+              "numerator": 12,
+              "denominator": 27,
+              "rate": 0.4444444444444444
+            },
+            "unverified": {
+              "numerator": 15,
+              "denominator": 27,
+              "rate": 0.5555555555555556
+            }
+          },
+          "anchor_sizes": {
+            "4": {
+              "numerator": 3,
+              "denominator": 14,
+              "rate": 0.21428571428571427
+            },
+            "2": {
+              "numerator": 2,
+              "denominator": 14,
+              "rate": 0.14285714285714285
+            },
+            "1": {
+              "numerator": 8,
+              "denominator": 14,
+              "rate": 0.5714285714285714
+            },
+            "3": {
+              "numerator": 1,
+              "denominator": 14,
+              "rate": 0.07142857142857142
+            }
+          }
+        },
+        "channels": {
+          "episode_contribution": {
+            "n": 27,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 27,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            }
+          },
+          "local_contribution": {
+            "n": 27,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 27,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            }
+          },
+          "raw_dfa_adv": {
+            "n": 27,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 27,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            }
+          },
+          "raw_anchor_adv": {
+            "n": 27,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 27,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            }
+          },
+          "raw_combined_local": {
+            "n": 27,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 27,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            }
+          },
+          "effective_local": {
+            "n": 27,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 27,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            }
+          },
+          "advantage": {
+            "n": 27,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 27,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 27,
+              "rate": 0.0
+            }
+          }
+        },
+        "action_calibration": {
+          "get_translated_content": {
+            "strict_failure": 16,
+            "zero": 16,
+            "raw_conflicts": 0,
+            "verified": 12,
+            "conflicts": 0,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            }
+          },
+          "FINISH": {
+            "strict_failure": 11,
+            "zero": 11,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          }
+        },
+        "exposure": {
+          "pending": {
+            "sampled_groups": 3,
+            "target_errors": 16,
+            "error_local_zero": 16,
+            "nonzero_local_tokens": 0,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 0,
+            "error_groups": 3,
+            "nonzero_advantage_tokens": 0,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 16,
+              "rate": 0.0
+            }
+          },
+          "reference_argument": {
+            "sampled_groups": 3,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "repeat": {
+            "sampled_groups": 3,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "tool_parse": {
+            "sampled_groups": 3,
+            "target_errors": 16,
+            "error_local_zero": 16,
+            "nonzero_local_tokens": 0,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 0,
+            "error_groups": 3,
+            "nonzero_advantage_tokens": 0,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 16,
+              "rate": 0.0
+            }
+          }
+        }
+      }
+    },
+    "pending_v1_c_lg": {
+      "status": "no_signal",
+      "groups": [
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        },
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        },
+        {
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "mixed": false,
+          "pending_dfa_pairs": 0,
+          "pending_e4_pairs": 0,
+          "pending_anchor_pairs": 0,
+          "informative": false
+        }
+      ],
+      "diagnostics": {
+        "metrics": {
+          "zero_variance_outcome_groups": {
+            "numerator": 3,
+            "denominator": 3,
+            "rate": 1.0
+          },
+          "first_error_localization": {
+            "numerator": 12,
+            "denominator": 12,
+            "rate": 1.0
+          },
+          "prefix_final_nonnegative": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "anchor_coverage": {
+            "numerator": 0,
+            "denominator": 23,
+            "rate": 0.0
+          },
+          "anchor_pairwise_ranking": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "contract_correct_over_wrong": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          }
+        },
+        "alignment_by_channel": {
+          "raw_dfa_adv": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "correct_action_promotion": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            }
+          },
+          "raw_anchor_adv": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "correct_action_promotion": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            }
+          },
+          "raw_combined_local": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "correct_action_promotion": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            }
+          },
+          "effective_local": {
+            "prefix_preservation": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "first_error_suppression": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "correct_action_promotion": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "false_positive_credit": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            },
+            "false_negative_credit": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "advantage_misalignment": {
+              "numerator": 0,
+              "denominator": 12,
+              "rate": 0.0
+            }
+          }
+        },
+        "group_exposure_by_family": {
+          "pending_handling": 3
+        },
+        "terminal_states": {
+          "q_error": 12
+        },
+        "pending_behaviors": {
+          "pending_check_once_correct": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_stop_correct": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_premature_read": {
+            "decisions": 11,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_duplicate_submit": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_repeat_poll": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          },
+          "pending_false_ready_claim": {
+            "decisions": 0,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0
+          }
+        },
+        "histograms": {
+          "anchor_reasons": {
+            "identical_action": {
+              "numerator": 12,
+              "denominator": 23,
+              "rate": 0.5217391304347826
+            },
+            "zero_variance": {
+              "numerator": 8,
+              "denominator": 23,
+              "rate": 0.34782608695652173
+            },
+            "singleton_state": {
+              "numerator": 3,
+              "denominator": 23,
+              "rate": 0.13043478260869565
+            }
+          },
+          "dfa_reasons": {
+            "identical_action": {
+              "numerator": 4,
+              "denominator": 23,
+              "rate": 0.17391304347826086
+            },
+            "unverified": {
+              "numerator": 11,
+              "denominator": 23,
+              "rate": 0.4782608695652174
+            },
+            "zero_variance": {
+              "numerator": 8,
+              "denominator": 23,
+              "rate": 0.34782608695652173
+            }
+          },
+          "anchor_sizes": {
+            "4": {
+              "numerator": 4,
+              "denominator": 9,
+              "rate": 0.4444444444444444
+            },
+            "1": {
+              "numerator": 3,
+              "denominator": 9,
+              "rate": 0.3333333333333333
+            },
+            "2": {
+              "numerator": 2,
+              "denominator": 9,
+              "rate": 0.2222222222222222
+            }
+          }
+        },
+        "channels": {
+          "episode_contribution": {
+            "n": 23,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 23,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            }
+          },
+          "local_contribution": {
+            "n": 23,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 23,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            }
+          },
+          "raw_dfa_adv": {
+            "n": 23,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 23,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            }
+          },
+          "raw_anchor_adv": {
+            "n": 23,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 23,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            }
+          },
+          "raw_combined_local": {
+            "n": 23,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 23,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            }
+          },
+          "effective_local": {
+            "n": 23,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 23,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            }
+          },
+          "advantage": {
+            "n": 23,
+            "sum": 0.0,
+            "sum2": 0.0,
+            "zero": 23,
+            "token_sum": 0.0,
+            "mean": 0.0,
+            "variance": 0.0,
+            "positive_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            },
+            "negative_fraction": {
+              "numerator": 0,
+              "denominator": 23,
+              "rate": 0.0
+            }
+          }
+        },
+        "action_calibration": {
+          "get_translated_content": {
+            "strict_failure": 11,
+            "zero": 11,
+            "raw_conflicts": 0,
+            "verified": 11,
+            "conflicts": 0,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            }
+          },
+          "FINISH": {
+            "strict_failure": 12,
+            "zero": 12,
+            "raw_conflicts": 0,
+            "verified": 1,
+            "conflicts": 0,
+            "status": "observed",
+            "effective_misalignment": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            },
+            "raw_combined_misalignment": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            }
+          }
+        },
+        "exposure": {
+          "pending": {
+            "sampled_groups": 3,
+            "target_errors": 11,
+            "error_local_zero": 11,
+            "nonzero_local_tokens": 0,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 0,
+            "error_groups": 3,
+            "nonzero_advantage_tokens": 0,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            }
+          },
+          "reference_argument": {
+            "sampled_groups": 3,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "repeat": {
+            "sampled_groups": 3,
+            "nonzero_advantage_tokens": 0,
+            "nonzero_local_tokens": 0,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "tool_parse": {
+            "sampled_groups": 3,
+            "target_errors": 11,
+            "error_local_zero": 11,
+            "nonzero_local_tokens": 0,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 0,
+            "error_groups": 3,
+            "nonzero_advantage_tokens": 0,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 11,
+              "rate": 0.0
+            }
+          },
+          "early_finish": {
+            "target_errors": 1,
+            "error_local_zero": 1,
+            "nonzero_local_tokens": 0,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 0,
+            "error_groups": 1,
+            "sampled_groups": 0,
+            "nonzero_advantage_tokens": 0,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            }
+          }
+        }
+      }
+    }
+  },
+  "eligible_ids": [],
+  "seconds": 701.9750335349818,
+  "raw_sha256": "66e7d747e18148508c506ef12433866c17eed7c1af298874d3f5860a6dc859d5"
+}
