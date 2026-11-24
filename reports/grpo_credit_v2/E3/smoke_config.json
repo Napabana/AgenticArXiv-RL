@@ -1,0 +1,81 @@
+{
+  "experiment": "E3",
+  "outcome": "benchmark_strict_01",
+  "steps": 4,
+  "lambda": 0.5,
+  "seed": 42,
+  "G": 4,
+  "temperature": 1.0,
+  "lr": 5e-06,
+  "kl_beta": 0.04,
+  "per_device_train_batch_size": 1,
+  "gradient_accumulation_steps": 4,
+  "bf16": true,
+  "max_completion_length": 1792,
+  "max_new_tokens_per_turn": 704,
+  "max_turns": 5,
+  "scale_rewards": "group",
+  "dynamic_sampling": false,
+  "plan": [
+    {
+      "group_id": 0,
+      "task_id": "native_grpo_versioned_download_cache_translate",
+      "prompt": "native_grpo_versioned_download_cache_translate",
+      "stratum": "p0",
+      "weakness_ids": [
+        "early_finish",
+        "pending",
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 1,
+      "task_id": "native_grpo_v2_conditional_RO_1",
+      "prompt": "native_grpo_v2_conditional_RO_1",
+      "stratum": "multistep",
+      "weakness_ids": [
+        "early_finish",
+        "reference_argument",
+        "repeat",
+        "second_cache",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 2,
+      "task_id": "infeasible_no_session",
+      "prompt": "infeasible_no_session",
+      "stratum": "control",
+      "weakness_ids": [
+        "repeat",
+        "tool_parse"
+      ]
+    },
+    {
+      "group_id": 3,
+      "task_id": "chain_lg10_dl_tr_last",
+      "prompt": "chain_lg10_dl_tr_last",
+      "stratum": "p0",
+      "weakness_ids": [
+        "early_finish",
+        "pending",
+        "reference_argument",
+        "repeat",
+        "tool_parse"
+      ]
+    }
+  ],
+  "train_sha256": "3e55a419d4fe5d5c91410043926fb1d13624f3f4b32cf0b70da95cce53a63a39",
+  "dev_sha256": "0a176b0f67b8b61d4f84e27a40071ab81a5be3d2040c2a58aa695432f5a6eacc",
+  "base_manifest_sha256": "7e1bfb7d6a4cf9f0266e4cea2a7d5d752f5f5ce1f6fce727d9fe6c5b4335a619",
+  "adapter_sha256": "789af8cf28960892a1fde034d32f9b8ddf230e8450552be70d15024c964ed6c8",
+  "sft_train_manifest_sha256": "34196a2639203ca290a43c1012daa1f82f4621a4f8beb2203c597713d013bf70",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "holdout_split_sha256": "0a176b0f67b8b61d4f84e27a40071ab81a5be3d2040c2a58aa695432f5a6eacc",
+  "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+  "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+  "chat_template_sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+  "frozen_data_sha256": "776da5eec24985ae3d75aa11f5ba5abe2e693a197adac15322d11d5449dffc34"
+}

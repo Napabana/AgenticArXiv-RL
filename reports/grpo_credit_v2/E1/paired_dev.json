@@ -1,0 +1,316 @@
+{
+  "split": "dev",
+  "sft": {
+    "arguments": {
+      "count": 21.5,
+      "total": 24
+    },
+    "blocked": {
+      "count": 0,
+      "total": 3
+    },
+    "cache": {
+      "count": 2,
+      "total": 3
+    },
+    "conditional": {
+      "count": 5,
+      "total": 6
+    },
+    "errors": {
+      "count": 0,
+      "total": 28
+    },
+    "multi_step": {
+      "count": 5,
+      "total": 6
+    },
+    "pending_ready": {
+      "count": 2,
+      "total": 2
+    },
+    "references": {
+      "count": 11.5,
+      "total": 12
+    },
+    "repeats": {
+      "count": 0,
+      "total": 28
+    },
+    "strict": {
+      "count": 20,
+      "total": 24
+    },
+    "truncated": {
+      "count": 0,
+      "total": 24
+    }
+  },
+  "pilot": {
+    "arguments": {
+      "count": 23.0,
+      "total": 24
+    },
+    "blocked": {
+      "count": 0,
+      "total": 3
+    },
+    "cache": {
+      "count": 3,
+      "total": 3
+    },
+    "conditional": {
+      "count": 6,
+      "total": 6
+    },
+    "errors": {
+      "count": 0,
+      "total": 26
+    },
+    "multi_step": {
+      "count": 6,
+      "total": 6
+    },
+    "references": {
+      "count": 11.0,
+      "total": 12
+    },
+    "repeats": {
+      "count": 0,
+      "total": 26
+    },
+    "strict": {
+      "count": 20,
+      "total": 24
+    },
+    "truncated": {
+      "count": 0,
+      "total": 24
+    }
+  },
+  "sft_files": {
+    "trace_sha256": "f4328cc606893e87d8718e094dc7de81e43efa47f680a3c096449ff046220fe4",
+    "details_sha256": "b8c147b689bcd37fadb37f6d1317cb531498233c8f38dfb89df7d1fc05fd7265"
+  },
+  "pilot_files": {
+    "trace_sha256": "7352067f3ec702f21220497b939d678fd7ef595f6dd8dc009f11539762dce219",
+    "details_sha256": "d0faba2755a4f8ca1806265c355f9dbafbe555c43f99427016b2882a167482ca"
+  },
+  "adapter_sha256": "5b3f901eb44415461aa23a8039ea31623f134884f26194a09c3b7275389f7958",
+  "fail_to_pass": [
+    [
+      "state_dl_then_cache",
+      0
+    ]
+  ],
+  "pass_to_fail": [
+    [
+      "opt_force_dl",
+      2
+    ]
+  ],
+  "by_task": {
+    "constraint_search_no_file": {
+      "sft": 3,
+      "policy": 3,
+      "total": 3
+    },
+    "infeasible_unsupported_action": {
+      "sft": 0,
+      "policy": 0,
+      "total": 3
+    },
+    "multi_cv3_dl1": {
+      "sft": 3,
+      "policy": 3,
+      "total": 3
+    },
+    "opt_force_dl": {
+      "sft": 3,
+      "policy": 2,
+      "total": 3
+    },
+    "ref_ctrl_id_download": {
+      "sft": 3,
+      "policy": 3,
+      "total": 3
+    },
+    "search_AI_1d_3": {
+      "sft": 3,
+      "policy": 3,
+      "total": 3
+    },
+    "search_kw_agentic_rl": {
+      "sft": 3,
+      "policy": 3,
+      "total": 3
+    },
+    "state_dl_then_cache": {
+      "sft": 2,
+      "policy": 3,
+      "total": 3
+    }
+  },
+  "by_family": {
+    "constraint": [
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 0,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 1,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 2,
+        "sft": true,
+        "policy": true
+      }
+    ],
+    "infeasible": [
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 0,
+        "sft": false,
+        "policy": false
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 1,
+        "sft": false,
+        "policy": false
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 2,
+        "sft": false,
+        "policy": false
+      }
+    ],
+    "composite": [
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 0,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 1,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 2,
+        "sft": true,
+        "policy": true
+      }
+    ],
+    "optional": [
+      {
+        "task_id": "opt_force_dl",
+        "trial": 0,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 1,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 2,
+        "sft": true,
+        "policy": false
+      }
+    ],
+    "ref_form": [
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 0,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 1,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 2,
+        "sft": true,
+        "policy": true
+      }
+    ],
+    "search": [
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 0,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 1,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 2,
+        "sft": true,
+        "policy": true
+      }
+    ],
+    "keyword_search": [
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 0,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 1,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 2,
+        "sft": true,
+        "policy": true
+      }
+    ],
+    "state": [
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 0,
+        "sft": false,
+        "policy": true
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 1,
+        "sft": true,
+        "policy": true
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 2,
+        "sft": true,
+        "policy": true
+      }
+    ]
+  }
+}

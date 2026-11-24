@@ -57,7 +57,155 @@
       "train_exposure_groups": 3,
       "train_observed_errors": 0,
       "last_observed_checkpoint": "E0/checkpoint-25",
-      "status": "unresolved"
+      "status": "unresolved",
+      "checkpoints": {
+        "E1": {
+          "observed_training": {
+            "sampled_groups": 5,
+            "updated_correct_tokens": 912,
+            "nonzero_local_tokens": 0,
+            "target_correct": 14,
+            "correct_local_nonnegative": 14,
+            "correct_local_positive": 0,
+            "nonzero_advantage_tokens": 912,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 5,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 14,
+              "denominator": 14,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "dev": {
+            "count": 6,
+            "total": 6
+          },
+          "paired_cases_file": "E1/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E2": {
+          "observed_training": {
+            "sampled_groups": 5,
+            "updated_correct_tokens": 468,
+            "nonzero_local_tokens": 273,
+            "target_correct": 18,
+            "correct_local_nonnegative": 18,
+            "correct_local_positive": 2,
+            "target_errors": 1,
+            "error_local_negative": 1,
+            "error_local_sum": -1.1545005730142688,
+            "updated_error_tokens": 91,
+            "error_groups": 1,
+            "contrast_groups": 1,
+            "nonzero_advantage_tokens": 559,
+            "contrast_rate": {
+              "numerator": 1,
+              "denominator": 5,
+              "rate": 0.2
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 18,
+              "denominator": 18,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            }
+          },
+          "dev": {
+            "count": 6,
+            "total": 6
+          },
+          "paired_cases_file": "E2/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E3": {
+          "observed_training": {
+            "sampled_groups": 5,
+            "updated_correct_tokens": 816,
+            "nonzero_local_tokens": 998,
+            "target_correct": 17,
+            "correct_local_nonnegative": 17,
+            "correct_local_positive": 9,
+            "target_errors": 2,
+            "error_local_negative": 2,
+            "error_local_sum": -2.9994001199760048,
+            "updated_error_tokens": 182,
+            "error_groups": 2,
+            "contrast_groups": 2,
+            "nonzero_advantage_tokens": 998,
+            "contrast_rate": {
+              "numerator": 2,
+              "denominator": 5,
+              "rate": 0.4
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 17,
+              "denominator": 17,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            }
+          },
+          "dev": {
+            "count": 3,
+            "total": 6
+          },
+          "paired_cases_file": "E3/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E4": {
+          "observed_training": {
+            "sampled_groups": 5,
+            "updated_correct_tokens": 456,
+            "nonzero_local_tokens": 547,
+            "target_correct": 17,
+            "correct_local_nonnegative": 17,
+            "correct_local_positive": 5,
+            "target_errors": 1,
+            "error_local_negative": 1,
+            "error_local_sum": -1.1545005730142688,
+            "updated_error_tokens": 91,
+            "error_groups": 1,
+            "contrast_groups": 1,
+            "nonzero_advantage_tokens": 547,
+            "contrast_rate": {
+              "numerator": 1,
+              "denominator": 5,
+              "rate": 0.2
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 17,
+              "denominator": 17,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            }
+          },
+          "dev": {
+            "count": 6,
+            "total": 6
+          },
+          "paired_cases_file": "E4/paired_dev.json",
+          "checkpoint": 25
+        }
+      }
     },
     {
       "weakness_id": "second_cache",
@@ -111,7 +259,161 @@
       "train_exposure_groups": 11,
       "train_observed_errors": 9,
       "last_observed_checkpoint": "E0/checkpoint-25",
-      "status": "unresolved"
+      "status": "unresolved",
+      "checkpoints": {
+        "E1": {
+          "observed_training": {
+            "sampled_groups": 10,
+            "target_errors": 3,
+            "error_local_zero": 3,
+            "nonzero_local_tokens": 0,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 220,
+            "updated_correct_tokens": 590,
+            "target_correct": 37,
+            "correct_local_nonnegative": 37,
+            "correct_local_positive": 0,
+            "error_groups": 3,
+            "contrast_groups": 3,
+            "nonzero_advantage_tokens": 810,
+            "contrast_rate": {
+              "numerator": 3,
+              "denominator": 10,
+              "rate": 0.3
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 37,
+              "denominator": 37,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            }
+          },
+          "dev": {
+            "count": 3,
+            "total": 3
+          },
+          "paired_cases_file": "E1/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E2": {
+          "observed_training": {
+            "sampled_groups": 10,
+            "target_errors": 4,
+            "error_local_negative": 4,
+            "nonzero_local_tokens": 959,
+            "error_local_sum": -5.9988002399520095,
+            "updated_error_tokens": 195,
+            "updated_correct_tokens": 1167,
+            "target_correct": 34,
+            "correct_local_nonnegative": 34,
+            "correct_local_positive": 12,
+            "error_groups": 4,
+            "contrast_groups": 4,
+            "nonzero_advantage_tokens": 1362,
+            "contrast_rate": {
+              "numerator": 4,
+              "denominator": 10,
+              "rate": 0.4
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 34,
+              "denominator": 34,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 4,
+              "denominator": 4,
+              "rate": 1.0
+            }
+          },
+          "dev": {
+            "count": 3,
+            "total": 3
+          },
+          "paired_cases_file": "E2/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E3": {
+          "observed_training": {
+            "sampled_groups": 10,
+            "target_errors": 2,
+            "error_local_zero": 2,
+            "nonzero_local_tokens": 0,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 101,
+            "updated_correct_tokens": 1480,
+            "target_correct": 34,
+            "correct_local_nonnegative": 34,
+            "correct_local_positive": 0,
+            "error_groups": 2,
+            "contrast_groups": 2,
+            "nonzero_advantage_tokens": 1581,
+            "contrast_rate": {
+              "numerator": 2,
+              "denominator": 10,
+              "rate": 0.2
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 34,
+              "denominator": 34,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            }
+          },
+          "dev": {
+            "count": 0,
+            "total": 3
+          },
+          "paired_cases_file": "E3/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E4": {
+          "observed_training": {
+            "sampled_groups": 10,
+            "target_errors": 2,
+            "error_local_negative": 2,
+            "nonzero_local_tokens": 489,
+            "error_local_sum": -1.7883252032415695,
+            "updated_error_tokens": 45,
+            "updated_correct_tokens": 1096,
+            "target_correct": 36,
+            "correct_local_nonnegative": 36,
+            "correct_local_positive": 7,
+            "error_groups": 2,
+            "contrast_groups": 2,
+            "nonzero_advantage_tokens": 1141,
+            "contrast_rate": {
+              "numerator": 2,
+              "denominator": 10,
+              "rate": 0.2
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 36,
+              "denominator": 36,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            }
+          },
+          "dev": {
+            "count": 3,
+            "total": 3
+          },
+          "paired_cases_file": "E4/paired_dev.json",
+          "checkpoint": 25
+        }
+      }
     },
     {
       "weakness_id": "pending",
@@ -159,7 +461,152 @@
       "train_exposure_groups": 3,
       "train_observed_errors": 2,
       "last_observed_checkpoint": "E0/checkpoint-25",
-      "status": "no_signal"
+      "status": "no_signal",
+      "checkpoints": {
+        "E1": {
+          "observed_training": {
+            "sampled_groups": 2,
+            "updated_correct_tokens": 36,
+            "nonzero_local_tokens": 0,
+            "target_correct": 1,
+            "correct_local_nonnegative": 1,
+            "correct_local_positive": 0,
+            "target_errors": 1,
+            "error_local_zero": 1,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 72,
+            "error_groups": 1,
+            "nonzero_advantage_tokens": 108,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            }
+          },
+          "dev": {
+            "count": 0,
+            "total": 0
+          },
+          "paired_cases_file": "E1/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E2": {
+          "observed_training": {
+            "sampled_groups": 2,
+            "updated_correct_tokens": 119,
+            "nonzero_local_tokens": 0,
+            "target_correct": 3,
+            "correct_local_nonnegative": 3,
+            "correct_local_positive": 0,
+            "nonzero_advantage_tokens": 119,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 0,
+              "rate": null
+            }
+          },
+          "dev": {
+            "count": 0,
+            "total": 0
+          },
+          "paired_cases_file": "E2/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E3": {
+          "observed_training": {
+            "sampled_groups": 2,
+            "updated_correct_tokens": 115,
+            "nonzero_local_tokens": 0,
+            "target_correct": 2,
+            "correct_local_nonnegative": 2,
+            "correct_local_positive": 0,
+            "target_errors": 3,
+            "error_local_zero": 3,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 370,
+            "error_groups": 2,
+            "nonzero_advantage_tokens": 485,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 3,
+              "rate": 0.0
+            }
+          },
+          "dev": {
+            "count": 3,
+            "total": 3
+          },
+          "paired_cases_file": "E3/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E4": {
+          "observed_training": {
+            "sampled_groups": 2,
+            "updated_correct_tokens": 119,
+            "nonzero_local_tokens": 52,
+            "target_correct": 3,
+            "correct_local_nonnegative": 3,
+            "correct_local_positive": 0,
+            "target_errors": 1,
+            "error_local_negative": 1,
+            "error_local_sum": -1.4997000599880024,
+            "updated_error_tokens": 52,
+            "error_groups": 1,
+            "nonzero_advantage_tokens": 171,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 3,
+              "denominator": 3,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 1,
+              "denominator": 1,
+              "rate": 1.0
+            }
+          },
+          "dev": {
+            "count": 2,
+            "total": 2
+          },
+          "paired_cases_file": "E4/paired_dev.json",
+          "checkpoint": 25
+        }
+      }
     },
     {
       "weakness_id": "early_finish",
@@ -219,7 +666,163 @@
       "train_exposure_groups": 16,
       "train_observed_errors": 7,
       "last_observed_checkpoint": "E0/checkpoint-25",
-      "status": "unresolved"
+      "status": "unresolved",
+      "checkpoints": {
+        "E1": {
+          "observed_training": {
+            "sampled_groups": 15,
+            "updated_correct_tokens": 4070,
+            "nonzero_local_tokens": 0,
+            "target_correct": 117,
+            "correct_local_nonnegative": 117,
+            "correct_local_positive": 0,
+            "target_errors": 1,
+            "error_local_zero": 1,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 23,
+            "error_groups": 1,
+            "contrast_groups": 1,
+            "nonzero_advantage_tokens": 4093,
+            "contrast_rate": {
+              "numerator": 1,
+              "denominator": 15,
+              "rate": 0.06666666666666667
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 117,
+              "denominator": 117,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            }
+          },
+          "dev": {
+            "count": 6,
+            "total": 6
+          },
+          "paired_cases_file": "E1/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E2": {
+          "observed_training": {
+            "sampled_groups": 15,
+            "updated_correct_tokens": 4295,
+            "nonzero_local_tokens": 1815,
+            "target_correct": 114,
+            "correct_local_nonnegative": 114,
+            "correct_local_positive": 28,
+            "target_errors": 2,
+            "error_local_negative": 2,
+            "error_local_sum": -2.9994001199760048,
+            "updated_error_tokens": 45,
+            "error_groups": 2,
+            "contrast_groups": 2,
+            "nonzero_advantage_tokens": 4340,
+            "contrast_rate": {
+              "numerator": 2,
+              "denominator": 15,
+              "rate": 0.13333333333333333
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 114,
+              "denominator": 114,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 2,
+              "denominator": 2,
+              "rate": 1.0
+            }
+          },
+          "dev": {
+            "count": 6,
+            "total": 6
+          },
+          "paired_cases_file": "E2/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E3": {
+          "observed_training": {
+            "sampled_groups": 15,
+            "updated_correct_tokens": 4770,
+            "nonzero_local_tokens": 2937,
+            "target_correct": 116,
+            "correct_local_nonnegative": 103,
+            "correct_local_positive": 36,
+            "target_errors": 2,
+            "error_local_zero": 1,
+            "error_local_sum": -1.4997000599880024,
+            "updated_error_tokens": 32,
+            "error_groups": 2,
+            "contrast_groups": 1,
+            "error_local_negative": 1,
+            "nonzero_advantage_tokens": 4802,
+            "contrast_rate": {
+              "numerator": 1,
+              "denominator": 15,
+              "rate": 0.06666666666666667
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 103,
+              "denominator": 116,
+              "rate": 0.8879310344827587
+            },
+            "suppression_rate": {
+              "numerator": 1,
+              "denominator": 2,
+              "rate": 0.5
+            }
+          },
+          "dev": {
+            "count": 3,
+            "total": 6
+          },
+          "paired_cases_file": "E3/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E4": {
+          "observed_training": {
+            "sampled_groups": 15,
+            "updated_correct_tokens": 4035,
+            "nonzero_local_tokens": 2747,
+            "target_correct": 119,
+            "correct_local_nonnegative": 119,
+            "correct_local_positive": 44,
+            "target_errors": 3,
+            "error_local_negative": 2,
+            "error_local_sum": -1.7883252032415695,
+            "updated_error_tokens": 45,
+            "error_groups": 3,
+            "contrast_groups": 2,
+            "error_local_zero": 1,
+            "nonzero_advantage_tokens": 4080,
+            "contrast_rate": {
+              "numerator": 2,
+              "denominator": 15,
+              "rate": 0.13333333333333333
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 119,
+              "denominator": 119,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 2,
+              "denominator": 3,
+              "rate": 0.6666666666666666
+            }
+          },
+          "dev": {
+            "count": 6,
+            "total": 6
+          },
+          "paired_cases_file": "E4/paired_dev.json",
+          "checkpoint": 25
+        }
+      }
     },
     {
       "weakness_id": "reference_argument",
@@ -284,7 +887,163 @@
       "train_exposure_groups": 21,
       "train_observed_errors": 7,
       "last_observed_checkpoint": "E0/checkpoint-25",
-      "status": "unresolved"
+      "status": "unresolved",
+      "checkpoints": {
+        "E1": {
+          "observed_training": {
+            "sampled_groups": 22,
+            "target_errors": 15,
+            "error_local_zero": 15,
+            "nonzero_local_tokens": 0,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 947,
+            "updated_correct_tokens": 5254,
+            "target_correct": 138,
+            "correct_local_nonnegative": 138,
+            "correct_local_positive": 0,
+            "error_groups": 9,
+            "contrast_groups": 8,
+            "nonzero_advantage_tokens": 6201,
+            "contrast_rate": {
+              "numerator": 8,
+              "denominator": 22,
+              "rate": 0.36363636363636365
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 138,
+              "denominator": 138,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 15,
+              "rate": 0.0
+            }
+          },
+          "dev": {
+            "count": 11.0,
+            "total": 12
+          },
+          "paired_cases_file": "E1/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E2": {
+          "observed_training": {
+            "sampled_groups": 22,
+            "target_errors": 13,
+            "error_local_negative": 13,
+            "nonzero_local_tokens": 3138,
+            "error_local_sum": -12.806901565944559,
+            "updated_error_tokens": 913,
+            "updated_correct_tokens": 5036,
+            "target_correct": 139,
+            "correct_local_nonnegative": 139,
+            "correct_local_positive": 33,
+            "error_groups": 9,
+            "contrast_groups": 8,
+            "nonzero_advantage_tokens": 5949,
+            "contrast_rate": {
+              "numerator": 8,
+              "denominator": 22,
+              "rate": 0.36363636363636365
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 139,
+              "denominator": 139,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 13,
+              "denominator": 13,
+              "rate": 1.0
+            }
+          },
+          "dev": {
+            "count": 12.0,
+            "total": 12
+          },
+          "paired_cases_file": "E2/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E3": {
+          "observed_training": {
+            "sampled_groups": 22,
+            "target_errors": 12,
+            "error_local_zero": 4,
+            "nonzero_local_tokens": 4635,
+            "error_local_sum": -9.648632811534531,
+            "updated_error_tokens": 689,
+            "updated_correct_tokens": 5859,
+            "target_correct": 140,
+            "correct_local_nonnegative": 127,
+            "correct_local_positive": 48,
+            "error_groups": 9,
+            "error_local_negative": 8,
+            "contrast_groups": 8,
+            "nonzero_advantage_tokens": 6548,
+            "contrast_rate": {
+              "numerator": 8,
+              "denominator": 22,
+              "rate": 0.36363636363636365
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 127,
+              "denominator": 140,
+              "rate": 0.9071428571428571
+            },
+            "suppression_rate": {
+              "numerator": 8,
+              "denominator": 12,
+              "rate": 0.6666666666666666
+            }
+          },
+          "dev": {
+            "count": 10.5,
+            "total": 12
+          },
+          "paired_cases_file": "E3/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E4": {
+          "observed_training": {
+            "sampled_groups": 22,
+            "target_errors": 14,
+            "error_local_negative": 11,
+            "nonzero_local_tokens": 4128,
+            "error_local_sum": -9.578327358761516,
+            "updated_error_tokens": 786,
+            "updated_correct_tokens": 4675,
+            "target_correct": 142,
+            "correct_local_nonnegative": 142,
+            "correct_local_positive": 51,
+            "error_groups": 8,
+            "contrast_groups": 6,
+            "error_local_zero": 3,
+            "nonzero_advantage_tokens": 5461,
+            "contrast_rate": {
+              "numerator": 6,
+              "denominator": 22,
+              "rate": 0.2727272727272727
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 142,
+              "denominator": 142,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 11,
+              "denominator": 14,
+              "rate": 0.7857142857142857
+            }
+          },
+          "dev": {
+            "count": 11.0,
+            "total": 12
+          },
+          "paired_cases_file": "E4/paired_dev.json",
+          "checkpoint": 25
+        }
+      }
     },
     {
       "weakness_id": "repeat",
@@ -352,7 +1111,161 @@
       "train_exposure_groups": 25,
       "train_observed_errors": 5,
       "last_observed_checkpoint": "E0/checkpoint-25",
-      "status": "unresolved"
+      "status": "unresolved",
+      "checkpoints": {
+        "E1": {
+          "observed_training": {
+            "sampled_groups": 25,
+            "updated_correct_tokens": 5254,
+            "nonzero_local_tokens": 0,
+            "target_correct": 138,
+            "correct_local_nonnegative": 138,
+            "correct_local_positive": 0,
+            "target_errors": 5,
+            "error_local_zero": 5,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 73,
+            "error_groups": 2,
+            "contrast_groups": 1,
+            "nonzero_advantage_tokens": 5327,
+            "contrast_rate": {
+              "numerator": 1,
+              "denominator": 25,
+              "rate": 0.04
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 138,
+              "denominator": 138,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 5,
+              "rate": 0.0
+            }
+          },
+          "dev": {
+            "count": 0,
+            "total": 26
+          },
+          "paired_cases_file": "E1/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E2": {
+          "observed_training": {
+            "sampled_groups": 25,
+            "updated_correct_tokens": 5036,
+            "nonzero_local_tokens": 2225,
+            "target_correct": 139,
+            "correct_local_nonnegative": 139,
+            "correct_local_positive": 33,
+            "target_errors": 1,
+            "error_local_zero": 1,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 0,
+            "error_groups": 1,
+            "contrast_groups": 1,
+            "nonzero_advantage_tokens": 5036,
+            "contrast_rate": {
+              "numerator": 1,
+              "denominator": 25,
+              "rate": 0.04
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 139,
+              "denominator": 139,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 1,
+              "rate": 0.0
+            }
+          },
+          "dev": {
+            "count": 0,
+            "total": 27
+          },
+          "paired_cases_file": "E2/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E3": {
+          "observed_training": {
+            "sampled_groups": 25,
+            "updated_correct_tokens": 5859,
+            "nonzero_local_tokens": 4017,
+            "target_correct": 140,
+            "correct_local_nonnegative": 127,
+            "correct_local_positive": 48,
+            "target_errors": 6,
+            "error_local_zero": 6,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 585,
+            "error_groups": 4,
+            "contrast_groups": 4,
+            "nonzero_advantage_tokens": 6444,
+            "contrast_rate": {
+              "numerator": 4,
+              "denominator": 25,
+              "rate": 0.16
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 127,
+              "denominator": 140,
+              "rate": 0.9071428571428571
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 6,
+              "rate": 0.0
+            }
+          },
+          "dev": {
+            "count": 0,
+            "total": 30
+          },
+          "paired_cases_file": "E3/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E4": {
+          "observed_training": {
+            "sampled_groups": 25,
+            "updated_correct_tokens": 4675,
+            "nonzero_local_tokens": 3342,
+            "target_correct": 142,
+            "correct_local_nonnegative": 142,
+            "correct_local_positive": 51,
+            "target_errors": 2,
+            "error_local_zero": 2,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 0,
+            "error_groups": 2,
+            "contrast_groups": 2,
+            "nonzero_advantage_tokens": 4675,
+            "contrast_rate": {
+              "numerator": 2,
+              "denominator": 25,
+              "rate": 0.08
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 142,
+              "denominator": 142,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 2,
+              "rate": 0.0
+            }
+          },
+          "dev": {
+            "count": 0,
+            "total": 28
+          },
+          "paired_cases_file": "E4/paired_dev.json",
+          "checkpoint": 25
+        }
+      }
     },
     {
       "weakness_id": "tool_parse",
@@ -420,7 +1333,163 @@
       "train_exposure_groups": 25,
       "train_observed_errors": 16,
       "last_observed_checkpoint": "E0/checkpoint-25",
-      "status": "unresolved"
+      "status": "unresolved",
+      "checkpoints": {
+        "E1": {
+          "observed_training": {
+            "sampled_groups": 25,
+            "updated_correct_tokens": 5254,
+            "nonzero_local_tokens": 0,
+            "target_correct": 138,
+            "correct_local_nonnegative": 138,
+            "correct_local_positive": 0,
+            "target_errors": 7,
+            "error_local_zero": 7,
+            "error_local_sum": 0.0,
+            "updated_error_tokens": 475,
+            "error_groups": 5,
+            "contrast_groups": 3,
+            "nonzero_advantage_tokens": 5729,
+            "contrast_rate": {
+              "numerator": 3,
+              "denominator": 25,
+              "rate": 0.12
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 138,
+              "denominator": 138,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 0,
+              "denominator": 7,
+              "rate": 0.0
+            }
+          },
+          "dev": {
+            "count": 0,
+            "total": 26
+          },
+          "paired_cases_file": "E1/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E2": {
+          "observed_training": {
+            "sampled_groups": 25,
+            "updated_correct_tokens": 5036,
+            "nonzero_local_tokens": 2311,
+            "target_correct": 139,
+            "correct_local_nonnegative": 139,
+            "correct_local_positive": 33,
+            "target_errors": 2,
+            "error_local_zero": 1,
+            "error_local_sum": -0.8658754297607016,
+            "updated_error_tokens": 86,
+            "error_groups": 2,
+            "error_local_negative": 1,
+            "nonzero_advantage_tokens": 5122,
+            "contrast_rate": {
+              "numerator": 0,
+              "denominator": 25,
+              "rate": 0.0
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 139,
+              "denominator": 139,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 1,
+              "denominator": 2,
+              "rate": 0.5
+            }
+          },
+          "dev": {
+            "count": 0,
+            "total": 27
+          },
+          "paired_cases_file": "E2/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E3": {
+          "observed_training": {
+            "sampled_groups": 25,
+            "updated_correct_tokens": 5859,
+            "nonzero_local_tokens": 4490,
+            "target_correct": 140,
+            "correct_local_nonnegative": 127,
+            "correct_local_positive": 48,
+            "target_errors": 14,
+            "error_local_zero": 8,
+            "error_local_sum": -4.44252583624384,
+            "updated_error_tokens": 924,
+            "error_groups": 7,
+            "error_local_negative": 6,
+            "contrast_groups": 4,
+            "nonzero_advantage_tokens": 6783,
+            "contrast_rate": {
+              "numerator": 4,
+              "denominator": 25,
+              "rate": 0.16
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 127,
+              "denominator": 140,
+              "rate": 0.9071428571428571
+            },
+            "suppression_rate": {
+              "numerator": 6,
+              "denominator": 14,
+              "rate": 0.42857142857142855
+            }
+          },
+          "dev": {
+            "count": 0,
+            "total": 30
+          },
+          "paired_cases_file": "E3/paired_dev.json",
+          "checkpoint": 25
+        },
+        "E4": {
+          "observed_training": {
+            "sampled_groups": 25,
+            "updated_correct_tokens": 4675,
+            "nonzero_local_tokens": 3488,
+            "target_correct": 142,
+            "correct_local_nonnegative": 142,
+            "correct_local_positive": 51,
+            "target_errors": 5,
+            "error_local_negative": 2,
+            "error_local_sum": -2.9994001199760048,
+            "updated_error_tokens": 146,
+            "error_groups": 3,
+            "contrast_groups": 1,
+            "error_local_zero": 3,
+            "nonzero_advantage_tokens": 4821,
+            "contrast_rate": {
+              "numerator": 1,
+              "denominator": 25,
+              "rate": 0.04
+            },
+            "correct_nonnegative_rate": {
+              "numerator": 142,
+              "denominator": 142,
+              "rate": 1.0
+            },
+            "suppression_rate": {
+              "numerator": 2,
+              "denominator": 5,
+              "rate": 0.4
+            }
+          },
+          "dev": {
+            "count": 0,
+            "total": 28
+          },
+          "paired_cases_file": "E4/paired_dev.json",
+          "checkpoint": 25
+        }
+      }
     }
   ],
   "plan": [

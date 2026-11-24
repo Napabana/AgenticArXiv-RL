@@ -1,0 +1,1516 @@
+{
+  "historical_e0_same_split_different_sampling_order": true,
+  "modes": {
+    "E1": {
+      "dev_pending_submission_trials": [],
+      "versus_e0": {
+        "gains": 3,
+        "losses": 1
+      },
+      "first_error_counts": {
+        "wrong_args": 12,
+        "wrong_tool": 3,
+        "early_finish": 1,
+        "success": 71,
+        "extra_call": 3,
+        "wrong_ref": 3,
+        "schema_error": 3,
+        "bad_terminal": 1,
+        "parse_error": 1,
+        "tool_error": 2
+      },
+      "termination_reasons": {
+        "finish": 94,
+        "max_turns": 2,
+        "schema_error": 3,
+        "parse_error": 1
+      },
+      "environment_invalid": 0,
+      "completion_clipped": 0,
+      "turn_limit": 2,
+      "group_anchor_states_with_signal": 20,
+      "groups_with_anchor_signal": 14
+    },
+    "E2": {
+      "dev_pending_submission_trials": [],
+      "versus_e0": {
+        "gains": 3,
+        "losses": 0
+      },
+      "first_error_counts": {
+        "wrong_args": 10,
+        "wrong_tool": 3,
+        "early_finish": 2,
+        "success": 70,
+        "bad_terminal": 5,
+        "masked": 2,
+        "wrong_ref": 3,
+        "extra_call": 2,
+        "schema_error": 1,
+        "tool_error": 1,
+        "unlocated": 1
+      },
+      "termination_reasons": {
+        "finish": 93,
+        "environment_invalid": 2,
+        "token_budget": 3,
+        "schema_error": 1,
+        "max_turns": 1
+      },
+      "environment_invalid": 2,
+      "completion_clipped": 3,
+      "turn_limit": 1,
+      "group_anchor_states_with_signal": 21,
+      "groups_with_anchor_signal": 15
+    },
+    "E3": {
+      "dev_pending_submission_trials": [
+        {
+          "task_id": "infeasible_unsupported_action",
+          "trial": 0
+        },
+        {
+          "task_id": "infeasible_unsupported_action",
+          "trial": 1
+        },
+        {
+          "task_id": "infeasible_unsupported_action",
+          "trial": 2
+        }
+      ],
+      "versus_e0": {
+        "gains": 3,
+        "losses": 3
+      },
+      "first_error_counts": {
+        "wrong_args": 9,
+        "wrong_tool": 2,
+        "early_finish": 2,
+        "success": 67,
+        "bad_terminal": 2,
+        "masked": 1,
+        "tool_error": 4,
+        "wrong_ref": 3,
+        "schema_error": 5,
+        "extra_call": 4,
+        "parse_error": 1
+      },
+      "termination_reasons": {
+        "finish": 90,
+        "environment_invalid": 1,
+        "max_turns": 2,
+        "schema_error": 5,
+        "token_budget": 1,
+        "parse_error": 1
+      },
+      "environment_invalid": 1,
+      "completion_clipped": 1,
+      "turn_limit": 2,
+      "group_anchor_states_with_signal": 20,
+      "groups_with_anchor_signal": 15
+    },
+    "E4": {
+      "dev_pending_submission_trials": [
+        {
+          "task_id": "infeasible_unsupported_action",
+          "trial": 0
+        },
+        {
+          "task_id": "infeasible_unsupported_action",
+          "trial": 1
+        }
+      ],
+      "versus_e0": {
+        "gains": 3,
+        "losses": 1
+      },
+      "first_error_counts": {
+        "wrong_args": 12,
+        "wrong_tool": 1,
+        "early_finish": 3,
+        "success": 69,
+        "bad_terminal": 2,
+        "masked": 2,
+        "wrong_ref": 2,
+        "extra_call": 3,
+        "unlocated": 1,
+        "translation_not_ready": 1,
+        "tool_error": 1,
+        "schema_error": 3
+      },
+      "termination_reasons": {
+        "finish": 92,
+        "environment_invalid": 2,
+        "token_budget": 1,
+        "max_turns": 2,
+        "schema_error": 3
+      },
+      "environment_invalid": 2,
+      "completion_clipped": 1,
+      "turn_limit": 2,
+      "group_anchor_states_with_signal": 22,
+      "groups_with_anchor_signal": 14
+    }
+  },
+  "paired_trials": {
+    "E1": [
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 0,
+        "family": "constraint",
+        "sft": true,
+        "e0": false,
+        "policy": true
+      },
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 1,
+        "family": "constraint",
+        "sft": true,
+        "e0": false,
+        "policy": true
+      },
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 2,
+        "family": "constraint",
+        "sft": true,
+        "e0": false,
+        "policy": true
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 0,
+        "family": "infeasible",
+        "sft": false,
+        "e0": false,
+        "policy": false
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 1,
+        "family": "infeasible",
+        "sft": false,
+        "e0": false,
+        "policy": false
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 2,
+        "family": "infeasible",
+        "sft": false,
+        "e0": false,
+        "policy": false
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 0,
+        "family": "composite",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 1,
+        "family": "composite",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 2,
+        "family": "composite",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 0,
+        "family": "optional",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 1,
+        "family": "optional",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 2,
+        "family": "optional",
+        "sft": true,
+        "e0": true,
+        "policy": false,
+        "sft_trace": [
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 1,
+                "force": true
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ],
+        "policy_trace": [
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ]
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 0,
+        "family": "ref_form",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 1,
+        "family": "ref_form",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 2,
+        "family": "ref_form",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 0,
+        "family": "search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 1,
+        "family": "search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 2,
+        "family": "search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 0,
+        "family": "keyword_search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 1,
+        "family": "keyword_search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 2,
+        "family": "keyword_search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 0,
+        "family": "state",
+        "sft": false,
+        "e0": true,
+        "policy": true,
+        "sft_trace": [
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 1,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ],
+        "policy_trace": [
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 1,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "get_paper_cache_status",
+              "args": {
+                "ref": 1
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ]
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 1,
+        "family": "state",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 2,
+        "family": "state",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      }
+    ],
+    "E2": [
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 0,
+        "family": "constraint",
+        "sft": true,
+        "e0": false,
+        "policy": true
+      },
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 1,
+        "family": "constraint",
+        "sft": true,
+        "e0": false,
+        "policy": true
+      },
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 2,
+        "family": "constraint",
+        "sft": true,
+        "e0": false,
+        "policy": true
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 0,
+        "family": "infeasible",
+        "sft": false,
+        "e0": false,
+        "policy": false
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 1,
+        "family": "infeasible",
+        "sft": false,
+        "e0": false,
+        "policy": false
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 2,
+        "family": "infeasible",
+        "sft": false,
+        "e0": false,
+        "policy": false
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 0,
+        "family": "composite",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 1,
+        "family": "composite",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 2,
+        "family": "composite",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 0,
+        "family": "optional",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 1,
+        "family": "optional",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 2,
+        "family": "optional",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 0,
+        "family": "ref_form",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 1,
+        "family": "ref_form",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 2,
+        "family": "ref_form",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 0,
+        "family": "search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 1,
+        "family": "search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 2,
+        "family": "search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 0,
+        "family": "keyword_search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 1,
+        "family": "keyword_search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 2,
+        "family": "keyword_search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 0,
+        "family": "state",
+        "sft": false,
+        "e0": true,
+        "policy": true,
+        "sft_trace": [
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 1,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ],
+        "policy_trace": [
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 1,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "get_paper_cache_status",
+              "args": {
+                "ref": 1
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ]
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 1,
+        "family": "state",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 2,
+        "family": "state",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      }
+    ],
+    "E3": [
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 0,
+        "family": "constraint",
+        "sft": true,
+        "e0": false,
+        "policy": true
+      },
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 1,
+        "family": "constraint",
+        "sft": true,
+        "e0": false,
+        "policy": true
+      },
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 2,
+        "family": "constraint",
+        "sft": true,
+        "e0": false,
+        "policy": true
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 0,
+        "family": "infeasible",
+        "sft": false,
+        "e0": false,
+        "policy": false
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 1,
+        "family": "infeasible",
+        "sft": false,
+        "e0": false,
+        "policy": false
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 2,
+        "family": "infeasible",
+        "sft": false,
+        "e0": false,
+        "policy": false
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 0,
+        "family": "composite",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 1,
+        "family": "composite",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 2,
+        "family": "composite",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 0,
+        "family": "optional",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 1,
+        "family": "optional",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 2,
+        "family": "optional",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 0,
+        "family": "ref_form",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 1,
+        "family": "ref_form",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 2,
+        "family": "ref_form",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 0,
+        "family": "search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 1,
+        "family": "search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 2,
+        "family": "search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 0,
+        "family": "keyword_search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 1,
+        "family": "keyword_search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 2,
+        "family": "keyword_search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 0,
+        "family": "state",
+        "sft": false,
+        "e0": true,
+        "policy": false
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 1,
+        "family": "state",
+        "sft": true,
+        "e0": true,
+        "policy": false,
+        "sft_trace": [
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 1,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "get_paper_cache_status",
+              "args": {
+                "ref": 1
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ],
+        "policy_trace": [
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 1,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ]
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 2,
+        "family": "state",
+        "sft": true,
+        "e0": true,
+        "policy": false,
+        "sft_trace": [
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 1,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "get_paper_cache_status",
+              "args": {
+                "ref": 1
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ],
+        "policy_trace": [
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 1,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ]
+      }
+    ],
+    "E4": [
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 0,
+        "family": "constraint",
+        "sft": true,
+        "e0": false,
+        "policy": true
+      },
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 1,
+        "family": "constraint",
+        "sft": true,
+        "e0": false,
+        "policy": true
+      },
+      {
+        "task_id": "constraint_search_no_file",
+        "trial": 2,
+        "family": "constraint",
+        "sft": true,
+        "e0": false,
+        "policy": true
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 0,
+        "family": "infeasible",
+        "sft": false,
+        "e0": false,
+        "policy": false
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 1,
+        "family": "infeasible",
+        "sft": false,
+        "e0": false,
+        "policy": false
+      },
+      {
+        "task_id": "infeasible_unsupported_action",
+        "trial": 2,
+        "family": "infeasible",
+        "sft": false,
+        "e0": false,
+        "policy": false
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 0,
+        "family": "composite",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 1,
+        "family": "composite",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "multi_cv3_dl1",
+        "trial": 2,
+        "family": "composite",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 0,
+        "family": "optional",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 1,
+        "family": "optional",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "opt_force_dl",
+        "trial": 2,
+        "family": "optional",
+        "sft": true,
+        "e0": true,
+        "policy": false,
+        "sft_trace": [
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 1,
+                "force": true
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ],
+        "policy_trace": [
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ]
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 0,
+        "family": "ref_form",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 1,
+        "family": "ref_form",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "ref_ctrl_id_download",
+        "trial": 2,
+        "family": "ref_form",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 0,
+        "family": "search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 1,
+        "family": "search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_AI_1d_3",
+        "trial": 2,
+        "family": "search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 0,
+        "family": "keyword_search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 1,
+        "family": "keyword_search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "search_kw_agentic_rl",
+        "trial": 2,
+        "family": "keyword_search",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 0,
+        "family": "state",
+        "sft": false,
+        "e0": true,
+        "policy": true,
+        "sft_trace": [
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 1,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ],
+        "policy_trace": [
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 1,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "get_paper_cache_status",
+              "args": {
+                "ref": 1
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ]
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 1,
+        "family": "state",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      },
+      {
+        "task_id": "state_dl_then_cache",
+        "trial": 2,
+        "family": "state",
+        "sft": true,
+        "e0": true,
+        "policy": true
+      }
+    ]
+  },
+  "heldout_changes": {
+    "iid_test": [
+      {
+        "mode": "E4",
+        "task_id": "trread_ro5_page2",
+        "trial": 1,
+        "direction": "fail_to_pass",
+        "sft_trace": [
+          {
+            "action": {
+              "name": "get_translated_content",
+              "args": {
+                "ref": 1,
+                "page": 2
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "ERROR",
+            "issue": null
+          }
+        ],
+        "policy_trace": [
+          {
+            "action": {
+              "name": "get_translated_content",
+              "args": {
+                "ref": 1,
+                "page": 2
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ]
+      },
+      {
+        "mode": "E4",
+        "task_id": "analyze_ai5_ref4_desc",
+        "trial": 0,
+        "direction": "pass_to_fail",
+        "sft_trace": [
+          {
+            "action": {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 5,
+                "aspect": "AI",
+                "days": 7,
+                "output_path": null,
+                "save_to_file": true
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 4,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "extract_paper_figures",
+              "args": {
+                "ref": 4
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "analyze_figure",
+              "args": {
+                "ref": 4,
+                "figure_no": 1,
+                "question": "describe"
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ],
+        "policy_trace": [
+          {
+            "action": {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 5,
+                "aspect": "AI",
+                "days": 7,
+                "output_path": null,
+                "save_to_file": true
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 4,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "extract_paper_figures",
+              "args": {
+                "ref": 4
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "analyze_figure",
+              "args": {
+                "ref": 4,
+                "figure_no": 1,
+                "question": "describe"
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "ERROR",
+            "issue": null
+          }
+        ]
+      },
+      {
+        "mode": "E4",
+        "task_id": "analyze_ai5_ref4_desc",
+        "trial": 1,
+        "direction": "pass_to_fail",
+        "sft_trace": [
+          {
+            "action": {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 5,
+                "aspect": "AI",
+                "days": 7,
+                "output_path": null,
+                "save_to_file": true
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 4,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "extract_paper_figures",
+              "args": {
+                "ref": 4
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "analyze_figure",
+              "args": {
+                "ref": 4,
+                "figure_no": 1,
+                "question": "describe"
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ],
+        "policy_trace": [
+          {
+            "action": {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 5,
+                "aspect": "AI",
+                "days": 7,
+                "output_path": null,
+                "save_to_file": true
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 4,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "extract_paper_figures",
+              "args": {
+                "ref": 4
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "analyze_figure",
+              "args": {
+                "ref": 4,
+                "figure_no": 1,
+                "question": "describe"
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "ERROR",
+            "issue": null
+          }
+        ]
+      }
+    ],
+    "ood_test": [
+      {
+        "mode": "E4",
+        "task_id": "multi_cl5_dl2_cache",
+        "trial": 2,
+        "direction": "fail_to_pass",
+        "sft_trace": [
+          {
+            "action": {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 5,
+                "aspect": "CL",
+                "days": 7,
+                "output_path": null,
+                "save_to_file": true
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 2,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "get_paper_cache_status",
+              "args": {
+                "ref": 2
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "ERROR",
+            "issue": null
+          }
+        ],
+        "policy_trace": [
+          {
+            "action": {
+              "name": "get_recently_submitted_cs_papers",
+              "args": {
+                "max_results": 5,
+                "aspect": "CL",
+                "days": 7,
+                "output_path": null,
+                "save_to_file": true
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "download_arxiv_pdf",
+              "args": {
+                "ref": 2,
+                "force": false
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": {
+              "name": "get_paper_cache_status",
+              "args": {
+                "ref": 2
+              }
+            },
+            "issue": null
+          },
+          {
+            "action": "FINISH",
+            "issue": null
+          }
+        ]
+      }
+    ]
+  }
+}

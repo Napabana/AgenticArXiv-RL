@@ -1,0 +1,212 @@
+{
+  "training_source_commit": "bfaaf59b0d57443ab9f5df572e3529b2426451b6",
+  "train_sha256": "3e55a419d4fe5d5c91410043926fb1d13624f3f4b32cf0b70da95cce53a63a39",
+  "split_sha256": "0a176b0f67b8b61d4f84e27a40071ab81a5be3d2040c2a58aa695432f5a6eacc",
+  "probe_groups_sha256": "66e7d747e18148508c506ef12433866c17eed7c1af298874d3f5860a6dc859d5",
+  "runs": {
+    "E1": {
+      "smoke": {
+        "sha256": "e5cc7e588725f1f3bf568720b2e0178cd9a88147652cd2ed916ee3120f832d7f",
+        "checkpoint": "ablation/E1/smoke/checkpoint-4/adapter_model.safetensors",
+        "optimizer_steps": 4,
+        "seconds": 265.4412574850139,
+        "peak_allocated_bytes": 6377738240,
+        "config_sha256": "f7aa65237c63955ff88a305a01602985134b02b113f8bd4b97229182972e97af",
+        "groups_sha256": {
+          "group_000.json": "f632b1d55e84d0e1e1700631e638ea6900e8f724f5bd8f3a6d6d68f2ff97caf4",
+          "group_001.json": "011447e6f9e520caae1b8692fe5376cf54ce6434cc50bed487e14b1e5500501e",
+          "group_002.json": "e5dacc1a0a643b4428bd3e994fdb8a516cab1f7e84ff49d3642758539804e3e1",
+          "group_003.json": "4a0fc4c644152320065d6da80d0269029224782ce8a32ef56810e079d0f94071"
+        }
+      },
+      "pilot": {
+        "sha256": "5b3f901eb44415461aa23a8039ea31623f134884f26194a09c3b7275389f7958",
+        "checkpoint": "ablation/E1/pilot/checkpoint-25/adapter_model.safetensors",
+        "optimizer_steps": 25,
+        "seconds": 1597.5656825489714,
+        "peak_allocated_bytes": 6452264448,
+        "config_sha256": "f0585282285e7a0a2af545579a9ae1ea9f4435ee9788ad80a1f1b512d9d8ec48",
+        "groups_sha256": {
+          "group_000.json": "f632b1d55e84d0e1e1700631e638ea6900e8f724f5bd8f3a6d6d68f2ff97caf4",
+          "group_001.json": "acb4930f151b7d4c8cabe23f8716e01fc6c88ab975acca7221cf60c30a950437",
+          "group_002.json": "a4c80cd5f11662bff2b40eb0bc42801135b783b726f18c2a824e6abbd1338547",
+          "group_003.json": "525154633846e73c3e12d05a210852bf7fc8aa57f54063e7f7b87740fe09219d",
+          "group_004.json": "9bdb5869165cb85149020bfdec64a96425893517c6854222e817cc7d2ac28255",
+          "group_005.json": "301500946cb93e97bc6639c8984b21dea7ec9bcf4bf9c0344448b1cb7a398dd4",
+          "group_006.json": "70072e7e6b7707945c70ed4d4132cc307302709f458c24bc7ad68d87cbdcb56f",
+          "group_007.json": "83f040a150fb0ef63f2af01853384aa66c44b2b93d4ed3d7900ac6ba65dadae1",
+          "group_008.json": "dae62436666231bb7c68bffdf332d686e6b365450ed5abbb8c00c7e7b548d053",
+          "group_009.json": "3643dd7ddd2a4285f13105b8b0a4f27582356a08ac23662814c11ab9b008946f",
+          "group_010.json": "7ddb830e0c5a158bebfe569a4717fa89685c2ece55e035fed7a9b162ecc1e4d8",
+          "group_011.json": "848a276240336ef62bccc7dc097b257a3c9e6469af42a142242043f7e72dc072",
+          "group_012.json": "01be6cefc76279d99304fee359b6ea2e12fcad82072f587f32fb600940623dbc",
+          "group_013.json": "a9e7c48b427caaaaaf903eeeef6ce484c4d1116436748d562f293f835cedef82",
+          "group_014.json": "8080e05f1da8da5d96f6cdba0c39dcb75e32f5a82115f09d97aae53e29887996",
+          "group_015.json": "49d84c93530afb3d4256472661deaad6fb71de329cf160e6bbe52978bfa724ec",
+          "group_016.json": "52f7c74bf532cae62d259d47f5669ce39489adefe70ccd1f99b7d1117b51d984",
+          "group_017.json": "28f169c3b2fa11e2e62582f96c2a8bce38000dcee155ffef9579f21da46b9d61",
+          "group_018.json": "b68ce79f4bba06fdbf4418c6d127842ceb1cac4bc928ada211b92c1f546934f2",
+          "group_019.json": "9801a723aa910f118eee6b6824c6469fdc3248e83d503aa1516686648601eea5",
+          "group_020.json": "a91269057b32ed2a96582696f74dd94464a864fde95b9a7e05af581c944588f5",
+          "group_021.json": "6fc7ccc0f7a83791bd296e2559f2207447f17edc10e07cd3192288edc6352c56",
+          "group_022.json": "f6bea21dcced5b4881393ca1a7dedc9868566b8c08ce40d998c2139c4bdd41bf",
+          "group_023.json": "79c1b61f8b816baa3a8bd558b086c33b0784775c766e187e7d75c936596d7f86",
+          "group_024.json": "410a993f5da7a91093bb5343d08d384cfe32a95de51d20c67260324975889489"
+        }
+      }
+    },
+    "E2": {
+      "smoke": {
+        "sha256": "14a09df9cfc6d242c3b655a67392d0fc4ef353c20e706f7722c03e1074c984af",
+        "checkpoint": "ablation/E2/smoke/checkpoint-4/adapter_model.safetensors",
+        "optimizer_steps": 4,
+        "seconds": 263.68544969399227,
+        "peak_allocated_bytes": 6373129728,
+        "config_sha256": "91b6ff1dcce2d1546132236f50f7a28565bcbf7045c500926a3895705cf816cc",
+        "groups_sha256": {
+          "group_000.json": "f0f5390ce18b38f98bcf5e97e958e5253565a4ea9811457e7b4c6dc4477f90bd",
+          "group_001.json": "450ef2af0ea95cabac04b9bdb0b91d9697dfec28e838a4b801f7b133884ee2d5",
+          "group_002.json": "495d964b2772e5753ae70d84f200ece9d3fa5651335675ba12979f8d84b1b002",
+          "group_003.json": "10c0e1c99db556d3b930af8589a12dd4de4ad8f793eab75404aa45a8e1099fa9"
+        }
+      },
+      "pilot": {
+        "sha256": "95eafa3289f6f7cf61a393521fb7ac2e65f192fb48edbdaaa9bb8b8748994b5a",
+        "checkpoint": "ablation/E2/pilot/checkpoint-25/adapter_model.safetensors",
+        "optimizer_steps": 25,
+        "seconds": 1604.1400599869667,
+        "peak_allocated_bytes": 6502887936,
+        "config_sha256": "1fd57e07e098ed396bf7d79f48e0a1338b12114c608c6f20785394129b2bce29",
+        "groups_sha256": {
+          "group_000.json": "f0f5390ce18b38f98bcf5e97e958e5253565a4ea9811457e7b4c6dc4477f90bd",
+          "group_001.json": "450ef2af0ea95cabac04b9bdb0b91d9697dfec28e838a4b801f7b133884ee2d5",
+          "group_002.json": "d365a4f84b701535943e9411674362bc341eb0c47e3a0246aa3dab1c6a42b5b1",
+          "group_003.json": "f1282db3e84b4f084ba32b08355a25247673fa0396d87a28318e578b1eaf28ce",
+          "group_004.json": "defb344faccf275d01fa03b71d81d4b9e38a08c3264f45fe5d03b41a570aaf54",
+          "group_005.json": "805d95d4d8aae1841d99f7d5f7691e257a2799c1a6ee6b6a2e3a26308960753e",
+          "group_006.json": "da3292f05584957863da10a15d455cc3533c1dd9d0c345200b725d95e81831e7",
+          "group_007.json": "29272fd79a312cf6ea16b56f687883727dd64390e3b6e353b33f30a80bd42eb9",
+          "group_008.json": "8417c1f898a666d2741314e8149f3b33f9b841fa9269ce3f972bf429e5e4103e",
+          "group_009.json": "852a393946ca0b2c492b42fb9abef62635cac2ea5990b78e13fe26649e6fca6a",
+          "group_010.json": "d72784c01b5439372e6fbacfbe7270984d6ed27259b89003cca9a397ac247f6b",
+          "group_011.json": "b90cd3de3f862221c69b3861c99223ee8de3cd128a34aa4f16a08a1d78969057",
+          "group_012.json": "7e23bf6b2277d74330db99e32e626ed85ae0ef313313edd7073630781c18b2df",
+          "group_013.json": "3fd7603fe304ba19cc354c1428f25eb510b4a0f45ea9a31e6becda948e445444",
+          "group_014.json": "cbab1045a18dd0d2b9e0bf2f4582e4b85b57cc7a6a09bc61316a5a18f416dea2",
+          "group_015.json": "ecf8e42043132537f9a95af56164cb76bb2d77106b9e225cf2569e733c338a2c",
+          "group_016.json": "acc960d286766cf21870739066f216d48ebda3b3067d1eb7542fcb98dba9be13",
+          "group_017.json": "00ba4977bac1d8bbaa695b59816c64b97bc0b293f3355f3b11c32e71dd49941a",
+          "group_018.json": "f64a6d82ebf2cfa527f5bfbcd6de0f8a8f31911452d7e86a3d2e96fc8d62be9f",
+          "group_019.json": "7a9ab7e37d0fa2bd040cb6b8e264ae30a3963dbd5028a99147276def1dcfc443",
+          "group_020.json": "2836fea9af60fab1932473a00a6a1c47058e8858c81b719ee397b47a22924820",
+          "group_021.json": "0a5f1bc86ffe4d936cbe3d57ade1eebd96d638e37e9b559a3a0c158604fde8dd",
+          "group_022.json": "0d408df86d67ed4f4fba8ad2abdc49715ce9abcf62210b19add0a01fe1390f5a",
+          "group_023.json": "a0b8559bf8dfbfed5c2c3ccfd633cace08e966094acff7357edb6bf2d3194fb7",
+          "group_024.json": "b92606009ef9aa521c24bccb3f12aad5a2418e695021d6b24a00993da0af6e62"
+        }
+      }
+    },
+    "E3": {
+      "smoke": {
+        "sha256": "295a7a52bcff20b5c0a8ebf1a88ebcf4678dcb9c78a0b90d7bde9b6fd189339a",
+        "checkpoint": "ablation/E3/smoke/checkpoint-4/adapter_model.safetensors",
+        "optimizer_steps": 4,
+        "seconds": 267.1340177350212,
+        "peak_allocated_bytes": 6377738240,
+        "config_sha256": "8c17a7ed523d4c8ee7456c3cc14b9c9d1f39725d6b705b6ee7f00c6537b754ed",
+        "groups_sha256": {
+          "group_000.json": "8788194586bba346e52da81c516bbe6bd464be7e95fc6f5f07a6c9b8af672b63",
+          "group_001.json": "2aa57b08700e4b09ebe75c15a191d7939f9cf8bea762c6769e1d2f0df37fb3e3",
+          "group_002.json": "86fe5d5303c12d00e55f62216cf512adc08e8ecde4b14ad403c9014d676c6871",
+          "group_003.json": "c5d9b02bf18937fe2558e0483909c0108f4107583499ff352af43760ff6a774b"
+        }
+      },
+      "pilot": {
+        "sha256": "f786adffa6dd9b505c7d62ff5c418995bd17d8e5962771ac0ab6704de98ea062",
+        "checkpoint": "ablation/E3/pilot/checkpoint-25/adapter_model.safetensors",
+        "optimizer_steps": 25,
+        "seconds": 1719.5820790710277,
+        "peak_allocated_bytes": 6654396416,
+        "config_sha256": "5a442f543dee50017648f5fa7c13bc822d9082691cadc7248f66a61cf1d3f941",
+        "groups_sha256": {
+          "group_000.json": "8788194586bba346e52da81c516bbe6bd464be7e95fc6f5f07a6c9b8af672b63",
+          "group_001.json": "2aa57b08700e4b09ebe75c15a191d7939f9cf8bea762c6769e1d2f0df37fb3e3",
+          "group_002.json": "e1713a738139a98bd9f0a29ff04d7aacee3c49148011d4b6a9ce0a0a0309d099",
+          "group_003.json": "fd388e168d4fb20a8fd977531110a1649a3298db184094d4973d91d39a3b0a98",
+          "group_004.json": "fe1e0b4f78b7ab580c00bc2f62ece4680044404406f25c9831ec0c7346deec31",
+          "group_005.json": "6007ab006dd4a7e0d778f7e73dd1e49a570c07786fc724a778e18b38a32b2822",
+          "group_006.json": "abd63589ee576becb18972e78e60a6174d0f263352f2f8ea8937bb3a62b30971",
+          "group_007.json": "9461f65a3988b4d25f87bd8cf7186385152106e9ad648aef310ab9ecaf2ef0da",
+          "group_008.json": "7674781ecb099b54ff6d7093f64dc9959a8940809386f4b49494c7803b2b2dd4",
+          "group_009.json": "b6c196208bc60d2eee86dac411fd1ee1a6f826928e54f044a08af5447d68a6b3",
+          "group_010.json": "1b0790d11ab5a3582862ba78666b47abc16de2f666950aee9eceb12e05f8ac69",
+          "group_011.json": "4548b8fb26c0d95d0e7ca1b72cddc69498dc9146932abb65bedad5936e61e599",
+          "group_012.json": "632d48babfe3126ecfd3efdc3c507a109d7aa41b47afe0a44ea8459e35b4ea66",
+          "group_013.json": "f6ca730ddce9472d75002cbd8403d80ec00e66ed46176d7de149d4f1fe13c27d",
+          "group_014.json": "1f652ff4c5727dd626ef09dbfaa465e18b353a902acd5a4c7bd1823b5801d746",
+          "group_015.json": "a892769bee8d730255897bd5684a051f67a060bbc0ff31d8bb5b48bb595ace99",
+          "group_016.json": "e51dbb978603aa01060eaceb30729e3fb63ceebcbcf3cddb204941807e3e3bb9",
+          "group_017.json": "705fefa2818648db0114c287dcaa2ba037156df783b7c656d99d06ea38f5cf0c",
+          "group_018.json": "6ccf13996bd39045f66a81df8f7d1c57c6c56206905348ab0dfb470b46fcbba3",
+          "group_019.json": "eac9cd2a6f47796e5c0a4d0f2b29f7c217a5216da050dccf4659b767878e3a2f",
+          "group_020.json": "ba7810916a62772fde22cea93dc1f7d39a2d317be95400e4ef34581f15282c04",
+          "group_021.json": "eda9e43e342e02a1aecb2a5d304550f95157a3dc89c487363993c38e78b74733",
+          "group_022.json": "d813b48b78fb051989fa1452debb8ed1966f62b04e6c6f7703f4b34b2288006e",
+          "group_023.json": "6f8893187e280c4d36a2d5532177927ef52e6a458bad266a6d3fe1f02079db73",
+          "group_024.json": "bae7adbcc1de46dc79b9d1f0e25d191f3e939e3d504ed880515db73d46368d87"
+        }
+      }
+    },
+    "E4": {
+      "smoke": {
+        "sha256": "11ab2a1c879cbb0f7d20c77dc0b5def04bfa262c745c69fbd5b1448a5c944c4c",
+        "checkpoint": "ablation/E4/smoke/checkpoint-4/adapter_model.safetensors",
+        "optimizer_steps": 4,
+        "seconds": 261.88759717100766,
+        "peak_allocated_bytes": 6373128192,
+        "config_sha256": "01b6c47fca51e9dd887674cc6a2aad71c0e78b7275c897097a1129e0a892d509",
+        "groups_sha256": {
+          "group_000.json": "6424c6d9a9b90a5334b529ce7fa70727c8188654d8734247f24ebac6ffa24381",
+          "group_001.json": "a975d0f1dfb8a6c4309240560d4a4bcd7a14d4b0ee2d83bf38ddfff749692604",
+          "group_002.json": "93c76f2469aa2e63fad34c562e4028c608c1b9bdb9dd3178d77279322f16e35f",
+          "group_003.json": "68c26076dbf03be5d6f121de54272c6d45eefcf138c52998902bd407aecb3ffe"
+        }
+      },
+      "pilot": {
+        "sha256": "694e82de8b234be615e87a5f1e02c923bc2a00a4261ffdf7981b080004f878e1",
+        "checkpoint": "ablation/E4/pilot/checkpoint-25/adapter_model.safetensors",
+        "optimizer_steps": 25,
+        "seconds": 1608.2817897559726,
+        "peak_allocated_bytes": 6452469248,
+        "config_sha256": "68be27198a0d42634d640174a27534f66729f8ecc4b6044a5a379451189d5a87",
+        "groups_sha256": {
+          "group_000.json": "6424c6d9a9b90a5334b529ce7fa70727c8188654d8734247f24ebac6ffa24381",
+          "group_001.json": "505704de4e3b242a7d5882dd447563bcfde769db6dd35f406cf57e397a6fb3ff",
+          "group_002.json": "f4eb94dc1f24d0b9376bdba14ab692f0449ca133dab326cedf3f9a61fa7252d5",
+          "group_003.json": "58fe11e23e90343d78d9b0dd0eb270292e362022dd454250117a8c718f979749",
+          "group_004.json": "9abb5c474b3932ce22f123cd2b35893fd7023767044a42f1085606d0583bfc02",
+          "group_005.json": "1b7207e3d7e0b8fab922bb15eac3a66886d486d18bbc360cfdc981000db58e2b",
+          "group_006.json": "e7de676b5dfd784d5b576b733ea85ad101e018ad62c93ad6ef37e6cf45aee5e4",
+          "group_007.json": "1cada19784a1ebfb2f50c0a381f2aa89b8b20ddb4038ed42d8f32649d02ff4a1",
+          "group_008.json": "fc0af38f0770cab99a7fdf234acd30c571cb090329f22542ba01275310af99ff",
+          "group_009.json": "04a8be291759401745ca0e35e594f1aa4063cd0bb1ff52627637637fcab1f72d",
+          "group_010.json": "b6849890dedc2496b33b8fe1d3cdad61fe5c7ea0756140a2483ef82ccf0e5ebb",
+          "group_011.json": "0b8b889b122bac03f74e051274a870665a3add2acc601c1dbe40ff7ece2c5c1d",
+          "group_012.json": "9b3def248668edf9fbadcbd1dfde7ac707609cc6618f2f410616fff72361f050",
+          "group_013.json": "a4dc56d7f12a9fc7b0c908582f9a68d8640a233d6089ab6deb040745412610c3",
+          "group_014.json": "40edfdcc9a17a2c870d9ac95b7d335968c9747acef8c13a8dc0ddf5a6c4d0199",
+          "group_015.json": "67ab2daf27bdb98019426b734e2b2ff68e233b4e91e1427da9f117fdba605d7e",
+          "group_016.json": "47e55a919f238b70bbe15f00a628403844bb0a760c3764bd628b5cc7b5b4ec34",
+          "group_017.json": "7935ee287d549f6896a046ace255f1ff655cf2ddae187ccecbdbade341bd40cf",
+          "group_018.json": "611d31d6997dbba5e0bd06ec9afb8374909aa9b124ded02a3567b00b705274f2",
+          "group_019.json": "09126acc7bd5f4988ae73f4645a155acd66e838938010bb01d28257a3d7bda7e",
+          "group_020.json": "792c5d52a93f61a5c413b1e4ba75dc93ec4a7ee3168945f2f4229f9e0e19583f",
+          "group_021.json": "6905a23d42761f274236cc6776160579b228a645245c97a7951cdae27853b6c8",
+          "group_022.json": "916205c821dd690d27275308a1129640be0f6c1895caea881a190ecf7f489418",
+          "group_023.json": "29fa8a33b04fc14f5cbe078dfb866ae0ddf2fd414278dae558b17dbfb1d59d7d",
+          "group_024.json": "20a842019604598d1e790fdaf1a3216d422164a5148ce1e19e03b52d80819242"
+        }
+      }
+    }
+  }
+}
