@@ -1,0 +1,120 @@
+{"id": "test-000", "record": {"mark": -759, "unit": "kata"}, "order": ["unit", "mark"], "atoms": {"unit": "text", "mark": "int"}, "combination": "int+text"}
+{"id": "test-001", "record": {"tag": "ojti", "name": false}, "order": ["name", "tag"], "atoms": {"tag": "text", "name": "bool"}, "combination": "bool+text"}
+{"id": "test-002", "record": {"active": "星lunz", "label": null}, "order": ["label", "active"], "atoms": {"active": "unicode", "label": "null"}, "combination": "null+unicode"}
+{"id": "test-003", "record": {"name": "", "active": true, "tag": 495}, "order": ["tag", "active", "name"], "atoms": {"name": "empty", "active": "bool", "tag": "int"}, "combination": "bool+empty+int"}
+{"id": "test-004", "record": {"tag": 345, "name": "kzrc\\x"}, "order": ["name", "tag"], "atoms": {"name": "escaped", "tag": "int"}, "combination": "escaped+int"}
+{"id": "test-005", "record": {"zone": false, "tag": "mbur=\\x", "active": null}, "order": ["zone", "active", "tag"], "atoms": {"tag": "escaped", "zone": "bool", "active": "null"}, "combination": "bool+escaped+null"}
+{"id": "test-006", "record": {"tag": "星zlrs", "name": true, "batch": -347}, "order": ["name", "tag", "batch"], "atoms": {"tag": "unicode", "name": "bool", "batch": "int"}, "combination": "bool+int+unicode"}
+{"id": "test-007", "record": {"label": null, "batch": "", "active": "yaoe\\|x"}, "order": ["batch", "active", "label"], "atoms": {"batch": "empty", "active": "escaped", "label": "null"}, "combination": "empty+escaped+null"}
+{"id": "test-008", "record": {"active": "河dnrw", "mark": -292, "tag": "dnrw\\x"}, "order": ["mark", "tag", "active"], "atoms": {"tag": "escaped", "active": "unicode", "mark": "int"}, "combination": "escaped+int+unicode"}
+{"id": "test-009", "record": {"batch": 537, "label": null, "mark": false, "zone": ""}, "order": ["label", "mark", "zone", "batch"], "atoms": {"zone": "empty", "mark": "bool", "label": "null", "batch": "int"}, "combination": "bool+empty+int+null"}
+{"id": "test-010", "record": {"unit": "nkpj", "tag": 886}, "order": ["tag", "unit"], "atoms": {"unit": "text", "tag": "int"}, "combination": "int+text"}
+{"id": "test-011", "record": {"label": true, "zone": "rlwx"}, "order": ["zone", "label"], "atoms": {"zone": "text", "label": "bool"}, "combination": "bool+text"}
+{"id": "test-012", "record": {"name": null, "unit": "风twrs"}, "order": ["unit", "name"], "atoms": {"unit": "unicode", "name": "null"}, "combination": "null+unicode"}
+{"id": "test-013", "record": {"name": 937, "active": true, "batch": ""}, "order": ["batch", "name", "active"], "atoms": {"batch": "empty", "active": "bool", "name": "int"}, "combination": "bool+empty+int"}
+{"id": "test-014", "record": {"batch": "szfo\\|x", "name": 715}, "order": ["name", "batch"], "atoms": {"batch": "escaped", "name": "int"}, "combination": "escaped+int"}
+{"id": "test-015", "record": {"unit": null, "batch": true, "mark": "knlm|x"}, "order": ["batch", "unit", "mark"], "atoms": {"mark": "escaped", "batch": "bool", "unit": "null"}, "combination": "bool+escaped+null"}
+{"id": "test-016", "record": {"mark": 31, "batch": false, "active": "风vpeb"}, "order": ["active", "mark", "batch"], "atoms": {"active": "unicode", "batch": "bool", "mark": "int"}, "combination": "bool+int+unicode"}
+{"id": "test-017", "record": {"active": "", "tag": null, "unit": "goks=\\x"}, "order": ["active", "unit", "tag"], "atoms": {"active": "empty", "unit": "escaped", "tag": "null"}, "combination": "empty+escaped+null"}
+{"id": "test-018", "record": {"label": "风wahx", "batch": -740, "tag": "wahx=\\x"}, "order": ["batch", "tag", "label"], "atoms": {"tag": "escaped", "label": "unicode", "batch": "int"}, "combination": "escaped+int+unicode"}
+{"id": "test-019", "record": {"unit": null, "name": -15, "active": true, "batch": ""}, "order": ["name", "batch", "active", "unit"], "atoms": {"batch": "empty", "active": "bool", "unit": "null", "name": "int"}, "combination": "bool+empty+int+null"}
+{"id": "test-020", "record": {"name": "vzhm", "mark": -871}, "order": ["mark", "name"], "atoms": {"name": "text", "mark": "int"}, "combination": "int+text"}
+{"id": "test-021", "record": {"active": true, "batch": "adeu"}, "order": ["batch", "active"], "atoms": {"batch": "text", "active": "bool"}, "combination": "bool+text"}
+{"id": "test-022", "record": {"name": null, "active": "星mrkg"}, "order": ["active", "name"], "atoms": {"active": "unicode", "name": "null"}, "combination": "null+unicode"}
+{"id": "test-023", "record": {"unit": false, "name": "", "zone": 249}, "order": ["name", "zone", "unit"], "atoms": {"name": "empty", "unit": "bool", "zone": "int"}, "combination": "bool+empty+int"}
+{"id": "test-024", "record": {"batch": "ugvo\\|x", "zone": -318}, "order": ["zone", "batch"], "atoms": {"batch": "escaped", "zone": "int"}, "combination": "escaped+int"}
+{"id": "test-025", "record": {"unit": "zabb\\x", "batch": null, "tag": true}, "order": ["batch", "unit", "tag"], "atoms": {"unit": "escaped", "tag": "bool", "batch": "null"}, "combination": "bool+escaped+null"}
+{"id": "test-026", "record": {"name": false, "tag": -555, "label": "风nqxn"}, "order": ["name", "label", "tag"], "atoms": {"label": "unicode", "name": "bool", "tag": "int"}, "combination": "bool+int+unicode"}
+{"id": "test-027", "record": {"mark": "tihw\\x", "zone": "", "tag": null}, "order": ["mark", "tag", "zone"], "atoms": {"zone": "empty", "mark": "escaped", "tag": "null"}, "combination": "empty+escaped+null"}
+{"id": "test-028", "record": {"active": 333, "batch": "风zqyr", "zone": "zqyr|x"}, "order": ["zone", "active", "batch"], "atoms": {"zone": "escaped", "batch": "unicode", "active": "int"}, "combination": "escaped+int+unicode"}
+{"id": "test-029", "record": {"tag": null, "unit": "", "label": -819, "zone": false}, "order": ["tag", "zone", "label", "unit"], "atoms": {"unit": "empty", "zone": "bool", "tag": "null", "label": "int"}, "combination": "bool+empty+int+null"}
+{"id": "test-030", "record": {"batch": "fqqi", "label": -250}, "order": ["label", "batch"], "atoms": {"batch": "text", "label": "int"}, "combination": "int+text"}
+{"id": "test-031", "record": {"unit": false, "active": "vlaw"}, "order": ["active", "unit"], "atoms": {"active": "text", "unit": "bool"}, "combination": "bool+text"}
+{"id": "test-032", "record": {"mark": null, "label": "风jepo"}, "order": ["label", "mark"], "atoms": {"label": "unicode", "mark": "null"}, "combination": "null+unicode"}
+{"id": "test-033", "record": {"zone": false, "name": -203, "label": ""}, "order": ["name", "label", "zone"], "atoms": {"label": "empty", "zone": "bool", "name": "int"}, "combination": "bool+empty+int"}
+{"id": "test-034", "record": {"name": -765, "active": "jxxl\\|x"}, "order": ["active", "name"], "atoms": {"active": "escaped", "name": "int"}, "combination": "escaped+int"}
+{"id": "test-035", "record": {"name": false, "batch": "lrwu=\\x", "unit": null}, "order": ["unit", "batch", "name"], "atoms": {"batch": "escaped", "name": "bool", "unit": "null"}, "combination": "bool+escaped+null"}
+{"id": "test-036", "record": {"batch": -497, "zone": false, "tag": "星tlpl"}, "order": ["batch", "tag", "zone"], "atoms": {"tag": "unicode", "zone": "bool", "batch": "int"}, "combination": "bool+int+unicode"}
+{"id": "test-037", "record": {"zone": null, "mark": "", "name": "ckdy\\x"}, "order": ["mark", "name", "zone"], "atoms": {"mark": "empty", "name": "escaped", "zone": "null"}, "combination": "empty+escaped+null"}
+{"id": "test-038", "record": {"active": "河xoci", "zone": "xoci\\|x", "batch": 822}, "order": ["zone", "batch", "active"], "atoms": {"zone": "escaped", "active": "unicode", "batch": "int"}, "combination": "escaped+int+unicode"}
+{"id": "test-039", "record": {"label": 991, "name": null, "batch": "", "mark": false}, "order": ["label", "mark", "batch", "name"], "atoms": {"batch": "empty", "mark": "bool", "name": "null", "label": "int"}, "combination": "bool+empty+int+null"}
+{"id": "test-040", "record": {"tag": 93, "batch": "tzcl"}, "order": ["batch", "tag"], "atoms": {"batch": "text", "tag": "int"}, "combination": "int+text"}
+{"id": "test-041", "record": {"active": false, "unit": "ersk"}, "order": ["unit", "active"], "atoms": {"unit": "text", "active": "bool"}, "combination": "bool+text"}
+{"id": "test-042", "record": {"label": "星bopk", "unit": null}, "order": ["unit", "label"], "atoms": {"label": "unicode", "unit": "null"}, "combination": "null+unicode"}
+{"id": "test-043", "record": {"tag": "", "label": 307, "unit": true}, "order": ["label", "unit", "tag"], "atoms": {"tag": "empty", "unit": "bool", "label": "int"}, "combination": "bool+empty+int"}
+{"id": "test-044", "record": {"zone": 263, "active": "ybwg=\\x"}, "order": ["active", "zone"], "atoms": {"active": "escaped", "zone": "int"}, "combination": "escaped+int"}
+{"id": "test-045", "record": {"mark": "tfxh|x", "zone": null, "batch": true}, "order": ["zone", "batch", "mark"], "atoms": {"mark": "escaped", "batch": "bool", "zone": "null"}, "combination": "bool+escaped+null"}
+{"id": "test-046", "record": {"label": false, "mark": 660, "unit": "星fnrm"}, "order": ["mark", "unit", "label"], "atoms": {"unit": "unicode", "label": "bool", "mark": "int"}, "combination": "bool+int+unicode"}
+{"id": "test-047", "record": {"label": "ixks=x", "unit": null, "batch": ""}, "order": ["unit", "label", "batch"], "atoms": {"batch": "empty", "label": "escaped", "unit": "null"}, "combination": "empty+escaped+null"}
+{"id": "test-048", "record": {"active": -572, "name": "tleg|x", "tag": "星tleg"}, "order": ["name", "tag", "active"], "atoms": {"name": "escaped", "tag": "unicode", "active": "int"}, "combination": "escaped+int+unicode"}
+{"id": "test-049", "record": {"tag": null, "active": -707, "zone": false, "batch": ""}, "order": ["tag", "zone", "active", "batch"], "atoms": {"batch": "empty", "zone": "bool", "tag": "null", "active": "int"}, "combination": "bool+empty+int+null"}
+{"id": "test-050", "record": {"batch": "wual", "zone": 613}, "order": ["zone", "batch"], "atoms": {"batch": "text", "zone": "int"}, "combination": "int+text"}
+{"id": "test-051", "record": {"unit": false, "tag": "ncey"}, "order": ["tag", "unit"], "atoms": {"tag": "text", "unit": "bool"}, "combination": "bool+text"}
+{"id": "test-052", "record": {"unit": "星jazp", "tag": null}, "order": ["tag", "unit"], "atoms": {"unit": "unicode", "tag": "null"}, "combination": "null+unicode"}
+{"id": "test-053", "record": {"tag": true, "name": -471, "active": ""}, "order": ["name", "active", "tag"], "atoms": {"active": "empty", "tag": "bool", "name": "int"}, "combination": "bool+empty+int"}
+{"id": "test-054", "record": {"unit": 199, "label": "yxbd=x"}, "order": ["label", "unit"], "atoms": {"label": "escaped", "unit": "int"}, "combination": "escaped+int"}
+{"id": "test-055", "record": {"mark": null, "active": false, "zone": "bfka\\|x"}, "order": ["active", "mark", "zone"], "atoms": {"zone": "escaped", "active": "bool", "mark": "null"}, "combination": "bool+escaped+null"}
+{"id": "test-056", "record": {"batch": "雪qlya", "label": 305, "name": true}, "order": ["label", "batch", "name"], "atoms": {"batch": "unicode", "name": "bool", "label": "int"}, "combination": "bool+int+unicode"}
+{"id": "test-057", "record": {"tag": null, "name": "fbzv=\\x", "unit": ""}, "order": ["name", "tag", "unit"], "atoms": {"unit": "empty", "name": "escaped", "tag": "null"}, "combination": "empty+escaped+null"}
+{"id": "test-058", "record": {"mark": "雪zcsd", "unit": -67, "batch": "zcsd\\x"}, "order": ["mark", "batch", "unit"], "atoms": {"batch": "escaped", "mark": "unicode", "unit": "int"}, "combination": "escaped+int+unicode"}
+{"id": "test-059", "record": {"tag": -11, "name": "", "mark": null, "unit": true}, "order": ["mark", "tag", "name", "unit"], "atoms": {"name": "empty", "unit": "bool", "mark": "null", "tag": "int"}, "combination": "bool+empty+int+null"}
+{"id": "test-060", "record": {"unit": "uqzo", "batch": 857}, "order": ["batch", "unit"], "atoms": {"unit": "text", "batch": "int"}, "combination": "int+text"}
+{"id": "test-061", "record": {"label": "zrio", "unit": true}, "order": ["unit", "label"], "atoms": {"label": "text", "unit": "bool"}, "combination": "bool+text"}
+{"id": "test-062", "record": {"zone": null, "mark": "河tlfd"}, "order": ["mark", "zone"], "atoms": {"mark": "unicode", "zone": "null"}, "combination": "null+unicode"}
+{"id": "test-063", "record": {"active": -678, "tag": false, "unit": ""}, "order": ["active", "unit", "tag"], "atoms": {"unit": "empty", "tag": "bool", "active": "int"}, "combination": "bool+empty+int"}
+{"id": "test-064", "record": {"zone": 963, "name": "viko=x"}, "order": ["name", "zone"], "atoms": {"name": "escaped", "zone": "int"}, "combination": "escaped+int"}
+{"id": "test-065", "record": {"unit": "fptx\\x", "mark": false, "batch": null}, "order": ["batch", "unit", "mark"], "atoms": {"unit": "escaped", "mark": "bool", "batch": "null"}, "combination": "bool+escaped+null"}
+{"id": "test-066", "record": {"active": true, "label": "星mybw", "unit": -42}, "order": ["label", "unit", "active"], "atoms": {"label": "unicode", "active": "bool", "unit": "int"}, "combination": "bool+int+unicode"}
+{"id": "test-067", "record": {"zone": null, "unit": "nluu\\x", "label": ""}, "order": ["label", "unit", "zone"], "atoms": {"label": "empty", "unit": "escaped", "zone": "null"}, "combination": "empty+escaped+null"}
+{"id": "test-068", "record": {"zone": "风pqau", "name": "pqau\\|x", "tag": 105}, "order": ["name", "tag", "zone"], "atoms": {"name": "escaped", "zone": "unicode", "tag": "int"}, "combination": "escaped+int+unicode"}
+{"id": "test-069", "record": {"name": "", "zone": null, "tag": -326, "mark": true}, "order": ["name", "zone", "mark", "tag"], "atoms": {"name": "empty", "mark": "bool", "zone": "null", "tag": "int"}, "combination": "bool+empty+int+null"}
+{"id": "test-070", "record": {"batch": 986, "active": "wmqx"}, "order": ["active", "batch"], "atoms": {"active": "text", "batch": "int"}, "combination": "int+text"}
+{"id": "test-071", "record": {"zone": "ztzb", "name": true}, "order": ["name", "zone"], "atoms": {"zone": "text", "name": "bool"}, "combination": "bool+text"}
+{"id": "test-072", "record": {"label": "风oqwj", "mark": null}, "order": ["mark", "label"], "atoms": {"label": "unicode", "mark": "null"}, "combination": "null+unicode"}
+{"id": "test-073", "record": {"unit": 563, "tag": "", "mark": true}, "order": ["mark", "tag", "unit"], "atoms": {"tag": "empty", "mark": "bool", "unit": "int"}, "combination": "bool+empty+int"}
+{"id": "test-074", "record": {"label": 159, "active": "obzj=\\x"}, "order": ["active", "label"], "atoms": {"active": "escaped", "label": "int"}, "combination": "escaped+int"}
+{"id": "test-075", "record": {"batch": null, "active": "rrzq=x", "tag": true}, "order": ["tag", "active", "batch"], "atoms": {"active": "escaped", "tag": "bool", "batch": "null"}, "combination": "bool+escaped+null"}
+{"id": "test-076", "record": {"name": -833, "batch": "河iggf", "mark": false}, "order": ["mark", "name", "batch"], "atoms": {"batch": "unicode", "mark": "bool", "name": "int"}, "combination": "bool+int+unicode"}
+{"id": "test-077", "record": {"label": "", "zone": "dhlc\\|x", "unit": null}, "order": ["unit", "zone", "label"], "atoms": {"label": "empty", "zone": "escaped", "unit": "null"}, "combination": "empty+escaped+null"}
+{"id": "test-078", "record": {"mark": -171, "label": "pdhv=x", "unit": "河pdhv"}, "order": ["mark", "unit", "label"], "atoms": {"label": "escaped", "unit": "unicode", "mark": "int"}, "combination": "escaped+int+unicode"}
+{"id": "test-079", "record": {"name": null, "zone": -740, "unit": true, "tag": ""}, "order": ["unit", "tag", "name", "zone"], "atoms": {"tag": "empty", "unit": "bool", "name": "null", "zone": "int"}, "combination": "bool+empty+int+null"}
+{"id": "test-080", "record": {"label": "gavn", "mark": -209}, "order": ["mark", "label"], "atoms": {"label": "text", "mark": "int"}, "combination": "int+text"}
+{"id": "test-081", "record": {"active": true, "label": "ddyc"}, "order": ["label", "active"], "atoms": {"label": "text", "active": "bool"}, "combination": "bool+text"}
+{"id": "test-082", "record": {"zone": null, "unit": "雪lpyk"}, "order": ["unit", "zone"], "atoms": {"unit": "unicode", "zone": "null"}, "combination": "null+unicode"}
+{"id": "test-083", "record": {"name": "", "label": false, "tag": -815}, "order": ["label", "tag", "name"], "atoms": {"name": "empty", "label": "bool", "tag": "int"}, "combination": "bool+empty+int"}
+{"id": "test-084", "record": {"name": "itax\\x", "zone": -387}, "order": ["zone", "name"], "atoms": {"name": "escaped", "zone": "int"}, "combination": "escaped+int"}
+{"id": "test-085", "record": {"unit": false, "mark": "idyw=x", "name": null}, "order": ["unit", "name", "mark"], "atoms": {"mark": "escaped", "unit": "bool", "name": "null"}, "combination": "bool+escaped+null"}
+{"id": "test-086", "record": {"active": true, "tag": "星wolr", "unit": -492}, "order": ["unit", "active", "tag"], "atoms": {"tag": "unicode", "active": "bool", "unit": "int"}, "combination": "bool+int+unicode"}
+{"id": "test-087", "record": {"tag": null, "batch": "", "name": "yelr\\x"}, "order": ["batch", "name", "tag"], "atoms": {"batch": "empty", "name": "escaped", "tag": "null"}, "combination": "empty+escaped+null"}
+{"id": "test-088", "record": {"tag": "udzc|x", "batch": "雪udzc", "active": -707}, "order": ["batch", "active", "tag"], "atoms": {"tag": "escaped", "batch": "unicode", "active": "int"}, "combination": "escaped+int+unicode"}
+{"id": "test-089", "record": {"unit": "", "active": true, "zone": null, "label": 718}, "order": ["zone", "label", "active", "unit"], "atoms": {"unit": "empty", "active": "bool", "zone": "null", "label": "int"}, "combination": "bool+empty+int+null"}
+{"id": "test-090", "record": {"name": "agvy", "zone": 751}, "order": ["zone", "name"], "atoms": {"name": "text", "zone": "int"}, "combination": "int+text"}
+{"id": "test-091", "record": {"tag": true, "name": "ytkv"}, "order": ["name", "tag"], "atoms": {"name": "text", "tag": "bool"}, "combination": "bool+text"}
+{"id": "test-092", "record": {"label": null, "zone": "雪mfkl"}, "order": ["zone", "label"], "atoms": {"zone": "unicode", "label": "null"}, "combination": "null+unicode"}
+{"id": "test-093", "record": {"batch": "", "name": true, "label": 620}, "order": ["name", "label", "batch"], "atoms": {"batch": "empty", "name": "bool", "label": "int"}, "combination": "bool+empty+int"}
+{"id": "test-094", "record": {"active": "myci\\|x", "tag": 452}, "order": ["tag", "active"], "atoms": {"active": "escaped", "tag": "int"}, "combination": "escaped+int"}
+{"id": "test-095", "record": {"tag": null, "unit": "qhie=x", "batch": true}, "order": ["tag", "batch", "unit"], "atoms": {"unit": "escaped", "batch": "bool", "tag": "null"}, "combination": "bool+escaped+null"}
+{"id": "test-096", "record": {"zone": false, "active": 770, "label": "雪feng"}, "order": ["label", "active", "zone"], "atoms": {"label": "unicode", "zone": "bool", "active": "int"}, "combination": "bool+int+unicode"}
+{"id": "test-097", "record": {"label": "", "unit": null, "tag": "nzda\\x"}, "order": ["label", "tag", "unit"], "atoms": {"label": "empty", "tag": "escaped", "unit": "null"}, "combination": "empty+escaped+null"}
+{"id": "test-098", "record": {"tag": -590, "batch": "egcr\\x", "zone": "河egcr"}, "order": ["batch", "zone", "tag"], "atoms": {"batch": "escaped", "zone": "unicode", "tag": "int"}, "combination": "escaped+int+unicode"}
+{"id": "test-099", "record": {"label": "", "unit": true, "mark": null, "active": -330}, "order": ["active", "mark", "label", "unit"], "atoms": {"label": "empty", "unit": "bool", "mark": "null", "active": "int"}, "combination": "bool+empty+int+null"}
+{"id": "test-100", "record": {"unit": "pxon", "zone": -363}, "order": ["zone", "unit"], "atoms": {"unit": "text", "zone": "int"}, "combination": "int+text"}
+{"id": "test-101", "record": {"tag": true, "unit": "hiru"}, "order": ["unit", "tag"], "atoms": {"unit": "text", "tag": "bool"}, "combination": "bool+text"}
+{"id": "test-102", "record": {"zone": null, "tag": "雪abqm"}, "order": ["tag", "zone"], "atoms": {"tag": "unicode", "zone": "null"}, "combination": "null+unicode"}
+{"id": "test-103", "record": {"unit": true, "active": "", "label": 915}, "order": ["label", "active", "unit"], "atoms": {"active": "empty", "unit": "bool", "label": "int"}, "combination": "bool+empty+int"}
+{"id": "test-104", "record": {"label": "xwhk|x", "active": -111}, "order": ["active", "label"], "atoms": {"label": "escaped", "active": "int"}, "combination": "escaped+int"}
+{"id": "test-105", "record": {"active": true, "label": null, "unit": "vqrs\\|x"}, "order": ["unit", "active", "label"], "atoms": {"unit": "escaped", "active": "bool", "label": "null"}, "combination": "bool+escaped+null"}
+{"id": "test-106", "record": {"batch": true, "label": 784, "active": "星chds"}, "order": ["active", "batch", "label"], "atoms": {"active": "unicode", "batch": "bool", "label": "int"}, "combination": "bool+int+unicode"}
+{"id": "test-107", "record": {"label": "gted\\x", "active": null, "unit": ""}, "order": ["active", "unit", "label"], "atoms": {"unit": "empty", "label": "escaped", "active": "null"}, "combination": "empty+escaped+null"}
+{"id": "test-108", "record": {"mark": "风inel", "tag": -820, "name": "inel=\\x"}, "order": ["mark", "name", "tag"], "atoms": {"name": "escaped", "mark": "unicode", "tag": "int"}, "combination": "escaped+int+unicode"}
+{"id": "test-109", "record": {"mark": null, "batch": true, "name": "", "label": 332}, "order": ["mark", "label", "name", "batch"], "atoms": {"name": "empty", "batch": "bool", "mark": "null", "label": "int"}, "combination": "bool+empty+int+null"}
+{"id": "test-110", "record": {"unit": 140, "name": "shrh"}, "order": ["name", "unit"], "atoms": {"name": "text", "unit": "int"}, "combination": "int+text"}
+{"id": "test-111", "record": {"batch": false, "unit": "ujzt"}, "order": ["unit", "batch"], "atoms": {"unit": "text", "batch": "bool"}, "combination": "bool+text"}
+{"id": "test-112", "record": {"tag": null, "mark": "雪eidf"}, "order": ["mark", "tag"], "atoms": {"mark": "unicode", "tag": "null"}, "combination": "null+unicode"}
+{"id": "test-113", "record": {"zone": -470, "label": false, "mark": ""}, "order": ["label", "mark", "zone"], "atoms": {"mark": "empty", "label": "bool", "zone": "int"}, "combination": "bool+empty+int"}
+{"id": "test-114", "record": {"batch": "qbds|x", "name": 84}, "order": ["name", "batch"], "atoms": {"batch": "escaped", "name": "int"}, "combination": "escaped+int"}
+{"id": "test-115", "record": {"batch": false, "mark": null, "label": "rejm\\|x"}, "order": ["label", "mark", "batch"], "atoms": {"label": "escaped", "batch": "bool", "mark": "null"}, "combination": "bool+escaped+null"}
+{"id": "test-116", "record": {"unit": "雪cxcb", "label": 525, "batch": false}, "order": ["batch", "label", "unit"], "atoms": {"unit": "unicode", "batch": "bool", "label": "int"}, "combination": "bool+int+unicode"}
+{"id": "test-117", "record": {"tag": null, "label": "", "active": "zyrp\\|x"}, "order": ["tag", "active", "label"], "atoms": {"label": "empty", "active": "escaped", "tag": "null"}, "combination": "empty+escaped+null"}
+{"id": "test-118", "record": {"tag": "jelq|x", "zone": "河jelq", "unit": 875}, "order": ["zone", "tag", "unit"], "atoms": {"tag": "escaped", "zone": "unicode", "unit": "int"}, "combination": "escaped+int+unicode"}
+{"id": "test-119", "record": {"unit": "", "label": -373, "active": true, "zone": null}, "order": ["unit", "label", "zone", "active"], "atoms": {"unit": "empty", "active": "bool", "zone": "null", "label": "int"}, "combination": "bool+empty+int+null"}

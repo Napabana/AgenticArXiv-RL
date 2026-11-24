@@ -1,0 +1,24 @@
+{"id": "train-000", "record": {"unit": 628, "tag": "tgdc"}, "order": ["tag", "unit"], "atoms": {"tag": "text", "unit": "int"}, "combination": "int+text"}
+{"id": "train-001", "record": {"active": "nafq", "tag": true}, "order": ["tag", "active"], "atoms": {"active": "text", "tag": "bool"}, "combination": "bool+text"}
+{"id": "train-002", "record": {"name": "雪khft", "mark": null}, "order": ["mark", "name"], "atoms": {"name": "unicode", "mark": "null"}, "combination": "null+unicode"}
+{"id": "train-003", "record": {"batch": true, "unit": 242, "zone": ""}, "order": ["unit", "zone", "batch"], "atoms": {"zone": "empty", "batch": "bool", "unit": "int"}, "combination": "bool+empty+int"}
+{"id": "train-004", "record": {"zone": "wwjl=x", "unit": 820}, "order": ["unit", "zone"], "atoms": {"zone": "escaped", "unit": "int"}, "combination": "escaped+int"}
+{"id": "train-005", "record": {"mark": true, "zone": "qpes=x", "batch": null}, "order": ["zone", "mark", "batch"], "atoms": {"zone": "escaped", "mark": "bool", "batch": "null"}, "combination": "bool+escaped+null"}
+{"id": "train-006", "record": {"unit": "河ukbx", "label": 273, "tag": true}, "order": ["label", "tag", "unit"], "atoms": {"unit": "unicode", "tag": "bool", "label": "int"}, "combination": "bool+int+unicode"}
+{"id": "train-007", "record": {"name": "", "tag": "ogpx\\x", "mark": null}, "order": ["tag", "mark", "name"], "atoms": {"name": "empty", "tag": "escaped", "mark": "null"}, "combination": "empty+escaped+null"}
+{"id": "train-008", "record": {"label": -107, "tag": "qukb"}, "order": ["tag", "label"], "atoms": {"tag": "text", "label": "int"}, "combination": "int+text"}
+{"id": "train-009", "record": {"batch": true, "zone": "qcll"}, "order": ["zone", "batch"], "atoms": {"zone": "text", "batch": "bool"}, "combination": "bool+text"}
+{"id": "train-010", "record": {"tag": null, "active": "风jeyx"}, "order": ["active", "tag"], "atoms": {"active": "unicode", "tag": "null"}, "combination": "null+unicode"}
+{"id": "train-011", "record": {"batch": true, "name": 610, "mark": ""}, "order": ["mark", "batch", "name"], "atoms": {"mark": "empty", "batch": "bool", "name": "int"}, "combination": "bool+empty+int"}
+{"id": "train-012", "record": {"name": "npzy\\|x", "label": 658}, "order": ["label", "name"], "atoms": {"name": "escaped", "label": "int"}, "combination": "escaped+int"}
+{"id": "train-013", "record": {"unit": false, "tag": null, "label": "fipf|x"}, "order": ["tag", "unit", "label"], "atoms": {"label": "escaped", "unit": "bool", "tag": "null"}, "combination": "bool+escaped+null"}
+{"id": "train-014", "record": {"label": 919, "tag": "河hmos", "zone": true}, "order": ["zone", "label", "tag"], "atoms": {"tag": "unicode", "zone": "bool", "label": "int"}, "combination": "bool+int+unicode"}
+{"id": "train-015", "record": {"batch": "", "name": "kwbq\\|x", "active": null}, "order": ["name", "active", "batch"], "atoms": {"batch": "empty", "name": "escaped", "active": "null"}, "combination": "empty+escaped+null"}
+{"id": "train-016", "record": {"tag": 902, "active": "ndem"}, "order": ["active", "tag"], "atoms": {"active": "text", "tag": "int"}, "combination": "int+text"}
+{"id": "train-017", "record": {"unit": "ywem", "label": true}, "order": ["label", "unit"], "atoms": {"unit": "text", "label": "bool"}, "combination": "bool+text"}
+{"id": "train-018", "record": {"batch": "河yuhs", "name": null}, "order": ["name", "batch"], "atoms": {"batch": "unicode", "name": "null"}, "combination": "null+unicode"}
+{"id": "train-019", "record": {"zone": false, "mark": 141, "unit": ""}, "order": ["mark", "unit", "zone"], "atoms": {"unit": "empty", "zone": "bool", "mark": "int"}, "combination": "bool+empty+int"}
+{"id": "train-020", "record": {"active": "dxgp=\\x", "label": 380}, "order": ["label", "active"], "atoms": {"active": "escaped", "label": "int"}, "combination": "escaped+int"}
+{"id": "train-021", "record": {"batch": null, "active": "igdq|x", "mark": true}, "order": ["mark", "batch", "active"], "atoms": {"active": "escaped", "mark": "bool", "batch": "null"}, "combination": "bool+escaped+null"}
+{"id": "train-022", "record": {"name": 819, "zone": "星wwje", "tag": true}, "order": ["name", "tag", "zone"], "atoms": {"zone": "unicode", "tag": "bool", "name": "int"}, "combination": "bool+int+unicode"}
+{"id": "train-023", "record": {"unit": "ohps=x", "mark": null, "tag": ""}, "order": ["tag", "unit", "mark"], "atoms": {"tag": "empty", "unit": "escaped", "mark": "null"}, "combination": "empty+escaped+null"}
