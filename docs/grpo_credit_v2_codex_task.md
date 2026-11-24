@@ -10,9 +10,9 @@
 > - 不要覆盖旧 Prefix-tree 实现。新实现应可通过配置切换，旧实验可复现。
 > - 不要为了得到更高成功率而修改 Benchmark 的 Strict Success 定义、评测任务或评测口径。
 
-**工作分支：** \`feat/grpo-credit-v2\`  
-**基线分支：** \`feat/qwen35-native-grpo\`  
-**基线提交：** \`aeb5e3b60ddf08a4a5f827d08e7fad283b65354b\`  
+**工作分支：** `feat/grpo-credit-v2`  
+**基线分支：** `feat/qwen35-native-grpo`  
+**基线提交：** `aeb5e3b60ddf08a4a5f827d08e7fad283b65354b`  
 **项目：** Qwen3.5-2B Native Tool Calling GRPO / AgenticArXiv-RL
 
 ---
@@ -39,15 +39,15 @@
 
 先读取并复核以下文件，不要仅凭本任务书的摘要做假设：
 
-- \`reports/native_grpo_20261123/native_grpo_report.md\`
-- \`reports/native_grpo_20261123/native_grpo_report.json\`
-- \`reports/native_grpo_20261123/paired_case_audit.json\`
-- \`reports/native_grpo_20261123/training_signal_audit.json\`
-- \`reports/native_grpo_followup_20261124/experiment.md\`
-- \`reports/native_grpo_followup_20261124/paired_dev.json\`
-- \`reports/native_grpo_followup_20261124/pilot_summary.json\`
-- \`reports/native_grpo_followup_20261124/probe_summary.json\`
-- \`reports/native_grpo_followup_20261124/prior_policy_reward_audit.json\`
+- `reports/native_grpo_20261123/native_grpo_report.md`
+- `reports/native_grpo_20261123/native_grpo_report.json`
+- `reports/native_grpo_20261123/paired_case_audit.json`
+- `reports/native_grpo_20261123/training_signal_audit.json`
+- `reports/native_grpo_followup_20261124/experiment.md`
+- `reports/native_grpo_followup_20261124/paired_dev.json`
+- `reports/native_grpo_followup_20261124/pilot_summary.json`
+- `reports/native_grpo_followup_20261124/probe_summary.json`
+- `reports/native_grpo_followup_20261124/prior_policy_reward_audit.json`
 
 ### 1.1 已有 100-step GRPO 结果
 
@@ -67,8 +67,8 @@
 - 报告中的 Credit Coverage 为 29.4%，Credit Accuracy 为 40.0%；守恒误差接近 0 只证明数值守恒，不证明归因正确。
 
 两个主要回退：
-- \`constraint_search_no_file\`：3 次将全 CS 的 aspect="*" 错写成 "CL"。
-- \`state_cache_two\`：3 次只检查第一篇缓存便 FINISH，漏掉第二篇。
+- `constraint_search_no_file`：3 次将全 CS 的 aspect="*" 错写成 "CL"。
+- `state_cache_two`：3 次只检查第一篇缓存便 FINISH，漏掉第二篇。
 
 ### 1.2 已有 25-step Follow-up Pilot
 
@@ -92,10 +92,10 @@
 以仓库中的 manifest 和本地实际文件双重校验：
 
 - Base：Qwen3.5-2B-Base（沿用现有 Native GRPO 配置）。
-- Native SFT Adapter SHA256：\`789af8cf28960892a1fde034d32f9b8ddf230e8450552be70d15024c964ed6c8\`
-- SFT Train Manifest SHA256：\`34196a2639203ca290a43c1012daa1f82f4621a4f8beb2203c597713d013bf70\`
-- Mock Snapshot SHA256：\`d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794\`
-- 当前固定候选/训练资产：\`data/splits/native_grpo_qwen35_candidates_v2.json\`、\`data/splits/native_grpo_qwen35_train_v2.json\`。
+- Native SFT Adapter SHA256：`789af8cf28960892a1fde034d32f9b8ddf230e8450552be70d15024c964ed6c8`
+- SFT Train Manifest SHA256：`34196a2639203ca290a43c1012daa1f82f4621a4f8beb2203c597713d013bf70`
+- Mock Snapshot SHA256：`d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794`
+- 当前固定候选/训练资产：`data/splits/native_grpo_qwen35_candidates_v2.json`、`data/splits/native_grpo_qwen35_train_v2.json`。
 - Train v2 当前 18 个任务 ID 必须从文件读取，不得手写复制；包括搜索范围、双论文缓存、条件下载/缓存、PENDING/翻译、引用错误和 blocked 控制任务。
 - 旧 100-step GRPO Adapter 和本轮 25-step Pilot Adapter 都不能作为新实验起点。所有新实验从同一个 Native SFT Adapter 加载。
 
@@ -107,23 +107,23 @@
 
 新增一个确定性、可审计的弱点记录格式，建议保存为 JSON：
 
-\`reports/grpo_credit_v2/weakness_bank.json\`
+`reports/grpo_credit_v2/weakness_bank.json`
 
 至少包含：
 
-- \`weakness_id\`
-- \`task_family\`
-- \`error_type\`
-- \`evidence_source\`
-- \`pass_to_fail_count\`
-- \`fail_to_pass_count\`
-- \`probe_groups\`
-- \`informative_groups\`
-- \`train_task_ids\`
-- \`train_exposure_groups\`
-- \`last_observed_checkpoint\`
-- \`priority\`
-- \`status\`（uncovered / covered / improved / unresolved / no_signal）
+- `weakness_id`
+- `task_family`
+- `error_type`
+- `evidence_source`
+- `pass_to_fail_count`
+- `fail_to_pass_count`
+- `probe_groups`
+- `informative_groups`
+- `train_task_ids`
+- `train_exposure_groups`
+- `last_observed_checkpoint`
+- `priority`
+- `status`（uncovered / covered / improved / unresolved / no_signal）
 
 初始弱点优先级必须来自已有报告，不要凭主观猜测：
 
@@ -193,18 +193,18 @@ Weakness Bank 的来源包括：
 
 ### 3.1 DFA 状态定义
 
-从现有 TaskSpec 的有序 \`steps\` 编译有限状态机，不手写每个任务的专用状态机。
+从现有 TaskSpec 的有序 `steps` 编译有限状态机，不手写每个任务的专用状态机。
 
 对具有 L 个预期工具动作的任务，定义：
-- \`q_0 ... q_L\`：已按顺序验证通过 0 到 L 个预期工具步骤；
-- \`q_accept\`：全部必要动作已完成，且终止语义正确；
-- \`q_error\`：第一次偏离任务契约；
-- \`q_truncated\`：生成预算或轮数耗尽，尚不能判定为错误；
-- \`q_environment_invalid\`：Setup / Snapshot / 环境基础设施失败。
+- `q_0 ... q_L`：已按顺序验证通过 0 到 L 个预期工具步骤；
+- `q_accept`：全部必要动作已完成，且终止语义正确；
+- `q_error`：第一次偏离任务契约；
+- `q_truncated`：生成预算或轮数耗尽，尚不能判定为错误；
+- `q_environment_invalid`：Setup / Snapshot / 环境基础设施失败。
 
 每个决策转移必须检查：
 1. Tool Name；
-2. 生效参数（使用 \`registry.effective_arguments()\`，与 Benchmark 的默认值语义一致）；
+2. 生效参数（使用 `registry.effective_arguments()`，与 Benchmark 的默认值语义一致）；
 3. 论文引用实际解析身份（使用 Observation 中解析出的 paper_id；不能只比传入 ref 字符串）；
 4. 工具是否真实执行成功；
 5. 用户约束和工具副作用；
@@ -212,15 +212,15 @@ Weakness Bank 的来源包括：
 
 正确动作转移到下一状态；第一次错误工具、错误参数、错误论文、额外调用或提前 FINISH 转移到 q_error。q_error 对当前严格序列任务是吸收态，不要给后续动作伪造正确标签。
 
-blocked task 必须沿用 \`expected_terminal_mode\` / \`expected_terminal_reason\` 的现有语义：正确行为可能是零工具调用并说明具体阻塞原因，不能强制要求至少调用一个工具。
+blocked task 必须沿用 `expected_terminal_mode` / `expected_terminal_reason` 的现有语义：正确行为可能是零工具调用并说明具体阻塞原因，不能强制要求至少调用一个工具。
 
 ### 3.2 语义一致性
 
 不要复制一套与 Benchmark 不一致的参数比较逻辑。优先复用或提取共享 helper：
-- \`benchmark.metrics.argument_match_score\`
-- \`benchmark.metrics.resolved_paper_id\`
-- \`benchmark.metrics._same_paper\`（必要时提取成公开 helper）
-- \`tools.tool_registry.registry.effective_arguments\`
+- `benchmark.metrics.argument_match_score`
+- `benchmark.metrics.resolved_paper_id`
+- `benchmark.metrics._same_paper`（必要时提取成公开 helper）
+- `tools.tool_registry.registry.effective_arguments`
 - blocked terminal semantics 的现有校验。
 
 必须覆盖：
@@ -239,25 +239,25 @@ blocked task 必须沿用 \`expected_terminal_mode\` / \`expected_terminal_reaso
 
 每条轨迹必须得到逐步结构化记录：
 
-- \`automaton_state_before\`
-- \`action_key\`
-- \`automaton_state_after\`
-- \`transition_label\`（correct / first_error / post_error / accept / truncated / environment_invalid / neutral）
-- \`first_error_index\`
-- \`first_error_kind\`
-- \`verified_prefix_length\`
-- \`strict_success\`
+- `automaton_state_before`
+- `action_key`
+- `automaton_state_after`
+- `transition_label`（correct / first_error / post_error / accept / truncated / environment_invalid / neutral）
+- `first_error_index`
+- `first_error_kind`
+- `verified_prefix_length`
+- `strict_success`
 
-不能只保存一个 \`phi\` 数值。必须能追溯到每一步的判定依据。
+不能只保存一个 `phi` 数值。必须能追溯到每一步的判定依据。
 
 ---
 
 ## 4. Phase A：重新设计 Credit Assignment
 
 保留旧 Prefix-tree 代码和测试，新增独立的 v2 实现。建议文件：
-- \`AgenticArxiv/rl/task_automaton.py\`
-- \`AgenticArxiv/rl/anchor_state.py\`
-- \`AgenticArxiv/rl/credit_v2.py\`
+- `AgenticArxiv/rl/task_automaton.py`
+- `AgenticArxiv/rl/anchor_state.py`
+- `AgenticArxiv/rl/credit_v2.py`
 
 最终文件名可以根据现有架构调整，但不得把所有逻辑堆进一个函数。
 
@@ -352,7 +352,7 @@ A_{i,t}^{token}
 \lambda A_{i,t}^{local}
 \]
 
-\`lambda=0.5\` 作为本轮固定初始值，与现有 0.5 step-credit 比例保持可比；E1 令 \`lambda=0\`。E4 的 local channel 可先将归一化后的 DFA 和 Anchor Advantage 等权合并，再进入上述公式。若代码实现发现该组合导致尺度异常，必须在 CPU 离线测试阶段修复，不要在 GPU 正式训练时临时改权重。
+`lambda=0.5` 作为本轮固定初始值，与现有 0.5 step-credit 比例保持可比；E1 令 `lambda=0`。E4 的 local channel 可先将归一化后的 DFA 和 Anchor Advantage 等权合并，再进入上述公式。若代码实现发现该组合导致尺度异常，必须在 CPU 离线测试阶段修复，不要在 GPU 正式训练时临时改权重。
 
 ---
 
@@ -370,7 +370,7 @@ R_{outcome}(\tau)=
 \end{cases}
 \]
 
-其中 Strict Success 继续调用当前 \`benchmark.metrics.is_strict_success()\`，不得修改定义。
+其中 Strict Success 继续调用当前 `benchmark.metrics.is_strict_success()`，不得修改定义。
 
 环境异常必须单独 mask：
 - Snapshot coverage miss；
@@ -520,7 +520,7 @@ Codex 应自主完成以下所有工作，不需要用户启动 GPU：
 
 ### A1. 代码审计
 - 读取本任务书引用的实验报告；
-- 审计 \`reward.py\`、\`grpo_reward.py\`、\`step_credit.py\`、\`step_credit_trainer.py\`、\`native_grpo_rollout.py\`、\`env.py\`、\`store_memory.py\`、\`side_effects.py\`、\`task_spec.py\`、\`metrics.py\`；
+- 审计 `reward.py`、`grpo_reward.py`、`step_credit.py`、`step_credit_trainer.py`、`native_grpo_rollout.py`、`env.py`、`store_memory.py`、`side_effects.py`、`task_spec.py`、`metrics.py`；
 - 明确现有 TRL 1.17.1 的 Advantage / mask / token span 对齐方式；
 - 不破坏旧 Prefix-tree 的可复现性。
 
@@ -572,14 +572,14 @@ Codex 应自主完成以下所有工作，不需要用户启动 GPU：
 
 ### A6. GPU 运行脚本和报告
 新增一个统一入口，例如：
-- \`scripts/run_grpo_credit_v2_ablation.sh\`
-- \`scripts/run_grpo_credit_v2.py\`
-- \`scripts/audit_grpo_credit_v2.py\`
+- `scripts/run_grpo_credit_v2_ablation.sh`
+- `scripts/run_grpo_credit_v2.py`
+- `scripts/audit_grpo_credit_v2.py`
 
 具体文件名可按仓库惯例调整。
 
 要求：
-- 支持 \`--dry-run\`；
+- 支持 `--dry-run`；
 - 支持单独运行 E1/E2/E3/E4；
 - 支持从检查点恢复；
 - 每个实验使用独立 output directory；
@@ -592,7 +592,7 @@ Codex 应自主完成以下所有工作，不需要用户启动 GPU：
 
 生成：
 
-\`reports/grpo_credit_v2/gpu_readiness.md\`
+`reports/grpo_credit_v2/gpu_readiness.md`
 
 必须包含：
 - 完成的代码改动；
@@ -635,7 +635,7 @@ Codex 应自主完成以下所有工作，不需要用户启动 GPU：
 
 ### 9.2 GPU 执行顺序
 
-1. 检查 \`nvidia-smi\`、CUDA、Torch、BF16、磁盘空间；
+1. 检查 `nvidia-smi`、CUDA、Torch、BF16、磁盘空间；
 2. 重新核验所有 SHA；
 3. 运行每个配置的 4-step Smoke；
 4. Smoke 通过后，按 E1 → E2 → E3 → E4 顺序执行 25-step Pilot；
@@ -671,14 +671,14 @@ CPU 阶段开发时间不计入 GPU 时间，Codex 应尽可能并行完成。
 
 至少提交：
 
-- \`reports/grpo_credit_v2/weakness_bank.json\`
-- \`reports/grpo_credit_v2/gpu_readiness.md\`
-- \`reports/grpo_credit_v2/ablation_report.md\`
-- \`reports/grpo_credit_v2/ablation_results.json\`
-- \`reports/grpo_credit_v2/paired_dev.json\`
-- \`reports/grpo_credit_v2/credit_alignment_audit.json\`
-- \`reports/grpo_credit_v2/anchor_state_audit.json\`
-- \`reports/grpo_credit_v2/reward_calibration_audit.json\`
+- `reports/grpo_credit_v2/weakness_bank.json`
+- `reports/grpo_credit_v2/gpu_readiness.md`
+- `reports/grpo_credit_v2/ablation_report.md`
+- `reports/grpo_credit_v2/ablation_results.json`
+- `reports/grpo_credit_v2/paired_dev.json`
+- `reports/grpo_credit_v2/credit_alignment_audit.json`
+- `reports/grpo_credit_v2/anchor_state_audit.json`
+- `reports/grpo_credit_v2/reward_calibration_audit.json`
 - 各实验独立的 config、training metrics、rollout trace、checkpoint/Adapter SHA 和评测记录。
 
 报告必须回答：
