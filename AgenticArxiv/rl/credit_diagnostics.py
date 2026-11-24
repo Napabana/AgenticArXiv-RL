@@ -5,7 +5,18 @@ from itertools import combinations
 
 from benchmark.metrics import extract_metrics, is_strict_success, _parse_tool_action
 from rl.credit_v2 import GOOD
-from rl.weakness_sampling import targets, observed, CACHE, SEARCH, TRANSLATE
+from rl.weakness_sampling import targets, observed, pending_before_decisions, CACHE, SEARCH
+
+
+LOCAL_CHANNELS = ("raw_dfa_adv", "raw_anchor_adv", "raw_combined_local", "effective_local")
+ALIGNMENT_METRICS = (
+    "prefix_preservation",
+    "first_error_suppression",
+    "correct_action_promotion",
+    "false_positive_credit",
+    "false_negative_credit",
+    "advantage_misalignment",
+)
 
 
 def rate(n, d):
@@ -74,6 +85,7 @@ class Diagnostics:
                 if expected_error is not None or row["first_error_index"] is not None:
                     self.count("first_error_localization", expected_error == row["first_error_index"])
             flags = observed(task, sample, row)
+            pending = pending_before_decisions(sample)
             for i, d in enumerate(row["decisions"]):
                 label, local = d["transition_label"], d["local"]
                 good, bad = label in GOOD, label == "first_error"
@@ -82,7 +94,7 @@ class Diagnostics:
                 active = (mode in ("E2", "E4") and d["dfa_reason"] == "signal") or (
                     mode in ("E3", "E4") and d["anchor_reason"] == "signal"
                 )
-                eligible = row["strict_success"] is not None and not row["truncated"]
+                eligible = row["strict_success"] is not None and label != "truncated"
                 if eligible:
                     self.count("anchor_coverage", d["anchor_reason"] == "signal")
                     anchor_groups[d["anchor"]].append(d)
@@ -91,16 +103,28 @@ class Diagnostics:
                 self.hist["anchor_reasons"][d["anchor_reason"]] += 1
                 self.hist["dfa_reasons"][d["dfa_reason"]] += 1
                 if good and not row["strict_success"]:
-                    self.count("prefix_preservation", local >= 0)
                     self.count("prefix_final_nonnegative", d["advantage"] >= 0)
-                if bad:
-                    self.count("false_positive_credit", local > 0)
-                    if active:
-                        self.count("first_error_suppression", local < 0)
-                if good:
-                    self.count("false_negative_credit", local < 0)
-                    if active:
-                        self.count("correct_action_promotion", local > 0)
+                # Raw and effective combined signals use the same pre-clamp comparison set.
+                for channel in LOCAL_CHANNELS:
+                    score = d[channel]
+                    signal = {
+                        "raw_dfa_adv": d["dfa_reason"] == "signal",
+                        "raw_anchor_adv": d["anchor_reason"] == "signal",
+                    }.get(channel, active)
+                    if good and not row["strict_success"]:
+                        self.count((channel, "prefix_preservation"), score >= 0)
+                    if good:
+                        self.count((channel, "false_negative_credit"), score < 0)
+                        if signal:
+                            self.count((channel, "correct_action_promotion"), score > 0)
+                    if bad:
+                        self.count((channel, "false_positive_credit"), score > 0)
+                        if signal:
+                            self.count((channel, "first_error_suppression"), score < 0)
+                    if good or bad:
+                        self.count(
+                            (channel, "advantage_misalignment"), (good and score < 0) or (bad and score > 0)
+                        )
                 action = _parse_tool_action(sample["history"][i]["action"])
                 name = action["name"] if action else sample["history"][i]["action"]
                 ac = self.actions[name]
@@ -109,14 +133,14 @@ class Diagnostics:
                     ac["positive" if local > 0 else "negative" if local < 0 else "zero"] += 1
                     if good or bad:
                         conflict = (good and local < 0) or (bad and local > 0)
-                        self.count("advantage_misalignment", conflict)
+                        raw = d["raw_combined_local"]
+                        ac["raw_conflicts"] += int((good and raw < 0) or (bad and raw > 0))
                         ac["verified"] += 1
                         ac["conflicts"] += int(conflict)
                 for key in (
                     "episode_contribution",
                     "local_contribution",
-                    "dfa_adv",
-                    "anchor_adv",
+                    *LOCAL_CHANNELS,
                     "advantage",
                 ):
                     val = d[key]
@@ -141,6 +165,7 @@ class Diagnostics:
                         if local > 0
                         else "error_local_zero"
                     ] += 1
+                    ex["nonzero_local_tokens"] += tokens * int(d["policy_mask"] and local != 0)
                     ex["error_local_sum"] += local
                     ex["updated_error_tokens"] += tokens * int(d["policy_mask"] and d["advantage"] != 0)
                 if good:
@@ -153,14 +178,19 @@ class Diagnostics:
                             and CACHE in task["expected_tools"][:i]
                             or aim == "pending"
                             and label == "accept"
-                            and TRANSLATE in task["expected_tools"]
+                            and pending[i]
                             or aim == "early_finish"
                             and name not in ("FINISH", "ERROR")
                             or aim in ("reference_argument", "tool_parse", "repeat")
                             and action
                         )
                         if position:
-                            self.exposure[aim]["target_correct"] += 1
+                            ex = self.exposure[aim]
+                            ex["updated_correct_tokens"] += tokens * int(
+                                d["policy_mask"] and d["advantage"] != 0
+                            )
+                            ex["nonzero_local_tokens"] += tokens * int(d["policy_mask"] and local != 0)
+                            ex["target_correct"] += 1
                             self.exposure[aim]["correct_local_nonnegative"] += int(local >= 0)
                             self.exposure[aim]["correct_local_positive"] += int(local > 0)
                             if row["strict_success"]:
@@ -189,15 +219,9 @@ class Diagnostics:
             for k in (
                 "zero_variance_outcome_groups",
                 "first_error_localization",
-                "prefix_preservation",
                 "prefix_final_nonnegative",
-                "first_error_suppression",
-                "correct_action_promotion",
-                "false_positive_credit",
-                "false_negative_credit",
                 "anchor_coverage",
                 "anchor_pairwise_ranking",
-                "advantage_misalignment",
                 "contract_correct_over_wrong",
             )
         }
@@ -213,6 +237,13 @@ class Diagnostics:
         }
         return dict(
             metrics=metrics,
+            alignment_by_channel={
+                channel: {
+                    key: rate(self.counts[channel, key]["n"], self.counts[channel, key]["d"])
+                    for key in ALIGNMENT_METRICS
+                }
+                for channel in LOCAL_CHANNELS
+            },
             group_exposure_by_family=dict(self.families),
             terminal_states=dict(self.terminations),
             histograms={
@@ -222,14 +253,18 @@ class Diagnostics:
             action_calibration={
                 k: {
                     **v,
-                    "status": "unresolved" if v["conflicts"] else "observed",
-                    "misalignment": rate(v["conflicts"], v["verified"]),
+                    "status": "unresolved" if v["raw_conflicts"] or v["conflicts"] else "observed",
+                    "effective_misalignment": rate(v["conflicts"], v["verified"]),
+                    "raw_combined_misalignment": rate(v["raw_conflicts"], v["verified"]),
                 }
                 for k, v in self.actions.items()
             },
             exposure={
                 k: {
                     **v,
+                    "sampled_groups": v["sampled_groups"],
+                    "nonzero_advantage_tokens": v["updated_error_tokens"] + v["updated_correct_tokens"],
+                    "nonzero_local_tokens": v["nonzero_local_tokens"],
                     "contrast_rate": rate(v["contrast_groups"], v["sampled_groups"]),
                     "correct_nonnegative_rate": rate(v["correct_local_nonnegative"], v["target_correct"]),
                     "suppression_rate": rate(v["error_local_negative"], v["target_errors"]),

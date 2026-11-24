@@ -120,9 +120,17 @@ def test_group_channels_and_masks(mode):
     right, wrong, clip, invalid = rows
     assert right["episode"] > 0 > wrong["episode"] and invalid["episode"] == 0
     assert all(not d["policy_mask"] for d in invalid["decisions"])
-    assert clip["state"] == "q_truncated" and all(
-        d["anchor_reason"] == "truncation" for d in clip["decisions"]
+    verified, cutoff = clip["decisions"]
+    assert clip["state"] == "q_truncated" and clip["strict_success"] == 0
+    assert verified["transition_label"] == "correct" and verified["policy_mask"]
+    assert verified["anchor_size"] == 3 and verified["raw_anchor_adv"] < 0
+    assert verified["dfa_reason"] == "identical_action"
+    assert (
+        cutoff["transition_label"] == "truncated"
+        and cutoff["dfa_reason"] == cutoff["anchor_reason"] == "truncation"
     )
+    assert cutoff["raw_combined_local"] == cutoff["effective_local"] == 0
+    assert cutoff["policy_mask"] == (mode == "E1")
     prefix, error, suffix = wrong["decisions"]
     if mode in ("E2", "E4"):
         assert prefix["advantage"] >= 0 and error["local"] < 0 and not suffix["policy_mask"]
@@ -139,6 +147,108 @@ def test_group_channels_and_masks(mode):
     assert mask[:5] == [1, 1, 0, 0, 1] and advantage[2:4] == [0, 0] and advantage[4] == error["advantage"]
     with pytest.raises(ValueError):
         token_rows({**trace, "turn_token_spans": [(0, 2), (3, 5), (6, 8)]}, wrong)
+
+
+@pytest.mark.parametrize("mode", ["E2", "E3", "E4"])
+def test_limit_after_executed_tool_and_partial_turn_after_error(mode):
+    spec = task([CACHE], [{"ref": 1}], [A])
+    correct = call(CACHE, {"ref": 1}, A)
+    wrong = call(CACHE, {"ref": 2}, B)
+    partial = {"action": "FORCE_STOP", "observation": ""}
+    histories = [[correct], [correct, finish()], [wrong, partial], [wrong, finish()]]
+    samples = [sample(h, reached_max_turns=i == 0, clipped=i == 2) for i, h in enumerate(histories)]
+    rows = [transitions(spec, s) for s in samples]
+    for row in rows:
+        for i, d in enumerate(row["decisions"]):
+            d["anchor"] = str(i)
+    truncated, _, failed, _ = credits(rows, mode)
+    (only,) = truncated["decisions"]
+    assert truncated["strict_success"] == 0 and truncated["state"] == "q_truncated"
+    assert only["raw_dfa_adv"] > 0 > only["raw_anchor_adv"] and only["anchor_size"] == 4
+    assert only["policy_mask"] and only["raw_combined_local"] != 0
+    first, last = failed["decisions"]
+    assert failed["first_error_index"] == 0 and failed["state"] == "q_error"
+    assert first["raw_dfa_adv"] < 0 and last["transition_label"] == "truncated"
+    assert last["anchor_reason"] == "truncation" and not last["policy_mask"]
+
+
+@pytest.mark.parametrize(
+    "observation, issue, kind",
+    [
+        ("工具执行失败: lookup failed", None, "tool_fail"),
+        ('{"paper_id": "2611.22222v1"}', "schema_error", "schema_error"),
+        (None, None, None),
+        ("  ", None, None),
+        ("{}", None, "unresolved_reference"),
+        (json.dumps({"paper_id": B}), None, "wrong_ref"),
+    ],
+)
+def test_wrong_reference_requires_successful_resolved_receipt(observation, issue, kind):
+    step = call(CACHE, {"ref": 1})
+    step.update(observation=observation, tool_issue=issue)
+    row = transitions(task([CACHE], [{"ref": 1}], [A]), sample([step]))
+    assert row["first_error_kind"] == kind
+    assert (row["strict_success"] is None) == (kind is None)
+
+
+def test_alignment_reports_raw_estimates_and_masked_training_signal():
+    from rl.credit_diagnostics import Diagnostics
+
+    rows = credits(four(), "E4")
+    good, bad, clipped, invalid = rows
+    prefix = bad["decisions"][0]
+    assert prefix["raw_dfa_adv"] == 0 and prefix["raw_anchor_adv"] < 0
+    assert prefix["raw_combined_local"] == prefix["raw_anchor_adv"] / 2 < prefix["effective_local"] == 0
+    spec = task([CACHE, CACHE], [{"ref": 1}, {"ref": 2}], [A, B])
+    samples = [sample([call(CACHE, {"ref": 1}, A), call(CACHE, {"ref": 2}, pid), finish()]) for pid in [B, A]]
+    samples += [
+        sample([call(CACHE, {"ref": 1}, A), {"action": "FORCE_STOP"}], clipped=True),
+        deepcopy(samples[0]),
+    ]
+    for s in samples:
+        s["turn_token_spans"] = [(i, i + 1) for i in range(len(s["history"]))]
+    diag = Diagnostics()
+    diag.add(spec, samples, rows, "E4")
+    report = diag.report()
+    raw, effective = [report["alignment_by_channel"][k] for k in ("raw_combined_local", "effective_local")]
+    assert (
+        raw["false_negative_credit"]["numerator"] == 2
+        and effective["false_negative_credit"]["numerator"] == 0
+    )
+    assert raw["prefix_preservation"]["numerator"] == 0 and effective["prefix_preservation"]["numerator"] == 2
+    assert raw["advantage_misalignment"]["denominator"] == effective["advantage_misalignment"]["denominator"]
+    assert report["metrics"]["anchor_coverage"]["denominator"] == 7
+    for channel in report["alignment_by_channel"]:
+        assert channel in report["channels"]
+
+
+def test_pending_exposure_separates_nonzero_episode_tokens_from_local_signal():
+    from rl.credit_diagnostics import Diagnostics
+    from rl.weakness_sampling import TRANSLATE
+
+    spec = task([TRANSLATE], [{"ref": 1}], [A])
+    good = call(TRANSLATE, {"ref": 1}, A, tool_call_id="submit")
+    # Three verified submissions terminate while PENDING; the fourth fails before submitting.
+    samples = [
+        sample(
+            [good, finish()],
+            native_messages=[
+                {"role": "tool", "tool_call_id": "submit", "translation_status": [A, "PENDING"]}
+            ],
+            turn_token_spans=[(0, 2), (3, 6)],
+        )
+        for _ in range(3)
+    ]
+    samples.append(sample([finish()], turn_token_spans=[(0, 3)]))
+    rows = [transitions(spec, s) for s in samples]
+    for row in rows:
+        for i, d in enumerate(row["decisions"]):
+            d["anchor"] = str(i)
+    diag = Diagnostics()
+    diag.add(spec, samples, credits(rows, "E4"), "E4")
+    exposure = diag.report()["exposure"]["pending"]
+    assert exposure["sampled_groups"] == 1 and exposure["contrast_rate"]["numerator"] == 0
+    assert exposure["nonzero_advantage_tokens"] == 9 and exposure["nonzero_local_tokens"] == 0
 
 
 def test_exact_groups_no_false_contrasts():

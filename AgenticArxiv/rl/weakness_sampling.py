@@ -64,6 +64,27 @@ def schedule(tasks, steps=25, seed=42):
     return plan
 
 
+def pending_before_decisions(sample):
+    """Track outstanding submissions from the native tool receipts before each action."""
+    replies = {
+        m.get("tool_call_id"): m
+        for m in sample.get("native_messages", [])
+        if m["role"] == "tool" and m.get("tool_call_id")
+    }
+    pending = set()
+    before = []
+    for step in sample["history"]:
+        before.append(bool(pending))
+        status = replies.get(step.get("tool_call_id"), {}).get("translation_status")
+        if status:
+            paper, state = status
+            if state == "PENDING":
+                pending.add(paper)
+            elif state == "READY":
+                pending.discard(paper)
+    return before
+
+
 def observed(task, sample, row):
     """Target decision positions. FINISH while the second requested paper is outstanding counts once."""
     flags = [set() for _ in row["decisions"]]
@@ -71,15 +92,12 @@ def observed(task, sample, row):
         return flags
     aims = targets(task)
     calls = []
-    tool_replies = {
-        m.get("tool_call_id"): m for m in sample.get("native_messages", []) if m["role"] == "tool"
-    }
-    pending = set()
+    pending = pending_before_decisions(sample)
     for i, (step, d) in enumerate(zip(sample["history"], row["decisions"], strict=True)):
         action = _parse_tool_action(step["action"])
         issue = step.get("tool_issue")
         if issue in ("pending_claimed_ready", "pending_guard", "translation_not_ready") or (
-            pending and action and action["name"] == "get_translated_content"
+            pending[i] and action and action["name"] == "get_translated_content"
         ):
             flags[i].add("pending")
         if issue or step.get("parse_failed") or step["action"] == "ERROR":
@@ -98,13 +116,6 @@ def observed(task, sample, row):
             if key in calls and calls.count(key) + 1 > task["expected_tools"].count(name):
                 flags[i].add("repeat")
             calls.append(key)
-            status = tool_replies.get(step.get("tool_call_id"), {}).get("translation_status")
-            if status:
-                paper, state = status
-                if state == "PENDING":
-                    pending.add(paper)
-                elif state == "READY":
-                    pending.discard(paper)
         if "second_cache" in aims and kind in ("early_finish", "wrong_args", "wrong_ref", "wrong_tool"):
             index = d["verified_prefix_length"]
             if (

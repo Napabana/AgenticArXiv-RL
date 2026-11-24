@@ -47,6 +47,8 @@
       },
       "probe_groups": 12,
       "informative_groups": 3,
+      "probe_e4_replay_nonzero_advantage_tokens": 2359,
+      "probe_optimizer_update_tokens": 0,
       "train_task_ids": [
         "native_grpo_v2_scope_all_5_0",
         "native_grpo_v2_scope_all_19_0",
@@ -94,6 +96,8 @@
       },
       "probe_groups": 40,
       "informative_groups": 27,
+      "probe_e4_replay_nonzero_advantage_tokens": 5879,
+      "probe_optimizer_update_tokens": 0,
       "train_task_ids": [
         "native_grpo_v2_pair_CV_3",
         "native_grpo_v2_conditional_CV_1",
@@ -146,6 +150,8 @@
       },
       "probe_groups": 8,
       "informative_groups": 0,
+      "probe_e4_replay_nonzero_advantage_tokens": 446,
+      "probe_optimizer_update_tokens": 0,
       "train_task_ids": [
         "chain_lg10_dl_tr_last",
         "native_grpo_versioned_download_cache_translate"
@@ -194,6 +200,8 @@
       },
       "probe_groups": 56,
       "informative_groups": 25,
+      "probe_e4_replay_nonzero_advantage_tokens": 14537,
+      "probe_optimizer_update_tokens": 0,
       "train_task_ids": [
         "chain_ro5_dl_three",
         "chain_lg10_dl_tr_last",
@@ -253,6 +261,8 @@
       },
       "probe_groups": 76,
       "informative_groups": 22,
+      "probe_e4_replay_nonzero_advantage_tokens": 19424,
+      "probe_optimizer_update_tokens": 0,
       "train_task_ids": [
         "chain_ro5_dl_three",
         "chain_lg10_dl_tr_last",
@@ -317,6 +327,8 @@
       },
       "probe_groups": 84,
       "informative_groups": 2,
+      "probe_e4_replay_nonzero_advantage_tokens": 16749,
+      "probe_optimizer_update_tokens": 0,
       "train_task_ids": [
         "chain_ro5_dl_three",
         "chain_lg10_dl_tr_last",
@@ -383,6 +395,8 @@
       },
       "probe_groups": 84,
       "informative_groups": 4,
+      "probe_e4_replay_nonzero_advantage_tokens": 17656,
+      "probe_optimizer_update_tokens": 0,
       "train_task_ids": [
         "chain_ro5_dl_three",
         "chain_lg10_dl_tr_last",
@@ -715,6 +729,11 @@
       ]
     }
   ],
+  "e0_pending_reconstructed_from_archived_rewards": {
+    "sampled_groups": 3,
+    "nonzero_correct_tokens": 270,
+    "nonzero_error_tokens": 258
+  },
   "e0_reused": true,
   "train_sha256": "3e55a419d4fe5d5c91410043926fb1d13624f3f4b32cf0b70da95cce53a63a39"
 }

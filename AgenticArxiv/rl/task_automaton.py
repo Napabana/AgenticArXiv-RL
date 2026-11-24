@@ -14,7 +14,17 @@ from rl.step_credit import _tool_step_matches, canonical_action_key, gold_items
 def transitions(task, sample):
     history = sample["history"]
     invalid = sample.get("environment_invalid") or any(
-        s.get("observation") == "missing tool response" for s in history
+        s.get("observation") == "missing tool response"
+        or (
+            _parse_tool_action(s["action"])
+            and not s.get("tool_issue")
+            and (
+                s.get("observation") is None
+                or isinstance(s["observation"], str)
+                and not s["observation"].strip()
+            )
+        )
+        for s in history
     )
     truncated = bool(sample.get("clipped") or sample.get("reached_max_turns"))
     strict = None if invalid else int(is_strict_success(extract_metrics(task, sample, "native", 0)))
@@ -30,10 +40,10 @@ def transitions(task, sample):
         kind = None
         if invalid:
             label, state = "environment_invalid", "q_environment_invalid"
+        elif truncated and action == "FORCE_STOP":
+            label, state = "truncated", "q_error" if first is not None else "q_truncated"
         elif first is not None:
             label, state = "post_error", "q_error"
-        elif truncated and action == "FORCE_STOP":
-            label, state = "truncated", "q_truncated"
         elif state == "q_accept":
             kind = "after_finish"
         elif action == "FINISH":
@@ -54,11 +64,11 @@ def transitions(task, sample):
             target = gold[prefix]
             paper = resolved_paper_id(step.get("observation"))
             ok, why = _tool_step_matches(step, target)
-            if (
-                target.paper_id
-                and _parse_tool_action(action)["name"] == target.tool
-                and (not paper or not _same_paper(paper, target.paper_id))
-            ):
+            if not ok and why != "wrong_args":
+                kind = why
+            elif target.paper_id and not paper:
+                kind = "unresolved_reference"
+            elif target.paper_id and not _same_paper(paper, target.paper_id):
                 kind = "wrong_ref"
             elif not ok:
                 kind = why

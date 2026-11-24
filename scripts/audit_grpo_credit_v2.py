@@ -71,6 +71,48 @@ def replay(run, rollout, tasks, phase, output):
     return n, {key: value.report() for key, value in diagnostics.items()}
 
 
+def historical_pending_exposure(run, tasks):
+    """Reconstruct nonzero policy-advantage tokens on actual E0 samples with E0's trainer math."""
+    import torch
+    from rl.step_credit import compute_batch_step_credit, align_step_advantages, token_advantages
+    from rl.task_automaton import transitions
+    from rl.weakness_sampling import observed, pending_before_decisions
+
+    counts = dict(sampled_groups=0, nonzero_correct_tokens=0, nonzero_error_tokens=0)
+    with (run / "train/rollouts.jsonl").open(encoding="utf8") as stream:
+        while batch := list(islice(stream, 4)):
+            records = [json.loads(line) for line in batch]
+            ids = [r["task_id"] for r in records]
+            task = tasks[ids[0]]
+            targeted = "pending" in targets(task)
+            counts["sampled_groups"] += int(targeted)
+            samples = [r["trajectory"] for r in records]
+            rewards = [r["reward"] for r in records]
+            (group,) = compute_batch_step_credit(ids, samples, rewards, tasks, 4)
+            if group.category == "environment_invalid":
+                continue
+            values = torch.tensor(rewards, dtype=torch.float32)
+            base = ((values - values.mean()) / (values.std() + 1e-4)).tolist()
+            steps, _ = align_step_advantages([group], base, 4)
+            for sample, episode, local in zip(samples, base, steps, strict=True):
+                row = transitions(task, sample)
+                spans = sample["turn_token_spans"]
+                adv = (
+                    [episode] * len(sample["completion_ids"])
+                    if group.mode == "none"
+                    else token_advantages(episode, local, spans, len(sample["completion_ids"]), 0.5)
+                )
+                flags = observed(task, sample, row)
+                for decision, outstanding, errors, (start, end) in zip(
+                    row["decisions"], pending_before_decisions(sample), flags, spans, strict=True
+                ):
+                    if "pending" in errors:
+                        counts["nonzero_error_tokens"] += sum(x != 0 for x in adv[start:end])
+                    elif targeted and outstanding and decision["transition_label"] == "accept":
+                        counts["nonzero_correct_tokens"] += sum(x != 0 for x in adv[start:end])
+    return counts
+
+
 def bank(train, probe, oldtrain):
     historical = load_json(OLD / "native_grpo_report.json")
     changes = load_json(OLD / "paired_case_audit.json")
@@ -127,6 +169,8 @@ def bank(train, probe, oldtrain):
                 },
                 probe_groups=p.get("sampled_groups", 0),
                 informative_groups=p.get("contrast_groups", 0),
+                probe_e4_replay_nonzero_advantage_tokens=p.get("nonzero_advantage_tokens", 0),
+                probe_optimizer_update_tokens=0,
                 train_task_ids=ids,
                 train_exposure_groups=e.get("sampled_groups", 0),
                 train_observed_errors=e.get("target_errors", 0),
@@ -233,6 +277,7 @@ def audit(args):
             "historical_evidence_sha256": provenance,
             "weaknesses": bank(split["tasks"], selected.report(), oldtrain["E4"]),
             "plan": schedule(split["tasks"]),
+            "e0_pending_reconstructed_from_archived_rewards": historical_pending_exposure(run, tasks),
             "e0_reused": True,
             "train_sha256": TRAIN_SHA,
         },
@@ -247,6 +292,7 @@ def audit(args):
                         field: v[field]
                         for field in (
                             "metrics",
+                            "alignment_by_channel",
                             "channels",
                             "exposure",
                             "group_exposure_by_family",
@@ -287,7 +333,7 @@ def audit(args):
     for mode, res in full.items():
         if (
             res["metrics"]["first_error_localization"]["rate"] != 1
-            or res["metrics"]["false_positive_credit"]["numerator"]
+            or res["alignment_by_channel"]["effective_local"]["false_positive_credit"]["numerator"]
         ):
             raise RuntimeError(f"Unresolved localization or wrong-action promotion in {mode}")
     print(f"{len(gold)} gold; {n} Probe / {m} E0 groups; {len(accepted)} same-split tasks")

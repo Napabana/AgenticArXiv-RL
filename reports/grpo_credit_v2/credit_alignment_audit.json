@@ -13,55 +13,155 @@
           "denominator": 223,
           "rate": 1.0
         },
-        "prefix_preservation": {
-          "numerator": 173,
-          "denominator": 173,
-          "rate": 1.0
-        },
         "prefix_final_nonnegative": {
           "numerator": 93,
           "denominator": 173,
           "rate": 0.5375722543352601
         },
-        "first_error_suppression": {
-          "numerator": 0,
-          "denominator": 0,
-          "rate": null
-        },
-        "correct_action_promotion": {
-          "numerator": 0,
-          "denominator": 0,
-          "rate": null
-        },
-        "false_positive_credit": {
-          "numerator": 0,
-          "denominator": 223,
-          "rate": 0.0
-        },
-        "false_negative_credit": {
-          "numerator": 0,
-          "denominator": 1293,
-          "rate": 0.0
-        },
         "anchor_coverage": {
-          "numerator": 320,
-          "denominator": 1651,
-          "rate": 0.19382192610539067
+          "numerator": 343,
+          "denominator": 1699,
+          "rate": 0.201883460859329
         },
         "anchor_pairwise_ranking": {
-          "numerator": 118,
-          "denominator": 137,
-          "rate": 0.8613138686131386
-        },
-        "advantage_misalignment": {
-          "numerator": 0,
-          "denominator": 1516,
-          "rate": 0.0
+          "numerator": 119,
+          "denominator": 141,
+          "rate": 0.8439716312056738
         },
         "contract_correct_over_wrong": {
           "numerator": 0,
-          "denominator": 219,
+          "denominator": 235,
           "rate": 0.0
+        }
+      },
+      "alignment_by_channel": {
+        "raw_dfa_adv": {
+          "prefix_preservation": {
+            "numerator": 173,
+            "denominator": 173,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 110,
+            "denominator": 110,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 187,
+            "denominator": 187,
+            "rate": 1.0
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 1293,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 1516,
+            "rate": 0.0
+          }
+        },
+        "raw_anchor_adv": {
+          "prefix_preservation": {
+            "numerator": 97,
+            "denominator": 173,
+            "rate": 0.5606936416184971
+          },
+          "first_error_suppression": {
+            "numerator": 63,
+            "denominator": 63,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 204,
+            "denominator": 280,
+            "rate": 0.7285714285714285
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 76,
+            "denominator": 1293,
+            "rate": 0.05877803557617943
+          },
+          "advantage_misalignment": {
+            "numerator": 76,
+            "denominator": 1516,
+            "rate": 0.05013192612137203
+          }
+        },
+        "raw_combined_local": {
+          "prefix_preservation": {
+            "numerator": 173,
+            "denominator": 173,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "correct_action_promotion": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 1293,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 1516,
+            "rate": 0.0
+          }
+        },
+        "effective_local": {
+          "prefix_preservation": {
+            "numerator": 173,
+            "denominator": 173,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "correct_action_promotion": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 1293,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 1516,
+            "rate": 0.0
+          }
         }
       },
       "channels": {
@@ -105,46 +205,84 @@
             "rate": 0.0
           }
         },
-        "dfa_adv": {
+        "raw_dfa_adv": {
           "n": 1707,
-          "sum": 4.163336342344337e-15,
-          "sum2": 205.92059046036115,
-          "zero": 1429,
-          "token_sum": 1210.9202696479929,
-          "negative": 101,
-          "positive": 177,
-          "mean": 2.4389785250992017e-18,
-          "variance": 0.120633034833252,
+          "sum": 3.7192471324942744e-15,
+          "sum2": 220.91452872242283,
+          "zero": 1410,
+          "token_sum": 1395.439951370237,
+          "negative": 110,
+          "positive": 187,
+          "mean": 2.1788208157552868e-18,
+          "variance": 0.12941682994869527,
           "positive_fraction": {
-            "numerator": 177,
+            "numerator": 187,
             "denominator": 1707,
-            "rate": 0.10369068541300527
+            "rate": 0.10954891622729936
           },
           "negative_fraction": {
-            "numerator": 101,
+            "numerator": 110,
             "denominator": 1707,
-            "rate": 0.05916813122437024
+            "rate": 0.06444053895723492
           }
         },
-        "anchor_adv": {
+        "raw_anchor_adv": {
           "n": 1707,
-          "sum": 4.6074255521944e-15,
-          "sum2": 233.91111404045876,
-          "zero": 1387,
-          "token_sum": 358.71631346741174,
-          "negative": 129,
-          "positive": 191,
-          "mean": 2.6991362344431165e-18,
-          "variance": 0.1370305296077673,
+          "sum": 5.495603971894525e-15,
+          "sum2": 251.90411048406412,
+          "zero": 1364,
+          "token_sum": 363.2096602227231,
+          "negative": 139,
+          "positive": 204,
+          "mean": 3.219451653130946e-18,
+          "variance": 0.14757124222850856,
           "positive_fraction": {
-            "numerator": 191,
+            "numerator": 204,
             "denominator": 1707,
-            "rate": 0.11189220855301699
+            "rate": 0.1195079086115993
           },
           "negative_fraction": {
-            "numerator": 129,
+            "numerator": 139,
             "denominator": 1707,
-            "rate": 0.07557117750439367
+            "rate": 0.08142940831868775
+          }
+        },
+        "raw_combined_local": {
+          "n": 1707,
+          "sum": 0.0,
+          "sum2": 0.0,
+          "zero": 1707,
+          "token_sum": 0.0,
+          "mean": 0.0,
+          "variance": 0.0,
+          "positive_fraction": {
+            "numerator": 0,
+            "denominator": 1707,
+            "rate": 0.0
+          },
+          "negative_fraction": {
+            "numerator": 0,
+            "denominator": 1707,
+            "rate": 0.0
+          }
+        },
+        "effective_local": {
+          "n": 1707,
+          "sum": 0.0,
+          "sum2": 0.0,
+          "zero": 1707,
+          "token_sum": 0.0,
+          "mean": 0.0,
+          "variance": 0.0,
+          "positive_fraction": {
+            "numerator": 0,
+            "denominator": 1707,
+            "rate": 0.0
+          },
+          "negative_fraction": {
+            "numerator": 0,
+            "denominator": 1707,
+            "rate": 0.0
           }
         },
         "advantage": {
@@ -172,6 +310,8 @@
       "exposure": {
         "reference_argument": {
           "sampled_groups": 160,
+          "updated_correct_tokens": 23438,
+          "nonzero_local_tokens": 0,
           "target_correct": 847,
           "correct_local_nonnegative": 847,
           "correct_local_positive": 0,
@@ -181,6 +321,7 @@
           "updated_error_tokens": 2778,
           "error_groups": 33,
           "contrast_groups": 26,
+          "nonzero_advantage_tokens": 26216,
           "contrast_rate": {
             "numerator": 26,
             "denominator": 160,
@@ -199,6 +340,8 @@
         },
         "repeat": {
           "sampled_groups": 168,
+          "updated_correct_tokens": 23438,
+          "nonzero_local_tokens": 0,
           "target_correct": 847,
           "correct_local_nonnegative": 847,
           "correct_local_positive": 0,
@@ -208,6 +351,7 @@
           "updated_error_tokens": 631,
           "error_groups": 7,
           "contrast_groups": 3,
+          "nonzero_advantage_tokens": 24069,
           "contrast_rate": {
             "numerator": 3,
             "denominator": 168,
@@ -226,6 +370,8 @@
         },
         "tool_parse": {
           "sampled_groups": 168,
+          "updated_correct_tokens": 23438,
+          "nonzero_local_tokens": 0,
           "target_correct": 847,
           "correct_local_nonnegative": 847,
           "correct_local_positive": 0,
@@ -235,6 +381,7 @@
           "updated_error_tokens": 1259,
           "error_groups": 22,
           "contrast_groups": 8,
+          "nonzero_advantage_tokens": 24697,
           "contrast_rate": {
             "numerator": 8,
             "denominator": 168,
@@ -253,6 +400,8 @@
         },
         "early_finish": {
           "sampled_groups": 88,
+          "updated_correct_tokens": 18025,
+          "nonzero_local_tokens": 0,
           "target_correct": 581,
           "correct_local_nonnegative": 581,
           "correct_local_positive": 0,
@@ -262,6 +411,7 @@
           "updated_error_tokens": 934,
           "error_groups": 40,
           "contrast_groups": 27,
+          "nonzero_advantage_tokens": 18959,
           "contrast_rate": {
             "numerator": 27,
             "denominator": 88,
@@ -280,6 +430,8 @@
         },
         "pending": {
           "sampled_groups": 8,
+          "updated_correct_tokens": 446,
+          "nonzero_local_tokens": 0,
           "target_correct": 9,
           "correct_local_nonnegative": 9,
           "correct_local_positive": 0,
@@ -288,6 +440,7 @@
           "error_local_sum": 0.0,
           "updated_error_tokens": 0,
           "error_groups": 3,
+          "nonzero_advantage_tokens": 446,
           "contrast_rate": {
             "numerator": 0,
             "denominator": 8,
@@ -306,6 +459,8 @@
         },
         "all_cs_scope": {
           "sampled_groups": 32,
+          "updated_correct_tokens": 3545,
+          "nonzero_local_tokens": 0,
           "target_correct": 111,
           "correct_local_nonnegative": 111,
           "correct_local_positive": 0,
@@ -315,6 +470,7 @@
           "updated_error_tokens": 545,
           "error_groups": 5,
           "contrast_groups": 5,
+          "nonzero_advantage_tokens": 4090,
           "contrast_rate": {
             "numerator": 5,
             "denominator": 32,
@@ -335,13 +491,16 @@
           "sampled_groups": 68,
           "target_errors": 48,
           "error_local_zero": 48,
+          "nonzero_local_tokens": 0,
           "error_local_sum": 0.0,
           "updated_error_tokens": 1418,
+          "updated_correct_tokens": 4970,
           "target_correct": 141,
           "correct_local_nonnegative": 141,
           "correct_local_positive": 0,
           "error_groups": 32,
           "contrast_groups": 29,
+          "nonzero_advantage_tokens": 6388,
           "contrast_rate": {
             "numerator": 29,
             "denominator": 68,
@@ -385,55 +544,155 @@
           "denominator": 223,
           "rate": 1.0
         },
-        "prefix_preservation": {
-          "numerator": 173,
-          "denominator": 173,
-          "rate": 1.0
-        },
         "prefix_final_nonnegative": {
           "numerator": 173,
           "denominator": 173,
           "rate": 1.0
         },
-        "first_error_suppression": {
-          "numerator": 101,
-          "denominator": 101,
-          "rate": 1.0
-        },
-        "correct_action_promotion": {
-          "numerator": 177,
-          "denominator": 177,
-          "rate": 1.0
-        },
-        "false_positive_credit": {
-          "numerator": 0,
-          "denominator": 223,
-          "rate": 0.0
-        },
-        "false_negative_credit": {
-          "numerator": 0,
-          "denominator": 1293,
-          "rate": 0.0
-        },
         "anchor_coverage": {
-          "numerator": 320,
-          "denominator": 1651,
-          "rate": 0.19382192610539067
+          "numerator": 343,
+          "denominator": 1699,
+          "rate": 0.201883460859329
         },
         "anchor_pairwise_ranking": {
-          "numerator": 118,
-          "denominator": 137,
-          "rate": 0.8613138686131386
-        },
-        "advantage_misalignment": {
-          "numerator": 0,
-          "denominator": 1516,
-          "rate": 0.0
+          "numerator": 119,
+          "denominator": 141,
+          "rate": 0.8439716312056738
         },
         "contract_correct_over_wrong": {
-          "numerator": 219,
-          "denominator": 219,
+          "numerator": 235,
+          "denominator": 235,
           "rate": 1.0
+        }
+      },
+      "alignment_by_channel": {
+        "raw_dfa_adv": {
+          "prefix_preservation": {
+            "numerator": 173,
+            "denominator": 173,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 110,
+            "denominator": 110,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 187,
+            "denominator": 187,
+            "rate": 1.0
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 1293,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 1516,
+            "rate": 0.0
+          }
+        },
+        "raw_anchor_adv": {
+          "prefix_preservation": {
+            "numerator": 97,
+            "denominator": 173,
+            "rate": 0.5606936416184971
+          },
+          "first_error_suppression": {
+            "numerator": 63,
+            "denominator": 63,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 204,
+            "denominator": 280,
+            "rate": 0.7285714285714285
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 76,
+            "denominator": 1293,
+            "rate": 0.05877803557617943
+          },
+          "advantage_misalignment": {
+            "numerator": 76,
+            "denominator": 1516,
+            "rate": 0.05013192612137203
+          }
+        },
+        "raw_combined_local": {
+          "prefix_preservation": {
+            "numerator": 173,
+            "denominator": 173,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 110,
+            "denominator": 110,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 187,
+            "denominator": 187,
+            "rate": 1.0
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 1293,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 1516,
+            "rate": 0.0
+          }
+        },
+        "effective_local": {
+          "prefix_preservation": {
+            "numerator": 173,
+            "denominator": 173,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 110,
+            "denominator": 110,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 187,
+            "denominator": 187,
+            "rate": 1.0
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 1293,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 1516,
+            "rate": 0.0
+          }
         }
       },
       "channels": {
@@ -460,102 +719,147 @@
         },
         "local_contribution": {
           "n": 1707,
-          "sum": 2.0816681711721685e-15,
-          "sum2": 51.48014761509029,
-          "zero": 1429,
-          "token_sum": 605.4601348239964,
-          "negative": 101,
-          "positive": 177,
-          "mean": 1.2194892625496008e-18,
-          "variance": 0.030158258708313,
+          "sum": 1.8596235662471372e-15,
+          "sum2": 55.22863218060571,
+          "zero": 1410,
+          "token_sum": 697.7199756851185,
+          "negative": 110,
+          "positive": 187,
+          "mean": 1.0894104078776434e-18,
+          "variance": 0.03235420748717382,
           "positive_fraction": {
-            "numerator": 177,
+            "numerator": 187,
             "denominator": 1707,
-            "rate": 0.10369068541300527
+            "rate": 0.10954891622729936
           },
           "negative_fraction": {
-            "numerator": 101,
+            "numerator": 110,
             "denominator": 1707,
-            "rate": 0.05916813122437024
+            "rate": 0.06444053895723492
           }
         },
-        "dfa_adv": {
+        "raw_dfa_adv": {
           "n": 1707,
-          "sum": 4.163336342344337e-15,
-          "sum2": 205.92059046036115,
-          "zero": 1429,
-          "token_sum": 1210.9202696479929,
-          "negative": 101,
-          "positive": 177,
-          "mean": 2.4389785250992017e-18,
-          "variance": 0.120633034833252,
+          "sum": 3.7192471324942744e-15,
+          "sum2": 220.91452872242283,
+          "zero": 1410,
+          "token_sum": 1395.439951370237,
+          "negative": 110,
+          "positive": 187,
+          "mean": 2.1788208157552868e-18,
+          "variance": 0.12941682994869527,
           "positive_fraction": {
-            "numerator": 177,
+            "numerator": 187,
             "denominator": 1707,
-            "rate": 0.10369068541300527
+            "rate": 0.10954891622729936
           },
           "negative_fraction": {
-            "numerator": 101,
+            "numerator": 110,
             "denominator": 1707,
-            "rate": 0.05916813122437024
+            "rate": 0.06444053895723492
           }
         },
-        "anchor_adv": {
+        "raw_anchor_adv": {
           "n": 1707,
-          "sum": 4.6074255521944e-15,
-          "sum2": 233.91111404045876,
-          "zero": 1387,
-          "token_sum": 358.71631346741174,
-          "negative": 129,
-          "positive": 191,
-          "mean": 2.6991362344431165e-18,
-          "variance": 0.1370305296077673,
+          "sum": 5.495603971894525e-15,
+          "sum2": 251.90411048406412,
+          "zero": 1364,
+          "token_sum": 363.2096602227231,
+          "negative": 139,
+          "positive": 204,
+          "mean": 3.219451653130946e-18,
+          "variance": 0.14757124222850856,
           "positive_fraction": {
-            "numerator": 191,
+            "numerator": 204,
             "denominator": 1707,
-            "rate": 0.11189220855301699
+            "rate": 0.1195079086115993
           },
           "negative_fraction": {
-            "numerator": 129,
+            "numerator": 139,
             "denominator": 1707,
-            "rate": 0.07557117750439367
+            "rate": 0.08142940831868775
+          }
+        },
+        "raw_combined_local": {
+          "n": 1707,
+          "sum": 3.7192471324942744e-15,
+          "sum2": 220.91452872242283,
+          "zero": 1410,
+          "token_sum": 1395.439951370237,
+          "negative": 110,
+          "positive": 187,
+          "mean": 2.1788208157552868e-18,
+          "variance": 0.12941682994869527,
+          "positive_fraction": {
+            "numerator": 187,
+            "denominator": 1707,
+            "rate": 0.10954891622729936
+          },
+          "negative_fraction": {
+            "numerator": 110,
+            "denominator": 1707,
+            "rate": 0.06444053895723492
+          }
+        },
+        "effective_local": {
+          "n": 1707,
+          "sum": 3.7192471324942744e-15,
+          "sum2": 220.91452872242283,
+          "zero": 1410,
+          "token_sum": 1395.439951370237,
+          "negative": 110,
+          "positive": 187,
+          "mean": 2.1788208157552868e-18,
+          "variance": 0.12941682994869527,
+          "positive_fraction": {
+            "numerator": 187,
+            "denominator": 1707,
+            "rate": 0.10954891622729936
+          },
+          "negative_fraction": {
+            "numerator": 110,
+            "denominator": 1707,
+            "rate": 0.06444053895723492
           }
         },
         "advantage": {
           "n": 1707,
-          "sum": 93.40906796088773,
-          "sum2": 229.7586021190656,
-          "zero": 1142,
-          "token_sum": 8581.090112291302,
-          "negative": 106,
-          "positive": 459,
-          "mean": 0.05472118802629627,
-          "variance": 0.13160348385929513,
+          "sum": 93.40906796088775,
+          "sum2": 237.79824864210372,
+          "zero": 1134,
+          "token_sum": 8673.349953152427,
+          "negative": 110,
+          "positive": 463,
+          "mean": 0.05472118802629628,
+          "variance": 0.13631329435902453,
           "positive_fraction": {
-            "numerator": 459,
+            "numerator": 463,
             "denominator": 1707,
-            "rate": 0.2688927943760984
+            "rate": 0.27123608670181604
           },
           "negative_fraction": {
-            "numerator": 106,
+            "numerator": 110,
             "denominator": 1707,
-            "rate": 0.062097246631517285
+            "rate": 0.06444053895723492
           }
         }
       },
       "exposure": {
         "reference_argument": {
           "sampled_groups": 160,
+          "updated_correct_tokens": 19934,
+          "nonzero_local_tokens": 15481,
           "target_correct": 847,
           "correct_local_nonnegative": 847,
-          "correct_local_positive": 166,
+          "correct_local_positive": 173,
           "target_errors": 51,
-          "error_local_negative": 39,
-          "error_local_sum": -42.827432113148284,
-          "updated_error_tokens": 3036,
+          "error_local_negative": 42,
+          "error_local_sum": -46.40408251963142,
+          "updated_error_tokens": 3120,
           "error_groups": 33,
           "contrast_groups": 26,
-          "error_local_zero": 12,
+          "error_local_zero": 9,
+          "nonzero_advantage_tokens": 23054,
           "contrast_rate": {
             "numerator": 26,
             "denominator": 160,
@@ -567,22 +871,26 @@
             "rate": 1.0
           },
           "suppression_rate": {
-            "numerator": 39,
+            "numerator": 42,
             "denominator": 51,
-            "rate": 0.7647058823529411
+            "rate": 0.8235294117647058
           }
         },
         "repeat": {
           "sampled_groups": 168,
+          "updated_correct_tokens": 19934,
+          "nonzero_local_tokens": 12431,
           "target_correct": 847,
           "correct_local_nonnegative": 847,
-          "correct_local_positive": 166,
+          "correct_local_positive": 173,
           "target_errors": 17,
-          "error_local_zero": 17,
-          "error_local_sum": 0.0,
+          "error_local_negative": 1,
+          "error_local_sum": -1.4997000599880024,
           "updated_error_tokens": 70,
+          "error_local_zero": 16,
           "error_groups": 7,
           "contrast_groups": 3,
+          "nonzero_advantage_tokens": 20004,
           "contrast_rate": {
             "numerator": 3,
             "denominator": 168,
@@ -594,23 +902,26 @@
             "rate": 1.0
           },
           "suppression_rate": {
-            "numerator": 0,
+            "numerator": 1,
             "denominator": 17,
-            "rate": 0.0
+            "rate": 0.058823529411764705
           }
         },
         "tool_parse": {
           "sampled_groups": 168,
+          "updated_correct_tokens": 19934,
+          "nonzero_local_tokens": 13646,
           "target_correct": 847,
           "correct_local_nonnegative": 847,
-          "correct_local_positive": 166,
+          "correct_local_positive": 173,
           "target_errors": 40,
           "error_local_negative": 16,
-          "error_local_sum": -15.40035975381491,
+          "error_local_sum": -15.193252978484228,
           "updated_error_tokens": 1285,
           "error_groups": 22,
           "contrast_groups": 8,
           "error_local_zero": 24,
+          "nonzero_advantage_tokens": 21219,
           "contrast_rate": {
             "numerator": 8,
             "denominator": 168,
@@ -629,9 +940,11 @@
         },
         "early_finish": {
           "sampled_groups": 88,
+          "updated_correct_tokens": 14732,
+          "nonzero_local_tokens": 8557,
           "target_correct": 581,
           "correct_local_nonnegative": 581,
-          "correct_local_positive": 112,
+          "correct_local_positive": 119,
           "target_errors": 56,
           "error_local_zero": 20,
           "error_local_sum": -40.863630454093496,
@@ -639,6 +952,7 @@
           "error_groups": 40,
           "error_local_negative": 36,
           "contrast_groups": 27,
+          "nonzero_advantage_tokens": 15685,
           "contrast_rate": {
             "numerator": 27,
             "denominator": 88,
@@ -657,6 +971,8 @@
         },
         "pending": {
           "sampled_groups": 8,
+          "updated_correct_tokens": 446,
+          "nonzero_local_tokens": 0,
           "target_correct": 9,
           "correct_local_nonnegative": 9,
           "correct_local_positive": 0,
@@ -665,6 +981,7 @@
           "error_local_sum": 0.0,
           "updated_error_tokens": 0,
           "error_groups": 3,
+          "nonzero_advantage_tokens": 446,
           "contrast_rate": {
             "numerator": 0,
             "denominator": 8,
@@ -683,6 +1000,8 @@
         },
         "all_cs_scope": {
           "sampled_groups": 32,
+          "updated_correct_tokens": 3545,
+          "nonzero_local_tokens": 4090,
           "target_correct": 111,
           "correct_local_nonnegative": 111,
           "correct_local_positive": 39,
@@ -692,6 +1011,7 @@
           "updated_error_tokens": 545,
           "error_groups": 5,
           "contrast_groups": 5,
+          "nonzero_advantage_tokens": 4090,
           "contrast_rate": {
             "numerator": 5,
             "denominator": 32,
@@ -711,15 +1031,18 @@
         "second_cache": {
           "sampled_groups": 68,
           "target_errors": 48,
-          "error_local_negative": 37,
-          "error_local_sum": -40.7297058438622,
+          "error_local_negative": 40,
+          "nonzero_local_tokens": 6140,
+          "error_local_sum": -43.2292059438422,
           "updated_error_tokens": 1418,
+          "updated_correct_tokens": 4905,
           "target_correct": 141,
           "correct_local_nonnegative": 141,
-          "correct_local_positive": 70,
+          "correct_local_positive": 73,
           "error_groups": 32,
           "contrast_groups": 29,
-          "error_local_zero": 11,
+          "error_local_zero": 8,
+          "nonzero_advantage_tokens": 6323,
           "contrast_rate": {
             "numerator": 29,
             "denominator": 68,
@@ -731,9 +1054,9 @@
             "rate": 1.0
           },
           "suppression_rate": {
-            "numerator": 37,
+            "numerator": 40,
             "denominator": 48,
-            "rate": 0.7708333333333334
+            "rate": 0.8333333333333334
           }
         }
       },
@@ -763,170 +1086,314 @@
           "denominator": 223,
           "rate": 1.0
         },
-        "prefix_preservation": {
-          "numerator": 106,
-          "denominator": 173,
-          "rate": 0.6127167630057804
-        },
         "prefix_final_nonnegative": {
           "numerator": 93,
           "denominator": 173,
           "rate": 0.5375722543352601
         },
-        "first_error_suppression": {
-          "numerator": 62,
-          "denominator": 62,
-          "rate": 1.0
-        },
-        "correct_action_promotion": {
-          "numerator": 191,
-          "denominator": 258,
-          "rate": 0.7403100775193798
-        },
-        "false_positive_credit": {
-          "numerator": 0,
-          "denominator": 223,
-          "rate": 0.0
-        },
-        "false_negative_credit": {
-          "numerator": 67,
-          "denominator": 1293,
-          "rate": 0.051817478731631866
-        },
         "anchor_coverage": {
-          "numerator": 320,
-          "denominator": 1651,
-          "rate": 0.19382192610539067
+          "numerator": 343,
+          "denominator": 1699,
+          "rate": 0.201883460859329
         },
         "anchor_pairwise_ranking": {
-          "numerator": 118,
-          "denominator": 137,
-          "rate": 0.8613138686131386
-        },
-        "advantage_misalignment": {
-          "numerator": 67,
-          "denominator": 1516,
-          "rate": 0.044195250659630606
+          "numerator": 119,
+          "denominator": 141,
+          "rate": 0.8439716312056738
         },
         "contract_correct_over_wrong": {
-          "numerator": 137,
-          "denominator": 219,
-          "rate": 0.6255707762557078
+          "numerator": 139,
+          "denominator": 235,
+          "rate": 0.5914893617021276
+        }
+      },
+      "alignment_by_channel": {
+        "raw_dfa_adv": {
+          "prefix_preservation": {
+            "numerator": 173,
+            "denominator": 173,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 110,
+            "denominator": 110,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 187,
+            "denominator": 187,
+            "rate": 1.0
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 1293,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 1516,
+            "rate": 0.0
+          }
+        },
+        "raw_anchor_adv": {
+          "prefix_preservation": {
+            "numerator": 97,
+            "denominator": 173,
+            "rate": 0.5606936416184971
+          },
+          "first_error_suppression": {
+            "numerator": 63,
+            "denominator": 63,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 204,
+            "denominator": 280,
+            "rate": 0.7285714285714285
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 76,
+            "denominator": 1293,
+            "rate": 0.05877803557617943
+          },
+          "advantage_misalignment": {
+            "numerator": 76,
+            "denominator": 1516,
+            "rate": 0.05013192612137203
+          }
+        },
+        "raw_combined_local": {
+          "prefix_preservation": {
+            "numerator": 97,
+            "denominator": 173,
+            "rate": 0.5606936416184971
+          },
+          "first_error_suppression": {
+            "numerator": 63,
+            "denominator": 63,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 204,
+            "denominator": 280,
+            "rate": 0.7285714285714285
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 76,
+            "denominator": 1293,
+            "rate": 0.05877803557617943
+          },
+          "advantage_misalignment": {
+            "numerator": 76,
+            "denominator": 1516,
+            "rate": 0.05013192612137203
+          }
+        },
+        "effective_local": {
+          "prefix_preservation": {
+            "numerator": 97,
+            "denominator": 173,
+            "rate": 0.5606936416184971
+          },
+          "first_error_suppression": {
+            "numerator": 63,
+            "denominator": 63,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 204,
+            "denominator": 280,
+            "rate": 0.7285714285714285
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 76,
+            "denominator": 1293,
+            "rate": 0.05877803557617943
+          },
+          "advantage_misalignment": {
+            "numerator": 76,
+            "denominator": 1516,
+            "rate": 0.05013192612137203
+          }
         }
       },
       "channels": {
         "episode_contribution": {
           "n": 1707,
-          "sum": 18.375640803342495,
-          "sum2": 125.5767635228722,
-          "zero": 1007,
-          "token_sum": 509.21560962635226,
-          "negative": 256,
+          "sum": 20.67425398797555,
+          "sum2": 124.38970825299477,
+          "zero": 1012,
+          "token_sum": 2091.696440178307,
+          "negative": 251,
           "positive": 444,
-          "mean": 0.010764874518654068,
-          "variance": 0.07344988403949874,
+          "mean": 0.012111455177490071,
+          "variance": 0.07272367484035815,
           "positive_fraction": {
             "numerator": 444,
             "denominator": 1707,
             "rate": 0.2601054481546573
           },
           "negative_fraction": {
-            "numerator": 256,
+            "numerator": 251,
             "denominator": 1707,
-            "rate": 0.14997070884592853
+            "rate": 0.14704159343878148
           }
         },
         "local_contribution": {
           "n": 1707,
-          "sum": 2.3037127760972e-15,
-          "sum2": 58.47777851011469,
-          "zero": 1387,
-          "token_sum": 179.35815673370587,
-          "negative": 129,
-          "positive": 191,
-          "mean": 1.3495681172215583e-18,
-          "variance": 0.03425763240194182,
+          "sum": 2.7478019859472624e-15,
+          "sum2": 62.97602762101603,
+          "zero": 1364,
+          "token_sum": 181.60483011136154,
+          "negative": 139,
+          "positive": 204,
+          "mean": 1.609725826565473e-18,
+          "variance": 0.03689281055712714,
           "positive_fraction": {
-            "numerator": 191,
+            "numerator": 204,
             "denominator": 1707,
-            "rate": 0.11189220855301699
+            "rate": 0.1195079086115993
           },
           "negative_fraction": {
-            "numerator": 129,
+            "numerator": 139,
             "denominator": 1707,
-            "rate": 0.07557117750439367
+            "rate": 0.08142940831868775
           }
         },
-        "dfa_adv": {
+        "raw_dfa_adv": {
           "n": 1707,
-          "sum": 4.163336342344337e-15,
-          "sum2": 205.92059046036115,
-          "zero": 1429,
-          "token_sum": 1210.9202696479929,
-          "negative": 101,
-          "positive": 177,
-          "mean": 2.4389785250992017e-18,
-          "variance": 0.120633034833252,
+          "sum": 3.7192471324942744e-15,
+          "sum2": 220.91452872242283,
+          "zero": 1410,
+          "token_sum": 1395.439951370237,
+          "negative": 110,
+          "positive": 187,
+          "mean": 2.1788208157552868e-18,
+          "variance": 0.12941682994869527,
           "positive_fraction": {
-            "numerator": 177,
+            "numerator": 187,
             "denominator": 1707,
-            "rate": 0.10369068541300527
+            "rate": 0.10954891622729936
           },
           "negative_fraction": {
-            "numerator": 101,
+            "numerator": 110,
             "denominator": 1707,
-            "rate": 0.05916813122437024
+            "rate": 0.06444053895723492
           }
         },
-        "anchor_adv": {
+        "raw_anchor_adv": {
           "n": 1707,
-          "sum": 4.6074255521944e-15,
-          "sum2": 233.91111404045876,
-          "zero": 1387,
-          "token_sum": 358.71631346741174,
-          "negative": 129,
-          "positive": 191,
-          "mean": 2.6991362344431165e-18,
-          "variance": 0.1370305296077673,
+          "sum": 5.495603971894525e-15,
+          "sum2": 251.90411048406412,
+          "zero": 1364,
+          "token_sum": 363.2096602227231,
+          "negative": 139,
+          "positive": 204,
+          "mean": 3.219451653130946e-18,
+          "variance": 0.14757124222850856,
           "positive_fraction": {
-            "numerator": 191,
+            "numerator": 204,
             "denominator": 1707,
-            "rate": 0.11189220855301699
+            "rate": 0.1195079086115993
           },
           "negative_fraction": {
-            "numerator": 129,
+            "numerator": 139,
             "denominator": 1707,
-            "rate": 0.07557117750439367
+            "rate": 0.08142940831868775
+          }
+        },
+        "raw_combined_local": {
+          "n": 1707,
+          "sum": 5.495603971894525e-15,
+          "sum2": 251.90411048406412,
+          "zero": 1364,
+          "token_sum": 363.2096602227231,
+          "negative": 139,
+          "positive": 204,
+          "mean": 3.219451653130946e-18,
+          "variance": 0.14757124222850856,
+          "positive_fraction": {
+            "numerator": 204,
+            "denominator": 1707,
+            "rate": 0.1195079086115993
+          },
+          "negative_fraction": {
+            "numerator": 139,
+            "denominator": 1707,
+            "rate": 0.08142940831868775
+          }
+        },
+        "effective_local": {
+          "n": 1707,
+          "sum": 5.495603971894525e-15,
+          "sum2": 251.90411048406412,
+          "zero": 1364,
+          "token_sum": 363.2096602227231,
+          "negative": 139,
+          "positive": 204,
+          "mean": 3.219451653130946e-18,
+          "variance": 0.14757124222850856,
+          "positive_fraction": {
+            "numerator": 204,
+            "denominator": 1707,
+            "rate": 0.1195079086115993
+          },
+          "negative_fraction": {
+            "numerator": 139,
+            "denominator": 1707,
+            "rate": 0.08142940831868775
           }
         },
         "advantage": {
           "n": 1707,
-          "sum": 18.375640803342552,
-          "sum2": 303.1899321095648,
-          "zero": 1007,
-          "token_sum": 688.5737663600563,
-          "negative": 256,
+          "sum": 20.6742539879756,
+          "sum2": 315.2382265844357,
+          "zero": 1012,
+          "token_sum": 2273.301270289674,
+          "negative": 251,
           "positive": 444,
-          "mean": 0.010764874518654101,
-          "variance": 0.17749977776339598,
+          "mean": 0.0121114551774901,
+          "variance": 0.1845271419355198,
           "positive_fraction": {
             "numerator": 444,
             "denominator": 1707,
             "rate": 0.2601054481546573
           },
           "negative_fraction": {
-            "numerator": 256,
+            "numerator": 251,
             "denominator": 1707,
-            "rate": 0.14997070884592853
+            "rate": 0.14704159343878148
           }
         }
       },
       "exposure": {
         "reference_argument": {
           "sampled_groups": 160,
+          "updated_correct_tokens": 23438,
+          "nonzero_local_tokens": 19427,
           "target_correct": 847,
-          "correct_local_nonnegative": 780,
-          "correct_local_positive": 187,
+          "correct_local_nonnegative": 771,
+          "correct_local_positive": 200,
           "target_errors": 51,
           "error_local_zero": 24,
           "error_local_sum": -30.552060886717193,
@@ -934,15 +1401,16 @@
           "error_groups": 33,
           "error_local_negative": 27,
           "contrast_groups": 26,
+          "nonzero_advantage_tokens": 26216,
           "contrast_rate": {
             "numerator": 26,
             "denominator": 160,
             "rate": 0.1625
           },
           "correct_nonnegative_rate": {
-            "numerator": 780,
+            "numerator": 771,
             "denominator": 847,
-            "rate": 0.9208972845336482
+            "rate": 0.910271546635183
           },
           "suppression_rate": {
             "numerator": 27,
@@ -952,24 +1420,27 @@
         },
         "repeat": {
           "sampled_groups": 168,
+          "updated_correct_tokens": 23438,
+          "nonzero_local_tokens": 17311,
           "target_correct": 847,
-          "correct_local_nonnegative": 780,
-          "correct_local_positive": 187,
+          "correct_local_nonnegative": 771,
+          "correct_local_positive": 200,
           "target_errors": 17,
           "error_local_zero": 17,
           "error_local_sum": 0.0,
           "updated_error_tokens": 631,
           "error_groups": 7,
           "contrast_groups": 3,
+          "nonzero_advantage_tokens": 24069,
           "contrast_rate": {
             "numerator": 3,
             "denominator": 168,
             "rate": 0.017857142857142856
           },
           "correct_nonnegative_rate": {
-            "numerator": 780,
+            "numerator": 771,
             "denominator": 847,
-            "rate": 0.9208972845336482
+            "rate": 0.910271546635183
           },
           "suppression_rate": {
             "numerator": 0,
@@ -979,25 +1450,28 @@
         },
         "tool_parse": {
           "sampled_groups": 168,
+          "updated_correct_tokens": 23438,
+          "nonzero_local_tokens": 18495,
           "target_correct": 847,
-          "correct_local_nonnegative": 780,
-          "correct_local_positive": 187,
+          "correct_local_nonnegative": 771,
+          "correct_local_positive": 200,
           "target_errors": 40,
           "error_local_negative": 15,
-          "error_local_sum": -13.900659693826906,
+          "error_local_sum": -13.770903185007356,
           "updated_error_tokens": 1259,
           "error_groups": 22,
           "contrast_groups": 8,
           "error_local_zero": 25,
+          "nonzero_advantage_tokens": 24697,
           "contrast_rate": {
             "numerator": 8,
             "denominator": 168,
             "rate": 0.047619047619047616
           },
           "correct_nonnegative_rate": {
-            "numerator": 780,
+            "numerator": 771,
             "denominator": 847,
-            "rate": 0.9208972845336482
+            "rate": 0.910271546635183
           },
           "suppression_rate": {
             "numerator": 15,
@@ -1007,9 +1481,11 @@
         },
         "early_finish": {
           "sampled_groups": 88,
+          "updated_correct_tokens": 18025,
+          "nonzero_local_tokens": 12353,
           "target_correct": 581,
-          "correct_local_nonnegative": 514,
-          "correct_local_positive": 133,
+          "correct_local_nonnegative": 509,
+          "correct_local_positive": 138,
           "target_errors": 56,
           "error_local_zero": 39,
           "error_local_sum": -13.229386735161635,
@@ -1017,15 +1493,16 @@
           "error_groups": 40,
           "contrast_groups": 27,
           "error_local_negative": 17,
+          "nonzero_advantage_tokens": 18959,
           "contrast_rate": {
             "numerator": 27,
             "denominator": 88,
             "rate": 0.3068181818181818
           },
           "correct_nonnegative_rate": {
-            "numerator": 514,
+            "numerator": 509,
             "denominator": 581,
-            "rate": 0.8846815834767642
+            "rate": 0.8760757314974182
           },
           "suppression_rate": {
             "numerator": 17,
@@ -1035,6 +1512,8 @@
         },
         "pending": {
           "sampled_groups": 8,
+          "updated_correct_tokens": 446,
+          "nonzero_local_tokens": 0,
           "target_correct": 9,
           "correct_local_nonnegative": 9,
           "correct_local_positive": 0,
@@ -1043,6 +1522,7 @@
           "error_local_sum": 0.0,
           "updated_error_tokens": 0,
           "error_groups": 3,
+          "nonzero_advantage_tokens": 446,
           "contrast_rate": {
             "numerator": 0,
             "denominator": 8,
@@ -1061,6 +1541,8 @@
         },
         "all_cs_scope": {
           "sampled_groups": 32,
+          "updated_correct_tokens": 3545,
+          "nonzero_local_tokens": 4090,
           "target_correct": 111,
           "correct_local_nonnegative": 111,
           "correct_local_positive": 39,
@@ -1070,6 +1552,7 @@
           "updated_error_tokens": 545,
           "error_groups": 5,
           "contrast_groups": 5,
+          "nonzero_advantage_tokens": 4090,
           "contrast_rate": {
             "numerator": 5,
             "denominator": 32,
@@ -1089,15 +1572,18 @@
         "second_cache": {
           "sampled_groups": 68,
           "target_errors": 48,
-          "error_local_negative": 17,
-          "error_local_sum": -13.229386735161635,
+          "error_local_negative": 18,
+          "nonzero_local_tokens": 1909,
+          "error_local_sum": -13.806637021668772,
           "updated_error_tokens": 1418,
+          "updated_correct_tokens": 4970,
           "target_correct": 141,
           "correct_local_nonnegative": 140,
           "correct_local_positive": 20,
           "error_groups": 32,
           "contrast_groups": 29,
-          "error_local_zero": 31,
+          "error_local_zero": 30,
+          "nonzero_advantage_tokens": 6388,
           "contrast_rate": {
             "numerator": 29,
             "denominator": 68,
@@ -1109,9 +1595,9 @@
             "rate": 0.9929078014184397
           },
           "suppression_rate": {
-            "numerator": 17,
+            "numerator": 18,
             "denominator": 48,
-            "rate": 0.3541666666666667
+            "rate": 0.375
           }
         }
       },
@@ -1141,55 +1627,155 @@
           "denominator": 223,
           "rate": 1.0
         },
-        "prefix_preservation": {
-          "numerator": 173,
-          "denominator": 173,
-          "rate": 1.0
-        },
         "prefix_final_nonnegative": {
           "numerator": 173,
           "denominator": 173,
           "rate": 1.0
         },
-        "first_error_suppression": {
-          "numerator": 101,
-          "denominator": 101,
-          "rate": 1.0
-        },
-        "correct_action_promotion": {
-          "numerator": 267,
-          "denominator": 333,
-          "rate": 0.8018018018018018
-        },
-        "false_positive_credit": {
-          "numerator": 0,
-          "denominator": 223,
-          "rate": 0.0
-        },
-        "false_negative_credit": {
-          "numerator": 0,
-          "denominator": 1293,
-          "rate": 0.0
-        },
         "anchor_coverage": {
-          "numerator": 320,
-          "denominator": 1651,
-          "rate": 0.19382192610539067
+          "numerator": 343,
+          "denominator": 1699,
+          "rate": 0.201883460859329
         },
         "anchor_pairwise_ranking": {
-          "numerator": 118,
-          "denominator": 137,
-          "rate": 0.8613138686131386
-        },
-        "advantage_misalignment": {
-          "numerator": 0,
-          "denominator": 1516,
-          "rate": 0.0
+          "numerator": 119,
+          "denominator": 141,
+          "rate": 0.8439716312056738
         },
         "contract_correct_over_wrong": {
-          "numerator": 219,
-          "denominator": 219,
+          "numerator": 235,
+          "denominator": 235,
           "rate": 1.0
+        }
+      },
+      "alignment_by_channel": {
+        "raw_dfa_adv": {
+          "prefix_preservation": {
+            "numerator": 173,
+            "denominator": 173,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 110,
+            "denominator": 110,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 187,
+            "denominator": 187,
+            "rate": 1.0
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 1293,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 1516,
+            "rate": 0.0
+          }
+        },
+        "raw_anchor_adv": {
+          "prefix_preservation": {
+            "numerator": 97,
+            "denominator": 173,
+            "rate": 0.5606936416184971
+          },
+          "first_error_suppression": {
+            "numerator": 63,
+            "denominator": 63,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 204,
+            "denominator": 280,
+            "rate": 0.7285714285714285
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 76,
+            "denominator": 1293,
+            "rate": 0.05877803557617943
+          },
+          "advantage_misalignment": {
+            "numerator": 76,
+            "denominator": 1516,
+            "rate": 0.05013192612137203
+          }
+        },
+        "raw_combined_local": {
+          "prefix_preservation": {
+            "numerator": 98,
+            "denominator": 173,
+            "rate": 0.5664739884393064
+          },
+          "first_error_suppression": {
+            "numerator": 110,
+            "denominator": 110,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 290,
+            "denominator": 365,
+            "rate": 0.7945205479452054
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 75,
+            "denominator": 1293,
+            "rate": 0.058004640371229696
+          },
+          "advantage_misalignment": {
+            "numerator": 75,
+            "denominator": 1516,
+            "rate": 0.04947229551451187
+          }
+        },
+        "effective_local": {
+          "prefix_preservation": {
+            "numerator": 173,
+            "denominator": 173,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 110,
+            "denominator": 110,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 290,
+            "denominator": 365,
+            "rate": 0.7945205479452054
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 223,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 1293,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 1516,
+            "rate": 0.0
+          }
         }
       },
       "channels": {
@@ -1216,102 +1802,147 @@
         },
         "local_contribution": {
           "n": 1707,
-          "sum": 15.500173663012605,
-          "sum2": 37.542399397918594,
-          "zero": 1339,
-          "token_sum": 1244.9328097761254,
-          "negative": 101,
-          "positive": 267,
-          "mean": 0.009080359497957003,
-          "variance": 0.021910751170930096,
+          "sum": 17.688997453929666,
+          "sum2": 39.1429291364699,
+          "zero": 1307,
+          "token_sum": 1408.4358849191792,
+          "negative": 110,
+          "positive": 290,
+          "mean": 0.010362622995858035,
+          "variance": 0.022823447407545484,
           "positive_fraction": {
-            "numerator": 267,
+            "numerator": 290,
             "denominator": 1707,
-            "rate": 0.15641476274165203
+            "rate": 0.1698886936145284
           },
           "negative_fraction": {
-            "numerator": 101,
+            "numerator": 110,
             "denominator": 1707,
-            "rate": 0.05916813122437024
+            "rate": 0.06444053895723492
           }
         },
-        "dfa_adv": {
+        "raw_dfa_adv": {
           "n": 1707,
-          "sum": 4.163336342344337e-15,
-          "sum2": 205.92059046036115,
-          "zero": 1429,
-          "token_sum": 1210.9202696479929,
-          "negative": 101,
-          "positive": 177,
-          "mean": 2.4389785250992017e-18,
-          "variance": 0.120633034833252,
+          "sum": 3.7192471324942744e-15,
+          "sum2": 220.91452872242283,
+          "zero": 1410,
+          "token_sum": 1395.439951370237,
+          "negative": 110,
+          "positive": 187,
+          "mean": 2.1788208157552868e-18,
+          "variance": 0.12941682994869527,
           "positive_fraction": {
-            "numerator": 177,
+            "numerator": 187,
             "denominator": 1707,
-            "rate": 0.10369068541300527
+            "rate": 0.10954891622729936
           },
           "negative_fraction": {
-            "numerator": 101,
+            "numerator": 110,
             "denominator": 1707,
-            "rate": 0.05916813122437024
+            "rate": 0.06444053895723492
           }
         },
-        "anchor_adv": {
+        "raw_anchor_adv": {
           "n": 1707,
-          "sum": 4.6074255521944e-15,
-          "sum2": 233.91111404045876,
-          "zero": 1387,
-          "token_sum": 358.71631346741174,
-          "negative": 129,
-          "positive": 191,
-          "mean": 2.6991362344431165e-18,
-          "variance": 0.1370305296077673,
+          "sum": 5.495603971894525e-15,
+          "sum2": 251.90411048406412,
+          "zero": 1364,
+          "token_sum": 363.2096602227231,
+          "negative": 139,
+          "positive": 204,
+          "mean": 3.219451653130946e-18,
+          "variance": 0.14757124222850856,
           "positive_fraction": {
-            "numerator": 191,
+            "numerator": 204,
             "denominator": 1707,
-            "rate": 0.11189220855301699
+            "rate": 0.1195079086115993
           },
           "negative_fraction": {
-            "numerator": 129,
+            "numerator": 139,
             "denominator": 1707,
-            "rate": 0.07557117750439367
+            "rate": 0.08142940831868775
+          }
+        },
+        "raw_combined_local": {
+          "n": 1707,
+          "sum": 4.718447854656915e-15,
+          "sum2": 176.64511993497723,
+          "zero": 1232,
+          "token_sum": 879.32480579648,
+          "negative": 185,
+          "positive": 290,
+          "mean": 2.764175661779095e-18,
+          "variance": 0.10348278847977577,
+          "positive_fraction": {
+            "numerator": 290,
+            "denominator": 1707,
+            "rate": 0.1698886936145284
+          },
+          "negative_fraction": {
+            "numerator": 185,
+            "denominator": 1707,
+            "rate": 0.10837727006444053
+          }
+        },
+        "effective_local": {
+          "n": 1707,
+          "sum": 35.37799490785933,
+          "sum2": 156.5717165458796,
+          "zero": 1307,
+          "token_sum": 2816.8717698383584,
+          "negative": 110,
+          "positive": 290,
+          "mean": 0.02072524599171607,
+          "variance": 0.09129378963018193,
+          "positive_fraction": {
+            "numerator": 290,
+            "denominator": 1707,
+            "rate": 0.1698886936145284
+          },
+          "negative_fraction": {
+            "numerator": 110,
+            "denominator": 1707,
+            "rate": 0.06444053895723492
           }
         },
         "advantage": {
           "n": 1707,
-          "sum": 108.90924162390047,
-          "sum2": 209.93314238467423,
-          "zero": 1146,
-          "token_sum": 9220.562787243429,
-          "negative": 106,
-          "positive": 455,
-          "mean": 0.06380154752425335,
-          "variance": 0.11891304289945902,
+          "sum": 111.09806541481755,
+          "sum2": 215.51217111188762,
+          "zero": 1138,
+          "token_sum": 9384.065862386475,
+          "negative": 110,
+          "positive": 459,
+          "mean": 0.0650838110221544,
+          "variance": 0.1220161017091404,
           "positive_fraction": {
-            "numerator": 455,
+            "numerator": 459,
             "denominator": 1707,
-            "rate": 0.2665495020503808
+            "rate": 0.2688927943760984
           },
           "negative_fraction": {
-            "numerator": 106,
+            "numerator": 110,
             "denominator": 1707,
-            "rate": 0.062097246631517285
+            "rate": 0.06444053895723492
           }
         }
       },
       "exposure": {
         "reference_argument": {
           "sampled_groups": 160,
+          "updated_correct_tokens": 19699,
+          "nonzero_local_tokens": 20952,
           "target_correct": 847,
           "correct_local_nonnegative": 847,
-          "correct_local_positive": 256,
+          "correct_local_positive": 276,
           "target_errors": 51,
-          "error_local_negative": 39,
-          "error_local_sum": -36.689746499932745,
-          "updated_error_tokens": 3036,
+          "error_local_negative": 42,
+          "error_local_sum": -38.47807170317431,
+          "updated_error_tokens": 3120,
           "error_groups": 33,
           "contrast_groups": 26,
-          "error_local_zero": 12,
+          "error_local_zero": 9,
+          "nonzero_advantage_tokens": 22819,
           "contrast_rate": {
             "numerator": 26,
             "denominator": 160,
@@ -1323,22 +1954,26 @@
             "rate": 1.0
           },
           "suppression_rate": {
-            "numerator": 39,
+            "numerator": 42,
             "denominator": 51,
-            "rate": 0.7647058823529411
+            "rate": 0.8235294117647058
           }
         },
         "repeat": {
           "sampled_groups": 168,
+          "updated_correct_tokens": 19699,
+          "nonzero_local_tokens": 17902,
           "target_correct": 847,
           "correct_local_nonnegative": 847,
-          "correct_local_positive": 256,
+          "correct_local_positive": 276,
           "target_errors": 17,
-          "error_local_zero": 17,
-          "error_local_sum": 0.0,
+          "error_local_negative": 1,
+          "error_local_sum": -0.7498500299940012,
           "updated_error_tokens": 70,
+          "error_local_zero": 16,
           "error_groups": 7,
           "contrast_groups": 3,
+          "nonzero_advantage_tokens": 19769,
           "contrast_rate": {
             "numerator": 3,
             "denominator": 168,
@@ -1350,23 +1985,26 @@
             "rate": 1.0
           },
           "suppression_rate": {
-            "numerator": 0,
+            "numerator": 1,
             "denominator": 17,
-            "rate": 0.0
+            "rate": 0.058823529411764705
           }
         },
         "tool_parse": {
           "sampled_groups": 168,
+          "updated_correct_tokens": 19699,
+          "nonzero_local_tokens": 19117,
           "target_correct": 847,
           "correct_local_nonnegative": 847,
-          "correct_local_positive": 256,
+          "correct_local_positive": 276,
           "target_errors": 40,
           "error_local_negative": 16,
-          "error_local_sum": -14.65050972382091,
+          "error_local_sum": -14.482078081745794,
           "updated_error_tokens": 1285,
           "error_groups": 22,
           "contrast_groups": 8,
           "error_local_zero": 24,
+          "nonzero_advantage_tokens": 20984,
           "contrast_rate": {
             "numerator": 8,
             "denominator": 168,
@@ -1385,9 +2023,11 @@
         },
         "early_finish": {
           "sampled_groups": 88,
+          "updated_correct_tokens": 14497,
+          "nonzero_local_tokens": 13583,
           "target_correct": 581,
           "correct_local_nonnegative": 581,
-          "correct_local_positive": 202,
+          "correct_local_positive": 214,
           "target_errors": 56,
           "error_local_zero": 20,
           "error_local_sum": -27.04650859462757,
@@ -1395,6 +2035,7 @@
           "error_groups": 40,
           "error_local_negative": 36,
           "contrast_groups": 27,
+          "nonzero_advantage_tokens": 15450,
           "contrast_rate": {
             "numerator": 27,
             "denominator": 88,
@@ -1413,6 +2054,8 @@
         },
         "pending": {
           "sampled_groups": 8,
+          "updated_correct_tokens": 446,
+          "nonzero_local_tokens": 0,
           "target_correct": 9,
           "correct_local_nonnegative": 9,
           "correct_local_positive": 0,
@@ -1421,6 +2064,7 @@
           "error_local_sum": 0.0,
           "updated_error_tokens": 0,
           "error_groups": 3,
+          "nonzero_advantage_tokens": 446,
           "contrast_rate": {
             "numerator": 0,
             "denominator": 8,
@@ -1439,6 +2083,8 @@
         },
         "all_cs_scope": {
           "sampled_groups": 32,
+          "updated_correct_tokens": 3545,
+          "nonzero_local_tokens": 4090,
           "target_correct": 111,
           "correct_local_nonnegative": 111,
           "correct_local_positive": 39,
@@ -1448,6 +2094,7 @@
           "updated_error_tokens": 545,
           "error_groups": 5,
           "contrast_groups": 5,
+          "nonzero_advantage_tokens": 4090,
           "contrast_rate": {
             "numerator": 5,
             "denominator": 32,
@@ -1467,15 +2114,18 @@
         "second_cache": {
           "sampled_groups": 68,
           "target_errors": 48,
-          "error_local_negative": 37,
-          "error_local_sum": -26.979546289511916,
+          "error_local_negative": 40,
+          "nonzero_local_tokens": 6073,
+          "error_local_sum": -28.51792148275549,
           "updated_error_tokens": 1418,
+          "updated_correct_tokens": 4838,
           "target_correct": 141,
           "correct_local_nonnegative": 141,
-          "correct_local_positive": 69,
+          "correct_local_positive": 72,
           "error_groups": 32,
           "contrast_groups": 29,
-          "error_local_zero": 11,
+          "error_local_zero": 8,
+          "nonzero_advantage_tokens": 6256,
           "contrast_rate": {
             "numerator": 29,
             "denominator": 68,
@@ -1487,9 +2137,9 @@
             "rate": 1.0
           },
           "suppression_rate": {
-            "numerator": 37,
+            "numerator": 40,
             "denominator": 48,
-            "rate": 0.7708333333333334
+            "rate": 0.8333333333333334
           }
         }
       },
@@ -1521,55 +2171,155 @@
           "denominator": 35,
           "rate": 1.0
         },
-        "prefix_preservation": {
-          "numerator": 23,
-          "denominator": 23,
-          "rate": 1.0
-        },
         "prefix_final_nonnegative": {
           "numerator": 10,
           "denominator": 23,
           "rate": 0.43478260869565216
         },
-        "first_error_suppression": {
-          "numerator": 0,
-          "denominator": 0,
-          "rate": null
-        },
-        "correct_action_promotion": {
-          "numerator": 0,
-          "denominator": 0,
-          "rate": null
-        },
-        "false_positive_credit": {
-          "numerator": 0,
-          "denominator": 35,
-          "rate": 0.0
-        },
-        "false_negative_credit": {
-          "numerator": 0,
-          "denominator": 208,
-          "rate": 0.0
-        },
         "anchor_coverage": {
-          "numerator": 60,
-          "denominator": 254,
-          "rate": 0.23622047244094488
+          "numerator": 66,
+          "denominator": 270,
+          "rate": 0.24444444444444444
         },
         "anchor_pairwise_ranking": {
           "numerator": 23,
-          "denominator": 25,
-          "rate": 0.92
-        },
-        "advantage_misalignment": {
-          "numerator": 0,
-          "denominator": 243,
-          "rate": 0.0
+          "denominator": 28,
+          "rate": 0.8214285714285714
         },
         "contract_correct_over_wrong": {
           "numerator": 0,
-          "denominator": 33,
+          "denominator": 41,
           "rate": 0.0
+        }
+      },
+      "alignment_by_channel": {
+        "raw_dfa_adv": {
+          "prefix_preservation": {
+            "numerator": 23,
+            "denominator": 23,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 22,
+            "denominator": 22,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 34,
+            "denominator": 34,
+            "rate": 1.0
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 208,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 243,
+            "rate": 0.0
+          }
+        },
+        "raw_anchor_adv": {
+          "prefix_preservation": {
+            "numerator": 11,
+            "denominator": 23,
+            "rate": 0.4782608695652174
+          },
+          "first_error_suppression": {
+            "numerator": 14,
+            "denominator": 14,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 40,
+            "denominator": 52,
+            "rate": 0.7692307692307693
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 12,
+            "denominator": 208,
+            "rate": 0.057692307692307696
+          },
+          "advantage_misalignment": {
+            "numerator": 12,
+            "denominator": 243,
+            "rate": 0.04938271604938271
+          }
+        },
+        "raw_combined_local": {
+          "prefix_preservation": {
+            "numerator": 23,
+            "denominator": 23,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "correct_action_promotion": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 208,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 243,
+            "rate": 0.0
+          }
+        },
+        "effective_local": {
+          "prefix_preservation": {
+            "numerator": 23,
+            "denominator": 23,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "correct_action_promotion": {
+            "numerator": 0,
+            "denominator": 0,
+            "rate": null
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 208,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 243,
+            "rate": 0.0
+          }
         }
       },
       "channels": {
@@ -1613,46 +2363,84 @@
             "rate": 0.0
           }
         },
-        "dfa_adv": {
+        "raw_dfa_adv": {
           "n": 271,
-          "sum": 3.3306690738754696e-16,
-          "sum2": 32.98702817595186,
-          "zero": 226,
-          "token_sum": -13.2446520992602,
-          "negative": 17,
-          "positive": 28,
-          "mean": 1.2290291785518337e-18,
-          "variance": 0.1217233512027744,
+          "sum": 5.551115123125783e-16,
+          "sum2": 40.98393625539536,
+          "zero": 215,
+          "token_sum": 148.8696416309818,
+          "negative": 22,
+          "positive": 34,
+          "mean": 2.0483819642530563e-18,
+          "variance": 0.15123223710477993,
           "positive_fraction": {
-            "numerator": 28,
+            "numerator": 34,
             "denominator": 271,
-            "rate": 0.1033210332103321
+            "rate": 0.12546125461254612
           },
           "negative_fraction": {
-            "numerator": 17,
+            "numerator": 22,
             "denominator": 271,
-            "rate": 0.06273062730627306
+            "rate": 0.08118081180811808
           }
         },
-        "anchor_adv": {
+        "raw_anchor_adv": {
           "n": 271,
-          "sum": 9.992007221626409e-16,
-          "sum2": 42.983370689947805,
-          "zero": 211,
-          "token_sum": -93.40187355636951,
-          "negative": 23,
-          "positive": 37,
-          "mean": 3.6870875356555016e-18,
-          "variance": 0.1586102239481469,
+          "sum": 1.2212453270876722e-15,
+          "sum2": 47.98125419247967,
+          "zero": 205,
+          "token_sum": -88.90277337640549,
+          "negative": 26,
+          "positive": 40,
+          "mean": 4.506440321356724e-18,
+          "variance": 0.17705259849623495,
           "positive_fraction": {
-            "numerator": 37,
+            "numerator": 40,
             "denominator": 271,
-            "rate": 0.13653136531365315
+            "rate": 0.14760147601476015
           },
           "negative_fraction": {
-            "numerator": 23,
+            "numerator": 26,
             "denominator": 271,
-            "rate": 0.08487084870848709
+            "rate": 0.0959409594095941
+          }
+        },
+        "raw_combined_local": {
+          "n": 271,
+          "sum": 0.0,
+          "sum2": 0.0,
+          "zero": 271,
+          "token_sum": 0.0,
+          "mean": 0.0,
+          "variance": 0.0,
+          "positive_fraction": {
+            "numerator": 0,
+            "denominator": 271,
+            "rate": 0.0
+          },
+          "negative_fraction": {
+            "numerator": 0,
+            "denominator": 271,
+            "rate": 0.0
+          }
+        },
+        "effective_local": {
+          "n": 271,
+          "sum": 0.0,
+          "sum2": 0.0,
+          "zero": 271,
+          "token_sum": 0.0,
+          "mean": 0.0,
+          "variance": 0.0,
+          "positive_fraction": {
+            "numerator": 0,
+            "denominator": 271,
+            "rate": 0.0
+          },
+          "negative_fraction": {
+            "numerator": 0,
+            "denominator": 271,
+            "rate": 0.0
           }
         },
         "advantage": {
@@ -1680,9 +2468,12 @@
       "exposure": {
         "all_cs_scope": {
           "sampled_groups": 3,
+          "updated_correct_tokens": 273,
+          "nonzero_local_tokens": 0,
           "target_correct": 11,
           "correct_local_nonnegative": 11,
           "correct_local_positive": 0,
+          "nonzero_advantage_tokens": 273,
           "contrast_rate": {
             "numerator": 0,
             "denominator": 3,
@@ -1701,6 +2492,8 @@
         },
         "reference_argument": {
           "sampled_groups": 21,
+          "updated_correct_tokens": 4385,
+          "nonzero_local_tokens": 0,
           "target_correct": 144,
           "correct_local_nonnegative": 144,
           "correct_local_positive": 0,
@@ -1710,6 +2503,7 @@
           "updated_error_tokens": 366,
           "error_groups": 6,
           "contrast_groups": 5,
+          "nonzero_advantage_tokens": 4751,
           "contrast_rate": {
             "numerator": 5,
             "denominator": 21,
@@ -1728,6 +2522,8 @@
         },
         "repeat": {
           "sampled_groups": 25,
+          "updated_correct_tokens": 4385,
+          "nonzero_local_tokens": 0,
           "target_correct": 144,
           "correct_local_nonnegative": 144,
           "correct_local_positive": 0,
@@ -1737,6 +2533,7 @@
           "updated_error_tokens": 322,
           "error_groups": 2,
           "contrast_groups": 2,
+          "nonzero_advantage_tokens": 4707,
           "contrast_rate": {
             "numerator": 2,
             "denominator": 25,
@@ -1755,6 +2552,8 @@
         },
         "tool_parse": {
           "sampled_groups": 25,
+          "updated_correct_tokens": 4385,
+          "nonzero_local_tokens": 0,
           "target_correct": 144,
           "correct_local_nonnegative": 144,
           "correct_local_positive": 0,
@@ -1764,6 +2563,7 @@
           "updated_error_tokens": 433,
           "error_groups": 6,
           "contrast_groups": 1,
+          "nonzero_advantage_tokens": 4818,
           "contrast_rate": {
             "numerator": 1,
             "denominator": 25,
@@ -1782,6 +2582,8 @@
         },
         "early_finish": {
           "sampled_groups": 16,
+          "updated_correct_tokens": 3839,
+          "nonzero_local_tokens": 0,
           "target_correct": 126,
           "correct_local_nonnegative": 126,
           "correct_local_positive": 0,
@@ -1791,6 +2593,7 @@
           "updated_error_tokens": 92,
           "error_groups": 4,
           "contrast_groups": 3,
+          "nonzero_advantage_tokens": 3931,
           "contrast_rate": {
             "numerator": 3,
             "denominator": 16,
@@ -1811,13 +2614,16 @@
           "sampled_groups": 11,
           "target_errors": 9,
           "error_local_zero": 9,
+          "nonzero_local_tokens": 0,
           "error_local_sum": 0.0,
           "updated_error_tokens": 235,
+          "updated_correct_tokens": 888,
           "target_correct": 34,
           "correct_local_nonnegative": 34,
           "correct_local_positive": 0,
           "error_groups": 6,
           "contrast_groups": 5,
+          "nonzero_advantage_tokens": 1123,
           "contrast_rate": {
             "numerator": 5,
             "denominator": 11,
@@ -1836,6 +2642,8 @@
         },
         "pending": {
           "sampled_groups": 3,
+          "updated_correct_tokens": 270,
+          "nonzero_local_tokens": 0,
           "target_correct": 4,
           "correct_local_nonnegative": 4,
           "correct_local_positive": 0,
@@ -1844,6 +2652,7 @@
           "error_local_sum": 0.0,
           "updated_error_tokens": 0,
           "error_groups": 1,
+          "nonzero_advantage_tokens": 270,
           "contrast_rate": {
             "numerator": 0,
             "denominator": 3,
@@ -1885,55 +2694,155 @@
           "denominator": 35,
           "rate": 1.0
         },
-        "prefix_preservation": {
-          "numerator": 23,
-          "denominator": 23,
-          "rate": 1.0
-        },
         "prefix_final_nonnegative": {
           "numerator": 23,
           "denominator": 23,
           "rate": 1.0
         },
-        "first_error_suppression": {
-          "numerator": 17,
-          "denominator": 17,
-          "rate": 1.0
-        },
-        "correct_action_promotion": {
-          "numerator": 28,
-          "denominator": 28,
-          "rate": 1.0
-        },
-        "false_positive_credit": {
-          "numerator": 0,
-          "denominator": 35,
-          "rate": 0.0
-        },
-        "false_negative_credit": {
-          "numerator": 0,
-          "denominator": 208,
-          "rate": 0.0
-        },
         "anchor_coverage": {
-          "numerator": 60,
-          "denominator": 254,
-          "rate": 0.23622047244094488
+          "numerator": 66,
+          "denominator": 270,
+          "rate": 0.24444444444444444
         },
         "anchor_pairwise_ranking": {
           "numerator": 23,
-          "denominator": 25,
-          "rate": 0.92
-        },
-        "advantage_misalignment": {
-          "numerator": 0,
-          "denominator": 243,
-          "rate": 0.0
+          "denominator": 28,
+          "rate": 0.8214285714285714
         },
         "contract_correct_over_wrong": {
-          "numerator": 33,
-          "denominator": 33,
+          "numerator": 41,
+          "denominator": 41,
           "rate": 1.0
+        }
+      },
+      "alignment_by_channel": {
+        "raw_dfa_adv": {
+          "prefix_preservation": {
+            "numerator": 23,
+            "denominator": 23,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 22,
+            "denominator": 22,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 34,
+            "denominator": 34,
+            "rate": 1.0
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 208,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 243,
+            "rate": 0.0
+          }
+        },
+        "raw_anchor_adv": {
+          "prefix_preservation": {
+            "numerator": 11,
+            "denominator": 23,
+            "rate": 0.4782608695652174
+          },
+          "first_error_suppression": {
+            "numerator": 14,
+            "denominator": 14,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 40,
+            "denominator": 52,
+            "rate": 0.7692307692307693
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 12,
+            "denominator": 208,
+            "rate": 0.057692307692307696
+          },
+          "advantage_misalignment": {
+            "numerator": 12,
+            "denominator": 243,
+            "rate": 0.04938271604938271
+          }
+        },
+        "raw_combined_local": {
+          "prefix_preservation": {
+            "numerator": 23,
+            "denominator": 23,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 22,
+            "denominator": 22,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 34,
+            "denominator": 34,
+            "rate": 1.0
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 208,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 243,
+            "rate": 0.0
+          }
+        },
+        "effective_local": {
+          "prefix_preservation": {
+            "numerator": 23,
+            "denominator": 23,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 22,
+            "denominator": 22,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 34,
+            "denominator": 34,
+            "rate": 1.0
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 208,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 243,
+            "rate": 0.0
+          }
         }
       },
       "channels": {
@@ -1960,95 +2869,140 @@
         },
         "local_contribution": {
           "n": 271,
-          "sum": 1.6653345369377348e-16,
-          "sum2": 8.246757043987966,
-          "zero": 226,
-          "token_sum": -6.6223260496301,
-          "negative": 17,
-          "positive": 28,
-          "mean": 6.145145892759169e-19,
-          "variance": 0.0304308378006936,
+          "sum": 2.7755575615628914e-16,
+          "sum2": 10.24598406384884,
+          "zero": 215,
+          "token_sum": 74.4348208154909,
+          "negative": 22,
+          "positive": 34,
+          "mean": 1.0241909821265282e-18,
+          "variance": 0.03780805927619498,
           "positive_fraction": {
-            "numerator": 28,
+            "numerator": 34,
             "denominator": 271,
-            "rate": 0.1033210332103321
+            "rate": 0.12546125461254612
           },
           "negative_fraction": {
-            "numerator": 17,
+            "numerator": 22,
             "denominator": 271,
-            "rate": 0.06273062730627306
+            "rate": 0.08118081180811808
           }
         },
-        "dfa_adv": {
+        "raw_dfa_adv": {
           "n": 271,
-          "sum": 3.3306690738754696e-16,
-          "sum2": 32.98702817595186,
-          "zero": 226,
-          "token_sum": -13.2446520992602,
-          "negative": 17,
-          "positive": 28,
-          "mean": 1.2290291785518337e-18,
-          "variance": 0.1217233512027744,
+          "sum": 5.551115123125783e-16,
+          "sum2": 40.98393625539536,
+          "zero": 215,
+          "token_sum": 148.8696416309818,
+          "negative": 22,
+          "positive": 34,
+          "mean": 2.0483819642530563e-18,
+          "variance": 0.15123223710477993,
           "positive_fraction": {
-            "numerator": 28,
+            "numerator": 34,
             "denominator": 271,
-            "rate": 0.1033210332103321
+            "rate": 0.12546125461254612
           },
           "negative_fraction": {
-            "numerator": 17,
+            "numerator": 22,
             "denominator": 271,
-            "rate": 0.06273062730627306
+            "rate": 0.08118081180811808
           }
         },
-        "anchor_adv": {
+        "raw_anchor_adv": {
           "n": 271,
-          "sum": 9.992007221626409e-16,
-          "sum2": 42.983370689947805,
-          "zero": 211,
-          "token_sum": -93.40187355636951,
-          "negative": 23,
-          "positive": 37,
-          "mean": 3.6870875356555016e-18,
-          "variance": 0.1586102239481469,
+          "sum": 1.2212453270876722e-15,
+          "sum2": 47.98125419247967,
+          "zero": 205,
+          "token_sum": -88.90277337640549,
+          "negative": 26,
+          "positive": 40,
+          "mean": 4.506440321356724e-18,
+          "variance": 0.17705259849623495,
           "positive_fraction": {
-            "numerator": 37,
+            "numerator": 40,
             "denominator": 271,
-            "rate": 0.13653136531365315
+            "rate": 0.14760147601476015
           },
           "negative_fraction": {
-            "numerator": 23,
+            "numerator": 26,
             "denominator": 271,
-            "rate": 0.08487084870848709
+            "rate": 0.0959409594095941
+          }
+        },
+        "raw_combined_local": {
+          "n": 271,
+          "sum": 5.551115123125783e-16,
+          "sum2": 40.98393625539536,
+          "zero": 215,
+          "token_sum": 148.8696416309818,
+          "negative": 22,
+          "positive": 34,
+          "mean": 2.0483819642530563e-18,
+          "variance": 0.15123223710477993,
+          "positive_fraction": {
+            "numerator": 34,
+            "denominator": 271,
+            "rate": 0.12546125461254612
+          },
+          "negative_fraction": {
+            "numerator": 22,
+            "denominator": 271,
+            "rate": 0.08118081180811808
+          }
+        },
+        "effective_local": {
+          "n": 271,
+          "sum": 5.551115123125783e-16,
+          "sum2": 40.98393625539536,
+          "zero": 215,
+          "token_sum": 148.8696416309818,
+          "negative": 22,
+          "positive": 34,
+          "mean": 2.0483819642530563e-18,
+          "variance": 0.15123223710477993,
+          "positive_fraction": {
+            "numerator": 34,
+            "denominator": 271,
+            "rate": 0.12546125461254612
+          },
+          "negative_fraction": {
+            "numerator": 22,
+            "denominator": 271,
+            "rate": 0.08118081180811808
           }
         },
         "advantage": {
           "n": 271,
           "sum": 15.996800639872035,
-          "sum2": 39.09629566437293,
-          "zero": 169,
-          "token_sum": 1070.6622170417518,
-          "negative": 19,
-          "positive": 83,
+          "sum2": 43.31634143860485,
+          "zero": 164,
+          "token_sum": 1151.7193639068726,
+          "negative": 22,
+          "positive": 85,
           "mean": 0.0590287846489743,
-          "variance": 0.14078237625213783,
+          "variance": 0.1563545008802999,
           "positive_fraction": {
-            "numerator": 83,
+            "numerator": 85,
             "denominator": 271,
-            "rate": 0.3062730627306273
+            "rate": 0.31365313653136534
           },
           "negative_fraction": {
-            "numerator": 19,
+            "numerator": 22,
             "denominator": 271,
-            "rate": 0.07011070110701106
+            "rate": 0.08118081180811808
           }
         }
       },
       "exposure": {
         "all_cs_scope": {
           "sampled_groups": 3,
+          "updated_correct_tokens": 273,
+          "nonzero_local_tokens": 273,
           "target_correct": 11,
           "correct_local_nonnegative": 11,
           "correct_local_positive": 3,
+          "nonzero_advantage_tokens": 273,
           "contrast_rate": {
             "numerator": 0,
             "denominator": 3,
@@ -2067,16 +3021,18 @@
         },
         "reference_argument": {
           "sampled_groups": 21,
+          "updated_correct_tokens": 4069,
+          "nonzero_local_tokens": 2840,
           "target_correct": 144,
           "correct_local_nonnegative": 144,
-          "correct_local_positive": 26,
+          "correct_local_positive": 31,
           "target_errors": 7,
-          "error_local_negative": 4,
-          "error_local_sum": -5.9988002399520095,
-          "updated_error_tokens": 366,
+          "error_local_negative": 7,
+          "error_local_sum": -8.498300339932014,
+          "updated_error_tokens": 494,
           "error_groups": 6,
           "contrast_groups": 5,
-          "error_local_zero": 3,
+          "nonzero_advantage_tokens": 4563,
           "contrast_rate": {
             "numerator": 5,
             "denominator": 21,
@@ -2088,22 +3044,25 @@
             "rate": 1.0
           },
           "suppression_rate": {
-            "numerator": 4,
+            "numerator": 7,
             "denominator": 7,
-            "rate": 0.5714285714285714
+            "rate": 1.0
           }
         },
         "repeat": {
           "sampled_groups": 25,
+          "updated_correct_tokens": 4069,
+          "nonzero_local_tokens": 2346,
           "target_correct": 144,
           "correct_local_nonnegative": 144,
-          "correct_local_positive": 26,
+          "correct_local_positive": 31,
           "target_errors": 5,
           "error_local_zero": 5,
           "error_local_sum": 0.0,
           "updated_error_tokens": 0,
           "error_groups": 2,
           "contrast_groups": 2,
+          "nonzero_advantage_tokens": 4069,
           "contrast_rate": {
             "numerator": 2,
             "denominator": 25,
@@ -2122,16 +3081,19 @@
         },
         "tool_parse": {
           "sampled_groups": 25,
+          "updated_correct_tokens": 4069,
+          "nonzero_local_tokens": 2860,
           "target_correct": 144,
           "correct_local_nonnegative": 144,
-          "correct_local_positive": 26,
+          "correct_local_positive": 31,
           "target_errors": 16,
-          "error_local_zero": 11,
-          "error_local_sum": -3.4993001399720054,
-          "updated_error_tokens": 433,
+          "error_local_zero": 10,
+          "error_local_sum": -3.999200159968006,
+          "updated_error_tokens": 514,
           "error_groups": 6,
-          "error_local_negative": 5,
+          "error_local_negative": 6,
           "contrast_groups": 1,
+          "nonzero_advantage_tokens": 4583,
           "contrast_rate": {
             "numerator": 1,
             "denominator": 25,
@@ -2143,16 +3105,18 @@
             "rate": 1.0
           },
           "suppression_rate": {
-            "numerator": 5,
+            "numerator": 6,
             "denominator": 16,
-            "rate": 0.3125
+            "rate": 0.375
           }
         },
         "early_finish": {
           "sampled_groups": 16,
+          "updated_correct_tokens": 3523,
+          "nonzero_local_tokens": 1892,
           "target_correct": 126,
           "correct_local_nonnegative": 126,
-          "correct_local_positive": 20,
+          "correct_local_positive": 25,
           "target_errors": 7,
           "error_local_negative": 3,
           "error_local_sum": -4.499100179964007,
@@ -2160,6 +3124,7 @@
           "error_groups": 4,
           "contrast_groups": 3,
           "error_local_zero": 4,
+          "nonzero_advantage_tokens": 3615,
           "contrast_rate": {
             "numerator": 3,
             "denominator": 16,
@@ -2179,15 +3144,18 @@
         "second_cache": {
           "sampled_groups": 11,
           "target_errors": 9,
-          "error_local_negative": 4,
-          "error_local_sum": -5.20610697529069,
+          "error_local_negative": 5,
+          "nonzero_local_tokens": 1123,
+          "error_local_sum": -7.153300812966277,
           "updated_error_tokens": 235,
+          "updated_correct_tokens": 888,
           "target_correct": 34,
           "correct_local_nonnegative": 34,
-          "correct_local_positive": 10,
+          "correct_local_positive": 14,
           "error_groups": 6,
           "contrast_groups": 5,
-          "error_local_zero": 5,
+          "error_local_zero": 4,
+          "nonzero_advantage_tokens": 1123,
           "contrast_rate": {
             "numerator": 5,
             "denominator": 11,
@@ -2199,13 +3167,15 @@
             "rate": 1.0
           },
           "suppression_rate": {
-            "numerator": 4,
+            "numerator": 5,
             "denominator": 9,
-            "rate": 0.4444444444444444
+            "rate": 0.5555555555555556
           }
         },
         "pending": {
           "sampled_groups": 3,
+          "updated_correct_tokens": 270,
+          "nonzero_local_tokens": 0,
           "target_correct": 4,
           "correct_local_nonnegative": 4,
           "correct_local_positive": 0,
@@ -2214,6 +3184,7 @@
           "error_local_sum": 0.0,
           "updated_error_tokens": 0,
           "error_groups": 1,
+          "nonzero_advantage_tokens": 270,
           "contrast_rate": {
             "numerator": 0,
             "denominator": 3,
@@ -2255,170 +3226,315 @@
           "denominator": 35,
           "rate": 1.0
         },
-        "prefix_preservation": {
-          "numerator": 14,
-          "denominator": 23,
-          "rate": 0.6086956521739131
-        },
         "prefix_final_nonnegative": {
           "numerator": 10,
           "denominator": 23,
           "rate": 0.43478260869565216
         },
-        "first_error_suppression": {
-          "numerator": 14,
-          "denominator": 14,
-          "rate": 1.0
-        },
-        "correct_action_promotion": {
-          "numerator": 37,
-          "denominator": 46,
-          "rate": 0.8043478260869565
-        },
-        "false_positive_credit": {
-          "numerator": 0,
-          "denominator": 35,
-          "rate": 0.0
-        },
-        "false_negative_credit": {
-          "numerator": 9,
-          "denominator": 208,
-          "rate": 0.04326923076923077
-        },
         "anchor_coverage": {
-          "numerator": 60,
-          "denominator": 254,
-          "rate": 0.23622047244094488
+          "numerator": 66,
+          "denominator": 270,
+          "rate": 0.24444444444444444
         },
         "anchor_pairwise_ranking": {
           "numerator": 23,
-          "denominator": 25,
-          "rate": 0.92
-        },
-        "advantage_misalignment": {
-          "numerator": 9,
-          "denominator": 243,
-          "rate": 0.037037037037037035
+          "denominator": 28,
+          "rate": 0.8214285714285714
         },
         "contract_correct_over_wrong": {
-          "numerator": 25,
-          "denominator": 33,
-          "rate": 0.7575757575757576
+          "numerator": 26,
+          "denominator": 41,
+          "rate": 0.6341463414634146
+        }
+      },
+      "alignment_by_channel": {
+        "raw_dfa_adv": {
+          "prefix_preservation": {
+            "numerator": 23,
+            "denominator": 23,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 22,
+            "denominator": 22,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 34,
+            "denominator": 34,
+            "rate": 1.0
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 208,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 243,
+            "rate": 0.0
+          }
+        },
+        "raw_anchor_adv": {
+          "prefix_preservation": {
+            "numerator": 11,
+            "denominator": 23,
+            "rate": 0.4782608695652174
+          },
+          "first_error_suppression": {
+            "numerator": 14,
+            "denominator": 14,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 40,
+            "denominator": 52,
+            "rate": 0.7692307692307693
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 12,
+            "denominator": 208,
+            "rate": 0.057692307692307696
+          },
+          "advantage_misalignment": {
+            "numerator": 12,
+            "denominator": 243,
+            "rate": 0.04938271604938271
+          }
+        },
+        "raw_combined_local": {
+          "prefix_preservation": {
+            "numerator": 11,
+            "denominator": 23,
+            "rate": 0.4782608695652174
+          },
+          "first_error_suppression": {
+            "numerator": 14,
+            "denominator": 14,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 40,
+            "denominator": 52,
+            "rate": 0.7692307692307693
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 12,
+            "denominator": 208,
+            "rate": 0.057692307692307696
+          },
+          "advantage_misalignment": {
+            "numerator": 12,
+            "denominator": 243,
+            "rate": 0.04938271604938271
+          }
+        },
+        "effective_local": {
+          "prefix_preservation": {
+            "numerator": 11,
+            "denominator": 23,
+            "rate": 0.4782608695652174
+          },
+          "first_error_suppression": {
+            "numerator": 14,
+            "denominator": 14,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 40,
+            "denominator": 52,
+            "rate": 0.7692307692307693
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 12,
+            "denominator": 208,
+            "rate": 0.057692307692307696
+          },
+          "advantage_misalignment": {
+            "numerator": 12,
+            "denominator": 243,
+            "rate": 0.04938271604938271
+          }
         }
       },
       "channels": {
         "episode_contribution": {
           "n": 271,
-          "sum": 0.7498500299940039,
-          "sum2": 23.802977856738266,
-          "zero": 138,
-          "token_sum": -4.499100179963905,
-          "negative": 52,
+          "sum": 0.9998000399920052,
+          "sum2": 23.740502849240265,
+          "zero": 139,
+          "token_sum": 171.46570685862835,
+          "negative": 51,
           "positive": 81,
-          "mean": 0.0027669742804206786,
-          "variance": 0.08782621048336199,
+          "mean": 0.0036892990405609045,
+          "variance": 0.08758972061960137,
           "positive_fraction": {
             "numerator": 81,
             "denominator": 271,
             "rate": 0.2988929889298893
           },
           "negative_fraction": {
-            "numerator": 52,
+            "numerator": 51,
             "denominator": 271,
-            "rate": 0.1918819188191882
+            "rate": 0.1881918819188192
           }
         },
         "local_contribution": {
           "n": 271,
-          "sum": 4.996003610813204e-16,
-          "sum2": 10.745842672486951,
-          "zero": 211,
-          "token_sum": -46.700936778184754,
-          "negative": 23,
-          "positive": 37,
-          "mean": 1.8435437678277508e-18,
-          "variance": 0.03965255598703672,
+          "sum": 6.106226635438361e-16,
+          "sum2": 11.995313548119917,
+          "zero": 205,
+          "token_sum": -44.451386688202746,
+          "negative": 26,
+          "positive": 40,
+          "mean": 2.253220160678362e-18,
+          "variance": 0.04426314962405874,
           "positive_fraction": {
-            "numerator": 37,
+            "numerator": 40,
             "denominator": 271,
-            "rate": 0.13653136531365315
+            "rate": 0.14760147601476015
           },
           "negative_fraction": {
-            "numerator": 23,
+            "numerator": 26,
             "denominator": 271,
-            "rate": 0.08487084870848709
+            "rate": 0.0959409594095941
           }
         },
-        "dfa_adv": {
+        "raw_dfa_adv": {
           "n": 271,
-          "sum": 3.3306690738754696e-16,
-          "sum2": 32.98702817595186,
-          "zero": 226,
-          "token_sum": -13.2446520992602,
-          "negative": 17,
-          "positive": 28,
-          "mean": 1.2290291785518337e-18,
-          "variance": 0.1217233512027744,
+          "sum": 5.551115123125783e-16,
+          "sum2": 40.98393625539536,
+          "zero": 215,
+          "token_sum": 148.8696416309818,
+          "negative": 22,
+          "positive": 34,
+          "mean": 2.0483819642530563e-18,
+          "variance": 0.15123223710477993,
           "positive_fraction": {
-            "numerator": 28,
+            "numerator": 34,
             "denominator": 271,
-            "rate": 0.1033210332103321
+            "rate": 0.12546125461254612
           },
           "negative_fraction": {
-            "numerator": 17,
+            "numerator": 22,
             "denominator": 271,
-            "rate": 0.06273062730627306
+            "rate": 0.08118081180811808
           }
         },
-        "anchor_adv": {
+        "raw_anchor_adv": {
           "n": 271,
-          "sum": 9.992007221626409e-16,
-          "sum2": 42.983370689947805,
-          "zero": 211,
-          "token_sum": -93.40187355636951,
-          "negative": 23,
-          "positive": 37,
-          "mean": 3.6870875356555016e-18,
-          "variance": 0.1586102239481469,
+          "sum": 1.2212453270876722e-15,
+          "sum2": 47.98125419247967,
+          "zero": 205,
+          "token_sum": -88.90277337640549,
+          "negative": 26,
+          "positive": 40,
+          "mean": 4.506440321356724e-18,
+          "variance": 0.17705259849623495,
           "positive_fraction": {
-            "numerator": 37,
+            "numerator": 40,
             "denominator": 271,
-            "rate": 0.13653136531365315
+            "rate": 0.14760147601476015
           },
           "negative_fraction": {
-            "numerator": 23,
+            "numerator": 26,
             "denominator": 271,
-            "rate": 0.08487084870848709
+            "rate": 0.0959409594095941
+          }
+        },
+        "raw_combined_local": {
+          "n": 271,
+          "sum": 1.2212453270876722e-15,
+          "sum2": 47.98125419247967,
+          "zero": 205,
+          "token_sum": -88.90277337640549,
+          "negative": 26,
+          "positive": 40,
+          "mean": 4.506440321356724e-18,
+          "variance": 0.17705259849623495,
+          "positive_fraction": {
+            "numerator": 40,
+            "denominator": 271,
+            "rate": 0.14760147601476015
+          },
+          "negative_fraction": {
+            "numerator": 26,
+            "denominator": 271,
+            "rate": 0.0959409594095941
+          }
+        },
+        "effective_local": {
+          "n": 271,
+          "sum": 1.2212453270876722e-15,
+          "sum2": 47.98125419247967,
+          "zero": 205,
+          "token_sum": -88.90277337640549,
+          "negative": 26,
+          "positive": 40,
+          "mean": 4.506440321356724e-18,
+          "variance": 0.17705259849623495,
+          "positive_fraction": {
+            "numerator": 40,
+            "denominator": 271,
+            "rate": 0.14760147601476015
+          },
+          "negative_fraction": {
+            "numerator": 26,
+            "denominator": 271,
+            "rate": 0.0959409594095941
           }
         },
         "advantage": {
           "n": 271,
-          "sum": 0.749850029994004,
-          "sum2": 56.97075839351698,
-          "zero": 138,
-          "token_sum": -51.200036958148885,
-          "negative": 52,
+          "sum": 0.9998000399920047,
+          "sum2": 60.44968919931373,
+          "zero": 139,
+          "token_sum": 127.01432017042559,
+          "negative": 51,
           "positive": 81,
-          "mean": 0.002766974280420679,
-          "variance": 0.21021654456741629,
+          "mean": 0.003689299040560903,
+          "variance": 0.2230479728338946,
           "positive_fraction": {
             "numerator": 81,
             "denominator": 271,
             "rate": 0.2988929889298893
           },
           "negative_fraction": {
-            "numerator": 52,
+            "numerator": 51,
             "denominator": 271,
-            "rate": 0.1918819188191882
+            "rate": 0.1881918819188192
           }
         }
       },
       "exposure": {
         "all_cs_scope": {
           "sampled_groups": 3,
+          "updated_correct_tokens": 273,
+          "nonzero_local_tokens": 273,
           "target_correct": 11,
           "correct_local_nonnegative": 11,
           "correct_local_positive": 3,
+          "nonzero_advantage_tokens": 273,
           "contrast_rate": {
             "numerator": 0,
             "denominator": 3,
@@ -2437,9 +3553,11 @@
         },
         "reference_argument": {
           "sampled_groups": 21,
+          "updated_correct_tokens": 4385,
+          "nonzero_local_tokens": 3462,
           "target_correct": 144,
-          "correct_local_nonnegative": 135,
-          "correct_local_positive": 35,
+          "correct_local_nonnegative": 132,
+          "correct_local_positive": 38,
           "target_errors": 7,
           "error_local_negative": 4,
           "error_local_sum": -4.999000199960008,
@@ -2447,15 +3565,16 @@
           "error_groups": 6,
           "contrast_groups": 5,
           "error_local_zero": 3,
+          "nonzero_advantage_tokens": 4751,
           "contrast_rate": {
             "numerator": 5,
             "denominator": 21,
             "rate": 0.23809523809523808
           },
           "correct_nonnegative_rate": {
-            "numerator": 135,
+            "numerator": 132,
             "denominator": 144,
-            "rate": 0.9375
+            "rate": 0.9166666666666666
           },
           "suppression_rate": {
             "numerator": 4,
@@ -2465,24 +3584,27 @@
         },
         "repeat": {
           "sampled_groups": 25,
+          "updated_correct_tokens": 4385,
+          "nonzero_local_tokens": 3164,
           "target_correct": 144,
-          "correct_local_nonnegative": 135,
-          "correct_local_positive": 35,
+          "correct_local_nonnegative": 132,
+          "correct_local_positive": 38,
           "target_errors": 5,
           "error_local_zero": 5,
           "error_local_sum": 0.0,
           "updated_error_tokens": 322,
           "error_groups": 2,
           "contrast_groups": 2,
+          "nonzero_advantage_tokens": 4707,
           "contrast_rate": {
             "numerator": 2,
             "denominator": 25,
             "rate": 0.08
           },
           "correct_nonnegative_rate": {
-            "numerator": 135,
+            "numerator": 132,
             "denominator": 144,
-            "rate": 0.9375
+            "rate": 0.9166666666666666
           },
           "suppression_rate": {
             "numerator": 0,
@@ -2492,9 +3614,11 @@
         },
         "tool_parse": {
           "sampled_groups": 25,
+          "updated_correct_tokens": 4385,
+          "nonzero_local_tokens": 3597,
           "target_correct": 144,
-          "correct_local_nonnegative": 135,
-          "correct_local_positive": 35,
+          "correct_local_nonnegative": 132,
+          "correct_local_positive": 38,
           "target_errors": 16,
           "error_local_zero": 11,
           "error_local_sum": -3.1541006529982716,
@@ -2502,15 +3626,16 @@
           "error_groups": 6,
           "error_local_negative": 5,
           "contrast_groups": 1,
+          "nonzero_advantage_tokens": 4818,
           "contrast_rate": {
             "numerator": 1,
             "denominator": 25,
             "rate": 0.04
           },
           "correct_nonnegative_rate": {
-            "numerator": 135,
+            "numerator": 132,
             "denominator": 144,
-            "rate": 0.9375
+            "rate": 0.9166666666666666
           },
           "suppression_rate": {
             "numerator": 5,
@@ -2520,9 +3645,11 @@
         },
         "early_finish": {
           "sampled_groups": 16,
+          "updated_correct_tokens": 3839,
+          "nonzero_local_tokens": 2642,
           "target_correct": 126,
-          "correct_local_nonnegative": 117,
-          "correct_local_positive": 29,
+          "correct_local_nonnegative": 114,
+          "correct_local_positive": 32,
           "target_errors": 7,
           "error_local_zero": 6,
           "error_local_sum": -1.4997000599880024,
@@ -2530,15 +3657,16 @@
           "error_groups": 4,
           "contrast_groups": 3,
           "error_local_negative": 1,
+          "nonzero_advantage_tokens": 3931,
           "contrast_rate": {
             "numerator": 3,
             "denominator": 16,
             "rate": 0.1875
           },
           "correct_nonnegative_rate": {
-            "numerator": 117,
+            "numerator": 114,
             "denominator": 126,
-            "rate": 0.9285714285714286
+            "rate": 0.9047619047619048
           },
           "suppression_rate": {
             "numerator": 1,
@@ -2550,14 +3678,17 @@
           "sampled_groups": 11,
           "target_errors": 9,
           "error_local_zero": 7,
+          "nonzero_local_tokens": 361,
           "error_local_sum": -2.206706855314686,
           "updated_error_tokens": 235,
+          "updated_correct_tokens": 888,
           "target_correct": 34,
           "correct_local_nonnegative": 34,
           "correct_local_positive": 4,
           "error_groups": 6,
           "contrast_groups": 5,
           "error_local_negative": 2,
+          "nonzero_advantage_tokens": 1123,
           "contrast_rate": {
             "numerator": 5,
             "denominator": 11,
@@ -2576,6 +3707,8 @@
         },
         "pending": {
           "sampled_groups": 3,
+          "updated_correct_tokens": 270,
+          "nonzero_local_tokens": 0,
           "target_correct": 4,
           "correct_local_nonnegative": 4,
           "correct_local_positive": 0,
@@ -2584,6 +3717,7 @@
           "error_local_sum": 0.0,
           "updated_error_tokens": 0,
           "error_groups": 1,
+          "nonzero_advantage_tokens": 270,
           "contrast_rate": {
             "numerator": 0,
             "denominator": 3,
@@ -2625,55 +3759,155 @@
           "denominator": 35,
           "rate": 1.0
         },
-        "prefix_preservation": {
-          "numerator": 23,
-          "denominator": 23,
-          "rate": 1.0
-        },
         "prefix_final_nonnegative": {
           "numerator": 23,
           "denominator": 23,
           "rate": 1.0
         },
-        "first_error_suppression": {
-          "numerator": 17,
-          "denominator": 17,
-          "rate": 1.0
-        },
-        "correct_action_promotion": {
-          "numerator": 44,
-          "denominator": 53,
-          "rate": 0.8301886792452831
-        },
-        "false_positive_credit": {
-          "numerator": 0,
-          "denominator": 35,
-          "rate": 0.0
-        },
-        "false_negative_credit": {
-          "numerator": 0,
-          "denominator": 208,
-          "rate": 0.0
-        },
         "anchor_coverage": {
-          "numerator": 60,
-          "denominator": 254,
-          "rate": 0.23622047244094488
+          "numerator": 66,
+          "denominator": 270,
+          "rate": 0.24444444444444444
         },
         "anchor_pairwise_ranking": {
           "numerator": 23,
-          "denominator": 25,
-          "rate": 0.92
-        },
-        "advantage_misalignment": {
-          "numerator": 0,
-          "denominator": 243,
-          "rate": 0.0
+          "denominator": 28,
+          "rate": 0.8214285714285714
         },
         "contract_correct_over_wrong": {
-          "numerator": 33,
-          "denominator": 33,
+          "numerator": 41,
+          "denominator": 41,
           "rate": 1.0
+        }
+      },
+      "alignment_by_channel": {
+        "raw_dfa_adv": {
+          "prefix_preservation": {
+            "numerator": 23,
+            "denominator": 23,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 22,
+            "denominator": 22,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 34,
+            "denominator": 34,
+            "rate": 1.0
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 208,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 243,
+            "rate": 0.0
+          }
+        },
+        "raw_anchor_adv": {
+          "prefix_preservation": {
+            "numerator": 11,
+            "denominator": 23,
+            "rate": 0.4782608695652174
+          },
+          "first_error_suppression": {
+            "numerator": 14,
+            "denominator": 14,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 40,
+            "denominator": 52,
+            "rate": 0.7692307692307693
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 12,
+            "denominator": 208,
+            "rate": 0.057692307692307696
+          },
+          "advantage_misalignment": {
+            "numerator": 12,
+            "denominator": 243,
+            "rate": 0.04938271604938271
+          }
+        },
+        "raw_combined_local": {
+          "prefix_preservation": {
+            "numerator": 13,
+            "denominator": 23,
+            "rate": 0.5652173913043478
+          },
+          "first_error_suppression": {
+            "numerator": 22,
+            "denominator": 22,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 53,
+            "denominator": 65,
+            "rate": 0.8153846153846154
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 10,
+            "denominator": 208,
+            "rate": 0.04807692307692308
+          },
+          "advantage_misalignment": {
+            "numerator": 10,
+            "denominator": 243,
+            "rate": 0.0411522633744856
+          }
+        },
+        "effective_local": {
+          "prefix_preservation": {
+            "numerator": 23,
+            "denominator": 23,
+            "rate": 1.0
+          },
+          "first_error_suppression": {
+            "numerator": 22,
+            "denominator": 22,
+            "rate": 1.0
+          },
+          "correct_action_promotion": {
+            "numerator": 53,
+            "denominator": 65,
+            "rate": 0.8153846153846154
+          },
+          "false_positive_credit": {
+            "numerator": 0,
+            "denominator": 35,
+            "rate": 0.0
+          },
+          "false_negative_credit": {
+            "numerator": 0,
+            "denominator": 208,
+            "rate": 0.0
+          },
+          "advantage_misalignment": {
+            "numerator": 0,
+            "denominator": 243,
+            "rate": 0.0
+          }
         }
       },
       "channels": {
@@ -2700,95 +3934,140 @@
         },
         "local_contribution": {
           "n": 271,
-          "sum": 2.340001917070241,
-          "sum2": 6.871387778446165,
-          "zero": 210,
-          "token_sum": 111.15562493517768,
-          "negative": 17,
-          "positive": 44,
-          "mean": 0.0086346934209234,
-          "variance": 0.025281116528737605,
+          "sum": 2.9131002482325714,
+          "sum2": 7.555458693892784,
+          "zero": 196,
+          "token_sum": 174.60813161423147,
+          "negative": 22,
+          "positive": 53,
+          "mean": 0.010749447410452292,
+          "variance": 0.02776437076004809,
           "positive_fraction": {
-            "numerator": 44,
+            "numerator": 53,
             "denominator": 271,
-            "rate": 0.16236162361623616
+            "rate": 0.19557195571955718
           },
           "negative_fraction": {
-            "numerator": 17,
+            "numerator": 22,
             "denominator": 271,
-            "rate": 0.06273062730627306
+            "rate": 0.08118081180811808
           }
         },
-        "dfa_adv": {
+        "raw_dfa_adv": {
           "n": 271,
-          "sum": 3.3306690738754696e-16,
-          "sum2": 32.98702817595186,
-          "zero": 226,
-          "token_sum": -13.2446520992602,
-          "negative": 17,
-          "positive": 28,
-          "mean": 1.2290291785518337e-18,
-          "variance": 0.1217233512027744,
+          "sum": 5.551115123125783e-16,
+          "sum2": 40.98393625539536,
+          "zero": 215,
+          "token_sum": 148.8696416309818,
+          "negative": 22,
+          "positive": 34,
+          "mean": 2.0483819642530563e-18,
+          "variance": 0.15123223710477993,
           "positive_fraction": {
-            "numerator": 28,
+            "numerator": 34,
             "denominator": 271,
-            "rate": 0.1033210332103321
+            "rate": 0.12546125461254612
           },
           "negative_fraction": {
-            "numerator": 17,
+            "numerator": 22,
             "denominator": 271,
-            "rate": 0.06273062730627306
+            "rate": 0.08118081180811808
           }
         },
-        "anchor_adv": {
+        "raw_anchor_adv": {
           "n": 271,
-          "sum": 9.992007221626409e-16,
-          "sum2": 42.983370689947805,
-          "zero": 211,
-          "token_sum": -93.40187355636951,
-          "negative": 23,
-          "positive": 37,
-          "mean": 3.6870875356555016e-18,
-          "variance": 0.1586102239481469,
+          "sum": 1.2212453270876722e-15,
+          "sum2": 47.98125419247967,
+          "zero": 205,
+          "token_sum": -88.90277337640549,
+          "negative": 26,
+          "positive": 40,
+          "mean": 4.506440321356724e-18,
+          "variance": 0.17705259849623495,
           "positive_fraction": {
-            "numerator": 37,
+            "numerator": 40,
             "denominator": 271,
-            "rate": 0.13653136531365315
+            "rate": 0.14760147601476015
           },
           "negative_fraction": {
-            "numerator": 23,
+            "numerator": 26,
             "denominator": 271,
-            "rate": 0.08487084870848709
+            "rate": 0.0959409594095941
+          }
+        },
+        "raw_combined_local": {
+          "n": 271,
+          "sum": 5.551115123125783e-16,
+          "sum2": 34.116128096229744,
+          "zero": 186,
+          "token_sum": 29.983434127288035,
+          "negative": 32,
+          "positive": 53,
+          "mean": 2.0483819642530563e-18,
+          "variance": 0.12588977157280348,
+          "positive_fraction": {
+            "numerator": 53,
+            "denominator": 271,
+            "rate": 0.19557195571955718
+          },
+          "negative_fraction": {
+            "numerator": 32,
+            "denominator": 271,
+            "rate": 0.11808118081180811
+          }
+        },
+        "effective_local": {
+          "n": 271,
+          "sum": 5.826200496465143,
+          "sum2": 30.221834775571136,
+          "zero": 196,
+          "token_sum": 349.21626322846294,
+          "negative": 22,
+          "positive": 53,
+          "mean": 0.021498894820904585,
+          "variance": 0.11105748304019236,
+          "positive_fraction": {
+            "numerator": 53,
+            "denominator": 271,
+            "rate": 0.19557195571955718
+          },
+          "negative_fraction": {
+            "numerator": 22,
+            "denominator": 271,
+            "rate": 0.08118081180811808
           }
         },
         "advantage": {
           "n": 271,
-          "sum": 18.336802556942256,
-          "sum2": 37.42164223071087,
-          "zero": 171,
-          "token_sum": 1188.440168026559,
-          "negative": 19,
-          "positive": 81,
-          "mean": 0.06766347806989763,
-          "variance": 0.13350889443921465,
+          "sum": 18.90990088810458,
+          "sum2": 39.70074807997817,
+          "zero": 166,
+          "token_sum": 1251.892674705613,
+          "negative": 22,
+          "positive": 83,
+          "mean": 0.0697782320594265,
+          "variance": 0.14162822371803413,
           "positive_fraction": {
-            "numerator": 81,
+            "numerator": 83,
             "denominator": 271,
-            "rate": 0.2988929889298893
+            "rate": 0.3062730627306273
           },
           "negative_fraction": {
-            "numerator": 19,
+            "numerator": 22,
             "denominator": 271,
-            "rate": 0.07011070110701106
+            "rate": 0.08118081180811808
           }
         }
       },
       "exposure": {
         "all_cs_scope": {
           "sampled_groups": 3,
+          "updated_correct_tokens": 273,
+          "nonzero_local_tokens": 273,
           "target_correct": 11,
           "correct_local_nonnegative": 11,
           "correct_local_positive": 3,
+          "nonzero_advantage_tokens": 273,
           "contrast_rate": {
             "numerator": 0,
             "denominator": 3,
@@ -2807,16 +4086,18 @@
         },
         "reference_argument": {
           "sampled_groups": 21,
+          "updated_correct_tokens": 3920,
+          "nonzero_local_tokens": 3886,
           "target_correct": 144,
           "correct_local_nonnegative": 144,
-          "correct_local_positive": 42,
+          "correct_local_positive": 50,
           "target_errors": 7,
-          "error_local_negative": 4,
-          "error_local_sum": -5.498900219956009,
-          "updated_error_tokens": 366,
+          "error_local_negative": 7,
+          "error_local_sum": -6.748650269946012,
+          "updated_error_tokens": 494,
           "error_groups": 6,
           "contrast_groups": 5,
-          "error_local_zero": 3,
+          "nonzero_advantage_tokens": 4414,
           "contrast_rate": {
             "numerator": 5,
             "denominator": 21,
@@ -2828,22 +4109,25 @@
             "rate": 1.0
           },
           "suppression_rate": {
-            "numerator": 4,
+            "numerator": 7,
             "denominator": 7,
-            "rate": 0.5714285714285714
+            "rate": 1.0
           }
         },
         "repeat": {
           "sampled_groups": 25,
+          "updated_correct_tokens": 3920,
+          "nonzero_local_tokens": 3392,
           "target_correct": 144,
           "correct_local_nonnegative": 144,
-          "correct_local_positive": 42,
+          "correct_local_positive": 50,
           "target_errors": 5,
           "error_local_zero": 5,
           "error_local_sum": 0.0,
           "updated_error_tokens": 0,
           "error_groups": 2,
           "contrast_groups": 2,
+          "nonzero_advantage_tokens": 3920,
           "contrast_rate": {
             "numerator": 2,
             "denominator": 25,
@@ -2862,16 +4146,19 @@
         },
         "tool_parse": {
           "sampled_groups": 25,
+          "updated_correct_tokens": 3920,
+          "nonzero_local_tokens": 3906,
           "target_correct": 144,
           "correct_local_nonnegative": 144,
-          "correct_local_positive": 42,
+          "correct_local_positive": 50,
           "target_errors": 16,
-          "error_local_zero": 11,
-          "error_local_sum": -3.3267003964851387,
-          "updated_error_tokens": 433,
+          "error_local_zero": 10,
+          "error_local_sum": -3.576650406483139,
+          "updated_error_tokens": 514,
           "error_groups": 6,
-          "error_local_negative": 5,
+          "error_local_negative": 6,
           "contrast_groups": 1,
+          "nonzero_advantage_tokens": 4434,
           "contrast_rate": {
             "numerator": 1,
             "denominator": 25,
@@ -2883,16 +4170,18 @@
             "rate": 1.0
           },
           "suppression_rate": {
-            "numerator": 5,
+            "numerator": 6,
             "denominator": 16,
-            "rate": 0.3125
+            "rate": 0.375
           }
         },
         "early_finish": {
           "sampled_groups": 16,
+          "updated_correct_tokens": 3374,
+          "nonzero_local_tokens": 2938,
           "target_correct": 126,
           "correct_local_nonnegative": 126,
-          "correct_local_positive": 36,
+          "correct_local_positive": 44,
           "target_errors": 7,
           "error_local_negative": 3,
           "error_local_sum": -2.9994001199760048,
@@ -2900,6 +4189,7 @@
           "error_groups": 4,
           "contrast_groups": 3,
           "error_local_zero": 4,
+          "nonzero_advantage_tokens": 3466,
           "contrast_rate": {
             "numerator": 3,
             "denominator": 16,
@@ -2919,15 +4209,18 @@
         "second_cache": {
           "sampled_groups": 11,
           "target_errors": 9,
-          "error_local_negative": 4,
-          "error_local_sum": -3.706406915302688,
+          "error_local_negative": 5,
+          "nonzero_local_tokens": 1123,
+          "error_local_sum": -4.680003834140482,
           "updated_error_tokens": 235,
+          "updated_correct_tokens": 888,
           "target_correct": 34,
           "correct_local_nonnegative": 34,
-          "correct_local_positive": 10,
+          "correct_local_positive": 14,
           "error_groups": 6,
           "contrast_groups": 5,
-          "error_local_zero": 5,
+          "error_local_zero": 4,
+          "nonzero_advantage_tokens": 1123,
           "contrast_rate": {
             "numerator": 5,
             "denominator": 11,
@@ -2939,13 +4232,15 @@
             "rate": 1.0
           },
           "suppression_rate": {
-            "numerator": 4,
+            "numerator": 5,
             "denominator": 9,
-            "rate": 0.4444444444444444
+            "rate": 0.5555555555555556
           }
         },
         "pending": {
           "sampled_groups": 3,
+          "updated_correct_tokens": 270,
+          "nonzero_local_tokens": 0,
           "target_correct": 4,
           "correct_local_nonnegative": 4,
           "correct_local_positive": 0,
@@ -2954,6 +4249,7 @@
           "error_local_sum": 0.0,
           "updated_error_tokens": 0,
           "error_groups": 1,
+          "nonzero_advantage_tokens": 270,
           "contrast_rate": {
             "numerator": 0,
             "denominator": 3,
@@ -2985,7 +4281,7 @@
     }
   },
   "local_evidence_sha256": {
-    "e0_decisions.jsonl": "dd8d844026a3ee37b7c976bf7cdf35e7181cc8c9dec6d12f4ccbd4c238c741c9",
-    "probe_decisions.jsonl": "866ff0580c63ab7c91a083439cbb7e5a0e3469961b799eb7facdce48ecbf0ae1"
+    "e0_decisions.jsonl": "f048c3a5b174c34c980976ffb031a6886f2e0e0852a85dc50bc2842c97d7e8a7",
+    "probe_decisions.jsonl": "dc357a5a4924c7794d986aee06f57cfeb7549bb332a3a4adcdd953530388abef"
   }
 }

@@ -5,190 +5,185 @@
     "histograms": {
       "anchor_reasons": {
         "identical_action": {
-          "numerator": 810,
+          "numerator": 794,
           "denominator": 1707,
-          "rate": 0.47451669595782076
+          "rate": 0.4651435266549502
         },
         "signal": {
-          "numerator": 320,
+          "numerator": 343,
           "denominator": 1707,
-          "rate": 0.18746338605741067
+          "rate": 0.20093731693028705
         },
         "singleton_state": {
-          "numerator": 464,
+          "numerator": 494,
           "denominator": 1707,
-          "rate": 0.27182190978324544
+          "rate": 0.28939660222612773
         },
         "zero_variance": {
-          "numerator": 57,
+          "numerator": 68,
           "denominator": 1707,
-          "rate": 0.033391915641476276
+          "rate": 0.03983596953719976
         },
         "truncation": {
-          "numerator": 56,
+          "numerator": 8,
           "denominator": 1707,
-          "rate": 0.032806092560046865
+          "rate": 0.0046865846514352666
         }
       },
       "dfa_reasons": {
         "identical_action": {
-          "numerator": 1144,
+          "numerator": 1137,
           "denominator": 1707,
-          "rate": 0.6701816051552432
+          "rate": 0.6660808435852372
         },
         "signal": {
-          "numerator": 278,
+          "numerator": 297,
           "denominator": 1707,
-          "rate": 0.1628588166373755
+          "rate": 0.17398945518453426
         },
         "unverified": {
-          "numerator": 159,
+          "numerator": 183,
           "denominator": 1707,
-          "rate": 0.09314586994727592
+          "rate": 0.10720562390158173
         },
         "singleton_state": {
-          "numerator": 10,
+          "numerator": 11,
           "denominator": 1707,
-          "rate": 0.005858230814294083
+          "rate": 0.006444053895723492
         },
         "truncation": {
-          "numerator": 56,
+          "numerator": 8,
           "denominator": 1707,
-          "rate": 0.032806092560046865
+          "rate": 0.0046865846514352666
         },
         "zero_variance": {
-          "numerator": 60,
+          "numerator": 71,
           "denominator": 1707,
-          "rate": 0.0351493848857645
+          "rate": 0.04159343878148799
         }
       },
       "anchor_sizes": {
         "4": {
-          "numerator": 209,
-          "denominator": 815,
-          "rate": 0.25644171779141106
+          "numerator": 221,
+          "denominator": 845,
+          "rate": 0.26153846153846155
         },
         "3": {
-          "numerator": 67,
-          "denominator": 815,
-          "rate": 0.08220858895705521
+          "numerator": 61,
+          "denominator": 845,
+          "rate": 0.07218934911242604
         },
         "2": {
-          "numerator": 75,
-          "denominator": 815,
-          "rate": 0.09202453987730061
+          "numerator": 69,
+          "denominator": 845,
+          "rate": 0.08165680473372781
         },
         "1": {
-          "numerator": 464,
-          "denominator": 815,
-          "rate": 0.5693251533742332
+          "numerator": 494,
+          "denominator": 845,
+          "rate": 0.5846153846153846
         }
       }
     },
     "ranking": {
-      "numerator": 118,
-      "denominator": 137,
-      "rate": 0.8613138686131386
+      "numerator": 119,
+      "denominator": 141,
+      "rate": 0.8439716312056738
     },
     "coverage": {
-      "numerator": 320,
-      "denominator": 1651,
-      "rate": 0.19382192610539067
+      "numerator": 343,
+      "denominator": 1699,
+      "rate": 0.201883460859329
     }
   },
   "e0_replay": {
     "histograms": {
       "anchor_reasons": {
         "identical_action": {
-          "numerator": 114,
+          "numerator": 112,
           "denominator": 271,
-          "rate": 0.42066420664206644
+          "rate": 0.4132841328413284
         },
         "singleton_state": {
-          "numerator": 77,
+          "numerator": 88,
           "denominator": 271,
-          "rate": 0.28413284132841327
+          "rate": 0.3247232472324723
         },
         "signal": {
-          "numerator": 60,
+          "numerator": 66,
           "denominator": 271,
-          "rate": 0.22140221402214022
+          "rate": 0.24354243542435425
         },
         "truncation": {
-          "numerator": 17,
+          "numerator": 1,
           "denominator": 271,
-          "rate": 0.06273062730627306
+          "rate": 0.0036900369003690036
         },
         "zero_variance": {
-          "numerator": 3,
+          "numerator": 4,
           "denominator": 271,
-          "rate": 0.01107011070110701
+          "rate": 0.014760147601476014
         }
       },
       "dfa_reasons": {
         "identical_action": {
-          "numerator": 182,
+          "numerator": 183,
           "denominator": 271,
-          "rate": 0.6715867158671587
+          "rate": 0.6752767527675276
         },
         "signal": {
-          "numerator": 45,
+          "numerator": 56,
           "denominator": 271,
-          "rate": 0.16605166051660517
+          "rate": 0.2066420664206642
         },
         "unverified": {
-          "numerator": 21,
+          "numerator": 27,
           "denominator": 271,
-          "rate": 0.07749077490774908
+          "rate": 0.0996309963099631
         },
         "singleton_state": {
-          "numerator": 3,
+          "numerator": 4,
           "denominator": 271,
-          "rate": 0.01107011070110701
+          "rate": 0.014760147601476014
         },
         "truncation": {
-          "numerator": 17,
+          "numerator": 1,
           "denominator": 271,
-          "rate": 0.06273062730627306
-        },
-        "zero_variance": {
-          "numerator": 3,
-          "denominator": 271,
-          "rate": 0.01107011070110701
+          "rate": 0.0036900369003690036
         }
       },
       "anchor_sizes": {
         "4": {
-          "numerator": 28,
-          "denominator": 131,
-          "rate": 0.21374045801526717
+          "numerator": 32,
+          "denominator": 142,
+          "rate": 0.22535211267605634
         },
         "3": {
-          "numerator": 13,
-          "denominator": 131,
-          "rate": 0.09923664122137404
+          "numerator": 10,
+          "denominator": 142,
+          "rate": 0.07042253521126761
         },
         "1": {
-          "numerator": 77,
-          "denominator": 131,
-          "rate": 0.5877862595419847
+          "numerator": 88,
+          "denominator": 142,
+          "rate": 0.6197183098591549
         },
         "2": {
-          "numerator": 13,
-          "denominator": 131,
-          "rate": 0.09923664122137404
+          "numerator": 12,
+          "denominator": 142,
+          "rate": 0.08450704225352113
         }
       }
     },
     "ranking": {
       "numerator": 23,
-      "denominator": 25,
-      "rate": 0.92
+      "denominator": 28,
+      "rate": 0.8214285714285714
     },
     "coverage": {
-      "numerator": 60,
-      "denominator": 254,
-      "rate": 0.23622047244094488
+      "numerator": 66,
+      "denominator": 270,
+      "rate": 0.24444444444444444
     }
   }
 }

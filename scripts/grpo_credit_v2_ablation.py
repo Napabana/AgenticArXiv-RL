@@ -205,8 +205,8 @@ def finish(args):
             "",
             "## 同协议 Dev 与局部信用",
             "",
-            "| 配置 | 零方差组 | 首错定位 | 前缀最终非负 | 首错受抑 | 有效 Anchor | Anchor 排序 | 错向局部信号 |",
-            "|---|---:|---:|---:|---:|---:|---:|---:|",
+            "| 配置 | 零方差组 | 首错定位 | 前缀最终非负 | 有效 Anchor | Anchor 排序 |",
+            "|---|---:|---:|---:|---:|---:|",
         ]
     )
     for mode in MODES:
@@ -216,10 +216,8 @@ def finish(args):
             "zero_variance_outcome_groups",
             "first_error_localization",
             "prefix_final_nonnegative",
-            "first_error_suppression",
             "anchor_coverage",
             "anchor_pairwise_ranking",
-            "advantage_misalignment",
         ):
             counts = audit["metrics"][key]
             entries.append(
@@ -229,10 +227,34 @@ def finish(args):
     lines.extend(
         [
             "",
+            "原始估计与规则生效后的局部信用（分子/分母）",
+            "",
+            "| 配置 | 信号 | 前缀保留 | 首错受抑 | 正确动作负向 | 错误动作正向 | 方向冲突 |",
+            "|---|---|---:|---:|---:|---:|---:|",
+        ]
+    )
+    for mode in MODES:
+        for channel, metrics in results[mode]["audit"]["alignment_by_channel"].items():
+            entries = []
+            for key in (
+                "prefix_preservation",
+                "first_error_suppression",
+                "false_negative_credit",
+                "false_positive_credit",
+                "advantage_misalignment",
+            ):
+                counts = metrics[key]
+                entries.append(
+                    f"{counts['numerator']}/{counts['denominator']}" if counts["denominator"] else "N/A (0/0)"
+                )
+            lines.append("| " + " | ".join([mode, channel, *entries]) + " |")
+    lines.extend(
+        [
+            "",
             "## P0 实际训练暴露",
             "",
-            "| 配置 | 弱点 | 目标组 | 观察到错误 | 错误局部负向 | 参与非零更新的错误 token |",
-            "|---|---|---:|---:|---:|---:|",
+            "| 配置 | 弱点 | 目标组 | 观察到错误 | 错误局部负向 | 错误非零 Advantage token | 目标非零 Advantage token |",
+            "|---|---|---:|---:|---:|---:|---:|",
         ]
     )
     for mode in MODES:
@@ -246,6 +268,7 @@ def finish(args):
                         "target_errors",
                         "error_local_negative",
                         "updated_error_tokens",
+                        "nonzero_advantage_tokens",
                     )
                 ]
                 lines.append("| " + " | ".join([mode, weakness["weakness_id"], *values]) + " |")

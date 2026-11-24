@@ -58,7 +58,7 @@ def credits(rows, mode):
         row["episode"] = next(episode) if ok else 0.0
         for d in row["decisions"]:
             label = d["transition_label"]
-            reason = "environment_invalid" if not ok else "truncation" if row["truncated"] else None
+            reason = "environment_invalid" if not ok else "truncation" if label == "truncated" else None
             for channel in pools:
                 d[channel + "_adv"] = 0.0
                 d[channel + "_reason"] = reason or "unverified"
@@ -93,7 +93,11 @@ def credits(rows, mode):
         for d in row["decisions"]:
             label, base = d["transition_label"], row["episode"]
             protect = mode in ("E2", "E4")
-            masked = row["strict_success"] is None or (protect and label in ("post_error", "truncated"))
+            masked = (
+                row["strict_success"] is None
+                or (protect and label == "post_error")
+                or (mode != "E1" and label == "truncated")
+            )
             if protect and label in GOOD and base < 0:
                 base = 0.0
             local = {
@@ -102,11 +106,14 @@ def credits(rows, mode):
                 "E3": d["anchor_adv"],
                 "E4": (d["dfa_adv"] + d["anchor_adv"]) / 2,
             }[mode]
+            d["raw_dfa_adv"] = d["dfa_adv"]
+            d["raw_anchor_adv"] = d["anchor_adv"]
+            d["raw_combined_local"] = local
             if protect and label in GOOD:
                 local = max(0.0, local)
             if protect and label == "first_error":
                 local = min(0.0, local)
-            d["local"] = local
+            d["effective_local"] = d["local"] = 0.0 if masked else local
             d["episode_contribution"] = 0.0 if masked else base * (1.0 if mode == "E1" else 0.5)
             d["local_contribution"] = 0.0 if masked else local * (0.0 if mode == "E1" else 0.5)
             d["advantage"] = d["episode_contribution"] + d["local_contribution"]
