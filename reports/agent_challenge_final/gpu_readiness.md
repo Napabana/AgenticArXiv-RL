@@ -17,6 +17,8 @@
 
 增加逐题聚类与环境无效配对的统计回归后，相同 CPU 测试命令共 49 项通过、7 条已有弃用提示。
 
+完整 CPU 测试命令为 `python -m pytest -q AgenticArxiv/tests scripts/agent_challenge_final/test_probe.py --tb=short`。1091 项通过，704 个子测试通过，6 项跳过，11 条 PyTorch/Pydantic 提示，耗时 186.30 秒。
+
 随后 `challenge_train_04_A` 第 4 组（组编号从 0 开始）采到 Strict 成功且 completion 长度为 2610 的真实轨迹，超过旧上限 1792。前 16 组已观察到 3131-token 的 max-turn 轨迹，保留其终止状态。推理可执行性与完整 25-step 训练的峰值显存分别记录。
 
 ```bash
