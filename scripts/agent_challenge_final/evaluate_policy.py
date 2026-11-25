@@ -42,6 +42,19 @@ def main(args):
             raise ValueError("Dev freeze differs from current policy or split")
         if args.split.startswith("production_") and args.policy!=frozen["winner"]:
             raise ValueError("Production regression is restricted to the Dev winner")
+    if args.split.startswith("production_") and (args.output/"evaluation_identity.json").is_file():
+        receipt=json.loads((args.output/"evaluation_identity.json").read_bytes())
+        protocol=json.loads((args.output/"protocol_comparison.json").read_bytes())
+        if (receipt["policy"]!=args.policy or receipt["split"]!=args.split or receipt["adapter_sha256"]!=identity
+                or receipt["manifest_sha256"]!=sha256_file(DATA/"manifest.json")
+                or receipt["details_sha256"]!=sha256_file(args.output/"summary.json")
+                or receipt["trace_sha256"]!=sha256_file(args.output/"traces.jsonl")
+                or protocol["snapshot_sha256"]!=assets["snapshot_sha256"]
+                or any(protocol["native_protocol"][k]!=assets[k] for k in ("system_prompt_sha256","tools_sha256"))
+                or protocol["native_protocol"]["adapter"]!=str(adapter)):
+            raise ValueError("Existing production evaluation differs from this run")
+        print(f"Reused verified {args.split} trials from {args.output}",flush=True)
+        return
     args.output.mkdir(exist_ok=False,parents=True)
     os.environ.update(HF_HUB_OFFLINE="1",STORE_BACKEND="memory",TOOL_ROUTER="policy",VLM_ADAPTER_PATH=str(adapter))
     os.environ.pop("AA_EVAL_GREEDY",None)
@@ -83,4 +96,11 @@ if __name__=="__main__":
     parser.add_argument("--split",choices=["dev","sealed_test","production_dev","production_iid_test","production_ood_test"],required=True)
     parser.add_argument("--dev-freeze",type=Path)
     parser.add_argument("--smoke-e2",action="store_true")
-    main(parser.parse_args())
+    args=parser.parse_args()
+    if args.split.startswith("production_"):
+        from filelock import FileLock
+        args.output.parent.mkdir(parents=True,exist_ok=True)
+        with FileLock(str(args.output)+".lock"):
+            main(args)
+    else:
+        main(args)
