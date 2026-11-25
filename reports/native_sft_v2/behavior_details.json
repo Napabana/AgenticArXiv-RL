@@ -1,0 +1,40 @@
+{
+  "v1": {
+    "counts": {
+      "constraint_total": 6,
+      "constraint_sequence_and_arguments": 3,
+      "recovery_opportunities": 3,
+      "recovered_goal": 0
+    },
+    "opportunities": [
+      {
+        "split": "iid_test",
+        "task": "infeasible_index_out_of_range",
+        "trial": 0,
+        "errors": 5,
+        "recovered": false
+      },
+      {
+        "split": "iid_test",
+        "task": "infeasible_index_out_of_range",
+        "trial": 1,
+        "errors": 5,
+        "recovered": false
+      },
+      {
+        "split": "iid_test",
+        "task": "infeasible_index_out_of_range",
+        "trial": 2,
+        "errors": 5,
+        "recovered": false
+      }
+    ]
+  },
+  "v2": {
+    "counts": {
+      "constraint_total": 6,
+      "constraint_sequence_and_arguments": 5
+    },
+    "opportunities": []
+  }
+}

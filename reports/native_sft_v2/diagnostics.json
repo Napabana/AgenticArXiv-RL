@@ -1,0 +1,1296 @@
+{
+  "paired": {
+    "dev": {
+      "repairs": 1,
+      "regressions": 3,
+      "tasks": 8
+    },
+    "iid_test": {
+      "repairs": 9,
+      "regressions": 0,
+      "tasks": 19
+    },
+    "ood_test": {
+      "repairs": 4,
+      "regressions": 0,
+      "tasks": 4
+    }
+  },
+  "changes": {
+    "opt_force_dl": {
+      "v1": 3,
+      "v2": 0,
+      "split": "dev"
+    },
+    "state_dl_then_cache": {
+      "v1": 2,
+      "v2": 3,
+      "split": "dev"
+    },
+    "chain_cl5_dl3_tr3": {
+      "v1": 0,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "constraint_translate_only": {
+      "v1": 0,
+      "v2": 2,
+      "split": "iid_test"
+    },
+    "infeasible_index_out_of_range": {
+      "v1": 0,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "trread_ro5_page2": {
+      "v1": 2,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "multi_cl5_dl2_cache": {
+      "v1": 2,
+      "v2": 3,
+      "split": "ood_test"
+    },
+    "multi_cv5_dl1_cache_tr": {
+      "v1": 0,
+      "v2": 3,
+      "split": "ood_test"
+    }
+  },
+  "per_task": {
+    "constraint_search_no_file": {
+      "v1": 3,
+      "v2": 3,
+      "split": "dev"
+    },
+    "infeasible_unsupported_action": {
+      "v1": 0,
+      "v2": 0,
+      "split": "dev"
+    },
+    "multi_cv3_dl1": {
+      "v1": 3,
+      "v2": 3,
+      "split": "dev"
+    },
+    "opt_force_dl": {
+      "v1": 3,
+      "v2": 0,
+      "split": "dev"
+    },
+    "ref_ctrl_id_download": {
+      "v1": 3,
+      "v2": 3,
+      "split": "dev"
+    },
+    "search_AI_1d_3": {
+      "v1": 3,
+      "v2": 3,
+      "split": "dev"
+    },
+    "search_kw_agentic_rl": {
+      "v1": 3,
+      "v2": 3,
+      "split": "dev"
+    },
+    "state_dl_then_cache": {
+      "v1": 2,
+      "v2": 3,
+      "split": "dev"
+    },
+    "analyze_ai5_ref4_desc": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "chain_cl5_dl3_tr3": {
+      "v1": 0,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "constraint_translate_only": {
+      "v1": 0,
+      "v2": 2,
+      "split": "iid_test"
+    },
+    "figure_ai5_ref4": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "infeasible_index_out_of_range": {
+      "v1": 0,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "multi_ai3_tr1": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "opt_service": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "qa_cr5_abstract": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "ref_ctrl_id_cache": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "ref_ctrl_null_cache": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "ref_stress_learning_state": {
+      "v1": 0,
+      "v2": 0,
+      "split": "iid_test"
+    },
+    "search_CR_14d_10": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "search_CV_1d_1": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "search_RO_30d_25": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "search_kw_rag": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "state_cache_two": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "state_ref_cache_active": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "summary_lg5_tldr120": {
+      "v1": 3,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "trread_ro5_page2": {
+      "v1": 2,
+      "v2": 3,
+      "split": "iid_test"
+    },
+    "multi_ai5_dl1_tr": {
+      "v1": 3,
+      "v2": 3,
+      "split": "ood_test"
+    },
+    "multi_cl5_dl2_cache": {
+      "v1": 2,
+      "v2": 3,
+      "split": "ood_test"
+    },
+    "multi_cv5_dl1_cache_tr": {
+      "v1": 0,
+      "v2": 3,
+      "split": "ood_test"
+    },
+    "multi_ro3_dl_two": {
+      "v1": 3,
+      "v2": 3,
+      "split": "ood_test"
+    }
+  },
+  "totals": {
+    "v1": {
+      "arguments": {
+        "count": 80.0,
+        "total": 93
+      },
+      "blocked": {
+        "count": 0,
+        "total": 6
+      },
+      "cache": {
+        "count": 20,
+        "total": 27
+      },
+      "conditional": {
+        "count": 11,
+        "total": 15
+      },
+      "errors": {
+        "count": 15,
+        "total": 172
+      },
+      "multi_step": {
+        "count": 31,
+        "total": 39
+      },
+      "pending_ready": {
+        "count": 20,
+        "total": 20
+      },
+      "references": {
+        "count": 58.5,
+        "total": 66
+      },
+      "repeats": {
+        "count": 12,
+        "total": 172
+      },
+      "strict": {
+        "count": 72,
+        "total": 93
+      },
+      "truncated": {
+        "count": 5,
+        "total": 93
+      },
+      "blocked_explanation": {
+        "count": 0,
+        "total": 6
+      },
+      "blocked_zero_calls": {
+        "count": 1,
+        "total": 6
+      },
+      "constraint_strict": {
+        "count": 3,
+        "total": 6
+      },
+      "early_finish": {
+        "count": 7,
+        "total": 93
+      },
+      "exact_tool_sequence": {
+        "count": 81,
+        "total": 93
+      },
+      "final_length_stop": {
+        "count": 2,
+        "total": 93
+      },
+      "final_repeated_line": {
+        "count": 3,
+        "total": 88
+      },
+      "snapshot_misses_per_call": {
+        "count": 0,
+        "total": 172
+      },
+      "recovery_after_error": {
+        "count": 0,
+        "total": 3
+      },
+      "ready_read": {
+        "count": 2,
+        "total": 3
+      },
+      "keep_dual": {
+        "count": 0,
+        "total": 3
+      }
+    },
+    "v2": {
+      "arguments": {
+        "count": 86.5,
+        "total": 93
+      },
+      "blocked": {
+        "count": 3,
+        "total": 6
+      },
+      "cache": {
+        "count": 27,
+        "total": 27
+      },
+      "conditional": {
+        "count": 14,
+        "total": 15
+      },
+      "errors": {
+        "count": 0,
+        "total": 159
+      },
+      "multi_step": {
+        "count": 39,
+        "total": 39
+      },
+      "references": {
+        "count": 60.0,
+        "total": 66
+      },
+      "repeats": {
+        "count": 0,
+        "total": 159
+      },
+      "strict": {
+        "count": 83,
+        "total": 93
+      },
+      "truncated": {
+        "count": 0,
+        "total": 93
+      },
+      "blocked_explanation": {
+        "count": 3,
+        "total": 6
+      },
+      "blocked_zero_calls": {
+        "count": 6,
+        "total": 6
+      },
+      "constraint_strict": {
+        "count": 5,
+        "total": 6
+      },
+      "early_finish": {
+        "count": 3,
+        "total": 93
+      },
+      "exact_tool_sequence": {
+        "count": 90,
+        "total": 93
+      },
+      "final_length_stop": {
+        "count": 0,
+        "total": 93
+      },
+      "final_repeated_line": {
+        "count": 0,
+        "total": 93
+      },
+      "snapshot_misses_per_call": {
+        "count": 0,
+        "total": 159
+      },
+      "recovery_after_error": {
+        "count": 0,
+        "total": 0
+      },
+      "pending_ready": {
+        "count": 18,
+        "total": 18
+      },
+      "ready_read": {
+        "count": 3,
+        "total": 3
+      },
+      "keep_dual": {
+        "count": 2,
+        "total": 3
+      }
+    }
+  },
+  "groups": {
+    "constraint_cache_only": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 2,
+      "naturally_finished_mixed_groups": 2,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 2,
+      "all_success_groups": 6,
+      "all_failed_groups": 0,
+      "strict_success": 30,
+      "strict_total": 32
+    },
+    "chain_ro5_dl_three": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 6,
+      "naturally_finished_mixed_groups": 6,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 6,
+      "all_success_groups": 2,
+      "all_failed_groups": 0,
+      "strict_success": 21,
+      "strict_total": 32
+    },
+    "chain_lg10_dl_tr_last": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 8,
+      "naturally_finished_mixed_groups": 8,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 8,
+      "all_success_groups": 0,
+      "all_failed_groups": 0,
+      "strict_success": 21,
+      "strict_total": 32
+    },
+    "trread_ai5_default": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 4,
+      "naturally_finished_mixed_groups": 1,
+      "truncated_trajectories": 2,
+      "nonzero_reward_groups": 4,
+      "all_success_groups": 4,
+      "all_failed_groups": 0,
+      "strict_success": 28,
+      "strict_total": 32
+    },
+    "infeasible_no_session": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 7,
+      "naturally_finished_mixed_groups": 7,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 8,
+      "all_success_groups": 0,
+      "all_failed_groups": 1,
+      "strict_success": 11,
+      "strict_total": 32
+    },
+    "native_grpo_two_targets": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 0,
+      "naturally_finished_mixed_groups": 0,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 0,
+      "all_success_groups": 8,
+      "all_failed_groups": 0,
+      "strict_success": 32,
+      "strict_total": 32
+    },
+    "native_grpo_versioned_download_cache_translate": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 5,
+      "naturally_finished_mixed_groups": 5,
+      "truncated_trajectories": 1,
+      "nonzero_reward_groups": 5,
+      "all_success_groups": 3,
+      "all_failed_groups": 0,
+      "strict_success": 26,
+      "strict_total": 32
+    },
+    "native_grpo_invalid_index": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 2,
+      "naturally_finished_mixed_groups": 2,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 4,
+      "all_success_groups": 0,
+      "all_failed_groups": 6,
+      "strict_success": 2,
+      "strict_total": 32
+    },
+    "native_grpo_search_download_abstract": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 6,
+      "naturally_finished_mixed_groups": 6,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 6,
+      "all_success_groups": 2,
+      "all_failed_groups": 0,
+      "strict_success": 21,
+      "strict_total": 32
+    },
+    "native_grpo_v2_scope_all_5_0": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 1,
+      "naturally_finished_mixed_groups": 1,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 1,
+      "all_success_groups": 7,
+      "all_failed_groups": 0,
+      "strict_success": 31,
+      "strict_total": 32
+    },
+    "native_grpo_v2_scope_all_5_1": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 1,
+      "naturally_finished_mixed_groups": 1,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 1,
+      "all_success_groups": 7,
+      "all_failed_groups": 0,
+      "strict_success": 31,
+      "strict_total": 32
+    },
+    "native_grpo_v2_scope_CL_5_0": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 5,
+      "naturally_finished_mixed_groups": 4,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 5,
+      "all_success_groups": 3,
+      "all_failed_groups": 0,
+      "strict_success": 25,
+      "strict_total": 32
+    },
+    "native_grpo_v2_scope_CL_5_1": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 1,
+      "naturally_finished_mixed_groups": 0,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 1,
+      "all_success_groups": 7,
+      "all_failed_groups": 0,
+      "strict_success": 31,
+      "strict_total": 32
+    },
+    "native_grpo_v2_scope_all_12_0": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 0,
+      "naturally_finished_mixed_groups": 0,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 0,
+      "all_success_groups": 8,
+      "all_failed_groups": 0,
+      "strict_success": 32,
+      "strict_total": 32
+    },
+    "native_grpo_v2_scope_all_12_1": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 2,
+      "naturally_finished_mixed_groups": 2,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 2,
+      "all_success_groups": 6,
+      "all_failed_groups": 0,
+      "strict_success": 29,
+      "strict_total": 32
+    },
+    "native_grpo_v2_scope_CV_12_0": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 1,
+      "naturally_finished_mixed_groups": 1,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 1,
+      "all_success_groups": 7,
+      "all_failed_groups": 0,
+      "strict_success": 31,
+      "strict_total": 32
+    },
+    "native_grpo_v2_scope_CV_12_1": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 3,
+      "naturally_finished_mixed_groups": 3,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 3,
+      "all_success_groups": 5,
+      "all_failed_groups": 0,
+      "strict_success": 29,
+      "strict_total": 32
+    },
+    "native_grpo_v2_scope_all_19_0": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 3,
+      "naturally_finished_mixed_groups": 3,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 3,
+      "all_success_groups": 5,
+      "all_failed_groups": 0,
+      "strict_success": 29,
+      "strict_total": 32
+    },
+    "native_grpo_v2_scope_all_19_1": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 3,
+      "naturally_finished_mixed_groups": 3,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 3,
+      "all_success_groups": 5,
+      "all_failed_groups": 0,
+      "strict_success": 27,
+      "strict_total": 32
+    },
+    "native_grpo_v2_scope_AI_19_0": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 0,
+      "naturally_finished_mixed_groups": 0,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 0,
+      "all_success_groups": 8,
+      "all_failed_groups": 0,
+      "strict_success": 32,
+      "strict_total": 32
+    },
+    "native_grpo_v2_scope_AI_19_1": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 0,
+      "naturally_finished_mixed_groups": 0,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 0,
+      "all_success_groups": 8,
+      "all_failed_groups": 0,
+      "strict_success": 32,
+      "strict_total": 32
+    },
+    "native_grpo_v2_pair_CV_3": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 1,
+      "naturally_finished_mixed_groups": 0,
+      "truncated_trajectories": 1,
+      "nonzero_reward_groups": 1,
+      "all_success_groups": 7,
+      "all_failed_groups": 0,
+      "strict_success": 31,
+      "strict_total": 32
+    },
+    "native_grpo_v2_pair_CV_1": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 0,
+      "naturally_finished_mixed_groups": 0,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 0,
+      "all_success_groups": 8,
+      "all_failed_groups": 0,
+      "strict_success": 32,
+      "strict_total": 32
+    },
+    "native_grpo_v2_conditional_CV_0": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 1,
+      "naturally_finished_mixed_groups": 1,
+      "truncated_trajectories": 1,
+      "nonzero_reward_groups": 4,
+      "all_success_groups": 0,
+      "all_failed_groups": 7,
+      "strict_success": 1,
+      "strict_total": 32
+    },
+    "native_grpo_v2_conditional_CV_1": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 1,
+      "naturally_finished_mixed_groups": 1,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 1,
+      "all_success_groups": 7,
+      "all_failed_groups": 0,
+      "strict_success": 31,
+      "strict_total": 32
+    },
+    "native_grpo_v2_pair_AI_2": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 2,
+      "naturally_finished_mixed_groups": 2,
+      "truncated_trajectories": 1,
+      "nonzero_reward_groups": 2,
+      "all_success_groups": 6,
+      "all_failed_groups": 0,
+      "strict_success": 29,
+      "strict_total": 32
+    },
+    "native_grpo_v2_pair_AI_4": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 4,
+      "naturally_finished_mixed_groups": 4,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 4,
+      "all_success_groups": 4,
+      "all_failed_groups": 0,
+      "strict_success": 27,
+      "strict_total": 32
+    },
+    "native_grpo_v2_conditional_AI_0": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 0,
+      "naturally_finished_mixed_groups": 0,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 3,
+      "all_success_groups": 0,
+      "all_failed_groups": 8,
+      "strict_success": 0,
+      "strict_total": 32
+    },
+    "native_grpo_v2_conditional_AI_1": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 7,
+      "naturally_finished_mixed_groups": 7,
+      "truncated_trajectories": 2,
+      "nonzero_reward_groups": 7,
+      "all_success_groups": 1,
+      "all_failed_groups": 0,
+      "strict_success": 18,
+      "strict_total": 32
+    },
+    "native_grpo_v2_pair_RO_4": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 1,
+      "naturally_finished_mixed_groups": 0,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 1,
+      "all_success_groups": 7,
+      "all_failed_groups": 0,
+      "strict_success": 31,
+      "strict_total": 32
+    },
+    "native_grpo_v2_pair_RO_2": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 1,
+      "naturally_finished_mixed_groups": 1,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 1,
+      "all_success_groups": 7,
+      "all_failed_groups": 0,
+      "strict_success": 31,
+      "strict_total": 32
+    },
+    "native_grpo_v2_conditional_RO_0": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 1,
+      "naturally_finished_mixed_groups": 1,
+      "truncated_trajectories": 2,
+      "nonzero_reward_groups": 4,
+      "all_success_groups": 0,
+      "all_failed_groups": 7,
+      "strict_success": 1,
+      "strict_total": 32
+    },
+    "native_grpo_v2_conditional_RO_1": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 2,
+      "naturally_finished_mixed_groups": 2,
+      "truncated_trajectories": 1,
+      "nonzero_reward_groups": 2,
+      "all_success_groups": 6,
+      "all_failed_groups": 0,
+      "strict_success": 29,
+      "strict_total": 32
+    }
+  },
+  "common_probe": {
+    "v1": {
+      "groups": 132,
+      "informative_groups": 52,
+      "strict_success": 352,
+      "strict_total": 528
+    },
+    "v2": {
+      "groups": 132,
+      "informative_groups": 34,
+      "strict_success": 413,
+      "strict_total": 528
+    }
+  },
+  "reward_ranking": {
+    "mixed_groups": 81,
+    "strict_mean_higher": 81,
+    "strict_mean_lower": 0,
+    "strict_mean_tied": 0,
+    "all_successes_above_failures": 81,
+    "pairs": 264,
+    "positive_pairs": 264,
+    "tied_pairs": 0,
+    "reversed_pairs": 0
+  },
+  "reward_ranking_by_task": {
+    "constraint_cache_only": {
+      "mixed_groups": 2,
+      "strict_mean_higher": 2,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 2,
+      "pairs": 6,
+      "positive_pairs": 6,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "chain_ro5_dl_three": {
+      "mixed_groups": 6,
+      "strict_mean_higher": 6,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 6,
+      "pairs": 21,
+      "positive_pairs": 21,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "chain_lg10_dl_tr_last": {
+      "mixed_groups": 8,
+      "strict_mean_higher": 8,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 8,
+      "pairs": 25,
+      "positive_pairs": 25,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "trread_ai5_default": {
+      "mixed_groups": 4,
+      "strict_mean_higher": 4,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 4,
+      "pairs": 12,
+      "positive_pairs": 12,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "infeasible_no_session": {
+      "mixed_groups": 7,
+      "strict_mean_higher": 7,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 7,
+      "pairs": 25,
+      "positive_pairs": 25,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_versioned_download_cache_translate": {
+      "mixed_groups": 5,
+      "strict_mean_higher": 5,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 5,
+      "pairs": 16,
+      "positive_pairs": 16,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_invalid_index": {
+      "mixed_groups": 2,
+      "strict_mean_higher": 2,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 2,
+      "pairs": 6,
+      "positive_pairs": 6,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_search_download_abstract": {
+      "mixed_groups": 6,
+      "strict_mean_higher": 6,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 6,
+      "pairs": 23,
+      "positive_pairs": 23,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_scope_all_5_0": {
+      "mixed_groups": 1,
+      "strict_mean_higher": 1,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 1,
+      "pairs": 3,
+      "positive_pairs": 3,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_scope_all_5_1": {
+      "mixed_groups": 1,
+      "strict_mean_higher": 1,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 1,
+      "pairs": 3,
+      "positive_pairs": 3,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_scope_CL_5_0": {
+      "mixed_groups": 5,
+      "strict_mean_higher": 5,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 5,
+      "pairs": 17,
+      "positive_pairs": 17,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_scope_CL_5_1": {
+      "mixed_groups": 1,
+      "strict_mean_higher": 1,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 1,
+      "pairs": 3,
+      "positive_pairs": 3,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_scope_all_12_1": {
+      "mixed_groups": 2,
+      "strict_mean_higher": 2,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 2,
+      "pairs": 7,
+      "positive_pairs": 7,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_scope_CV_12_0": {
+      "mixed_groups": 1,
+      "strict_mean_higher": 1,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 1,
+      "pairs": 3,
+      "positive_pairs": 3,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_scope_CV_12_1": {
+      "mixed_groups": 3,
+      "strict_mean_higher": 3,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 3,
+      "pairs": 9,
+      "positive_pairs": 9,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_scope_all_19_0": {
+      "mixed_groups": 3,
+      "strict_mean_higher": 3,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 3,
+      "pairs": 9,
+      "positive_pairs": 9,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_scope_all_19_1": {
+      "mixed_groups": 3,
+      "strict_mean_higher": 3,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 3,
+      "pairs": 9,
+      "positive_pairs": 9,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_pair_CV_3": {
+      "mixed_groups": 1,
+      "strict_mean_higher": 1,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 1,
+      "pairs": 3,
+      "positive_pairs": 3,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_conditional_CV_0": {
+      "mixed_groups": 1,
+      "strict_mean_higher": 1,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 1,
+      "pairs": 3,
+      "positive_pairs": 3,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_conditional_CV_1": {
+      "mixed_groups": 1,
+      "strict_mean_higher": 1,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 1,
+      "pairs": 3,
+      "positive_pairs": 3,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_pair_AI_2": {
+      "mixed_groups": 2,
+      "strict_mean_higher": 2,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 2,
+      "pairs": 7,
+      "positive_pairs": 7,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_pair_AI_4": {
+      "mixed_groups": 4,
+      "strict_mean_higher": 4,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 4,
+      "pairs": 13,
+      "positive_pairs": 13,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_conditional_AI_1": {
+      "mixed_groups": 7,
+      "strict_mean_higher": 7,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 7,
+      "pairs": 22,
+      "positive_pairs": 22,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_pair_RO_4": {
+      "mixed_groups": 1,
+      "strict_mean_higher": 1,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 1,
+      "pairs": 3,
+      "positive_pairs": 3,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_pair_RO_2": {
+      "mixed_groups": 1,
+      "strict_mean_higher": 1,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 1,
+      "pairs": 3,
+      "positive_pairs": 3,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_conditional_RO_0": {
+      "mixed_groups": 1,
+      "strict_mean_higher": 1,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 1,
+      "pairs": 3,
+      "positive_pairs": 3,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    },
+    "native_grpo_v2_conditional_RO_1": {
+      "mixed_groups": 2,
+      "strict_mean_higher": 2,
+      "strict_mean_lower": 0,
+      "strict_mean_tied": 0,
+      "all_successes_above_failures": 2,
+      "pairs": 7,
+      "positive_pairs": 7,
+      "tied_pairs": 0,
+      "reversed_pairs": 0
+    }
+  },
+  "selected_parents": [
+    "chain_cv5_cache_dl_tr_cache",
+    "chain_lg10_dl_tr_last",
+    "chain_ro5_dl_three",
+    "constraint_cache_only",
+    "constraint_search_only",
+    "infeasible_no_session",
+    "infeasible_zero_index",
+    "read_ai5_default",
+    "state_cache_before_dl",
+    "trread_ai5_default"
+  ],
+  "selected_families": {
+    "C": 3,
+    "A": 2,
+    "E": 2,
+    "A/C/D": 5,
+    "B": 5
+  },
+  "candidates_with_natural_contrasts": [
+    "chain_lg10_dl_tr_last",
+    "chain_ro5_dl_three",
+    "constraint_cache_only",
+    "infeasible_no_session",
+    "native_grpo_invalid_index",
+    "native_grpo_search_download_abstract",
+    "native_grpo_v2_conditional_AI_1",
+    "native_grpo_v2_conditional_RO_1",
+    "native_grpo_v2_pair_AI_2",
+    "native_grpo_v2_pair_AI_4",
+    "native_grpo_v2_scope_CL_5_0",
+    "native_grpo_v2_scope_CV_12_1",
+    "native_grpo_v2_scope_all_12_1",
+    "native_grpo_v2_scope_all_19_0",
+    "native_grpo_v2_scope_all_19_1",
+    "native_grpo_versioned_download_cache_translate"
+  ],
+  "families": {
+    "A": {
+      "groups": 16,
+      "valid_groups": 16,
+      "informative_groups": 6,
+      "naturally_finished_mixed_groups": 3,
+      "truncated_trajectories": 2,
+      "nonzero_reward_groups": 6,
+      "all_success_groups": 10,
+      "all_failed_groups": 0,
+      "strict_success": 58,
+      "strict_total": 64
+    },
+    "C": {
+      "groups": 24,
+      "valid_groups": 24,
+      "informative_groups": 20,
+      "naturally_finished_mixed_groups": 20,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 20,
+      "all_success_groups": 4,
+      "all_failed_groups": 0,
+      "strict_success": 63,
+      "strict_total": 96
+    },
+    "E": {
+      "groups": 16,
+      "valid_groups": 16,
+      "informative_groups": 9,
+      "naturally_finished_mixed_groups": 9,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 12,
+      "all_success_groups": 0,
+      "all_failed_groups": 7,
+      "strict_success": 13,
+      "strict_total": 64
+    },
+    "C/D": {
+      "groups": 8,
+      "valid_groups": 8,
+      "informative_groups": 0,
+      "naturally_finished_mixed_groups": 0,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 0,
+      "all_success_groups": 8,
+      "all_failed_groups": 0,
+      "strict_success": 32,
+      "strict_total": 32
+    },
+    "A/C/D": {
+      "groups": 104,
+      "valid_groups": 104,
+      "informative_groups": 26,
+      "naturally_finished_mixed_groups": 24,
+      "truncated_trajectories": 9,
+      "nonzero_reward_groups": 35,
+      "all_success_groups": 56,
+      "all_failed_groups": 22,
+      "strict_success": 287,
+      "strict_total": 416
+    },
+    "B": {
+      "groups": 96,
+      "valid_groups": 96,
+      "informative_groups": 20,
+      "naturally_finished_mixed_groups": 18,
+      "truncated_trajectories": 0,
+      "nonzero_reward_groups": 20,
+      "all_success_groups": 76,
+      "all_failed_groups": 0,
+      "strict_success": 359,
+      "strict_total": 384
+    }
+  },
+  "first_errors": {
+    "early_finish": 17,
+    "wrong_args": 44,
+    "pending_guard": 1,
+    "wrong_ref": 25,
+    "schema_error": 9,
+    "extra_call": 7,
+    "bad_terminal": 45,
+    "tool_error": 2,
+    "pending_claimed_ready": 1,
+    "wrong_tool": 90
+  },
+  "first_errors_by_family": {
+    "A": {
+      "early_finish": 3,
+      "schema_error": 1,
+      "extra_call": 1
+    },
+    "C": {
+      "wrong_args": 21,
+      "early_finish": 1,
+      "pending_guard": 1,
+      "wrong_ref": 10
+    },
+    "E": {
+      "bad_terminal": 45,
+      "tool_error": 2,
+      "schema_error": 3,
+      "extra_call": 1
+    },
+    "A/C/D": {
+      "early_finish": 13,
+      "pending_claimed_ready": 1,
+      "wrong_tool": 90,
+      "wrong_ref": 15,
+      "schema_error": 3,
+      "extra_call": 5
+    },
+    "B": {
+      "wrong_args": 23,
+      "schema_error": 2
+    }
+  },
+  "tasks_with_any_contrast": 27,
+  "candidates": [
+    "chain_lg10_dl_tr_last",
+    "chain_ro5_dl_three",
+    "constraint_cache_only",
+    "infeasible_no_session",
+    "native_grpo_invalid_index",
+    "native_grpo_search_download_abstract",
+    "native_grpo_v2_conditional_AI_1",
+    "native_grpo_v2_conditional_RO_1",
+    "native_grpo_v2_pair_AI_2",
+    "native_grpo_v2_pair_AI_4",
+    "native_grpo_v2_scope_CL_5_0",
+    "native_grpo_v2_scope_CV_12_1",
+    "native_grpo_v2_scope_all_12_1",
+    "native_grpo_v2_scope_all_19_0",
+    "native_grpo_v2_scope_all_19_1",
+    "native_grpo_versioned_download_cache_translate",
+    "trread_ai5_default"
+  ]
+}

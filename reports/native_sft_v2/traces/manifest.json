@@ -13,5 +13,10 @@
     "lines": 12,
     "raw_sha256": "ca34ade583df3767b3adef30a473ea9afdfdfb4f65ed04813baf410bd129fae5",
     "gz_sha256": "3fda644d6a11701aa8f48e4fe39581a99dab3a5cdcceaa00cdbf59abb72c2288"
+  },
+  "frozen_groups.jsonl.gz": {
+    "lines": 264,
+    "raw_sha256": "79f4d00e5e3eeb149b67e3ada3bc6b8511d8736aeb5fe52ed6f88400595336b4",
+    "gz_sha256": "bc944d80830ae9b9e8505897c09e39dd1a5a17e09ed1821de31c92f14500cc40"
   }
 }
