@@ -1,0 +1,30 @@
+[
+  {
+    "group": 0,
+    "task": "challenge_train_11_B",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 1,
+    "task": "challenge_train_12_B",
+    "nonzero_advantage_tokens": 660,
+    "nonzero_DFA_tokens": 439,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 2,
+    "task": "challenge_train_20_E",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 3,
+    "task": "challenge_train_21_E",
+    "nonzero_advantage_tokens": 240,
+    "nonzero_DFA_tokens": 240,
+    "excluded_invalid_group": false
+  }
+]

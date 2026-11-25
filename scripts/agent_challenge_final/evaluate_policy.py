@@ -18,6 +18,8 @@ def main(args):
     assets=json.loads((REPORT/"asset_identity.json").read_bytes())
     adapter=args.adapter.resolve(strict=True)
     identity=sha256_file(adapter/"adapter_model.safetensors")
+    if args.smoke_e2 and (args.policy!="E2" or args.split!="dev"):
+        raise ValueError("The four-step diagnostic is restricted to E2 Dev")
     if sha256_file(args.snapshot)!=assets["snapshot_sha256"]:
         raise ValueError("snapshot mismatch")
     if args.policy=="SFT":
@@ -26,7 +28,7 @@ def main(args):
     else:
         training=json.loads((adapter.parent/"training.json").read_bytes())
         cfg=json.loads((adapter.parent/"config.json").read_bytes())
-        if identity!=training["adapter_sha256"] or cfg["experiment"]!=args.policy or cfg["steps"]!=25:
+        if identity!=training["adapter_sha256"] or cfg["experiment"]!=args.policy or cfg["steps"]!=(4 if args.smoke_e2 else 25):
             raise ValueError("Pilot checkpoint identity mismatch")
     if args.split=="sealed_test" or args.split.startswith("production_"):
         frozen=json.loads(args.dev_freeze.read_bytes())
@@ -62,7 +64,7 @@ def main(args):
     metrics=out["agents"]["native_tool_calling"]
     if metrics["benchmark_errors"] or metrics["request_errors"]:
         raise ValueError("Benchmark or request errors")
-    write(args.output/"evaluation_identity.json",dict(policy=args.policy,adapter_sha256=identity,
+    write(args.output/"evaluation_identity.json",dict(policy=args.policy,adapter_sha256=identity,smoke_e2=args.smoke_e2,
           manifest_sha256=sha256_file(DATA/"manifest.json"),split=args.split,
           details_sha256=sha256_file(args.output/"summary.json"),trace_sha256=sha256_file(args.output/"traces.jsonl")))
 
@@ -74,4 +76,5 @@ if __name__=="__main__":
     parser.add_argument("--policy",choices=["SFT","E1","E2","E3","E4"],required=True)
     parser.add_argument("--split",choices=["dev","sealed_test","production_dev","production_iid_test","production_ood_test"],required=True)
     parser.add_argument("--dev-freeze",type=Path)
+    parser.add_argument("--smoke-e2",action="store_true")
     main(parser.parse_args())

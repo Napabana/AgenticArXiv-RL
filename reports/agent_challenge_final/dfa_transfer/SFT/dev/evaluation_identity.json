@@ -1,0 +1,8 @@
+{
+  "policy": "SFT",
+  "adapter_sha256": "f0c33a4d32a175bcaf1e83c55231a0108a84859cb748c318db49988a52f7911f",
+  "manifest_sha256": "54402c0a697f4e74c2e0144265c467a81469b6decea110ccd14d48fee943bf0a",
+  "split": "dev",
+  "details_sha256": "316c8cdbd2a23d1b7ba617889fe1f261ed7d80020c6dfda9d8b761539dd7a2b4",
+  "trace_sha256": "bce01fac0bcb933d248b2cfa8b24be51352033025ff3cde36906c241d3aade23"
+}

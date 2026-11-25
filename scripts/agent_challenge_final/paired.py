@@ -14,10 +14,11 @@ from generate_parametric_sft_data import sha256_file
 POLICIES=("SFT","E1","E2","E3","E4")
 
 
-def read_policy(root,policy,split,tasks):
-    base=root/policy/split
+def read_policy(root,policy,split,tasks,*,smoke_e2=False):
+    base=root/policy/("smoke-dev" if smoke_e2 else split)
     receipt=json.loads((base/"evaluation_identity.json").read_bytes())
-    if receipt["policy"]!=policy or receipt["split"]!=split or receipt["manifest_sha256"]!=sha256_file(DATA/"manifest.json"):
+    if (receipt["policy"]!=policy or receipt["split"]!=split or bool(receipt.get("smoke_e2"))!=smoke_e2
+            or receipt["manifest_sha256"]!=sha256_file(DATA/"manifest.json")):
         raise ValueError(f"Evaluation identity mismatch: {base}")
     for name,key in (("summary.json","details_sha256"),("traces.jsonl","trace_sha256")):
         if sha256_file(base/name)!=receipt[key]:
@@ -98,13 +99,18 @@ def summarize(base,rows,tasks):
                 outcomes={k:[counts[k],denoms[k]] for k in counts})
 
 
-def run(root,split,methods=POLICIES):
+def run(root,split,methods=POLICIES,*,smoke_e2=False):
+    if smoke_e2 and (methods!=("SFT","E2") or split!="dev"):
+        raise ValueError("Invalid smoke comparison")
     tasks={t["id"]:t for t in lines(DATA/(split+".jsonl"))}
     adapters={}; policies={}; paired={}
     for p in methods:
-        policies[p],receipt=read_policy(root,p,split,tasks)
+        policies[p],receipt=read_policy(root,p,split,tasks,smoke_e2=smoke_e2 and p=="E2")
         adapters[p]=receipt["adapter_sha256"]
         paired[p]=summarize(policies["SFT"],policies[p],tasks)
+    if smoke_e2:
+        write(root/"smoke_dev_paired.json",paired)
+        return
     write(root/(split+"_paired.json"),paired)
     if split=="dev":
         common=[key for key in policies["SFT"] if all(not policies[p][key]["invalid"] for p in methods)]
@@ -125,5 +131,6 @@ if __name__=="__main__":
     p.add_argument("root",type=Path)
     p.add_argument("split",choices=["dev","sealed_test"])
     p.add_argument("--dfa-only",action="store_true")
+    p.add_argument("--smoke-e2",action="store_true")
     a=p.parse_args()
-    run(a.root,a.split,("SFT","E2") if a.dfa_only else POLICIES)
+    run(a.root,a.split,("SFT","E2") if a.dfa_only else POLICIES,smoke_e2=a.smoke_e2)
