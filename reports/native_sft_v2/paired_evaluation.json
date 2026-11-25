@@ -1,0 +1,1063 @@
+{
+  "splits": {
+    "dev": {
+      "v1": {
+        "arguments": {
+          "count": 21.5,
+          "total": 24
+        },
+        "blocked": {
+          "count": 0,
+          "total": 3
+        },
+        "cache": {
+          "count": 2,
+          "total": 3
+        },
+        "conditional": {
+          "count": 5,
+          "total": 6
+        },
+        "errors": {
+          "count": 0,
+          "total": 28
+        },
+        "multi_step": {
+          "count": 5,
+          "total": 6
+        },
+        "pending_ready": {
+          "count": 2,
+          "total": 2
+        },
+        "references": {
+          "count": 11.5,
+          "total": 12
+        },
+        "repeats": {
+          "count": 0,
+          "total": 28
+        },
+        "strict": {
+          "count": 20,
+          "total": 24
+        },
+        "truncated": {
+          "count": 0,
+          "total": 24
+        },
+        "blocked_explanation": {
+          "count": 0,
+          "total": 3
+        },
+        "blocked_zero_calls": {
+          "count": 1,
+          "total": 3
+        },
+        "constraint_strict": {
+          "count": 3,
+          "total": 3
+        },
+        "early_finish": {
+          "count": 1,
+          "total": 24
+        },
+        "exact_tool_sequence": {
+          "count": 21,
+          "total": 24
+        },
+        "final_length_stop": {
+          "count": 0,
+          "total": 24
+        },
+        "final_repeated_line": {
+          "count": 0,
+          "total": 24
+        },
+        "snapshot_misses_per_call": {
+          "count": 0,
+          "total": 28
+        },
+        "recovery_after_error": {
+          "count": 0,
+          "total": 0
+        }
+      },
+      "v2": {
+        "arguments": {
+          "count": 21.0,
+          "total": 24
+        },
+        "blocked": {
+          "count": 0,
+          "total": 3
+        },
+        "cache": {
+          "count": 3,
+          "total": 3
+        },
+        "conditional": {
+          "count": 6,
+          "total": 6
+        },
+        "errors": {
+          "count": 0,
+          "total": 24
+        },
+        "multi_step": {
+          "count": 6,
+          "total": 6
+        },
+        "references": {
+          "count": 9.0,
+          "total": 12
+        },
+        "repeats": {
+          "count": 0,
+          "total": 24
+        },
+        "strict": {
+          "count": 18,
+          "total": 24
+        },
+        "truncated": {
+          "count": 0,
+          "total": 24
+        },
+        "blocked_explanation": {
+          "count": 0,
+          "total": 3
+        },
+        "blocked_zero_calls": {
+          "count": 3,
+          "total": 3
+        },
+        "constraint_strict": {
+          "count": 3,
+          "total": 3
+        },
+        "early_finish": {
+          "count": 3,
+          "total": 24
+        },
+        "exact_tool_sequence": {
+          "count": 21,
+          "total": 24
+        },
+        "final_length_stop": {
+          "count": 0,
+          "total": 24
+        },
+        "final_repeated_line": {
+          "count": 0,
+          "total": 24
+        },
+        "snapshot_misses_per_call": {
+          "count": 0,
+          "total": 24
+        },
+        "recovery_after_error": {
+          "count": 0,
+          "total": 0
+        }
+      },
+      "trials": [
+        {
+          "id": "constraint_search_no_file",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "constraint_search_no_file",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "constraint_search_no_file",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "infeasible_unsupported_action",
+          "trial": 0,
+          "v1": false,
+          "v2": false
+        },
+        {
+          "id": "infeasible_unsupported_action",
+          "trial": 1,
+          "v1": false,
+          "v2": false
+        },
+        {
+          "id": "infeasible_unsupported_action",
+          "trial": 2,
+          "v1": false,
+          "v2": false
+        },
+        {
+          "id": "multi_cv3_dl1",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "multi_cv3_dl1",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "multi_cv3_dl1",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "opt_force_dl",
+          "trial": 0,
+          "v1": true,
+          "v2": false
+        },
+        {
+          "id": "opt_force_dl",
+          "trial": 1,
+          "v1": true,
+          "v2": false
+        },
+        {
+          "id": "opt_force_dl",
+          "trial": 2,
+          "v1": true,
+          "v2": false
+        },
+        {
+          "id": "ref_ctrl_id_download",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "ref_ctrl_id_download",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "ref_ctrl_id_download",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_AI_1d_3",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_AI_1d_3",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_AI_1d_3",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_kw_agentic_rl",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_kw_agentic_rl",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_kw_agentic_rl",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "state_dl_then_cache",
+          "trial": 0,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "state_dl_then_cache",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "state_dl_then_cache",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        }
+      ],
+      "v1_files": {
+        "trace_sha256": "f4328cc606893e87d8718e094dc7de81e43efa47f680a3c096449ff046220fe4",
+        "details_sha256": "b8c147b689bcd37fadb37f6d1317cb531498233c8f38dfb89df7d1fc05fd7265"
+      },
+      "v2_files": {
+        "trace_sha256": "63a2580905368f041fa84b36cf2ced35ce42c8171766f6e71d122b31055e6247",
+        "details_sha256": "5f1a51c285b7d88d36dac9b81b414f7e0b5074bebeeb25f4400d9aef9bc3397d"
+      }
+    },
+    "iid_test": {
+      "v1": {
+        "arguments": {
+          "count": 48.0,
+          "total": 57
+        },
+        "blocked": {
+          "count": 0,
+          "total": 3
+        },
+        "cache": {
+          "count": 15,
+          "total": 18
+        },
+        "conditional": {
+          "count": 6,
+          "total": 9
+        },
+        "errors": {
+          "count": 15,
+          "total": 108
+        },
+        "multi_step": {
+          "count": 18,
+          "total": 21
+        },
+        "pending_ready": {
+          "count": 12,
+          "total": 12
+        },
+        "ready_read": {
+          "count": 2,
+          "total": 3
+        },
+        "references": {
+          "count": 37.0,
+          "total": 42
+        },
+        "repeats": {
+          "count": 12,
+          "total": 108
+        },
+        "strict": {
+          "count": 44,
+          "total": 57
+        },
+        "truncated": {
+          "count": 4,
+          "total": 57
+        },
+        "blocked_explanation": {
+          "count": 0,
+          "total": 3
+        },
+        "blocked_zero_calls": {
+          "count": 0,
+          "total": 3
+        },
+        "constraint_strict": {
+          "count": 0,
+          "total": 3
+        },
+        "early_finish": {
+          "count": 3,
+          "total": 57
+        },
+        "exact_tool_sequence": {
+          "count": 51,
+          "total": 57
+        },
+        "final_length_stop": {
+          "count": 1,
+          "total": 57
+        },
+        "final_repeated_line": {
+          "count": 1,
+          "total": 53
+        },
+        "keep_dual": {
+          "count": 0,
+          "total": 3
+        },
+        "recovery_after_error": {
+          "count": 0,
+          "total": 3
+        },
+        "snapshot_misses_per_call": {
+          "count": 0,
+          "total": 108
+        }
+      },
+      "v2": {
+        "arguments": {
+          "count": 53.5,
+          "total": 57
+        },
+        "blocked": {
+          "count": 3,
+          "total": 3
+        },
+        "cache": {
+          "count": 18,
+          "total": 18
+        },
+        "conditional": {
+          "count": 8,
+          "total": 9
+        },
+        "errors": {
+          "count": 0,
+          "total": 96
+        },
+        "multi_step": {
+          "count": 21,
+          "total": 21
+        },
+        "pending_ready": {
+          "count": 12,
+          "total": 12
+        },
+        "ready_read": {
+          "count": 3,
+          "total": 3
+        },
+        "references": {
+          "count": 39.0,
+          "total": 42
+        },
+        "repeats": {
+          "count": 0,
+          "total": 96
+        },
+        "strict": {
+          "count": 53,
+          "total": 57
+        },
+        "truncated": {
+          "count": 0,
+          "total": 57
+        },
+        "blocked_explanation": {
+          "count": 3,
+          "total": 3
+        },
+        "blocked_zero_calls": {
+          "count": 3,
+          "total": 3
+        },
+        "constraint_strict": {
+          "count": 2,
+          "total": 3
+        },
+        "early_finish": {
+          "count": 0,
+          "total": 57
+        },
+        "exact_tool_sequence": {
+          "count": 57,
+          "total": 57
+        },
+        "final_length_stop": {
+          "count": 0,
+          "total": 57
+        },
+        "final_repeated_line": {
+          "count": 0,
+          "total": 57
+        },
+        "keep_dual": {
+          "count": 2,
+          "total": 3
+        },
+        "snapshot_misses_per_call": {
+          "count": 0,
+          "total": 96
+        },
+        "recovery_after_error": {
+          "count": 0,
+          "total": 0
+        }
+      },
+      "trials": [
+        {
+          "id": "analyze_ai5_ref4_desc",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "analyze_ai5_ref4_desc",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "analyze_ai5_ref4_desc",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "chain_cl5_dl3_tr3",
+          "trial": 0,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "chain_cl5_dl3_tr3",
+          "trial": 1,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "chain_cl5_dl3_tr3",
+          "trial": 2,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "constraint_translate_only",
+          "trial": 0,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "constraint_translate_only",
+          "trial": 1,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "constraint_translate_only",
+          "trial": 2,
+          "v1": false,
+          "v2": false
+        },
+        {
+          "id": "figure_ai5_ref4",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "figure_ai5_ref4",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "figure_ai5_ref4",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "infeasible_index_out_of_range",
+          "trial": 0,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "infeasible_index_out_of_range",
+          "trial": 1,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "infeasible_index_out_of_range",
+          "trial": 2,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "multi_ai3_tr1",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "multi_ai3_tr1",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "multi_ai3_tr1",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "opt_service",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "opt_service",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "opt_service",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "qa_cr5_abstract",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "qa_cr5_abstract",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "qa_cr5_abstract",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "ref_ctrl_id_cache",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "ref_ctrl_id_cache",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "ref_ctrl_id_cache",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "ref_ctrl_null_cache",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "ref_ctrl_null_cache",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "ref_ctrl_null_cache",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "ref_stress_learning_state",
+          "trial": 0,
+          "v1": false,
+          "v2": false
+        },
+        {
+          "id": "ref_stress_learning_state",
+          "trial": 1,
+          "v1": false,
+          "v2": false
+        },
+        {
+          "id": "ref_stress_learning_state",
+          "trial": 2,
+          "v1": false,
+          "v2": false
+        },
+        {
+          "id": "search_CR_14d_10",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_CR_14d_10",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_CR_14d_10",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_CV_1d_1",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_CV_1d_1",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_CV_1d_1",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_RO_30d_25",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_RO_30d_25",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_RO_30d_25",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_kw_rag",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_kw_rag",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "search_kw_rag",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "state_cache_two",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "state_cache_two",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "state_cache_two",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "state_ref_cache_active",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "state_ref_cache_active",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "state_ref_cache_active",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "summary_lg5_tldr120",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "summary_lg5_tldr120",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "summary_lg5_tldr120",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "trread_ro5_page2",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "trread_ro5_page2",
+          "trial": 1,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "trread_ro5_page2",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        }
+      ],
+      "v1_files": {
+        "trace_sha256": "530263182d247dca9ed73c02f701ffd64cb9e7503377c0b3bb8ca860ce6e7bb7",
+        "details_sha256": "38dd29591085bc0eccdd733893cc6369fffb72049b651fe8946169881f976149"
+      },
+      "v2_files": {
+        "trace_sha256": "2feee6fd2d131450707df1b323133bdd403fce547b418c6afdc2b98838510973",
+        "details_sha256": "efab2573cbf2b3b9c3d73edfd776883f01d84a6d333b68ff8bad090d48e4ad1d"
+      }
+    },
+    "ood_test": {
+      "v1": {
+        "arguments": {
+          "count": 10.5,
+          "total": 12
+        },
+        "cache": {
+          "count": 3,
+          "total": 6
+        },
+        "errors": {
+          "count": 0,
+          "total": 36
+        },
+        "multi_step": {
+          "count": 8,
+          "total": 12
+        },
+        "pending_ready": {
+          "count": 6,
+          "total": 6
+        },
+        "references": {
+          "count": 10.0,
+          "total": 12
+        },
+        "repeats": {
+          "count": 0,
+          "total": 36
+        },
+        "strict": {
+          "count": 8,
+          "total": 12
+        },
+        "truncated": {
+          "count": 1,
+          "total": 12
+        },
+        "early_finish": {
+          "count": 3,
+          "total": 12
+        },
+        "exact_tool_sequence": {
+          "count": 9,
+          "total": 12
+        },
+        "final_length_stop": {
+          "count": 1,
+          "total": 12
+        },
+        "final_repeated_line": {
+          "count": 2,
+          "total": 11
+        },
+        "snapshot_misses_per_call": {
+          "count": 0,
+          "total": 36
+        },
+        "recovery_after_error": {
+          "count": 0,
+          "total": 0
+        }
+      },
+      "v2": {
+        "arguments": {
+          "count": 12.0,
+          "total": 12
+        },
+        "cache": {
+          "count": 6,
+          "total": 6
+        },
+        "errors": {
+          "count": 0,
+          "total": 39
+        },
+        "multi_step": {
+          "count": 12,
+          "total": 12
+        },
+        "pending_ready": {
+          "count": 6,
+          "total": 6
+        },
+        "references": {
+          "count": 12.0,
+          "total": 12
+        },
+        "repeats": {
+          "count": 0,
+          "total": 39
+        },
+        "strict": {
+          "count": 12,
+          "total": 12
+        },
+        "truncated": {
+          "count": 0,
+          "total": 12
+        },
+        "early_finish": {
+          "count": 0,
+          "total": 12
+        },
+        "exact_tool_sequence": {
+          "count": 12,
+          "total": 12
+        },
+        "final_length_stop": {
+          "count": 0,
+          "total": 12
+        },
+        "final_repeated_line": {
+          "count": 0,
+          "total": 12
+        },
+        "snapshot_misses_per_call": {
+          "count": 0,
+          "total": 39
+        },
+        "recovery_after_error": {
+          "count": 0,
+          "total": 0
+        }
+      },
+      "trials": [
+        {
+          "id": "multi_ai5_dl1_tr",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "multi_ai5_dl1_tr",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "multi_ai5_dl1_tr",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "multi_cl5_dl2_cache",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "multi_cl5_dl2_cache",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "multi_cl5_dl2_cache",
+          "trial": 2,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "multi_cv5_dl1_cache_tr",
+          "trial": 0,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "multi_cv5_dl1_cache_tr",
+          "trial": 1,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "multi_cv5_dl1_cache_tr",
+          "trial": 2,
+          "v1": false,
+          "v2": true
+        },
+        {
+          "id": "multi_ro3_dl_two",
+          "trial": 0,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "multi_ro3_dl_two",
+          "trial": 1,
+          "v1": true,
+          "v2": true
+        },
+        {
+          "id": "multi_ro3_dl_two",
+          "trial": 2,
+          "v1": true,
+          "v2": true
+        }
+      ],
+      "v1_files": {
+        "trace_sha256": "e2d56d1326a1770d4c4ad5feac3721f93829dcf88b8f41aaec20a118ab37215f",
+        "details_sha256": "8907e04c8d315ead8154c58ded668d1604e574005dc38b96ba9392b27af18203"
+      },
+      "v2_files": {
+        "trace_sha256": "ca34ade583df3767b3adef30a473ea9afdfdfb4f65ed04813baf410bd129fae5",
+        "details_sha256": "81bbff1352dfae70f04ddf9e07556fd5122dbc7c530fb183769fdc0893997b05"
+      }
+    }
+  },
+  "v2_sha256": "f0c33a4d32a175bcaf1e83c55231a0108a84859cb748c318db49988a52f7911f"
+}

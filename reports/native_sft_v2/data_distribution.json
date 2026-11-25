@@ -67,5 +67,8 @@
     }
   ],
   "new_compressed": [],
-  "actual_training_exposures": null
+  "actual_training_exposures": {"core": 396, "error_targeted": 198, "special": 66},
+  "actual_unique_decisions": 590,
+  "actual_optimizer_steps": 83,
+  "training_manifest_sha256": "661265476111e8f0a187b719fb7dffd5b3c8557d242e676523ffd4fdc3d54a55"
 }
