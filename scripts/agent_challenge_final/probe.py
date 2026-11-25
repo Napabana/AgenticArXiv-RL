@@ -102,7 +102,26 @@ def summarize(tasks, summaries, leakage):
 
 
 def run(args):
+    # A serial handoff and an idle-slot worker can both request the same shard.
+    # Wait before loading any weights, so the waiting process consumes no VRAM.
+    if args.partition=="back":
+        import fcntl
+        args.output.mkdir(parents=True,exist_ok=True)
+        with (args.output/".back-shard.lock").open("a") as handle:
+            fcntl.flock(handle,fcntl.LOCK_EX)
+            if (args.output/"done_back.json").exists():
+                done=json.loads((args.output/"done_back.json").read_bytes())
+                if done["manifest_sha256"]!=sha256_file(DATA/"manifest.json"):
+                    raise ValueError("Shard receipt belongs to a different dataset")
+                return
+            return sample(args)
+    return sample(args)
+
+
+def sample(args):
     import torch
+    if args.yield_when and args.yield_when.exists():
+        return
     tok,rollout,assets=frozen_inputs(args)
     tasks=lines(DATA/"train_candidates.jsonl")
     budget=json.loads((DATA/"generation_budget.json").read_bytes())
@@ -121,6 +140,9 @@ def run(args):
         tid=task["id"]
         limits={**budget,"max_turns":task["max_iterations"]}
         for g in range(8):
+            if args.yield_when and args.yield_when.exists():
+                print("Yielding the idle GPU slot at a committed group boundary",flush=True)
+                return
             seed=42+idx*8+g
             path=args.output/"groups"/tid/f"{g}.json.gz"
             if path.exists():
@@ -165,5 +187,6 @@ if __name__=="__main__":
     for k in ("base","adapter","snapshot","output"):
         parser.add_argument("--"+k,type=Path,required=True)
     parser.add_argument("--partition",choices=("all","front","back"),default="all")
+    parser.add_argument("--yield-when",type=Path,help="Return between groups when the pilot plan is frozen")
     os.environ.update(HF_HUB_OFFLINE="1",STORE_BACKEND="memory")
     run(parser.parse_args())

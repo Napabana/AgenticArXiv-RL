@@ -73,6 +73,13 @@ def run(args):
     if args.freeze_only:
         print(json.dumps(dict(sampled=data["completed_tasks"],eligible=data["eligible"],plan=data["plan"])))
         return
+    idle_slot=args.output/"idle-slot.lock"
+    if not args.smoke and idle_slot.exists():
+        import fcntl
+        with idle_slot.open("a") as handle:
+            fcntl.flock(handle,fcntl.LOCK_EX)
+        # The additional Probe process sees the now-frozen pilot inputs and exits
+        # before releasing this lock. The primary Probe keeps sampling normally.
     tasks=[t for t in lines(DATA/"train_candidates.jsonl") if t["id"] in data["eligible"]]
     tok,rollout,runtime=frozen_inputs(args)
     split=json.loads((DATA/"generation_budget.json").read_bytes())

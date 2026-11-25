@@ -15,6 +15,8 @@
 
 一条冻结采样进程和一条独立训练或评测进程共享 RTX 4090。另一半尚未采完的 Probe 在前半结束后续采原 Seed。Dev 基线使用最新 SFT v2 在 Challenge 的 8 个任务上各采 3 次。E2 使用同一评测入口、任务与 Seed。Sealed Test 只在 Dev 配置冻结后执行。原生产集的 83/93 为独立回归基线。
 
+四步模型的 Dev 诊断结束后，若 25-group 固定计划的入选题仍不足，空出的执行位置可回填原来暂停的采样。回填进程持有运行目录的 `idle-slot.lock`，并使用 `probe.py --partition back --yield-when RUN_DIR/pilot_inputs.json`；正式计划冻结后在一个完整组落盘时退出。E2 在锁释放后加载模型，采样期间每个分片仅有一个写入者。
+
 单方法训练入口为 `scripts/agent_challenge_final/dfa_transfer.py`，接收 `--probe --output --base --adapter --snapshot`。加 `--smoke` 执行四步，加 `--freeze-only` 只冻结数据。配对工具使用 `paired.py RUN_DIR dev --dfa-only` 或对应的 sealed_test 命令。
 
 CPU 验证覆盖无效组整组掩码、原始标签保留、冻结后的 Smoke 输入不可变，以及既有 Native Agent 回归。完整套件 1093 项通过、6 项跳过、704 个子测试通过，11 条已有警告，耗时 180.05 秒。
