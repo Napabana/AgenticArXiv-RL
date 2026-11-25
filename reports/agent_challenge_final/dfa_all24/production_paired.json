@@ -1,0 +1,620 @@
+{
+  "dev": {
+    "sft": 18,
+    "winner": 18,
+    "n": 24,
+    "trials": [
+      {
+        "id": "constraint_search_no_file",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "constraint_search_no_file",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "constraint_search_no_file",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "infeasible_unsupported_action",
+        "trial": 0,
+        "sft": false,
+        "winner": false
+      },
+      {
+        "id": "infeasible_unsupported_action",
+        "trial": 1,
+        "sft": false,
+        "winner": false
+      },
+      {
+        "id": "infeasible_unsupported_action",
+        "trial": 2,
+        "sft": false,
+        "winner": false
+      },
+      {
+        "id": "multi_cv3_dl1",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_cv3_dl1",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_cv3_dl1",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "opt_force_dl",
+        "trial": 0,
+        "sft": false,
+        "winner": false
+      },
+      {
+        "id": "opt_force_dl",
+        "trial": 1,
+        "sft": false,
+        "winner": false
+      },
+      {
+        "id": "opt_force_dl",
+        "trial": 2,
+        "sft": false,
+        "winner": false
+      },
+      {
+        "id": "ref_ctrl_id_download",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "ref_ctrl_id_download",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "ref_ctrl_id_download",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_AI_1d_3",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_AI_1d_3",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_AI_1d_3",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_kw_agentic_rl",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_kw_agentic_rl",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_kw_agentic_rl",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "state_dl_then_cache",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "state_dl_then_cache",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "state_dl_then_cache",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      }
+    ],
+    "repairs": [],
+    "regressions": [],
+    "sft_files": {
+      "trace_sha256": "63a2580905368f041fa84b36cf2ced35ce42c8171766f6e71d122b31055e6247",
+      "details_sha256": "5f1a51c285b7d88d36dac9b81b414f7e0b5074bebeeb25f4400d9aef9bc3397d"
+    },
+    "winner_files": {
+      "trace_sha256": "2598ebe8b4fbe0b5e4e231861ca39b03f0ed1e1d4070497a7a4c1b2b8f0f2c76",
+      "details_sha256": "5d3d4c575faaa210778aa6f63415116b3d08837f808d68e6eb54df6e4daa78da"
+    }
+  },
+  "iid_test": {
+    "sft": 53,
+    "winner": 51,
+    "n": 57,
+    "trials": [
+      {
+        "id": "analyze_ai5_ref4_desc",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "analyze_ai5_ref4_desc",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "analyze_ai5_ref4_desc",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "chain_cl5_dl3_tr3",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "chain_cl5_dl3_tr3",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "chain_cl5_dl3_tr3",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "constraint_translate_only",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "constraint_translate_only",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "constraint_translate_only",
+        "trial": 2,
+        "sft": false,
+        "winner": false
+      },
+      {
+        "id": "figure_ai5_ref4",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "figure_ai5_ref4",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "figure_ai5_ref4",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "infeasible_index_out_of_range",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "infeasible_index_out_of_range",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "infeasible_index_out_of_range",
+        "trial": 2,
+        "sft": true,
+        "winner": false
+      },
+      {
+        "id": "multi_ai3_tr1",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_ai3_tr1",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_ai3_tr1",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "opt_service",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "opt_service",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "opt_service",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "qa_cr5_abstract",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "qa_cr5_abstract",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "qa_cr5_abstract",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "ref_ctrl_id_cache",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "ref_ctrl_id_cache",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "ref_ctrl_id_cache",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "ref_ctrl_null_cache",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "ref_ctrl_null_cache",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "ref_ctrl_null_cache",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "ref_stress_learning_state",
+        "trial": 0,
+        "sft": false,
+        "winner": false
+      },
+      {
+        "id": "ref_stress_learning_state",
+        "trial": 1,
+        "sft": false,
+        "winner": false
+      },
+      {
+        "id": "ref_stress_learning_state",
+        "trial": 2,
+        "sft": false,
+        "winner": false
+      },
+      {
+        "id": "search_CR_14d_10",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_CR_14d_10",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_CR_14d_10",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_CV_1d_1",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_CV_1d_1",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_CV_1d_1",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_RO_30d_25",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_RO_30d_25",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_RO_30d_25",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_kw_rag",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "search_kw_rag",
+        "trial": 1,
+        "sft": true,
+        "winner": false
+      },
+      {
+        "id": "search_kw_rag",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "state_cache_two",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "state_cache_two",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "state_cache_two",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "state_ref_cache_active",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "state_ref_cache_active",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "state_ref_cache_active",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "summary_lg5_tldr120",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "summary_lg5_tldr120",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "summary_lg5_tldr120",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "trread_ro5_page2",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "trread_ro5_page2",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "trread_ro5_page2",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      }
+    ],
+    "repairs": [],
+    "regressions": [
+      [
+        "infeasible_index_out_of_range",
+        2
+      ],
+      [
+        "search_kw_rag",
+        1
+      ]
+    ],
+    "sft_files": {
+      "trace_sha256": "2feee6fd2d131450707df1b323133bdd403fce547b418c6afdc2b98838510973",
+      "details_sha256": "efab2573cbf2b3b9c3d73edfd776883f01d84a6d333b68ff8bad090d48e4ad1d"
+    },
+    "winner_files": {
+      "trace_sha256": "e0682725719b46f0eed279d488dea137814f3a9cd503037383f48798f2878051",
+      "details_sha256": "d3db15ba60ece2008ec5495760f2681a97363eb7815d7cf7becc92f3f1bea76e"
+    }
+  },
+  "ood_test": {
+    "sft": 12,
+    "winner": 12,
+    "n": 12,
+    "trials": [
+      {
+        "id": "multi_ai5_dl1_tr",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_ai5_dl1_tr",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_ai5_dl1_tr",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_cl5_dl2_cache",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_cl5_dl2_cache",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_cl5_dl2_cache",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_cv5_dl1_cache_tr",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_cv5_dl1_cache_tr",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_cv5_dl1_cache_tr",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_ro3_dl_two",
+        "trial": 0,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_ro3_dl_two",
+        "trial": 1,
+        "sft": true,
+        "winner": true
+      },
+      {
+        "id": "multi_ro3_dl_two",
+        "trial": 2,
+        "sft": true,
+        "winner": true
+      }
+    ],
+    "repairs": [],
+    "regressions": [],
+    "sft_files": {
+      "trace_sha256": "ca34ade583df3767b3adef30a473ea9afdfdfb4f65ed04813baf410bd129fae5",
+      "details_sha256": "81bbff1352dfae70f04ddf9e07556fd5122dbc7c530fb183769fdc0893997b05"
+    },
+    "winner_files": {
+      "trace_sha256": "51c7566572646c39c96d629c722e76fb06315f35569e79c8d2e8da126a5f249c",
+      "details_sha256": "3bde1cd81f7be37980162fa760cabc1c67c91ce79bdc94e06c6fc35dd065b659"
+    }
+  }
+}

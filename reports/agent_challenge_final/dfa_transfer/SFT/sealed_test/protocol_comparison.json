@@ -1,0 +1,85 @@
+{
+  "agents": {
+    "native_tool_calling": {
+      "format_parse_success": {
+        "count": 243,
+        "total": 243,
+        "rate": 1.0
+      },
+      "schema_compliance": {
+        "count": 228,
+        "total": 228,
+        "rate": 1.0
+      },
+      "tool_accuracy": {
+        "count": 3,
+        "total": 36,
+        "rate": 0.08333333333333333
+      },
+      "argument_accuracy": {
+        "score_sum": 11.513095238095238,
+        "total": 36,
+        "rate": 0.31980820105820107
+      },
+      "tool_error_rate": {
+        "count": 52,
+        "total": 228,
+        "rate": 0.22807017543859648
+      },
+      "snapshot_coverage_errors": 31,
+      "setup_failures": 0,
+      "unexpected_repeat_calls": 68,
+      "pending_guard_errors": 0,
+      "pending_finished": {
+        "count": 3,
+        "total": 3,
+        "rate": 1.0
+      },
+      "explained_refusal": {
+        "count": 0,
+        "total": 0,
+        "rate": null
+      },
+      "strict_success": {
+        "count": 0,
+        "total": 36,
+        "rate": 0.0
+      },
+      "avg_executed_tool_calls": 6.333333333333333,
+      "avg_prompt_tokens": 28630.222222222223,
+      "avg_completion_tokens": 475.69444444444446,
+      "avg_total_tokens": 29105.916666666668,
+      "avg_llm_ms": 46158.72222222222,
+      "avg_total_ms": 46174.083333333336,
+      "avg_reward": -0.2963933888888889,
+      "benchmark_errors": 0,
+      "request_errors": 0,
+      "error_terminations": 0,
+      "issues": {},
+      "recovered_format_errors": 0,
+      "returned_models": [
+        "/root/sj-tmp/models/Qwen3.5-2B-Base"
+      ],
+      "generation_stop_reasons": {
+        "tool_call_end": 228,
+        "chat_end": 15
+      }
+    }
+  },
+  "paired_strict": {
+    "total": 0,
+    "fail_to_pass": 0,
+    "pass_to_fail": 0
+  },
+  "requested_model": "/root/sj-tmp/models/Qwen3.5-2B-Base",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "native_protocol": {
+    "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+    "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+    "repeat": 3,
+    "seed": 42,
+    "split": null,
+    "no_thinking": true,
+    "adapter": "/root/sj-tmp/native-sft-v2-56780/run/formal/adapter"
+  }
+}

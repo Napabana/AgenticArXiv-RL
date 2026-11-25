@@ -8,6 +8,8 @@ from audit_snapshot import DATA, write
 from audit_tasks import lines
 from generate_parametric_sft_data import sha256_file
 from paired import read_policy, summarize
+from rl.task_automaton import transitions
+from tools.bootstrap import require_all_tools
 
 
 def read(path):
@@ -46,6 +48,7 @@ def training(root):
 
 
 def compare(screened, full, output):
+    require_all_tools("Challenge paired-prefix audit")
     arms = {"screened": screened, "full": full}
     configs, runs = {}, {}
     for arm, root in arms.items():
@@ -70,8 +73,20 @@ def compare(screened, full, output):
             if identity["adapter_sha256"] != runs[arm]["adapter"]:
                 raise ValueError(f"Wrong {arm} evaluation weights")
         common = [k for k in baseline if all(not r[k]["invalid"] for r in (baseline, *policies.values()))]
+        prefixes = {}
+        for name, root, policy in (("SFT", screened, "SFT"), ("screened", screened, "E2"), ("full", full, "E2")):
+            results = []
+            for trace in lines(root / policy / split / "traces.jsonl"):
+                key = (trace["task_id"], trace["trial"])
+                if key not in common:
+                    continue
+                row = transitions(tasks[key[0]], {**trace, "reached_max_turns": trace["history"][-1]["action"] == "FORCE_STOP"})
+                results.append(dict(task=key[0], trial=key[1], prefix=row["verified_prefix_length"],
+                                    required=len(tasks[key[0]]["expected_tools"]), first_error=row["first_error_kind"]))
+            prefixes[name] = results
         challenge[split] = dict(
             full_vs_screened=summarize(policies["screened"], policies["full"], tasks),
+            verified_tool_prefixes=prefixes,
             common_trials=len(common), common_strict={k: sum(rows[i]["strict"] for i in common)
                 for k, rows in {"SFT": baseline, **policies}.items()})
     production = {}

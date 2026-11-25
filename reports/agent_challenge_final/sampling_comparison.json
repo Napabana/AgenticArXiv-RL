@@ -1,0 +1,1985 @@
+{
+  "training": {
+    "screened": {
+      "adapter": "e14a657dab2acfead9ed00df531ebea204f30f54d24ee1578ba509b33fd64477",
+      "seconds": 2709.3936586380005,
+      "peak_bytes": 7713983488,
+      "valid_groups": 22,
+      "strict_contrast_groups": 4,
+      "dfa_groups": 15,
+      "any_advantage_groups": 15,
+      "dfa_tokens": 4919,
+      "advantage_tokens": 5897,
+      "groups": [
+        {
+          "group": 0,
+          "task": "challenge_train_23_F",
+          "nonzero_advantage_tokens": 417,
+          "nonzero_DFA_tokens": 417,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 1,
+          "task": "challenge_train_19_D",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 1
+        },
+        {
+          "group": 2,
+          "task": "challenge_train_10_B",
+          "nonzero_advantage_tokens": 160,
+          "nonzero_DFA_tokens": 160,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 2
+        },
+        {
+          "group": 3,
+          "task": "challenge_train_09_B",
+          "nonzero_advantage_tokens": 162,
+          "nonzero_DFA_tokens": 162,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 1
+        },
+        {
+          "group": 4,
+          "task": "challenge_train_11_B",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 1
+        },
+        {
+          "group": 5,
+          "task": "challenge_train_09_B",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": true,
+          "strict": [
+            0,
+            null,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 6,
+          "task": "challenge_train_11_B",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 2
+        },
+        {
+          "group": 7,
+          "task": "challenge_train_19_D",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 1
+        },
+        {
+          "group": 8,
+          "task": "challenge_train_10_B",
+          "nonzero_advantage_tokens": 822,
+          "nonzero_DFA_tokens": 396,
+          "excluded_invalid_group": false,
+          "strict": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": true,
+          "truncated": 0
+        },
+        {
+          "group": 9,
+          "task": "challenge_train_21_E",
+          "nonzero_advantage_tokens": 208,
+          "nonzero_DFA_tokens": 208,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 10,
+          "task": "challenge_train_10_B",
+          "nonzero_advantage_tokens": 252,
+          "nonzero_DFA_tokens": 252,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 11,
+          "task": "challenge_train_09_B",
+          "nonzero_advantage_tokens": 162,
+          "nonzero_DFA_tokens": 162,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 1
+        },
+        {
+          "group": 12,
+          "task": "challenge_train_23_F",
+          "nonzero_advantage_tokens": 542,
+          "nonzero_DFA_tokens": 317,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "strict_contrast": true,
+          "truncated": 0
+        },
+        {
+          "group": 13,
+          "task": "challenge_train_20_E",
+          "nonzero_advantage_tokens": 277,
+          "nonzero_DFA_tokens": 277,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 14,
+          "task": "challenge_train_21_E",
+          "nonzero_advantage_tokens": 230,
+          "nonzero_DFA_tokens": 230,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 1
+        },
+        {
+          "group": 15,
+          "task": "challenge_train_12_B",
+          "nonzero_advantage_tokens": 155,
+          "nonzero_DFA_tokens": 155,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 1
+        },
+        {
+          "group": 16,
+          "task": "challenge_train_12_B",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": true,
+          "strict": [
+            0,
+            0,
+            null,
+            1
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 17,
+          "task": "challenge_train_19_D",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 3
+        },
+        {
+          "group": 18,
+          "task": "challenge_train_23_F",
+          "nonzero_advantage_tokens": 825,
+          "nonzero_DFA_tokens": 586,
+          "excluded_invalid_group": false,
+          "strict": [
+            1,
+            0,
+            1,
+            0
+          ],
+          "strict_contrast": true,
+          "truncated": 0
+        },
+        {
+          "group": 19,
+          "task": "challenge_train_12_B",
+          "nonzero_advantage_tokens": 531,
+          "nonzero_DFA_tokens": 443,
+          "excluded_invalid_group": false,
+          "strict": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": true,
+          "truncated": 0
+        },
+        {
+          "group": 20,
+          "task": "challenge_train_21_E",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 21,
+          "task": "challenge_train_20_E",
+          "nonzero_advantage_tokens": 512,
+          "nonzero_DFA_tokens": 512,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 22,
+          "task": "challenge_train_11_B",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 23,
+          "task": "challenge_train_20_E",
+          "nonzero_advantage_tokens": 642,
+          "nonzero_DFA_tokens": 642,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 1
+        }
+      ]
+    },
+    "full": {
+      "adapter": "7990f3210147d7f41fac13704e446962ec8d22b0c157eec077531f7566f85171",
+      "seconds": 3163.8226541280746,
+      "peak_bytes": 7733795840,
+      "valid_groups": 22,
+      "strict_contrast_groups": 4,
+      "dfa_groups": 13,
+      "any_advantage_groups": 13,
+      "dfa_tokens": 4399,
+      "advantage_tokens": 5423,
+      "groups": [
+        {
+          "group": 0,
+          "task": "challenge_train_16_C",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 3
+        },
+        {
+          "group": 1,
+          "task": "challenge_train_06_A",
+          "nonzero_advantage_tokens": 248,
+          "nonzero_DFA_tokens": 248,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 1
+        },
+        {
+          "group": 2,
+          "task": "challenge_train_19_D",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 2
+        },
+        {
+          "group": 3,
+          "task": "challenge_train_24_F",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 4,
+          "task": "challenge_train_14_C",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": true,
+          "strict": [
+            null,
+            0,
+            0,
+            null
+          ],
+          "strict_contrast": false,
+          "truncated": 2
+        },
+        {
+          "group": 5,
+          "task": "challenge_train_11_B",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 2
+        },
+        {
+          "group": 6,
+          "task": "challenge_train_18_D",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 7,
+          "task": "challenge_train_12_B",
+          "nonzero_advantage_tokens": 454,
+          "nonzero_DFA_tokens": 430,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "strict_contrast": true,
+          "truncated": 0
+        },
+        {
+          "group": 8,
+          "task": "challenge_train_15_C",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": true,
+          "strict": [
+            0,
+            null,
+            null,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 2
+        },
+        {
+          "group": 9,
+          "task": "challenge_train_17_D",
+          "nonzero_advantage_tokens": 357,
+          "nonzero_DFA_tokens": 357,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 10,
+          "task": "challenge_train_02_A",
+          "nonzero_advantage_tokens": 212,
+          "nonzero_DFA_tokens": 212,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 11,
+          "task": "challenge_train_13_C",
+          "nonzero_advantage_tokens": 210,
+          "nonzero_DFA_tokens": 210,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 1
+        },
+        {
+          "group": 12,
+          "task": "challenge_train_22_E",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 13,
+          "task": "challenge_train_07_B",
+          "nonzero_advantage_tokens": 159,
+          "nonzero_DFA_tokens": 159,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 1
+        },
+        {
+          "group": 14,
+          "task": "challenge_train_10_B",
+          "nonzero_advantage_tokens": 505,
+          "nonzero_DFA_tokens": 337,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "strict_contrast": true,
+          "truncated": 2
+        },
+        {
+          "group": 15,
+          "task": "challenge_train_03_A",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 2
+        },
+        {
+          "group": 16,
+          "task": "challenge_train_23_F",
+          "nonzero_advantage_tokens": 404,
+          "nonzero_DFA_tokens": 404,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 2
+        },
+        {
+          "group": 17,
+          "task": "challenge_train_05_A",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 18,
+          "task": "challenge_train_20_E",
+          "nonzero_advantage_tokens": 492,
+          "nonzero_DFA_tokens": 492,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        },
+        {
+          "group": 19,
+          "task": "challenge_train_08_B",
+          "nonzero_advantage_tokens": 652,
+          "nonzero_DFA_tokens": 448,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "strict_contrast": true,
+          "truncated": 3
+        },
+        {
+          "group": 20,
+          "task": "challenge_train_09_B",
+          "nonzero_advantage_tokens": 0,
+          "nonzero_DFA_tokens": 0,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 1
+        },
+        {
+          "group": 21,
+          "task": "challenge_train_01_A",
+          "nonzero_advantage_tokens": 837,
+          "nonzero_DFA_tokens": 209,
+          "excluded_invalid_group": false,
+          "strict": [
+            1,
+            0,
+            1,
+            0
+          ],
+          "strict_contrast": true,
+          "truncated": 2
+        },
+        {
+          "group": 22,
+          "task": "challenge_train_04_A",
+          "nonzero_advantage_tokens": 596,
+          "nonzero_DFA_tokens": 596,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 3
+        },
+        {
+          "group": 23,
+          "task": "challenge_train_21_E",
+          "nonzero_advantage_tokens": 297,
+          "nonzero_DFA_tokens": 297,
+          "excluded_invalid_group": false,
+          "strict": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "strict_contrast": false,
+          "truncated": 0
+        }
+      ]
+    }
+  },
+  "shared_config": {
+    "experiment": "E2",
+    "outcome": "benchmark_strict_01",
+    "steps": 24,
+    "lambda": 0.5,
+    "seed": 42,
+    "G": 4,
+    "temperature": 1.0,
+    "lr": 5e-06,
+    "kl_beta": 0.04,
+    "per_device_train_batch_size": 1,
+    "gradient_accumulation_steps": 4,
+    "bf16": true,
+    "max_completion_length": 4605,
+    "max_new_tokens_per_turn": 704,
+    "max_turns": 9,
+    "scale_rewards": "group",
+    "dynamic_sampling": false,
+    "exclude_invalid_groups": true,
+    "protocol": "single_method_DFA_transfer",
+    "loss_type": "dapo",
+    "adapter_sha256": "f0c33a4d32a175bcaf1e83c55231a0108a84859cb748c318db49988a52f7911f",
+    "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+    "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+    "dev_sha256": "125fb28bfc62920c633b80cb00cb794ca96a8f87ae5afbf7fcb33c50160e9dfd",
+    "candidate_sha256": "e9ad62fdd0401bb6cf27aab89119e2b9ffc8e088f2568b5d62b3c7125434cd82"
+  },
+  "challenge": {
+    "dev": {
+      "full_vs_screened": {
+        "strict": 9,
+        "trials": 24,
+        "repairs": [],
+        "regressions": [
+          [
+            "challenge_dev_03_B",
+            0
+          ],
+          [
+            "challenge_dev_03_B",
+            1
+          ],
+          [
+            "challenge_dev_03_B",
+            2
+          ]
+        ],
+        "valid_paired_net": -3,
+        "environment_invalid_pairs": [
+          [
+            "challenge_dev_05_C",
+            1
+          ],
+          [
+            "challenge_dev_05_C",
+            2
+          ]
+        ],
+        "valid_pair_cluster_bootstrap_95": [
+          -0.4090909090909091,
+          0.0
+        ],
+        "by_family": {
+          "A": [
+            3,
+            6
+          ],
+          "B": [
+            3,
+            6
+          ],
+          "C": [
+            0,
+            3
+          ],
+          "D": [
+            3,
+            3
+          ],
+          "E": [
+            0,
+            3
+          ],
+          "F": [
+            0,
+            3
+          ]
+        },
+        "by_difficulty": {
+          "L1": [
+            3,
+            6
+          ],
+          "L2": [
+            6,
+            9
+          ],
+          "L3": [
+            0,
+            9
+          ]
+        },
+        "outcomes": {
+          "exact_sequence": [
+            9,
+            24
+          ],
+          "strict": [
+            9,
+            24
+          ],
+          "all_requested_calls": [
+            9,
+            24
+          ],
+          "missing_calls": [
+            21,
+            99
+          ],
+          "extra_calls": [
+            16,
+            94
+          ],
+          "tool_issues": [
+            6,
+            94
+          ],
+          "early_finish": [
+            7,
+            24
+          ],
+          "snapshot_miss": [
+            0,
+            24
+          ],
+          "environment_invalid": [
+            0,
+            24
+          ],
+          "force": [
+            3,
+            3
+          ],
+          "resolved_id": [
+            56,
+            90
+          ],
+          "state_workflow": [
+            3,
+            6
+          ],
+          "cross_paper_refs": [
+            1,
+            9
+          ],
+          "content_workflow": [
+            3,
+            3
+          ],
+          "async_workflow": [
+            0,
+            3
+          ]
+        }
+      },
+      "verified_tool_prefixes": {
+        "SFT": [
+          {
+            "task": "challenge_dev_01_A",
+            "trial": 0,
+            "prefix": 3,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_01_A",
+            "trial": 1,
+            "prefix": 3,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_01_A",
+            "trial": 2,
+            "prefix": 3,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_02_A",
+            "trial": 0,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_02_A",
+            "trial": 1,
+            "prefix": 0,
+            "required": 4,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_02_A",
+            "trial": 2,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_03_B",
+            "trial": 0,
+            "prefix": 1,
+            "required": 4,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_03_B",
+            "trial": 1,
+            "prefix": 1,
+            "required": 4,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_03_B",
+            "trial": 2,
+            "prefix": 1,
+            "required": 4,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_04_B",
+            "trial": 0,
+            "prefix": 3,
+            "required": 3,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_04_B",
+            "trial": 1,
+            "prefix": 3,
+            "required": 3,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_04_B",
+            "trial": 2,
+            "prefix": 3,
+            "required": 3,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_05_C",
+            "trial": 0,
+            "prefix": 0,
+            "required": 5,
+            "first_error": "wrong_args"
+          },
+          {
+            "task": "challenge_dev_06_D",
+            "trial": 0,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_06_D",
+            "trial": 1,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_06_D",
+            "trial": 2,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_07_E",
+            "trial": 0,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_07_E",
+            "trial": 1,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_07_E",
+            "trial": 2,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_08_F",
+            "trial": 0,
+            "prefix": 2,
+            "required": 3,
+            "first_error": "early_finish"
+          },
+          {
+            "task": "challenge_dev_08_F",
+            "trial": 1,
+            "prefix": 2,
+            "required": 3,
+            "first_error": "early_finish"
+          },
+          {
+            "task": "challenge_dev_08_F",
+            "trial": 2,
+            "prefix": 2,
+            "required": 3,
+            "first_error": "early_finish"
+          }
+        ],
+        "screened": [
+          {
+            "task": "challenge_dev_01_A",
+            "trial": 0,
+            "prefix": 3,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_01_A",
+            "trial": 1,
+            "prefix": 3,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_01_A",
+            "trial": 2,
+            "prefix": 3,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_02_A",
+            "trial": 0,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_02_A",
+            "trial": 1,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_02_A",
+            "trial": 2,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_03_B",
+            "trial": 0,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_03_B",
+            "trial": 1,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_03_B",
+            "trial": 2,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_04_B",
+            "trial": 0,
+            "prefix": 3,
+            "required": 3,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_04_B",
+            "trial": 1,
+            "prefix": 3,
+            "required": 3,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_04_B",
+            "trial": 2,
+            "prefix": 3,
+            "required": 3,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_05_C",
+            "trial": 0,
+            "prefix": 0,
+            "required": 5,
+            "first_error": "wrong_args"
+          },
+          {
+            "task": "challenge_dev_06_D",
+            "trial": 0,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_06_D",
+            "trial": 1,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_06_D",
+            "trial": 2,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_07_E",
+            "trial": 0,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_07_E",
+            "trial": 1,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_07_E",
+            "trial": 2,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_08_F",
+            "trial": 0,
+            "prefix": 2,
+            "required": 3,
+            "first_error": "early_finish"
+          },
+          {
+            "task": "challenge_dev_08_F",
+            "trial": 1,
+            "prefix": 2,
+            "required": 3,
+            "first_error": "early_finish"
+          },
+          {
+            "task": "challenge_dev_08_F",
+            "trial": 2,
+            "prefix": 2,
+            "required": 3,
+            "first_error": "early_finish"
+          }
+        ],
+        "full": [
+          {
+            "task": "challenge_dev_01_A",
+            "trial": 0,
+            "prefix": 3,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_01_A",
+            "trial": 1,
+            "prefix": 3,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_01_A",
+            "trial": 2,
+            "prefix": 3,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_02_A",
+            "trial": 0,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_02_A",
+            "trial": 1,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_02_A",
+            "trial": 2,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_03_B",
+            "trial": 0,
+            "prefix": 1,
+            "required": 4,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_03_B",
+            "trial": 1,
+            "prefix": 1,
+            "required": 4,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_03_B",
+            "trial": 2,
+            "prefix": 1,
+            "required": 4,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_04_B",
+            "trial": 0,
+            "prefix": 3,
+            "required": 3,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_04_B",
+            "trial": 1,
+            "prefix": 3,
+            "required": 3,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_04_B",
+            "trial": 2,
+            "prefix": 3,
+            "required": 3,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_05_C",
+            "trial": 0,
+            "prefix": 0,
+            "required": 5,
+            "first_error": "wrong_args"
+          },
+          {
+            "task": "challenge_dev_06_D",
+            "trial": 0,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_06_D",
+            "trial": 1,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_06_D",
+            "trial": 2,
+            "prefix": 4,
+            "required": 4,
+            "first_error": null
+          },
+          {
+            "task": "challenge_dev_07_E",
+            "trial": 0,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_07_E",
+            "trial": 1,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_07_E",
+            "trial": 2,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_dev_08_F",
+            "trial": 0,
+            "prefix": 2,
+            "required": 3,
+            "first_error": "early_finish"
+          },
+          {
+            "task": "challenge_dev_08_F",
+            "trial": 1,
+            "prefix": 2,
+            "required": 3,
+            "first_error": "early_finish"
+          },
+          {
+            "task": "challenge_dev_08_F",
+            "trial": 2,
+            "prefix": 2,
+            "required": 3,
+            "first_error": "early_finish"
+          }
+        ]
+      },
+      "common_trials": 22,
+      "common_strict": {
+        "SFT": 8,
+        "screened": 12,
+        "full": 9
+      }
+    },
+    "sealed_test": {
+      "full_vs_screened": {
+        "strict": 0,
+        "trials": 36,
+        "repairs": [],
+        "regressions": [],
+        "valid_paired_net": 0,
+        "environment_invalid_pairs": [
+          [
+            "challenge_sealed_test_02_A",
+            0
+          ],
+          [
+            "challenge_sealed_test_02_A",
+            1
+          ],
+          [
+            "challenge_sealed_test_02_A",
+            2
+          ],
+          [
+            "challenge_sealed_test_04_B",
+            0
+          ],
+          [
+            "challenge_sealed_test_04_B",
+            1
+          ],
+          [
+            "challenge_sealed_test_04_B",
+            2
+          ],
+          [
+            "challenge_sealed_test_07_C",
+            0
+          ],
+          [
+            "challenge_sealed_test_07_C",
+            1
+          ],
+          [
+            "challenge_sealed_test_07_C",
+            2
+          ],
+          [
+            "challenge_sealed_test_08_D",
+            0
+          ],
+          [
+            "challenge_sealed_test_08_D",
+            1
+          ],
+          [
+            "challenge_sealed_test_08_D",
+            2
+          ],
+          [
+            "challenge_sealed_test_09_D",
+            0
+          ],
+          [
+            "challenge_sealed_test_11_E",
+            0
+          ],
+          [
+            "challenge_sealed_test_11_E",
+            1
+          ],
+          [
+            "challenge_sealed_test_11_E",
+            2
+          ],
+          [
+            "challenge_sealed_test_12_F",
+            0
+          ],
+          [
+            "challenge_sealed_test_12_F",
+            1
+          ],
+          [
+            "challenge_sealed_test_12_F",
+            2
+          ]
+        ],
+        "valid_pair_cluster_bootstrap_95": [
+          0.0,
+          0.0
+        ],
+        "by_family": {
+          "A": [
+            0,
+            6
+          ],
+          "B": [
+            0,
+            6
+          ],
+          "C": [
+            0,
+            9
+          ],
+          "D": [
+            0,
+            6
+          ],
+          "E": [
+            0,
+            6
+          ],
+          "F": [
+            0,
+            3
+          ]
+        },
+        "by_difficulty": {
+          "L2": [
+            0,
+            6
+          ],
+          "L3": [
+            0,
+            30
+          ]
+        },
+        "outcomes": {
+          "exact_sequence": [
+            2,
+            36
+          ],
+          "strict": [
+            0,
+            36
+          ],
+          "all_requested_calls": [
+            13,
+            36
+          ],
+          "missing_calls": [
+            53,
+            189
+          ],
+          "extra_calls": [
+            93,
+            229
+          ],
+          "tool_issues": [
+            52,
+            229
+          ],
+          "early_finish": [
+            7,
+            36
+          ],
+          "snapshot_miss": [
+            13,
+            36
+          ],
+          "environment_invalid": [
+            13,
+            36
+          ],
+          "force": [
+            6,
+            6
+          ],
+          "resolved_id": [
+            48,
+            168
+          ],
+          "state_workflow": [
+            0,
+            6
+          ],
+          "cross_paper_refs": [
+            3,
+            39
+          ],
+          "content_workflow": [
+            0,
+            6
+          ],
+          "async_workflow": [
+            0,
+            3
+          ]
+        }
+      },
+      "verified_tool_prefixes": {
+        "SFT": [
+          {
+            "task": "challenge_sealed_test_01_A",
+            "trial": 0,
+            "prefix": 4,
+            "required": 5,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_01_A",
+            "trial": 1,
+            "prefix": 4,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_03_B",
+            "trial": 0,
+            "prefix": 1,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_03_B",
+            "trial": 1,
+            "prefix": 1,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_03_B",
+            "trial": 2,
+            "prefix": 1,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_05_C",
+            "trial": 0,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_05_C",
+            "trial": 1,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_05_C",
+            "trial": 2,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_06_C",
+            "trial": 0,
+            "prefix": 0,
+            "required": 6,
+            "first_error": "wrong_args"
+          },
+          {
+            "task": "challenge_sealed_test_06_C",
+            "trial": 1,
+            "prefix": 0,
+            "required": 6,
+            "first_error": "wrong_args"
+          },
+          {
+            "task": "challenge_sealed_test_06_C",
+            "trial": 2,
+            "prefix": 0,
+            "required": 6,
+            "first_error": "wrong_args"
+          },
+          {
+            "task": "challenge_sealed_test_09_D",
+            "trial": 1,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_09_D",
+            "trial": 2,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_10_E",
+            "trial": 0,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_10_E",
+            "trial": 1,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_10_E",
+            "trial": 2,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_ref"
+          }
+        ],
+        "screened": [
+          {
+            "task": "challenge_sealed_test_01_A",
+            "trial": 0,
+            "prefix": 4,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_01_A",
+            "trial": 1,
+            "prefix": 4,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_03_B",
+            "trial": 0,
+            "prefix": 1,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_03_B",
+            "trial": 1,
+            "prefix": 1,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_03_B",
+            "trial": 2,
+            "prefix": 1,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_05_C",
+            "trial": 0,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_05_C",
+            "trial": 1,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_05_C",
+            "trial": 2,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_06_C",
+            "trial": 0,
+            "prefix": 0,
+            "required": 6,
+            "first_error": "wrong_args"
+          },
+          {
+            "task": "challenge_sealed_test_06_C",
+            "trial": 1,
+            "prefix": 0,
+            "required": 6,
+            "first_error": "wrong_args"
+          },
+          {
+            "task": "challenge_sealed_test_06_C",
+            "trial": 2,
+            "prefix": 0,
+            "required": 6,
+            "first_error": "wrong_args"
+          },
+          {
+            "task": "challenge_sealed_test_09_D",
+            "trial": 1,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_09_D",
+            "trial": 2,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_10_E",
+            "trial": 0,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_10_E",
+            "trial": 1,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_10_E",
+            "trial": 2,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_ref"
+          }
+        ],
+        "full": [
+          {
+            "task": "challenge_sealed_test_01_A",
+            "trial": 0,
+            "prefix": 4,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_01_A",
+            "trial": 1,
+            "prefix": 4,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_03_B",
+            "trial": 0,
+            "prefix": 1,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_03_B",
+            "trial": 1,
+            "prefix": 1,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_03_B",
+            "trial": 2,
+            "prefix": 1,
+            "required": 5,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_05_C",
+            "trial": 0,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_05_C",
+            "trial": 1,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_05_C",
+            "trial": 2,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_tool"
+          },
+          {
+            "task": "challenge_sealed_test_06_C",
+            "trial": 0,
+            "prefix": 0,
+            "required": 6,
+            "first_error": "wrong_args"
+          },
+          {
+            "task": "challenge_sealed_test_06_C",
+            "trial": 1,
+            "prefix": 0,
+            "required": 6,
+            "first_error": "wrong_args"
+          },
+          {
+            "task": "challenge_sealed_test_06_C",
+            "trial": 2,
+            "prefix": 0,
+            "required": 6,
+            "first_error": "wrong_args"
+          },
+          {
+            "task": "challenge_sealed_test_09_D",
+            "trial": 1,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_09_D",
+            "trial": 2,
+            "prefix": 2,
+            "required": 5,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_10_E",
+            "trial": 0,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_10_E",
+            "trial": 1,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_ref"
+          },
+          {
+            "task": "challenge_sealed_test_10_E",
+            "trial": 2,
+            "prefix": 1,
+            "required": 6,
+            "first_error": "wrong_ref"
+          }
+        ]
+      },
+      "common_trials": 16,
+      "common_strict": {
+        "SFT": 0,
+        "screened": 0,
+        "full": 0
+      }
+    }
+  },
+  "production": {
+    "dev": {
+      "n": 24,
+      "sft": 18,
+      "screened": 20,
+      "full": 18,
+      "repairs": [],
+      "regressions": [
+        [
+          "opt_force_dl",
+          0
+        ],
+        [
+          "opt_force_dl",
+          1
+        ]
+      ]
+    },
+    "iid_test": {
+      "n": 57,
+      "sft": 53,
+      "screened": 49,
+      "full": 51,
+      "repairs": [
+        [
+          "infeasible_index_out_of_range",
+          0
+        ],
+        [
+          "search_kw_rag",
+          0
+        ],
+        [
+          "search_kw_rag",
+          2
+        ]
+      ],
+      "regressions": [
+        [
+          "constraint_translate_only",
+          2
+        ]
+      ]
+    },
+    "ood_test": {
+      "n": 12,
+      "sft": 12,
+      "screened": 12,
+      "full": 12,
+      "repairs": [],
+      "regressions": []
+    }
+  }
+}

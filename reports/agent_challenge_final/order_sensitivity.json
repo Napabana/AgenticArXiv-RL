@@ -1,0 +1,468 @@
+{
+  "SFT": {
+    "valid": 20,
+    "all_required": 0,
+    "rows": [
+      {
+        "task": "challenge_sealed_test_01_A",
+        "trial": 0,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_01_A",
+        "trial": 1,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_03_B",
+        "trial": 0,
+        "covered": 3,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_03_B",
+        "trial": 1,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_03_B",
+        "trial": 2,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_05_C",
+        "trial": 0,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_05_C",
+        "trial": 1,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_05_C",
+        "trial": 2,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_06_C",
+        "trial": 0,
+        "covered": 0,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_06_C",
+        "trial": 1,
+        "covered": 0,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_06_C",
+        "trial": 2,
+        "covered": 0,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_07_C",
+        "trial": 0,
+        "covered": 0,
+        "required": 7,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_07_C",
+        "trial": 1,
+        "covered": 1,
+        "required": 7,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_07_C",
+        "trial": 2,
+        "covered": 1,
+        "required": 7,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_09_D",
+        "trial": 0,
+        "covered": 2,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_09_D",
+        "trial": 1,
+        "covered": 2,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_09_D",
+        "trial": 2,
+        "covered": 2,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_10_E",
+        "trial": 0,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_10_E",
+        "trial": 1,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_10_E",
+        "trial": 2,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      }
+    ]
+  },
+  "screened": {
+    "valid": 21,
+    "all_required": 0,
+    "rows": [
+      {
+        "task": "challenge_sealed_test_01_A",
+        "trial": 0,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_01_A",
+        "trial": 1,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_01_A",
+        "trial": 2,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_03_B",
+        "trial": 0,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_03_B",
+        "trial": 1,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_03_B",
+        "trial": 2,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_04_B",
+        "trial": 0,
+        "covered": 2,
+        "required": 4,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_04_B",
+        "trial": 1,
+        "covered": 2,
+        "required": 4,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_04_B",
+        "trial": 2,
+        "covered": 2,
+        "required": 4,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_05_C",
+        "trial": 0,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_05_C",
+        "trial": 1,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_05_C",
+        "trial": 2,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_06_C",
+        "trial": 0,
+        "covered": 0,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_06_C",
+        "trial": 1,
+        "covered": 0,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_06_C",
+        "trial": 2,
+        "covered": 0,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_09_D",
+        "trial": 0,
+        "covered": 2,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_09_D",
+        "trial": 1,
+        "covered": 2,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_09_D",
+        "trial": 2,
+        "covered": 2,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_10_E",
+        "trial": 0,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_10_E",
+        "trial": 1,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_10_E",
+        "trial": 2,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      }
+    ]
+  },
+  "full": {
+    "valid": 23,
+    "all_required": 0,
+    "rows": [
+      {
+        "task": "challenge_sealed_test_01_A",
+        "trial": 0,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_01_A",
+        "trial": 1,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_01_A",
+        "trial": 2,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_02_A",
+        "trial": 1,
+        "covered": 2,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_03_B",
+        "trial": 0,
+        "covered": 3,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_03_B",
+        "trial": 1,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_03_B",
+        "trial": 2,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_05_C",
+        "trial": 0,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_05_C",
+        "trial": 1,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_05_C",
+        "trial": 2,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_06_C",
+        "trial": 0,
+        "covered": 0,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_06_C",
+        "trial": 1,
+        "covered": 0,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_06_C",
+        "trial": 2,
+        "covered": 0,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_07_C",
+        "trial": 0,
+        "covered": 0,
+        "required": 7,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_07_C",
+        "trial": 1,
+        "covered": 1,
+        "required": 7,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_07_C",
+        "trial": 2,
+        "covered": 1,
+        "required": 7,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_09_D",
+        "trial": 1,
+        "covered": 2,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_09_D",
+        "trial": 2,
+        "covered": 2,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_10_E",
+        "trial": 0,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_10_E",
+        "trial": 1,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_10_E",
+        "trial": 2,
+        "covered": 2,
+        "required": 6,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_11_E",
+        "trial": 1,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      },
+      {
+        "task": "challenge_sealed_test_11_E",
+        "trial": 2,
+        "covered": 4,
+        "required": 5,
+        "strict": false
+      }
+    ]
+  }
+}

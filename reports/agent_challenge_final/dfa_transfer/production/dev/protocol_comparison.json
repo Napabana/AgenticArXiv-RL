@@ -1,0 +1,85 @@
+{
+  "agents": {
+    "native_tool_calling": {
+      "format_parse_success": {
+        "count": 50,
+        "total": 50,
+        "rate": 1.0
+      },
+      "schema_compliance": {
+        "count": 26,
+        "total": 26,
+        "rate": 1.0
+      },
+      "tool_accuracy": {
+        "count": 23,
+        "total": 24,
+        "rate": 0.9583333333333334
+      },
+      "argument_accuracy": {
+        "score_sum": 23.0,
+        "total": 24,
+        "rate": 0.9583333333333334
+      },
+      "tool_error_rate": {
+        "count": 0,
+        "total": 26,
+        "rate": 0.0
+      },
+      "snapshot_coverage_errors": 0,
+      "setup_failures": 0,
+      "unexpected_repeat_calls": 0,
+      "pending_guard_errors": 0,
+      "pending_finished": {
+        "count": 0,
+        "total": 0,
+        "rate": null
+      },
+      "explained_refusal": {
+        "count": 0,
+        "total": 3,
+        "rate": 0.0
+      },
+      "strict_success": {
+        "count": 20,
+        "total": 24,
+        "rate": 0.8333333333333334
+      },
+      "avg_executed_tool_calls": 1.0833333333333333,
+      "avg_prompt_tokens": 6830.958333333333,
+      "avg_completion_tokens": 147.5,
+      "avg_total_tokens": 6978.458333333333,
+      "avg_llm_ms": 13974.458333333334,
+      "avg_total_ms": 13978.166666666666,
+      "avg_reward": 0.9002975833333333,
+      "benchmark_errors": 0,
+      "request_errors": 0,
+      "error_terminations": 0,
+      "issues": {},
+      "recovered_format_errors": 0,
+      "returned_models": [
+        "/root/sj-tmp/models/Qwen3.5-2B-Base"
+      ],
+      "generation_stop_reasons": {
+        "tool_call_end": 26,
+        "chat_end": 24
+      }
+    }
+  },
+  "paired_strict": {
+    "total": 0,
+    "fail_to_pass": 0,
+    "pass_to_fail": 0
+  },
+  "requested_model": "/root/sj-tmp/models/Qwen3.5-2B-Base",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "native_protocol": {
+    "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+    "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+    "repeat": 3,
+    "seed": 42,
+    "split": "data/splits/v4_86.json:dev",
+    "no_thinking": true,
+    "adapter": "/root/sj-tmp/agent-challenge-final-56780/dfa-transfer/E2/pilot/checkpoint-24"
+  }
+}

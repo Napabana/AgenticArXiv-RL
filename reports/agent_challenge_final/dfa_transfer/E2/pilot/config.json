@@ -1,0 +1,184 @@
+{
+  "experiment": "E2",
+  "outcome": "benchmark_strict_01",
+  "steps": 24,
+  "lambda": 0.5,
+  "seed": 42,
+  "G": 4,
+  "temperature": 1.0,
+  "lr": 5e-06,
+  "kl_beta": 0.04,
+  "per_device_train_batch_size": 1,
+  "gradient_accumulation_steps": 4,
+  "bf16": true,
+  "max_completion_length": 4605,
+  "max_new_tokens_per_turn": 704,
+  "max_turns": 9,
+  "scale_rewards": "group",
+  "dynamic_sampling": false,
+  "plan": [
+    {
+      "group_id": 0,
+      "task_id": "challenge_train_23_F",
+      "prompt": "challenge_train_23_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 1,
+      "task_id": "challenge_train_19_D",
+      "prompt": "challenge_train_19_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 2,
+      "task_id": "challenge_train_10_B",
+      "prompt": "challenge_train_10_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 3,
+      "task_id": "challenge_train_09_B",
+      "prompt": "challenge_train_09_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 4,
+      "task_id": "challenge_train_11_B",
+      "prompt": "challenge_train_11_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 5,
+      "task_id": "challenge_train_09_B",
+      "prompt": "challenge_train_09_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 6,
+      "task_id": "challenge_train_11_B",
+      "prompt": "challenge_train_11_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 7,
+      "task_id": "challenge_train_19_D",
+      "prompt": "challenge_train_19_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 8,
+      "task_id": "challenge_train_10_B",
+      "prompt": "challenge_train_10_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 9,
+      "task_id": "challenge_train_21_E",
+      "prompt": "challenge_train_21_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 10,
+      "task_id": "challenge_train_10_B",
+      "prompt": "challenge_train_10_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 11,
+      "task_id": "challenge_train_09_B",
+      "prompt": "challenge_train_09_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 12,
+      "task_id": "challenge_train_23_F",
+      "prompt": "challenge_train_23_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 13,
+      "task_id": "challenge_train_20_E",
+      "prompt": "challenge_train_20_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 14,
+      "task_id": "challenge_train_21_E",
+      "prompt": "challenge_train_21_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 15,
+      "task_id": "challenge_train_12_B",
+      "prompt": "challenge_train_12_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 16,
+      "task_id": "challenge_train_12_B",
+      "prompt": "challenge_train_12_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 17,
+      "task_id": "challenge_train_19_D",
+      "prompt": "challenge_train_19_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 18,
+      "task_id": "challenge_train_23_F",
+      "prompt": "challenge_train_23_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 19,
+      "task_id": "challenge_train_12_B",
+      "prompt": "challenge_train_12_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 20,
+      "task_id": "challenge_train_21_E",
+      "prompt": "challenge_train_21_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 21,
+      "task_id": "challenge_train_20_E",
+      "prompt": "challenge_train_20_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 22,
+      "task_id": "challenge_train_11_B",
+      "prompt": "challenge_train_11_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 23,
+      "task_id": "challenge_train_20_E",
+      "prompt": "challenge_train_20_E",
+      "stratum": "E"
+    }
+  ],
+  "exclude_invalid_groups": true,
+  "protocol": "single_method_DFA_transfer",
+  "loss_type": "dapo",
+  "adapter_sha256": "f0c33a4d32a175bcaf1e83c55231a0108a84859cb748c318db49988a52f7911f",
+  "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "frozen_inputs_sha256": "4c2432ef57d8d348a7aa72d32f4ba7b6e007e6e372646bcf87d49d40528096d2",
+  "dev_sha256": "125fb28bfc62920c633b80cb00cb794ca96a8f87ae5afbf7fcb33c50160e9dfd",
+  "candidate_sha256": "e9ad62fdd0401bb6cf27aab89119e2b9ffc8e088f2568b5d62b3c7125434cd82",
+  "max_turns_by_task": {
+    "challenge_train_09_B": 6,
+    "challenge_train_10_B": 5,
+    "challenge_train_11_B": 6,
+    "challenge_train_12_B": 5,
+    "challenge_train_19_D": 5,
+    "challenge_train_20_E": 7,
+    "challenge_train_21_E": 6,
+    "challenge_train_23_F": 5
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "E2/pilot": {
+    "files": 25,
+    "bytes": 323087,
+    "sha256": "800d1bf7f176ba256e22fa9115f02e7e401791f322b782754706cbc19a7dfd24"
+  },
+  "E2/dev": {
+    "files": 4,
+    "bytes": 26975,
+    "sha256": "c5b022d4f7e59cf77ad6e9877dd354075b77dd423681d7691d9a26f90a306eb5"
+  },
+  "E2/sealed_test": {
+    "files": 4,
+    "bytes": 46873,
+    "sha256": "d7b0a6d42c040d804f5586cf00a3850de6b1879958eb3491e12ca199f12f58b5"
+  },
+  "production/dev": {
+    "files": 4,
+    "bytes": 11509,
+    "sha256": "71ee1a901ad0a31e953bbfa6ea666b2db17e144fa2ee065a36b20a4118baec6f"
+  },
+  "production/iid_test": {
+    "files": 4,
+    "bytes": 37510,
+    "sha256": "1075678b3e8ce3688672dcaf1fd5a14e3044fd29c231ae67adcbeb1addd04eb4"
+  },
+  "production/ood_test": {
+    "files": 4,
+    "bytes": 9340,
+    "sha256": "ed72c4399d01456a9dd4233fde925e79e96f72804dd42c8110b24f09e2bca831"
+  },
+  "SFT/sealed_test": {
+    "files": 4,
+    "bytes": 56476,
+    "sha256": "f6de768c152806e782d74e696c9f2507d668c6808c7e8b406080088b86226b6c"
+  }
+}

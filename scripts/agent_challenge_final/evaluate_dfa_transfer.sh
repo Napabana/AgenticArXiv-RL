@@ -15,8 +15,8 @@ eval_one() (
     local run_root slot acquired=0
     run_root=$(dirname "$probe")
     while (( ! acquired )); do
-        for slot in 1 2 3; do
-            if [[ $slot == 3 ]] && ! { [[ -s "$run_root/dfa-transfer/e2-pilot-exit" ]] && [[ -s "$run_root/dfa-all24/e2-pilot-exit" ]]; }; then continue; fi
+        # Three evaluators on a 4090 exhausted memory on the long production IID task.
+        for slot in 1 2; do
             exec 9>"$run_root/eval-slot-$slot.lock"
             if flock -n 9; then acquired=1; break; fi
         done

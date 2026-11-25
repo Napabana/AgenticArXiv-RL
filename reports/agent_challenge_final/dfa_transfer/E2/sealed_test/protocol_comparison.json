@@ -1,0 +1,90 @@
+{
+  "agents": {
+    "native_tool_calling": {
+      "format_parse_success": {
+        "count": 221,
+        "total": 222,
+        "rate": 0.9954954954954955
+      },
+      "schema_compliance": {
+        "count": 201,
+        "total": 206,
+        "rate": 0.9757281553398058
+      },
+      "tool_accuracy": {
+        "count": 3,
+        "total": 36,
+        "rate": 0.08333333333333333
+      },
+      "argument_accuracy": {
+        "score_sum": 11.475,
+        "total": 36,
+        "rate": 0.31875
+      },
+      "tool_error_rate": {
+        "count": 59,
+        "total": 201,
+        "rate": 0.2935323383084577
+      },
+      "snapshot_coverage_errors": 38,
+      "setup_failures": 0,
+      "unexpected_repeat_calls": 55,
+      "pending_guard_errors": 0,
+      "pending_finished": {
+        "count": 3,
+        "total": 4,
+        "rate": 0.75
+      },
+      "explained_refusal": {
+        "count": 0,
+        "total": 0,
+        "rate": null
+      },
+      "strict_success": {
+        "count": 0,
+        "total": 36,
+        "rate": 0.0
+      },
+      "avg_executed_tool_calls": 5.583333333333333,
+      "avg_prompt_tokens": 25519.36111111111,
+      "avg_completion_tokens": 459.80555555555554,
+      "avg_total_tokens": 25979.166666666668,
+      "avg_llm_ms": 43631.694444444445,
+      "avg_total_ms": 43646.0,
+      "avg_reward": -0.3633623888888889,
+      "benchmark_errors": 0,
+      "request_errors": 0,
+      "error_terminations": 6,
+      "issues": {
+        "format:finish_reason:length": 1,
+        "schema:invalid_value:section": 3,
+        "schema:unknown_args:output_path,save_to_file": 2
+      },
+      "recovered_format_errors": 0,
+      "returned_models": [
+        "/root/sj-tmp/models/Qwen3.5-2B-Base"
+      ],
+      "generation_stop_reasons": {
+        "tool_call_end": 206,
+        "length": 1,
+        "chat_end": 15
+      }
+    }
+  },
+  "paired_strict": {
+    "total": 0,
+    "fail_to_pass": 0,
+    "pass_to_fail": 0
+  },
+  "requested_model": "/root/sj-tmp/models/Qwen3.5-2B-Base",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "native_protocol": {
+    "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+    "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+    "repeat": 3,
+    "seed": 42,
+    "split": null,
+    "no_thinking": true,
+    "adapter": "/root/sj-tmp/agent-challenge-final-56780/dfa-transfer/E2/pilot/checkpoint-24"
+  }
+}

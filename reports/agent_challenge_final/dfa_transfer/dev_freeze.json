@@ -1,0 +1,11 @@
+{
+  "winner": "E2",
+  "adapters": {
+    "SFT": "f0c33a4d32a175bcaf1e83c55231a0108a84859cb748c318db49988a52f7911f",
+    "E2": "e14a657dab2acfead9ed00df531ebea204f30f54d24ee1578ba509b33fd64477"
+  },
+  "manifest_sha256": "54402c0a697f4e74c2e0144265c467a81469b6decea110ccd14d48fee943bf0a",
+  "common_valid_trials": 22,
+  "paired_sha256": "d32fa8b3d796f909250986d2a84a49d127ceb88c51ac3b1672dbbfe271bf748f",
+  "tiebreak": "E2"
+}

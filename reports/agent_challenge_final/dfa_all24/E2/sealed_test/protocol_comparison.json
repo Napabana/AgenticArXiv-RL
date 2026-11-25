@@ -1,0 +1,88 @@
+{
+  "agents": {
+    "native_tool_calling": {
+      "format_parse_success": {
+        "count": 244,
+        "total": 245,
+        "rate": 0.9959183673469387
+      },
+      "schema_compliance": {
+        "count": 229,
+        "total": 229,
+        "rate": 1.0
+      },
+      "tool_accuracy": {
+        "count": 2,
+        "total": 36,
+        "rate": 0.05555555555555555
+      },
+      "argument_accuracy": {
+        "score_sum": 12.246428571428572,
+        "total": 36,
+        "rate": 0.34017857142857144
+      },
+      "tool_error_rate": {
+        "count": 52,
+        "total": 229,
+        "rate": 0.22707423580786026
+      },
+      "snapshot_coverage_errors": 31,
+      "setup_failures": 0,
+      "unexpected_repeat_calls": 58,
+      "pending_guard_errors": 0,
+      "pending_finished": {
+        "count": 3,
+        "total": 3,
+        "rate": 1.0
+      },
+      "explained_refusal": {
+        "count": 0,
+        "total": 0,
+        "rate": null
+      },
+      "strict_success": {
+        "count": 0,
+        "total": 36,
+        "rate": 0.0
+      },
+      "avg_executed_tool_calls": 6.361111111111111,
+      "avg_prompt_tokens": 29459.416666666668,
+      "avg_completion_tokens": 506.9166666666667,
+      "avg_total_tokens": 29966.333333333332,
+      "avg_llm_ms": 47553.02777777778,
+      "avg_total_ms": 47568.75,
+      "avg_reward": -0.22185633333333332,
+      "benchmark_errors": 0,
+      "request_errors": 0,
+      "error_terminations": 1,
+      "issues": {
+        "format:finish_reason:length": 1
+      },
+      "recovered_format_errors": 0,
+      "returned_models": [
+        "/root/sj-tmp/models/Qwen3.5-2B-Base"
+      ],
+      "generation_stop_reasons": {
+        "tool_call_end": 229,
+        "chat_end": 15,
+        "length": 1
+      }
+    }
+  },
+  "paired_strict": {
+    "total": 0,
+    "fail_to_pass": 0,
+    "pass_to_fail": 0
+  },
+  "requested_model": "/root/sj-tmp/models/Qwen3.5-2B-Base",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "native_protocol": {
+    "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+    "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+    "repeat": 3,
+    "seed": 42,
+    "split": null,
+    "no_thinking": true,
+    "adapter": "/root/sj-tmp/agent-challenge-final-56780/dfa-all24/E2/pilot/checkpoint-24"
+  }
+}

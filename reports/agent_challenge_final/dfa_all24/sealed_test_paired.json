@@ -1,0 +1,356 @@
+{
+  "SFT": {
+    "strict": 0,
+    "trials": 36,
+    "repairs": [],
+    "regressions": [],
+    "valid_paired_net": 0,
+    "environment_invalid_pairs": [
+      [
+        "challenge_sealed_test_01_A",
+        2
+      ],
+      [
+        "challenge_sealed_test_02_A",
+        0
+      ],
+      [
+        "challenge_sealed_test_02_A",
+        1
+      ],
+      [
+        "challenge_sealed_test_02_A",
+        2
+      ],
+      [
+        "challenge_sealed_test_04_B",
+        0
+      ],
+      [
+        "challenge_sealed_test_04_B",
+        1
+      ],
+      [
+        "challenge_sealed_test_04_B",
+        2
+      ],
+      [
+        "challenge_sealed_test_08_D",
+        0
+      ],
+      [
+        "challenge_sealed_test_08_D",
+        1
+      ],
+      [
+        "challenge_sealed_test_08_D",
+        2
+      ],
+      [
+        "challenge_sealed_test_11_E",
+        0
+      ],
+      [
+        "challenge_sealed_test_11_E",
+        1
+      ],
+      [
+        "challenge_sealed_test_11_E",
+        2
+      ],
+      [
+        "challenge_sealed_test_12_F",
+        0
+      ],
+      [
+        "challenge_sealed_test_12_F",
+        1
+      ],
+      [
+        "challenge_sealed_test_12_F",
+        2
+      ]
+    ],
+    "valid_pair_cluster_bootstrap_95": [
+      0.0,
+      0.0
+    ],
+    "by_family": {
+      "A": [
+        0,
+        6
+      ],
+      "B": [
+        0,
+        6
+      ],
+      "C": [
+        0,
+        9
+      ],
+      "D": [
+        0,
+        6
+      ],
+      "E": [
+        0,
+        6
+      ],
+      "F": [
+        0,
+        3
+      ]
+    },
+    "by_difficulty": {
+      "L2": [
+        0,
+        6
+      ],
+      "L3": [
+        0,
+        30
+      ]
+    },
+    "outcomes": {
+      "exact_sequence": [
+        3,
+        36
+      ],
+      "strict": [
+        0,
+        36
+      ],
+      "all_requested_calls": [
+        14,
+        36
+      ],
+      "missing_calls": [
+        53,
+        189
+      ],
+      "extra_calls": [
+        92,
+        228
+      ],
+      "tool_issues": [
+        52,
+        228
+      ],
+      "early_finish": [
+        7,
+        36
+      ],
+      "snapshot_miss": [
+        16,
+        36
+      ],
+      "environment_invalid": [
+        16,
+        36
+      ],
+      "force": [
+        6,
+        6
+      ],
+      "resolved_id": [
+        41,
+        168
+      ],
+      "state_workflow": [
+        0,
+        6
+      ],
+      "cross_paper_refs": [
+        3,
+        39
+      ],
+      "content_workflow": [
+        0,
+        6
+      ],
+      "async_workflow": [
+        0,
+        3
+      ]
+    }
+  },
+  "E2": {
+    "strict": 0,
+    "trials": 36,
+    "repairs": [],
+    "regressions": [],
+    "valid_paired_net": 0,
+    "environment_invalid_pairs": [
+      [
+        "challenge_sealed_test_01_A",
+        2
+      ],
+      [
+        "challenge_sealed_test_02_A",
+        0
+      ],
+      [
+        "challenge_sealed_test_02_A",
+        1
+      ],
+      [
+        "challenge_sealed_test_02_A",
+        2
+      ],
+      [
+        "challenge_sealed_test_04_B",
+        0
+      ],
+      [
+        "challenge_sealed_test_04_B",
+        1
+      ],
+      [
+        "challenge_sealed_test_04_B",
+        2
+      ],
+      [
+        "challenge_sealed_test_08_D",
+        0
+      ],
+      [
+        "challenge_sealed_test_08_D",
+        1
+      ],
+      [
+        "challenge_sealed_test_08_D",
+        2
+      ],
+      [
+        "challenge_sealed_test_09_D",
+        0
+      ],
+      [
+        "challenge_sealed_test_11_E",
+        0
+      ],
+      [
+        "challenge_sealed_test_11_E",
+        1
+      ],
+      [
+        "challenge_sealed_test_11_E",
+        2
+      ],
+      [
+        "challenge_sealed_test_12_F",
+        0
+      ],
+      [
+        "challenge_sealed_test_12_F",
+        1
+      ],
+      [
+        "challenge_sealed_test_12_F",
+        2
+      ]
+    ],
+    "valid_pair_cluster_bootstrap_95": [
+      0.0,
+      0.0
+    ],
+    "by_family": {
+      "A": [
+        0,
+        6
+      ],
+      "B": [
+        0,
+        6
+      ],
+      "C": [
+        0,
+        9
+      ],
+      "D": [
+        0,
+        6
+      ],
+      "E": [
+        0,
+        6
+      ],
+      "F": [
+        0,
+        3
+      ]
+    },
+    "by_difficulty": {
+      "L2": [
+        0,
+        6
+      ],
+      "L3": [
+        0,
+        30
+      ]
+    },
+    "outcomes": {
+      "exact_sequence": [
+        2,
+        36
+      ],
+      "strict": [
+        0,
+        36
+      ],
+      "all_requested_calls": [
+        13,
+        36
+      ],
+      "missing_calls": [
+        53,
+        189
+      ],
+      "extra_calls": [
+        93,
+        229
+      ],
+      "tool_issues": [
+        52,
+        229
+      ],
+      "early_finish": [
+        7,
+        36
+      ],
+      "snapshot_miss": [
+        13,
+        36
+      ],
+      "environment_invalid": [
+        13,
+        36
+      ],
+      "force": [
+        6,
+        6
+      ],
+      "resolved_id": [
+        48,
+        168
+      ],
+      "state_workflow": [
+        0,
+        6
+      ],
+      "cross_paper_refs": [
+        3,
+        39
+      ],
+      "content_workflow": [
+        0,
+        6
+      ],
+      "async_workflow": [
+        0,
+        3
+      ]
+    }
+  }
+}

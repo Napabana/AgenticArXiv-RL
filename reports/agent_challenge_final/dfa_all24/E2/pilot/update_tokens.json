@@ -1,0 +1,170 @@
+[
+  {
+    "group": 0,
+    "task": "challenge_train_16_C",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 1,
+    "task": "challenge_train_06_A",
+    "nonzero_advantage_tokens": 248,
+    "nonzero_DFA_tokens": 248,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 2,
+    "task": "challenge_train_19_D",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 3,
+    "task": "challenge_train_24_F",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 4,
+    "task": "challenge_train_14_C",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": true
+  },
+  {
+    "group": 5,
+    "task": "challenge_train_11_B",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 6,
+    "task": "challenge_train_18_D",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 7,
+    "task": "challenge_train_12_B",
+    "nonzero_advantage_tokens": 454,
+    "nonzero_DFA_tokens": 430,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 8,
+    "task": "challenge_train_15_C",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": true
+  },
+  {
+    "group": 9,
+    "task": "challenge_train_17_D",
+    "nonzero_advantage_tokens": 357,
+    "nonzero_DFA_tokens": 357,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 10,
+    "task": "challenge_train_02_A",
+    "nonzero_advantage_tokens": 212,
+    "nonzero_DFA_tokens": 212,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 11,
+    "task": "challenge_train_13_C",
+    "nonzero_advantage_tokens": 210,
+    "nonzero_DFA_tokens": 210,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 12,
+    "task": "challenge_train_22_E",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 13,
+    "task": "challenge_train_07_B",
+    "nonzero_advantage_tokens": 159,
+    "nonzero_DFA_tokens": 159,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 14,
+    "task": "challenge_train_10_B",
+    "nonzero_advantage_tokens": 505,
+    "nonzero_DFA_tokens": 337,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 15,
+    "task": "challenge_train_03_A",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 16,
+    "task": "challenge_train_23_F",
+    "nonzero_advantage_tokens": 404,
+    "nonzero_DFA_tokens": 404,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 17,
+    "task": "challenge_train_05_A",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 18,
+    "task": "challenge_train_20_E",
+    "nonzero_advantage_tokens": 492,
+    "nonzero_DFA_tokens": 492,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 19,
+    "task": "challenge_train_08_B",
+    "nonzero_advantage_tokens": 652,
+    "nonzero_DFA_tokens": 448,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 20,
+    "task": "challenge_train_09_B",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 21,
+    "task": "challenge_train_01_A",
+    "nonzero_advantage_tokens": 837,
+    "nonzero_DFA_tokens": 209,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 22,
+    "task": "challenge_train_04_A",
+    "nonzero_advantage_tokens": 596,
+    "nonzero_DFA_tokens": 596,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 23,
+    "task": "challenge_train_21_E",
+    "nonzero_advantage_tokens": 297,
+    "nonzero_DFA_tokens": 297,
+    "excluded_invalid_group": false
+  }
+]

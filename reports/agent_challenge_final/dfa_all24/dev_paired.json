@@ -1,0 +1,235 @@
+{
+  "SFT": {
+    "strict": 8,
+    "trials": 24,
+    "repairs": [],
+    "regressions": [],
+    "valid_paired_net": 0,
+    "environment_invalid_pairs": [],
+    "valid_pair_cluster_bootstrap_95": [
+      0.0,
+      0.0
+    ],
+    "by_family": {
+      "A": [
+        2,
+        6
+      ],
+      "B": [
+        3,
+        6
+      ],
+      "C": [
+        0,
+        3
+      ],
+      "D": [
+        3,
+        3
+      ],
+      "E": [
+        0,
+        3
+      ],
+      "F": [
+        0,
+        3
+      ]
+    },
+    "by_difficulty": {
+      "L1": [
+        3,
+        6
+      ],
+      "L2": [
+        5,
+        9
+      ],
+      "L3": [
+        0,
+        9
+      ]
+    },
+    "outcomes": {
+      "exact_sequence": [
+        8,
+        24
+      ],
+      "strict": [
+        8,
+        24
+      ],
+      "all_requested_calls": [
+        8,
+        24
+      ],
+      "missing_calls": [
+        19,
+        99
+      ],
+      "extra_calls": [
+        12,
+        92
+      ],
+      "tool_issues": [
+        7,
+        92
+      ],
+      "early_finish": [
+        8,
+        24
+      ],
+      "snapshot_miss": [
+        0,
+        24
+      ],
+      "environment_invalid": [
+        0,
+        24
+      ],
+      "force": [
+        3,
+        3
+      ],
+      "resolved_id": [
+        51,
+        90
+      ],
+      "state_workflow": [
+        3,
+        6
+      ],
+      "cross_paper_refs": [
+        1,
+        9
+      ],
+      "content_workflow": [
+        3,
+        3
+      ],
+      "async_workflow": [
+        0,
+        3
+      ]
+    }
+  },
+  "E2": {
+    "strict": 9,
+    "trials": 24,
+    "repairs": [
+      [
+        "challenge_dev_02_A",
+        1
+      ]
+    ],
+    "regressions": [],
+    "valid_paired_net": 1,
+    "environment_invalid_pairs": [],
+    "valid_pair_cluster_bootstrap_95": [
+      0.0,
+      0.125
+    ],
+    "by_family": {
+      "A": [
+        3,
+        6
+      ],
+      "B": [
+        3,
+        6
+      ],
+      "C": [
+        0,
+        3
+      ],
+      "D": [
+        3,
+        3
+      ],
+      "E": [
+        0,
+        3
+      ],
+      "F": [
+        0,
+        3
+      ]
+    },
+    "by_difficulty": {
+      "L1": [
+        3,
+        6
+      ],
+      "L2": [
+        6,
+        9
+      ],
+      "L3": [
+        0,
+        9
+      ]
+    },
+    "outcomes": {
+      "exact_sequence": [
+        9,
+        24
+      ],
+      "strict": [
+        9,
+        24
+      ],
+      "all_requested_calls": [
+        9,
+        24
+      ],
+      "missing_calls": [
+        21,
+        99
+      ],
+      "extra_calls": [
+        16,
+        94
+      ],
+      "tool_issues": [
+        6,
+        94
+      ],
+      "early_finish": [
+        7,
+        24
+      ],
+      "snapshot_miss": [
+        0,
+        24
+      ],
+      "environment_invalid": [
+        0,
+        24
+      ],
+      "force": [
+        3,
+        3
+      ],
+      "resolved_id": [
+        56,
+        90
+      ],
+      "state_workflow": [
+        3,
+        6
+      ],
+      "cross_paper_refs": [
+        1,
+        9
+      ],
+      "content_workflow": [
+        3,
+        3
+      ],
+      "async_workflow": [
+        0,
+        3
+      ]
+    }
+  }
+}

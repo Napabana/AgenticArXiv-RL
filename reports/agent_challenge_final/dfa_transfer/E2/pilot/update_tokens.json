@@ -1,0 +1,170 @@
+[
+  {
+    "group": 0,
+    "task": "challenge_train_23_F",
+    "nonzero_advantage_tokens": 417,
+    "nonzero_DFA_tokens": 417,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 1,
+    "task": "challenge_train_19_D",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 2,
+    "task": "challenge_train_10_B",
+    "nonzero_advantage_tokens": 160,
+    "nonzero_DFA_tokens": 160,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 3,
+    "task": "challenge_train_09_B",
+    "nonzero_advantage_tokens": 162,
+    "nonzero_DFA_tokens": 162,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 4,
+    "task": "challenge_train_11_B",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 5,
+    "task": "challenge_train_09_B",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": true
+  },
+  {
+    "group": 6,
+    "task": "challenge_train_11_B",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 7,
+    "task": "challenge_train_19_D",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 8,
+    "task": "challenge_train_10_B",
+    "nonzero_advantage_tokens": 822,
+    "nonzero_DFA_tokens": 396,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 9,
+    "task": "challenge_train_21_E",
+    "nonzero_advantage_tokens": 208,
+    "nonzero_DFA_tokens": 208,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 10,
+    "task": "challenge_train_10_B",
+    "nonzero_advantage_tokens": 252,
+    "nonzero_DFA_tokens": 252,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 11,
+    "task": "challenge_train_09_B",
+    "nonzero_advantage_tokens": 162,
+    "nonzero_DFA_tokens": 162,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 12,
+    "task": "challenge_train_23_F",
+    "nonzero_advantage_tokens": 542,
+    "nonzero_DFA_tokens": 317,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 13,
+    "task": "challenge_train_20_E",
+    "nonzero_advantage_tokens": 277,
+    "nonzero_DFA_tokens": 277,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 14,
+    "task": "challenge_train_21_E",
+    "nonzero_advantage_tokens": 230,
+    "nonzero_DFA_tokens": 230,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 15,
+    "task": "challenge_train_12_B",
+    "nonzero_advantage_tokens": 155,
+    "nonzero_DFA_tokens": 155,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 16,
+    "task": "challenge_train_12_B",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": true
+  },
+  {
+    "group": 17,
+    "task": "challenge_train_19_D",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 18,
+    "task": "challenge_train_23_F",
+    "nonzero_advantage_tokens": 825,
+    "nonzero_DFA_tokens": 586,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 19,
+    "task": "challenge_train_12_B",
+    "nonzero_advantage_tokens": 531,
+    "nonzero_DFA_tokens": 443,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 20,
+    "task": "challenge_train_21_E",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 21,
+    "task": "challenge_train_20_E",
+    "nonzero_advantage_tokens": 512,
+    "nonzero_DFA_tokens": 512,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 22,
+    "task": "challenge_train_11_B",
+    "nonzero_advantage_tokens": 0,
+    "nonzero_DFA_tokens": 0,
+    "excluded_invalid_group": false
+  },
+  {
+    "group": 23,
+    "task": "challenge_train_20_E",
+    "nonzero_advantage_tokens": 642,
+    "nonzero_DFA_tokens": 642,
+    "excluded_invalid_group": false
+  }
+]

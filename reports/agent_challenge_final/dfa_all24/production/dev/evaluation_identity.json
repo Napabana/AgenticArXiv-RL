@@ -1,0 +1,9 @@
+{
+  "policy": "E2",
+  "adapter_sha256": "7990f3210147d7f41fac13704e446962ec8d22b0c157eec077531f7566f85171",
+  "smoke_e2": false,
+  "manifest_sha256": "54402c0a697f4e74c2e0144265c467a81469b6decea110ccd14d48fee943bf0a",
+  "split": "production_dev",
+  "details_sha256": "5d3d4c575faaa210778aa6f63415116b3d08837f808d68e6eb54df6e4daa78da",
+  "trace_sha256": "2598ebe8b4fbe0b5e4e231861ca39b03f0ed1e1d4070497a7a4c1b2b8f0f2c76"
+}

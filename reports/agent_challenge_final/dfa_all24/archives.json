@@ -1,0 +1,32 @@
+{
+  "E2/pilot": {
+    "files": 25,
+    "bytes": 719658,
+    "sha256": "79274f5e50448a9e13fc64fd5d38cd123d6ea7c629c1e8c4f18dfb2caf43726d"
+  },
+  "E2/dev": {
+    "files": 4,
+    "bytes": 29246,
+    "sha256": "7bf3bfa3664e7463b36195c53758818f19573718265df599fbcacc9a99b95589"
+  },
+  "E2/sealed_test": {
+    "files": 4,
+    "bytes": 62131,
+    "sha256": "1a5195406bedab73070b0119f2c80971891f49702f22d77e4f99f3dbaf7ae010"
+  },
+  "production/dev": {
+    "files": 4,
+    "bytes": 11225,
+    "sha256": "3543154835850b1cec3b31ad26ea9aa89b4b300216a5b1207526349ab7ea6ed8"
+  },
+  "production/iid_test": {
+    "files": 4,
+    "bytes": 486880,
+    "sha256": "456501a682de3e8d53b9d0141d46123d6841f8e5b9ee10ac6ad0440af5e677bb"
+  },
+  "production/ood_test": {
+    "files": 4,
+    "bytes": 9332,
+    "sha256": "31aebdca50ef71782375220b113b8e20bc457c6610c987319a832dbb10338c39"
+  }
+}

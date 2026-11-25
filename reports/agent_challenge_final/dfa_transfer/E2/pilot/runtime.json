@@ -1,0 +1,28 @@
+{
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "tokenizer_sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+  "chat_template_sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+  "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+  "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+  "adapter_sha256": "f0c33a4d32a175bcaf1e83c55231a0108a84859cb748c318db49988a52f7911f",
+  "data_sha256": "8763ff0ef7c19bf748d3d036d3730e8f30c44709161df614302a7a5df5bb3dfd",
+  "data_manifest_sha256": "b8aa518f3f8aba708029bb1525b43d63372840a5bb785bf0fdde1439faf10751",
+  "default_module_prompt_sha256": "0e0f184420b26a013b5b22df0a29b624b6ea237403d012db73e80668c6eedfd2",
+  "effective_prompt_source": "native_sft_v2_gpu.freeze_protocol",
+  "visible_setup_function_sha256": "e57092c1a2a8717c88bcbb8b13c80657147b36b8ed97412f63b7bb5235966d58",
+  "native_setup_function_sha256": "a5080e364eceeeef60b2b74307b1a3e124e6b54b16b1f8607074b4f501d8324e",
+  "tool_names": [
+    "get_recently_submitted_cs_papers",
+    "search_arxiv_papers",
+    "download_arxiv_pdf",
+    "get_paper_content",
+    "summarize_paper",
+    "extract_paper_figures",
+    "analyze_figure",
+    "translate_arxiv_pdf",
+    "get_paper_cache_status",
+    "get_translated_content"
+  ],
+  "trl": "1.17.1",
+  "historical_default_loss": "dapo"
+}
