@@ -66,11 +66,25 @@ def report(path,output):
     body+=["","## 信号与运行","","| 信号 | 全部采样组 | 环境有效组 |","|---|---|---|"]
     for k,title in (("mixed","Strict 混合"),("dfa","同 DFA 状态的正确动作与首错"),("anchor","同真实 Anchor 的不同动作与不同回报")):
         body.append(f"| {title} | {rate(b[k],n)} | {rate(b[k],valid)} |")
+    failures_only=sum(g["signals"]["strict"]==[0,0,0,0] for g in groups)
+    dfa_only=sum(g["signals"]["strict"]==[0,0,0,0] and g["signals"]["dfa"] for g in groups)
+    ceiling=sum(g["signals"]["strict"]==[1,1,1,1] for g in groups)
+    body+=["",f"环境有效组中，{failures_only} 组为四条全部失败，{ceiling} 组为四条全部成功。在全部失败组中仍有 {dfa_only} 组出现同状态的正确前缀与首错。组内终局回报相同，Strict 和依赖回报差异的 Anchor 在这些组没有对照。"]
     body+=["",f"环境可评分轨迹的 Strict 成功为 {rate(salvaged,samples-inv)}。环境无效 {inv} 条；触及轮数或 Token 上限 {b['truncated']} 条。原始 DFA/Anchor 非零决策的分母为环境有效组的 {dec} 个可判定决策。投影 E4 后理论上带非零优势且掩码开启的 Assistant Token 为 {b['nonzero_effective_tokens']}；冻结 Probe 实际参数更新次数为 0。",
            "",f"首组开始到末组落盘约 {duration/3600:.2f} 小时，合计生成 {tokens} 个 Assistant Token；吞吐 {tokens/duration:.1f} Token/秒。单采样进程最高 CUDA allocated 为 {peak/2**30:.2f} GiB。原始数据分组保存，每组均核对任务、Seed、SHA 和信用诊断重算结果。",
            "","## 逐题","","| 任务 | 组 | Strict 混合 | DFA 对照 | Anchor 对照 | 环境无效组 | 截断轨迹 | Strict 成功 | 入选 |","|---|---:|---:|---:|---:|---:|---:|---:|---|"]
     for tid,d in out["tasks"].items():
         body.append(f"| {tid} | 8 | {d['mixed']} | {d['dfa']} | {d['anchor']} | {8-d['valid']} | {d['truncated']} | {d['strict_success']} | {'是' if d['eligible'] else '否'} |")
+    body+=["","## 每题追加采样实际观察到什么","","使用相同的候选题和预定 Seed，仅截取各题前 k 个组。环境无效轨迹从严格成功分母中剔除。","",
+           "| 每题采样 | 至少一次严格成功的题 | 成功轨迹 / 可评分轨迹 | 出现 DFA 对照的题 | 出现 Anchor 对照的题 |",
+           "|---|---:|---:|---:|---:|"]
+    for k in (1,2,4,8):
+        sample=[g for g in groups if g["group"]<k]
+        outcomes=[x for g in sample for x in g["signals"]["strict"] if x is not None]
+        success={g["task_id"] for g in sample if 1 in g["signals"]["strict"]}
+        dfa={g["task_id"] for g in sample if g["signals"]["dfa"]}
+        anchor={g["task_id"] for g in sample if g["signals"]["anchor"]}
+        body.append(f"| {k} 组 / {4*k} 条 | {len(success)} | {rate(sum(outcomes),len(outcomes))} | {len(dfa)} | {len(anchor)} |")
     body+=["","## 首错与引用","", "只计可评分轨迹中的第一个可验证错误，同一条轨迹至多计一次。",""]
     for kind,count in first_errors.most_common():
         body.append(f"- {kind}：{count} 条。")

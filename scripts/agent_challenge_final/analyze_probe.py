@@ -53,7 +53,15 @@ def analyze(directory):
     eligible=set(result["selected"])
     jsonl(directory/"train_eligible.jsonl",[t for t in tasks if t["id"] in eligible])
     if result["decision"]=="GO":
-        jsonl(directory/"train_selected.jsonl",[t for t in tasks if t["id"] in eligible])
+        from train import schedule
+        selected=[t for t in tasks if t["id"] in eligible]
+        plan=schedule(selected)
+        frozen=directory/"schedule.json"
+        if frozen.exists() and json.loads(frozen.read_bytes())!=plan:
+            raise ValueError("Existing schedule differs from the selected tasks")
+        jsonl(directory/"train_selected.jsonl",selected)
+        if not frozen.exists():
+            write(frozen,plan)
     write(directory/"analysis.json",dict(first_errors=errors,termination=rollouts,per_task=detail,signal_evidence=evidence))
     write(directory/"group_sha256.json",files)
     return result

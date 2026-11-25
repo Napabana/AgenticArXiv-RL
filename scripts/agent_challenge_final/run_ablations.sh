@@ -16,12 +16,44 @@ if ! "$py" -c 'import json,sys;sys.exit(json.load(open(sys.argv[1]))["decision"]
 fi
 mkdir -p "$out"
 assets=(--base "$base" --snapshot "$snapshot")
-for mode in E1 E2 E3 E4; do
+train_stage() {
+    local mode=$1 stage=$2
+    local opts=()
+    if test "$stage" = smoke; then opts=(--smoke); fi
+    "$py" scripts/agent_challenge_final/train.py "${assets[@]}" --adapter "$adapter" --probe "$probe" \
+        --experiment "$mode" --output "$out/$mode/$stage" "${opts[@]}"
+}
+for pair in "E1 E2" "E3 E4"; do
+    read -r first second <<< "$pair"
+    parallel=${ABLATION_WORKERS:-2}
     for stage in smoke pilot; do
-        opts=()
-        if test "$stage" = smoke; then opts=(--smoke); fi
-        "$py" scripts/agent_challenge_final/train.py "${assets[@]}" --adapter "$adapter" --probe "$probe" \
-            --experiment "$mode" --output "$out/$mode/$stage" "${opts[@]}"
+        if test "$parallel" = 1; then
+            for mode in "$first" "$second"; do
+                train_stage "$mode" "$stage" > "$out/$mode-$stage.log" 2>&1
+            done
+            continue
+        fi
+        pids=()
+        for mode in "$first" "$second"; do
+            train_stage "$mode" "$stage" > "$out/$mode-$stage.log" 2>&1 &
+            pids+=("$!")
+        done
+        failed=()
+        wait "${pids[0]}" || failed+=("$first")
+        wait "${pids[1]}" || failed+=("$second")
+        for mode in "${failed[@]}"; do
+            log="$out/$mode-$stage.log"
+            if ! grep -Eq 'CUDA out of memory|torch.OutOfMemoryError' "$log"; then
+                tail -n 25 "$log" >&2
+                exit 1
+            fi
+            # Preserve every artifact of the failed attempt before replaying from its fixed start.
+            fallback=$(mktemp -d "$out/$mode-$stage-oom.XXXXXX")
+            mv "$log" "$fallback/output.log"
+            if test -d "$out/$mode/$stage"; then mv "$out/$mode/$stage" "$fallback/attempt"; fi
+            parallel=1
+            train_stage "$mode" "$stage" > "$log" 2>&1
+        done
     done
 done
 for split in dev sealed_test; do

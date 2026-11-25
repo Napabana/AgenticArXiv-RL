@@ -5,7 +5,7 @@ import os
 import random
 from pathlib import Path
 
-from audit_snapshot import DATA, write
+from audit_snapshot import DATA
 from audit_tasks import lines
 from generate_parametric_sft_data import sha256_file
 from probe import frozen_inputs
@@ -68,10 +68,8 @@ def main(args):
         raise ValueError("Unknown or duplicate selected task IDs")
     plan=schedule(tasks)
     plan_file=args.probe/"schedule.json"
-    if plan_file.exists() and json.loads(plan_file.read_bytes())!=plan:
+    if json.loads(plan_file.read_bytes())!=plan:
         raise ValueError("Schedule differs from frozen run")
-    if not plan_file.exists():
-        write(plan_file,plan)
     tok,rollout,runtime=frozen_inputs(args)
     budget=json.loads((DATA/"generation_budget.json").read_bytes())
     if not args.smoke:
