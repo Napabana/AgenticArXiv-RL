@@ -1,0 +1,17 @@
+{
+  "dev.jsonl.gz": {
+    "lines": 24,
+    "raw_sha256": "63a2580905368f041fa84b36cf2ced35ce42c8171766f6e71d122b31055e6247",
+    "gz_sha256": "d53e90139d5912e535bd138caa2a1ca0d5bab40fb9992a3933b8a8f74b8a8702"
+  },
+  "iid_test.jsonl.gz": {
+    "lines": 57,
+    "raw_sha256": "2feee6fd2d131450707df1b323133bdd403fce547b418c6afdc2b98838510973",
+    "gz_sha256": "ddeaeaf0608b0c5b1c58b676f3047d42e06699aab1b529d39a82163e18a88955"
+  },
+  "ood_test.jsonl.gz": {
+    "lines": 12,
+    "raw_sha256": "ca34ade583df3767b3adef30a473ea9afdfdfb4f65ed04813baf410bd129fae5",
+    "gz_sha256": "3fda644d6a11701aa8f48e4fe39581a99dab3a5cdcceaa00cdbf59abb72c2288"
+  }
+}
