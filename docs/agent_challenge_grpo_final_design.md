@@ -9,7 +9,6 @@
 **建议实现分支：** `exp/agent-challenge-grpo-final`\
 **策略模型：** `Qwen/Qwen3.5-2B-Base` + Native SFT v2 Adapter\
 **训练硬件：** 单张 RTX 4090，24GB\
-**建议独立设计仓库名：** `AgenticArXiv-Challenge-Benchmark`
 
 ------------------------------------------------------------------------
 
