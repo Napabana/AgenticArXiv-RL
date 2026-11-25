@@ -3,6 +3,7 @@ import argparse
 import gzip
 import json
 import os
+import random
 from pathlib import Path
 
 from audit_snapshot import DATA,write
@@ -41,15 +42,31 @@ def screen(directory):
     return eligible,evidence
 
 
-def freeze(probe,output,smoke,pilot_steps=24):
+def freeze(probe,output,smoke,pilot_steps=24,all_candidates=False):
     path=output/("smoke_inputs.json" if smoke else "pilot_inputs.json")
     manifest=sha256_file(DATA/"manifest.json")
+    if all_candidates and (smoke or pilot_steps!=24):
+        raise ValueError("All-candidate control requires one 24-step pilot")
     if path.exists():
         data=json.loads(path.read_bytes())
         if data["manifest_sha256"]!=manifest:
             raise ValueError("Input manifest changed")
+        if data.get("all_candidates",False)!=all_candidates:
+            raise ValueError("Frozen plan belongs to the other sampling arm")
         if not smoke and len(data["plan"])!=pilot_steps:
             raise ValueError("Frozen plan length differs from authorized pilot budget")
+        return data
+    if all_candidates:
+        tasks=lines(DATA/"train_candidates.jsonl")
+        ids=[t["id"] for t in tasks]
+        if len(tasks)!=24 or len(set(ids))!=24:
+            raise ValueError("Expected exactly 24 unique audited Train candidates")
+        random.Random(42).shuffle(tasks)
+        plan=[dict(group_id=i,prompt=t["id"],task_id=t["id"],stratum=t["family"]) for i,t in enumerate(tasks)]
+        data=dict(experiment="E2",protocol="single_method_DFA_transfer",manifest_sha256=manifest,
+                  all_candidates=True,selection="all audited train candidates once",exclude_invalid_groups=True,
+                  eligible=ids,plan=plan)
+        write(path,data)
         return data
     eligible,evidence=screen(probe)
     if smoke:
@@ -69,11 +86,11 @@ def freeze(probe,output,smoke,pilot_steps=24):
 
 
 def run(args):
-    data=freeze(args.probe,args.output,args.smoke,args.pilot_steps)
+    data=freeze(args.probe,args.output,args.smoke,args.pilot_steps,args.all_candidates)
     if not data:
         raise SystemExit(75)  # More independent candidate coverage is needed for the fixed schedule.
     if args.freeze_only:
-        print(json.dumps(dict(sampled=data["completed_tasks"],eligible=data["eligible"],plan=data["plan"])))
+        print(json.dumps(dict(eligible=data["eligible"],plan=data["plan"])))
         return
     idle_slot=args.output/"idle-slot.lock"
     if not args.smoke and idle_slot.exists():
@@ -114,9 +131,9 @@ def run(args):
             raise ValueError("Invalid group had active policy or DFA tokens")
         proofs.append(dict(group=g["group_id"],task=g["task_id"],nonzero_advantage_tokens=n,
                            nonzero_DFA_tokens=local_n,excluded_invalid_group=g["excluded_invalid_group"]))
+    write(args.output/"update_tokens.json",proofs)
     if sum(p["nonzero_DFA_tokens"] for p in proofs)==0:
         raise RuntimeError("No effective DFA token updates in the E2 run")
-    write(args.output/"update_tokens.json",proofs)
 
 
 if __name__=="__main__":
@@ -125,6 +142,7 @@ if __name__=="__main__":
         p.add_argument("--"+k,type=Path,required=True)
     p.add_argument("--smoke",action="store_true")
     p.add_argument("--freeze-only",action="store_true")
+    p.add_argument("--all-candidates",action="store_true")
     p.add_argument("--pilot-steps",type=int,choices=[24,25],default=24)
     p.add_argument("--resume",type=Path)
     p.add_argument("--dry-run",action="store_true")

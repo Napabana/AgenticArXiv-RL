@@ -24,3 +24,17 @@ def test_smoke_freeze_does_not_adapt_to_later_probe_cases(tmp_path):
     assert [row["task_id"] for row in first["plan"]]==["t0","t1","t2","t3"]
     with patch("dfa_transfer.screen",side_effect=AssertionError("changed inputs")):
         assert freeze(tmp_path,tmp_path,True)==first
+
+
+def test_all_candidate_control_covers_each_train_task_once(tmp_path):
+    import pytest
+    from audit_snapshot import DATA
+    from audit_tasks import lines
+    with patch("dfa_transfer.screen",side_effect=AssertionError("Probe must not select control tasks")):
+        data=freeze(tmp_path,tmp_path,False,all_candidates=True)
+        ids=[row["task_id"] for row in data["plan"]]
+        assert len(ids)==len(set(ids))==24
+        assert set(ids)=={row["id"] for row in lines(DATA/"train_candidates.jsonl")}
+        assert freeze(tmp_path,tmp_path,False,all_candidates=True)==data
+        with pytest.raises(ValueError,match="other sampling arm"):
+            freeze(tmp_path,tmp_path,False)

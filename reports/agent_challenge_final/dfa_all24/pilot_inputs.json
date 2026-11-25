@@ -1,0 +1,180 @@
+{
+  "experiment": "E2",
+  "protocol": "single_method_DFA_transfer",
+  "manifest_sha256": "54402c0a697f4e74c2e0144265c467a81469b6decea110ccd14d48fee943bf0a",
+  "all_candidates": true,
+  "selection": "all audited train candidates once",
+  "exclude_invalid_groups": true,
+  "eligible": [
+    "challenge_train_01_A",
+    "challenge_train_02_A",
+    "challenge_train_03_A",
+    "challenge_train_04_A",
+    "challenge_train_05_A",
+    "challenge_train_06_A",
+    "challenge_train_07_B",
+    "challenge_train_08_B",
+    "challenge_train_09_B",
+    "challenge_train_10_B",
+    "challenge_train_11_B",
+    "challenge_train_12_B",
+    "challenge_train_13_C",
+    "challenge_train_14_C",
+    "challenge_train_15_C",
+    "challenge_train_16_C",
+    "challenge_train_17_D",
+    "challenge_train_18_D",
+    "challenge_train_19_D",
+    "challenge_train_20_E",
+    "challenge_train_21_E",
+    "challenge_train_22_E",
+    "challenge_train_23_F",
+    "challenge_train_24_F"
+  ],
+  "plan": [
+    {
+      "group_id": 0,
+      "prompt": "challenge_train_16_C",
+      "task_id": "challenge_train_16_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 1,
+      "prompt": "challenge_train_06_A",
+      "task_id": "challenge_train_06_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 2,
+      "prompt": "challenge_train_19_D",
+      "task_id": "challenge_train_19_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 3,
+      "prompt": "challenge_train_24_F",
+      "task_id": "challenge_train_24_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 4,
+      "prompt": "challenge_train_14_C",
+      "task_id": "challenge_train_14_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 5,
+      "prompt": "challenge_train_11_B",
+      "task_id": "challenge_train_11_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 6,
+      "prompt": "challenge_train_18_D",
+      "task_id": "challenge_train_18_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 7,
+      "prompt": "challenge_train_12_B",
+      "task_id": "challenge_train_12_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 8,
+      "prompt": "challenge_train_15_C",
+      "task_id": "challenge_train_15_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 9,
+      "prompt": "challenge_train_17_D",
+      "task_id": "challenge_train_17_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 10,
+      "prompt": "challenge_train_02_A",
+      "task_id": "challenge_train_02_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 11,
+      "prompt": "challenge_train_13_C",
+      "task_id": "challenge_train_13_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 12,
+      "prompt": "challenge_train_22_E",
+      "task_id": "challenge_train_22_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 13,
+      "prompt": "challenge_train_07_B",
+      "task_id": "challenge_train_07_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 14,
+      "prompt": "challenge_train_10_B",
+      "task_id": "challenge_train_10_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 15,
+      "prompt": "challenge_train_03_A",
+      "task_id": "challenge_train_03_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 16,
+      "prompt": "challenge_train_23_F",
+      "task_id": "challenge_train_23_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 17,
+      "prompt": "challenge_train_05_A",
+      "task_id": "challenge_train_05_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 18,
+      "prompt": "challenge_train_20_E",
+      "task_id": "challenge_train_20_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 19,
+      "prompt": "challenge_train_08_B",
+      "task_id": "challenge_train_08_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 20,
+      "prompt": "challenge_train_09_B",
+      "task_id": "challenge_train_09_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 21,
+      "prompt": "challenge_train_01_A",
+      "task_id": "challenge_train_01_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 22,
+      "prompt": "challenge_train_04_A",
+      "task_id": "challenge_train_04_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 23,
+      "prompt": "challenge_train_21_E",
+      "task_id": "challenge_train_21_E",
+      "stratum": "E"
+    }
+  ]
+}
