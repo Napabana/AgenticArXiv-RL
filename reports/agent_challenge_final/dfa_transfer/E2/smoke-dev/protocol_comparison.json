@@ -1,0 +1,89 @@
+{
+  "agents": {
+    "native_tool_calling": {
+      "format_parse_success": {
+        "count": 119,
+        "total": 120,
+        "rate": 0.9916666666666667
+      },
+      "schema_compliance": {
+        "count": 99,
+        "total": 102,
+        "rate": 0.9705882352941176
+      },
+      "tool_accuracy": {
+        "count": 11,
+        "total": 24,
+        "rate": 0.4583333333333333
+      },
+      "argument_accuracy": {
+        "score_sum": 17.65,
+        "total": 24,
+        "rate": 0.7354166666666666
+      },
+      "tool_error_rate": {
+        "count": 10,
+        "total": 99,
+        "rate": 0.10101010101010101
+      },
+      "snapshot_coverage_errors": 3,
+      "setup_failures": 0,
+      "unexpected_repeat_calls": 7,
+      "pending_guard_errors": 0,
+      "pending_finished": {
+        "count": 3,
+        "total": 3,
+        "rate": 1.0
+      },
+      "explained_refusal": {
+        "count": 0,
+        "total": 0,
+        "rate": null
+      },
+      "strict_success": {
+        "count": 11,
+        "total": 24,
+        "rate": 0.4583333333333333
+      },
+      "avg_executed_tool_calls": 4.125,
+      "avg_prompt_tokens": 20484.208333333332,
+      "avg_completion_tokens": 378.4583333333333,
+      "avg_total_tokens": 20862.666666666668,
+      "avg_llm_ms": 34835.791666666664,
+      "avg_total_ms": 34845.208333333336,
+      "avg_reward": 0.17708333333333334,
+      "benchmark_errors": 0,
+      "request_errors": 0,
+      "error_terminations": 4,
+      "issues": {
+        "schema:invalid_value:section": 3,
+        "format:finish_reason:length": 1
+      },
+      "recovered_format_errors": 0,
+      "returned_models": [
+        "/root/sj-tmp/models/Qwen3.5-2B-Base"
+      ],
+      "generation_stop_reasons": {
+        "tool_call_end": 102,
+        "chat_end": 17,
+        "length": 1
+      }
+    }
+  },
+  "paired_strict": {
+    "total": 0,
+    "fail_to_pass": 0,
+    "pass_to_fail": 0
+  },
+  "requested_model": "/root/sj-tmp/models/Qwen3.5-2B-Base",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "native_protocol": {
+    "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+    "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+    "repeat": 3,
+    "seed": 42,
+    "split": null,
+    "no_thinking": true,
+    "adapter": "/root/sj-tmp/agent-challenge-final-56780/dfa-transfer/E2/smoke/checkpoint-4"
+  }
+}
