@@ -6,6 +6,7 @@ import argparse
 import json
 import math
 import sys
+from collections import Counter
 from hashlib import sha256
 from pathlib import Path
 
@@ -17,6 +18,7 @@ from audit_native_sft_data import MAX_LENGTH, collator_check, jsonl, render_deci
 from generate_parametric_sft_data import sha256_file
 from rl.model_loading import build_bf16_lora_config, load_text_model_and_tokenizer, trainable_parameter_fingerprint
 from rl.precision import pin_single_gpu
+from rl.native_sft_mix import epoch_indices
 
 
 def main() -> None:
@@ -24,10 +26,17 @@ def main() -> None:
     parser.add_argument("--model", required=True, type=Path)
     parser.add_argument("--data", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--max-steps", type=int, default=2)
+    parser.add_argument("--mode", choices=("smoke", "formal"))
+    parser.add_argument("--max-steps", type=int)
     parser.add_argument("--epochs", type=float, default=1)
     parser.add_argument("--grad-accum", type=int, default=8)
     args = parser.parse_args()
+    if args.max_steps is None:
+        args.max_steps = -1 if args.mode == "formal" else 2
+    mode = args.mode or ("smoke" if args.max_steps > 0 else "formal")
+    if (mode == "smoke") != (args.max_steps > 0):
+        parser.error("Smoke needs positive max steps; formal needs epoch-driven training")
+    exposures = Counter()
 
     import torch
     import trl
@@ -40,6 +49,10 @@ def main() -> None:
 
     class CompletionProjectionTrainer(SFTTrainer):
         def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
+            if "decision_index" in inputs:
+                index = inputs.pop("decision_index").item()
+                if model.training:
+                    exposures[index] += 1
             labels = inputs["labels"]
             if labels.shape[0] != 1:
                 raise ValueError("Completion-only logits projection requires micro batch size 1")
@@ -68,6 +81,14 @@ def main() -> None:
     manifest_path = args.data.with_suffix(".jsonl.manifest.json")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     data_hash = sha256_file(args.data)
+    v2 = manifest.get("version") == 2
+    if v2 and (not args.mode or args.epochs != 1):
+        parser.error("Native SFT v2 requires an explicit mode and one full epoch")
+    if v2:
+        for line in (PACKAGE_ROOT.parent / "reports/native_sft_final_20261121/base_model.sha256").read_text().splitlines():
+            wanted, name = line.split()
+            if sha256_file(model_path / name) != wanted:
+                raise ValueError(f"Base identity mismatch: {name}")
     if (manifest["audit_status"] != "PASS" or manifest["kind"] != "native_sft_decision_samples"
             or manifest["model_id"] != "Qwen/Qwen3.5-2B-Base" or model_path.name != "Qwen3.5-2B-Base"
             or manifest["output_sha256"][args.data.name] != data_hash
@@ -88,12 +109,15 @@ def main() -> None:
         raise ValueError("Loaded Base tokenizer template differs from the audited template")
     collator = DataCollatorForLanguageModeling(pad_token_id=tokenizer.pad_token_id)
     tokenized = []
+    buckets = []
     for row in jsonl(args.data):
         example, prefix, _ = render_decision(tokenizer, row)
         if len(example["input_ids"]) > MAX_LENGTH:
             raise ValueError(f"Unfiltered sequence length for {row['task_id']}")
         collator_check(collator, example, prefix)
         tokenized.append(example)
+        if v2:
+            buckets.append(row["sampling_bucket"])
     if len(tokenized) != manifest["decision_samples"]:
         raise ValueError("Unexpected Native SFT sample count")
 
@@ -128,6 +152,7 @@ def main() -> None:
         completion_only_loss=True,
         dataset_kwargs={"skip_prepare_dataset": True},
         packing=False,
+        **({"remove_unused_columns": False} if v2 else {}),
         per_device_train_batch_size=1,
         gradient_accumulation_steps=args.grad_accum,
         gradient_checkpointing=True,
@@ -154,9 +179,21 @@ def main() -> None:
         # Exercise the longest actual inputs during Smoke, including the 6144-token boundary.
         training_examples = sorted(tokenized, key=lambda row: len(row["input_ids"]), reverse=True)[
             :args.max_steps * args.grad_accum]
+    dataset = Dataset.from_list(training_examples)
+    trainer_collator = collator
+    if v2:
+        if mode == "formal":
+            indices = epoch_indices(buckets)
+        else:
+            indices = sorted(range(len(tokenized)), key=lambda i: len(tokenized[i]["input_ids"]), reverse=True)[:args.max_steps * args.grad_accum]
+        dataset = Dataset.from_list(tokenized).add_column("decision_index", list(range(len(tokenized)))).select(indices)
+        def trainer_collator(features):
+            batch = collator([{k:v for k,v in row.items() if k != "decision_index"} for row in features])
+            batch["decision_index"] = torch.tensor([row["decision_index"] for row in features])
+            return batch
     trainer = CompletionProjectionTrainer(model=policy, args=config, processing_class=tokenizer,
-                                          train_dataset=Dataset.from_list(training_examples),
-                                          data_collator=collator, callbacks=[LossLogCallback()])
+                                          train_dataset=dataset,
+                                          data_collator=trainer_collator, callbacks=[LossLogCallback()])
     # Verify the effective Trainer input, including the data column selection.
     first = next(iter(trainer.get_train_dataloader()))
     if not (first["labels"] == -100).any().item() or not (first["labels"] >= 0).any().item():
@@ -164,6 +201,8 @@ def main() -> None:
     before = trainable_parameter_fingerprint(policy)
     result = trainer.train()
     steps = int(trainer.state.global_step)
+    if v2 and (exposures != Counter(indices) or steps != math.ceil(len(indices) / args.grad_accum)):
+        raise RuntimeError("Observed decision exposures or optimizer steps differ from the planned epoch")
     after = trainable_parameter_fingerprint(policy)
     if steps < 1 or before == after or not math.isfinite(float(result.training_loss)):
         raise RuntimeError(f"Native SFT update failed: steps={steps}, loss={result.training_loss}")
@@ -182,7 +221,7 @@ def main() -> None:
     training = {
         "status": "PASS", "base_model": manifest["model_id"], "data_sha256": data_hash,
         "data_manifest_sha256": sha256_file(manifest_path), "dataset_rows": len(tokenized),
-        "run_dataset_rows": len(training_examples),
+        "run_dataset_rows": len(dataset), "mode": mode,
         "logits_projection": "supervised_next_token_positions",
         "optimizer_steps": steps, "train_loss": float(result.training_loss),
         "lora_fingerprint_before": before, "lora_fingerprint_after": after,
@@ -195,6 +234,17 @@ def main() -> None:
         "loss_log": loss_path.name, "loss_log_sha256": sha256_file(loss_path),
         "tensorboard_events": [str(path.relative_to(args.output)) for path in events],
     }
+    if v2:
+        actual = Counter()
+        for i,count in exposures.items():
+            actual[buckets[i]] += count
+        training.update(initialization="base_with_new_lora", unique_decisions_exposed=len(exposures),
+                        learning_rate=config.learning_rate, lr_scheduler_type=config.lr_scheduler_type.value,
+                        warmup_steps=config.warmup_steps, micro_batch_size=config.per_device_train_batch_size,
+                        max_steps=config.max_steps, max_length=MAX_LENGTH, bf16=config.bf16,
+                        lora_rank=adapter_config.r, lora_alpha=adapter_config.lora_alpha,
+                        lora_dropout=adapter_config.lora_dropout,
+                        actual_bucket_exposures=dict(actual), decision_exposures=[exposures[i] for i in range(len(tokenized))])
     (args.output / "training.json").write_text(json.dumps(training, indent=2) + "\n", encoding="utf-8")
     print(f"NATIVE_SFT_PASS optimizer_steps={steps} loss={result.training_loss:.6f} adapter={adapter_dir}")
 

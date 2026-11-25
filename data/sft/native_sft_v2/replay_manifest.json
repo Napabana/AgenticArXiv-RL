@@ -1,0 +1,33 @@
+{
+  "v1_sha256": {
+    "native_sft_task_catalog.jsonl": "c25323d183ccac2809ec1c3948718106623550bdbfa6e55df98f1bdf5f2a659a",
+    "native_sft_trajectories.jsonl": "3a0ead8b97e1d53c48274abfb0fc7bdd5f9f24ee39329a622e9b671405e8e07c",
+    "native_sft_content_preview.jsonl": "5f59ff371c7710ac076dec6d6c2eee0e2bc2866516d28f1e07be1ffe6e0e6e89",
+    "native_sft_train.jsonl": "42002233e1fe03cd4e4fbb31b44f9565f588ec1d0de5e42995f540aa87c58e68"
+  },
+  "v1_replayed": 188,
+  "new_candidates": 38,
+  "new_accepted": 35,
+  "excluded": [
+    {
+      "task_id": "sft_v2_pending_read",
+      "reason": "same effective action sequence as held-out ref_ctrl_id_cache"
+    },
+    {
+      "task_id": "sft_v2_recover_active",
+      "reason": "same effective action sequence as held-out state_ref_cache_active"
+    },
+    {
+      "task_id": "sft_v2_recover_scope",
+      "reason": "snapshot miss in recovery history; cannot verify a real empty keyword result"
+    }
+  ],
+  "output_sha256": {
+    "native_sft_v2_task_catalog.jsonl": "88f7df678e2b8179319bad20e19c77397282d3c3b9a76190007378218fe117fb",
+    "native_sft_v2_trajectories.jsonl": "d301737dd435fa0ba06db4c4124f3473bcd14480c517232e6b41bbd313894408",
+    "native_sft_v2_content_preview.jsonl": "9f877ebaee94849a91f8f3505e952e493b424892de21cc5433599924f516e2bb",
+    "frozen_system_prompt.txt": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05"
+  },
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "split_sha256": "0a176b0f67b8b61d4f84e27a40071ab81a5be3d2040c2a58aa695432f5a6eacc"
+}

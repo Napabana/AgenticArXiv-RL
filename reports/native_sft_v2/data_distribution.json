@@ -1,0 +1,71 @@
+{
+  "original_trajectories": 188,
+  "original_decisions": 505,
+  "new_trajectories": 35,
+  "new_decisions": 85,
+  "total_trajectories": 223,
+  "total_decisions": 590,
+  "new_trajectory_patterns": {
+    "scope_and_save": 4,
+    "cached_pdf_force": 2,
+    "translation_options": 3,
+    "section_then_summary": 2,
+    "search_download_read": 1,
+    "cache_before_translation": 1,
+    "two_downloads_then_check": 1,
+    "two_distinct_cache_states": 1,
+    "download_only_if_missing": 2,
+    "extract_then_analyze": 2,
+    "ready_page": 2,
+    "pending_submit": 1,
+    "pending_same": 1,
+    "pending_other": 1,
+    "resolve_active_or_clarify": 2,
+    "index_zero": 1,
+    "index_past": 1,
+    "unsupported_upload": 1,
+    "unsupported_print": 1,
+    "feasible_subgoal": 1,
+    "read_then_unsupported": 1,
+    "repair_ref": 1,
+    "repair_download": 1,
+    "no_object": 1
+  },
+  "trajectories_by_bucket": {
+    "core": 131,
+    "special": 32,
+    "error_targeted": 60
+  },
+  "decisions_by_bucket": {
+    "core": 396,
+    "special": 45,
+    "error_targeted": 149
+  },
+  "epoch_weights": {
+    "core": 6,
+    "error_targeted": 3,
+    "special": 1
+  },
+  "planned_exposures": {
+    "special": 66,
+    "core": 396,
+    "error_targeted": 198
+  },
+  "planned_rows": 660,
+  "excluded_candidates": [
+    {
+      "task_id": "sft_v2_pending_read",
+      "reason": "same effective action sequence as held-out ref_ctrl_id_cache"
+    },
+    {
+      "task_id": "sft_v2_recover_active",
+      "reason": "same effective action sequence as held-out state_ref_cache_active"
+    },
+    {
+      "task_id": "sft_v2_recover_scope",
+      "reason": "snapshot miss in recovery history; cannot verify a real empty keyword result"
+    }
+  ],
+  "new_compressed": [],
+  "actual_training_exposures": null
+}

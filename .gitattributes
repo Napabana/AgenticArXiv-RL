@@ -13,3 +13,5 @@ data/format_control/*.json* text eol=lf
 reports/format_control/dataset_manifest.json text eol=lf
 reports/format_control/**/*.jsonl text eol=lf
 reports/format_control/**/*.json text eol=lf
+data/sft/native_sft_v2/* text eol=lf
+scripts/run_native_sft_v2.sh text eol=lf
