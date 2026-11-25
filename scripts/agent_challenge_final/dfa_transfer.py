@@ -41,13 +41,15 @@ def screen(directory):
     return eligible,evidence
 
 
-def freeze(probe,output,smoke):
+def freeze(probe,output,smoke,pilot_steps=24):
     path=output/("smoke_inputs.json" if smoke else "pilot_inputs.json")
     manifest=sha256_file(DATA/"manifest.json")
     if path.exists():
         data=json.loads(path.read_bytes())
         if data["manifest_sha256"]!=manifest:
             raise ValueError("Input manifest changed")
+        if not smoke and len(data["plan"])!=pilot_steps:
+            raise ValueError("Frozen plan length differs from authorized pilot budget")
         return data
     eligible,evidence=screen(probe)
     if smoke:
@@ -55,9 +57,9 @@ def freeze(probe,output,smoke):
             return None
         plan=[dict(group_id=i,prompt=t["id"],task_id=t["id"],stratum=t["family"]) for i,t in enumerate(eligible[:4])]
     else:
-        if len(eligible)<9 or sum(len(t["expected_tools"])>=4 for t in eligible)*3<13:
+        if len(eligible)*3<pilot_steps or sum(len(t["expected_tools"])>=4 for t in eligible)*6<pilot_steps:
             return None
-        plan=schedule(eligible)
+        plan=schedule(eligible,steps=pilot_steps)
     data=dict(experiment="E2",protocol="single_method_DFA_transfer",manifest_sha256=manifest,
               selection="at least two valid independent DFA contrasts; <=25% truncated episodes in valid groups",
               exclude_invalid_groups=True,completed_tasks=len(evidence),eligible=[t["id"] for t in eligible],
@@ -67,7 +69,7 @@ def freeze(probe,output,smoke):
 
 
 def run(args):
-    data=freeze(args.probe,args.output,args.smoke)
+    data=freeze(args.probe,args.output,args.smoke,args.pilot_steps)
     if not data:
         raise SystemExit(75)  # More independent candidate coverage is needed for the fixed schedule.
     if args.freeze_only:
@@ -123,6 +125,7 @@ if __name__=="__main__":
         p.add_argument("--"+k,type=Path,required=True)
     p.add_argument("--smoke",action="store_true")
     p.add_argument("--freeze-only",action="store_true")
+    p.add_argument("--pilot-steps",type=int,choices=[24,25],default=24)
     p.add_argument("--resume",type=Path)
     p.add_argument("--dry-run",action="store_true")
     os.environ.update(HF_HUB_OFFLINE="1",STORE_BACKEND="memory",TRL_EXPERIMENTAL_SILENCE="1")

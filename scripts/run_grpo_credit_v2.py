@@ -45,7 +45,7 @@ def execute(args, *, challenge=None):
     from trl import GRPOConfig
     from rl.credit_v2_trainer import StrictGroupReward, CreditV2Trainer
 
-    steps = 4 if args.smoke else 25
+    steps = 4 if args.smoke else getattr(args,"pilot_steps",25)
     if challenge is None:
         split = pinned()
         args.tasks = TRAIN

@@ -1,0 +1,2075 @@
+{
+  "first_errors": {
+    "wrong_ref": 399,
+    "wrong_tool": 121,
+    "tool_error": 95,
+    "translation_not_ready": 6,
+    "no_first_error": 28,
+    "schema_error": 29,
+    "early_finish": 15,
+    "wrong_args": 53,
+    "environment_invalid": 19,
+    "pending_guard": 3
+  },
+  "termination": {
+    "schema_error": 89,
+    "token_budget": 86,
+    "finish": 453,
+    "max_turns": 115,
+    "parse_error": 6,
+    "environment_invalid": 19
+  },
+  "per_task": {
+    "challenge_train_01_A": {
+      "first_error": {
+        "wrong_ref": 10,
+        "wrong_tool": 2,
+        "tool_error": 11,
+        "translation_not_ready": 2,
+        "no_first_error": 4,
+        "schema_error": 2,
+        "early_finish": 1
+      },
+      "termination": {
+        "schema_error": 4,
+        "token_budget": 6,
+        "finish": 12,
+        "max_turns": 9,
+        "parse_error": 1
+      }
+    },
+    "challenge_train_02_A": {
+      "first_error": {
+        "wrong_ref": 31,
+        "tool_error": 1
+      },
+      "termination": {
+        "finish": 23,
+        "token_budget": 3,
+        "schema_error": 4,
+        "max_turns": 2
+      }
+    },
+    "challenge_train_03_A": {
+      "first_error": {
+        "wrong_ref": 2,
+        "wrong_args": 28,
+        "no_first_error": 1,
+        "schema_error": 1
+      },
+      "termination": {
+        "finish": 21,
+        "max_turns": 10,
+        "schema_error": 1
+      }
+    },
+    "challenge_train_04_A": {
+      "first_error": {
+        "wrong_ref": 20,
+        "tool_error": 4,
+        "no_first_error": 6,
+        "environment_invalid": 1,
+        "wrong_tool": 1
+      },
+      "termination": {
+        "token_budget": 22,
+        "finish": 6,
+        "max_turns": 3,
+        "environment_invalid": 1
+      }
+    },
+    "challenge_train_05_A": {
+      "first_error": {
+        "wrong_ref": 30,
+        "tool_error": 1,
+        "wrong_tool": 1
+      },
+      "termination": {
+        "finish": 29,
+        "parse_error": 1,
+        "max_turns": 2
+      }
+    },
+    "challenge_train_06_A": {
+      "first_error": {
+        "wrong_tool": 10,
+        "wrong_ref": 11,
+        "schema_error": 4,
+        "environment_invalid": 4,
+        "tool_error": 3
+      },
+      "termination": {
+        "schema_error": 8,
+        "token_budget": 14,
+        "finish": 5,
+        "environment_invalid": 4,
+        "max_turns": 1
+      }
+    },
+    "challenge_train_07_B": {
+      "first_error": {
+        "tool_error": 13,
+        "wrong_ref": 9,
+        "wrong_tool": 9,
+        "environment_invalid": 1
+      },
+      "termination": {
+        "max_turns": 10,
+        "finish": 17,
+        "schema_error": 2,
+        "token_budget": 2,
+        "environment_invalid": 1
+      }
+    },
+    "challenge_train_08_B": {
+      "first_error": {
+        "tool_error": 9,
+        "wrong_ref": 15,
+        "wrong_tool": 3,
+        "early_finish": 3,
+        "schema_error": 2
+      },
+      "termination": {
+        "finish": 20,
+        "max_turns": 9,
+        "token_budget": 1,
+        "schema_error": 2
+      }
+    },
+    "challenge_train_09_B": {
+      "first_error": {
+        "wrong_tool": 21,
+        "wrong_ref": 7,
+        "tool_error": 3,
+        "schema_error": 1
+      },
+      "termination": {
+        "finish": 28,
+        "token_budget": 1,
+        "max_turns": 2,
+        "schema_error": 1
+      }
+    },
+    "challenge_train_10_B": {
+      "first_error": {
+        "no_first_error": 9,
+        "wrong_ref": 14,
+        "environment_invalid": 3,
+        "wrong_tool": 3,
+        "early_finish": 1,
+        "schema_error": 1,
+        "tool_error": 1
+      },
+      "termination": {
+        "finish": 21,
+        "environment_invalid": 3,
+        "max_turns": 2,
+        "token_budget": 5,
+        "schema_error": 1
+      }
+    },
+    "challenge_train_11_B": {
+      "first_error": {
+        "wrong_tool": 28,
+        "wrong_ref": 1,
+        "environment_invalid": 1,
+        "schema_error": 2
+      },
+      "termination": {
+        "parse_error": 3,
+        "finish": 16,
+        "max_turns": 3,
+        "schema_error": 8,
+        "environment_invalid": 1,
+        "token_budget": 1
+      }
+    },
+    "challenge_train_12_B": {
+      "first_error": {
+        "wrong_tool": 5,
+        "wrong_ref": 11,
+        "early_finish": 5,
+        "tool_error": 3,
+        "schema_error": 3,
+        "environment_invalid": 1,
+        "wrong_args": 1,
+        "no_first_error": 2,
+        "translation_not_ready": 1
+      },
+      "termination": {
+        "finish": 25,
+        "token_budget": 2,
+        "schema_error": 4,
+        "environment_invalid": 1
+      }
+    },
+    "challenge_train_13_C": {
+      "first_error": {
+        "tool_error": 10,
+        "wrong_ref": 13,
+        "wrong_tool": 3,
+        "wrong_args": 5,
+        "environment_invalid": 1
+      },
+      "termination": {
+        "schema_error": 4,
+        "finish": 16,
+        "max_turns": 10,
+        "environment_invalid": 1,
+        "parse_error": 1
+      }
+    },
+    "challenge_train_14_C": {
+      "first_error": {
+        "wrong_ref": 24,
+        "wrong_tool": 2,
+        "tool_error": 2,
+        "schema_error": 2,
+        "wrong_args": 1,
+        "translation_not_ready": 1
+      },
+      "termination": {
+        "max_turns": 14,
+        "schema_error": 8,
+        "finish": 4,
+        "token_budget": 6
+      }
+    },
+    "challenge_train_15_C": {
+      "first_error": {
+        "wrong_ref": 28,
+        "tool_error": 2,
+        "wrong_tool": 1,
+        "environment_invalid": 1
+      },
+      "termination": {
+        "token_budget": 3,
+        "schema_error": 4,
+        "max_turns": 8,
+        "finish": 16,
+        "environment_invalid": 1
+      }
+    },
+    "challenge_train_16_C": {
+      "first_error": {
+        "environment_invalid": 4,
+        "wrong_tool": 4,
+        "wrong_ref": 11,
+        "wrong_args": 4,
+        "schema_error": 1,
+        "tool_error": 7,
+        "early_finish": 1
+      },
+      "termination": {
+        "environment_invalid": 4,
+        "schema_error": 7,
+        "max_turns": 8,
+        "finish": 10,
+        "token_budget": 3
+      }
+    },
+    "challenge_train_17_D": {
+      "first_error": {
+        "wrong_ref": 14,
+        "wrong_tool": 6,
+        "schema_error": 5,
+        "environment_invalid": 1,
+        "early_finish": 3,
+        "no_first_error": 2,
+        "tool_error": 1
+      },
+      "termination": {
+        "token_budget": 6,
+        "max_turns": 4,
+        "schema_error": 7,
+        "environment_invalid": 1,
+        "finish": 14
+      }
+    },
+    "challenge_train_18_D": {
+      "first_error": {
+        "wrong_ref": 31,
+        "early_finish": 1
+      },
+      "termination": {
+        "schema_error": 2,
+        "finish": 22,
+        "max_turns": 2,
+        "token_budget": 6
+      }
+    },
+    "challenge_train_19_D": {
+      "first_error": {
+        "wrong_tool": 8,
+        "wrong_ref": 16,
+        "no_first_error": 2,
+        "tool_error": 2,
+        "schema_error": 4
+      },
+      "termination": {
+        "schema_error": 12,
+        "finish": 13,
+        "max_turns": 6,
+        "token_budget": 1
+      }
+    },
+    "challenge_train_20_E": {
+      "first_error": {
+        "wrong_args": 2,
+        "wrong_ref": 14,
+        "tool_error": 14,
+        "wrong_tool": 1,
+        "schema_error": 1
+      },
+      "termination": {
+        "finish": 26,
+        "max_turns": 5,
+        "schema_error": 1
+      }
+    },
+    "challenge_train_21_E": {
+      "first_error": {
+        "wrong_args": 9,
+        "wrong_ref": 9,
+        "wrong_tool": 12,
+        "tool_error": 2
+      },
+      "termination": {
+        "finish": 29,
+        "token_budget": 2,
+        "schema_error": 1
+      }
+    },
+    "challenge_train_22_E": {
+      "first_error": {
+        "wrong_ref": 32
+      },
+      "termination": {
+        "finish": 32
+      }
+    },
+    "challenge_train_23_F": {
+      "first_error": {
+        "wrong_ref": 16,
+        "tool_error": 6,
+        "wrong_tool": 1,
+        "translation_not_ready": 2,
+        "pending_guard": 3,
+        "wrong_args": 3,
+        "no_first_error": 1
+      },
+      "termination": {
+        "finish": 26,
+        "max_turns": 4,
+        "token_budget": 1,
+        "schema_error": 1
+      }
+    },
+    "challenge_train_24_F": {
+      "first_error": {
+        "wrong_ref": 30,
+        "environment_invalid": 1,
+        "no_first_error": 1
+      },
+      "termination": {
+        "schema_error": 7,
+        "finish": 22,
+        "environment_invalid": 1,
+        "token_budget": 1,
+        "max_turns": 1
+      }
+    }
+  },
+  "signal_evidence": [
+    {
+      "task_id": "challenge_train_01_A",
+      "group": 0,
+      "seed": 42,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_01_A/0.json.gz"
+    },
+    {
+      "task_id": "challenge_train_01_A",
+      "group": 2,
+      "seed": 44,
+      "strict": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "dfa": [
+        "q_0",
+        "q_2"
+      ],
+      "anchors": 6,
+      "raw": "groups/challenge_train_01_A/2.json.gz"
+    },
+    {
+      "task_id": "challenge_train_01_A",
+      "group": 3,
+      "seed": 45,
+      "strict": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_01_A/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_01_A",
+      "group": 4,
+      "seed": 46,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_01_A/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_01_A",
+      "group": 5,
+      "seed": 47,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_01_A/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_01_A",
+      "group": 6,
+      "seed": 48,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_2"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_01_A/6.json.gz"
+    },
+    {
+      "task_id": "challenge_train_01_A",
+      "group": 7,
+      "seed": 49,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_01_A/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_03_A",
+      "group": 0,
+      "seed": 58,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_03_A/0.json.gz"
+    },
+    {
+      "task_id": "challenge_train_03_A",
+      "group": 7,
+      "seed": 65,
+      "strict": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_03_A/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_04_A",
+      "group": 1,
+      "seed": 67,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_04_A/1.json.gz"
+    },
+    {
+      "task_id": "challenge_train_04_A",
+      "group": 2,
+      "seed": 68,
+      "strict": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_04_A/2.json.gz"
+    },
+    {
+      "task_id": "challenge_train_04_A",
+      "group": 4,
+      "seed": 70,
+      "strict": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_04_A/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_04_A",
+      "group": 5,
+      "seed": 71,
+      "strict": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_04_A/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_04_A",
+      "group": 7,
+      "seed": 73,
+      "strict": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_04_A/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_05_A",
+      "group": 4,
+      "seed": 78,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_05_A/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_06_A",
+      "group": 0,
+      "seed": 82,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_06_A/0.json.gz"
+    },
+    {
+      "task_id": "challenge_train_06_A",
+      "group": 1,
+      "seed": 83,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_06_A/1.json.gz"
+    },
+    {
+      "task_id": "challenge_train_06_A",
+      "group": 3,
+      "seed": 85,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_06_A/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_06_A",
+      "group": 4,
+      "seed": 86,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_06_A/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_06_A",
+      "group": 5,
+      "seed": 87,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_06_A/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_06_A",
+      "group": 7,
+      "seed": 89,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_06_A/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_07_B",
+      "group": 0,
+      "seed": 90,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_07_B/0.json.gz"
+    },
+    {
+      "task_id": "challenge_train_07_B",
+      "group": 1,
+      "seed": 91,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_07_B/1.json.gz"
+    },
+    {
+      "task_id": "challenge_train_07_B",
+      "group": 2,
+      "seed": 92,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_07_B/2.json.gz"
+    },
+    {
+      "task_id": "challenge_train_07_B",
+      "group": 3,
+      "seed": 93,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_07_B/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_07_B",
+      "group": 4,
+      "seed": 94,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_07_B/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_07_B",
+      "group": 5,
+      "seed": 95,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_07_B/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_07_B",
+      "group": 7,
+      "seed": 97,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_07_B/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_08_B",
+      "group": 0,
+      "seed": 98,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_08_B/0.json.gz"
+    },
+    {
+      "task_id": "challenge_train_08_B",
+      "group": 1,
+      "seed": 99,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_08_B/1.json.gz"
+    },
+    {
+      "task_id": "challenge_train_08_B",
+      "group": 2,
+      "seed": 100,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_08_B/2.json.gz"
+    },
+    {
+      "task_id": "challenge_train_08_B",
+      "group": 3,
+      "seed": 101,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_08_B/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_08_B",
+      "group": 4,
+      "seed": 102,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_08_B/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_08_B",
+      "group": 6,
+      "seed": 104,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_08_B/6.json.gz"
+    },
+    {
+      "task_id": "challenge_train_08_B",
+      "group": 7,
+      "seed": 105,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_08_B/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_09_B",
+      "group": 1,
+      "seed": 107,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_09_B/1.json.gz"
+    },
+    {
+      "task_id": "challenge_train_09_B",
+      "group": 2,
+      "seed": 108,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_09_B/2.json.gz"
+    },
+    {
+      "task_id": "challenge_train_09_B",
+      "group": 3,
+      "seed": 109,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_09_B/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_09_B",
+      "group": 4,
+      "seed": 110,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_09_B/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_09_B",
+      "group": 5,
+      "seed": 111,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_09_B/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_09_B",
+      "group": 6,
+      "seed": 112,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_09_B/6.json.gz"
+    },
+    {
+      "task_id": "challenge_train_09_B",
+      "group": 7,
+      "seed": 113,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_09_B/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_10_B",
+      "group": 3,
+      "seed": 117,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_1",
+        "q_2"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_10_B/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_10_B",
+      "group": 4,
+      "seed": 118,
+      "strict": [
+        1,
+        1,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_2"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_10_B/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_10_B",
+      "group": 5,
+      "seed": 119,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_10_B/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_10_B",
+      "group": 6,
+      "seed": 120,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_10_B/6.json.gz"
+    },
+    {
+      "task_id": "challenge_train_10_B",
+      "group": 7,
+      "seed": 121,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_10_B/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_11_B",
+      "group": 1,
+      "seed": 123,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_11_B/1.json.gz"
+    },
+    {
+      "task_id": "challenge_train_11_B",
+      "group": 4,
+      "seed": 126,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_11_B/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_11_B",
+      "group": 5,
+      "seed": 127,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_11_B/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_11_B",
+      "group": 7,
+      "seed": 129,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_11_B/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_12_B",
+      "group": 0,
+      "seed": 130,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_12_B/0.json.gz"
+    },
+    {
+      "task_id": "challenge_train_12_B",
+      "group": 1,
+      "seed": 131,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_12_B/1.json.gz"
+    },
+    {
+      "task_id": "challenge_train_12_B",
+      "group": 3,
+      "seed": 133,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_12_B/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_12_B",
+      "group": 4,
+      "seed": 134,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_12_B/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_12_B",
+      "group": 5,
+      "seed": 135,
+      "strict": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_12_B/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_12_B",
+      "group": 6,
+      "seed": 136,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_12_B/6.json.gz"
+    },
+    {
+      "task_id": "challenge_train_12_B",
+      "group": 7,
+      "seed": 137,
+      "strict": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_12_B/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_13_C",
+      "group": 0,
+      "seed": 138,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_13_C/0.json.gz"
+    },
+    {
+      "task_id": "challenge_train_13_C",
+      "group": 1,
+      "seed": 139,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_13_C/1.json.gz"
+    },
+    {
+      "task_id": "challenge_train_13_C",
+      "group": 2,
+      "seed": 140,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_13_C/2.json.gz"
+    },
+    {
+      "task_id": "challenge_train_13_C",
+      "group": 3,
+      "seed": 141,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_13_C/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_13_C",
+      "group": 5,
+      "seed": 143,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_13_C/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_13_C",
+      "group": 6,
+      "seed": 144,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_13_C/6.json.gz"
+    },
+    {
+      "task_id": "challenge_train_14_C",
+      "group": 0,
+      "seed": 146,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_14_C/0.json.gz"
+    },
+    {
+      "task_id": "challenge_train_14_C",
+      "group": 3,
+      "seed": 149,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_14_C/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_14_C",
+      "group": 7,
+      "seed": 153,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_14_C/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_15_C",
+      "group": 3,
+      "seed": 157,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_15_C/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_16_C",
+      "group": 2,
+      "seed": 164,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_16_C/2.json.gz"
+    },
+    {
+      "task_id": "challenge_train_16_C",
+      "group": 3,
+      "seed": 165,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_16_C/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_16_C",
+      "group": 5,
+      "seed": 167,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_16_C/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_16_C",
+      "group": 7,
+      "seed": 169,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_16_C/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_17_D",
+      "group": 0,
+      "seed": 170,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_17_D/0.json.gz"
+    },
+    {
+      "task_id": "challenge_train_17_D",
+      "group": 2,
+      "seed": 172,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_17_D/2.json.gz"
+    },
+    {
+      "task_id": "challenge_train_17_D",
+      "group": 3,
+      "seed": 173,
+      "strict": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "dfa": [
+        "q_0",
+        "q_2"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_17_D/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_17_D",
+      "group": 4,
+      "seed": 174,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_17_D/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_17_D",
+      "group": 5,
+      "seed": 175,
+      "strict": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_17_D/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_17_D",
+      "group": 6,
+      "seed": 176,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_1",
+        "q_2"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_17_D/6.json.gz"
+    },
+    {
+      "task_id": "challenge_train_17_D",
+      "group": 7,
+      "seed": 177,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_17_D/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_18_D",
+      "group": 6,
+      "seed": 184,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_18_D/6.json.gz"
+    },
+    {
+      "task_id": "challenge_train_19_D",
+      "group": 1,
+      "seed": 187,
+      "strict": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_19_D/1.json.gz"
+    },
+    {
+      "task_id": "challenge_train_19_D",
+      "group": 5,
+      "seed": 191,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_19_D/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_20_E",
+      "group": 0,
+      "seed": 194,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_20_E/0.json.gz"
+    },
+    {
+      "task_id": "challenge_train_20_E",
+      "group": 1,
+      "seed": 195,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_20_E/1.json.gz"
+    },
+    {
+      "task_id": "challenge_train_20_E",
+      "group": 2,
+      "seed": 196,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_20_E/2.json.gz"
+    },
+    {
+      "task_id": "challenge_train_20_E",
+      "group": 3,
+      "seed": 197,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_20_E/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_20_E",
+      "group": 4,
+      "seed": 198,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_20_E/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_20_E",
+      "group": 6,
+      "seed": 200,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_1"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_20_E/6.json.gz"
+    },
+    {
+      "task_id": "challenge_train_20_E",
+      "group": 7,
+      "seed": 201,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_20_E/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_21_E",
+      "group": 1,
+      "seed": 203,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_21_E/1.json.gz"
+    },
+    {
+      "task_id": "challenge_train_21_E",
+      "group": 2,
+      "seed": 204,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_21_E/2.json.gz"
+    },
+    {
+      "task_id": "challenge_train_21_E",
+      "group": 3,
+      "seed": 205,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_21_E/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_21_E",
+      "group": 4,
+      "seed": 206,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_21_E/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_21_E",
+      "group": 5,
+      "seed": 207,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_21_E/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_21_E",
+      "group": 6,
+      "seed": 208,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_21_E/6.json.gz"
+    },
+    {
+      "task_id": "challenge_train_21_E",
+      "group": 7,
+      "seed": 209,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_21_E/7.json.gz"
+    },
+    {
+      "task_id": "challenge_train_23_F",
+      "group": 0,
+      "seed": 218,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_23_F/0.json.gz"
+    },
+    {
+      "task_id": "challenge_train_23_F",
+      "group": 1,
+      "seed": 219,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_23_F/1.json.gz"
+    },
+    {
+      "task_id": "challenge_train_23_F",
+      "group": 2,
+      "seed": 220,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_23_F/2.json.gz"
+    },
+    {
+      "task_id": "challenge_train_23_F",
+      "group": 3,
+      "seed": 221,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_23_F/3.json.gz"
+    },
+    {
+      "task_id": "challenge_train_23_F",
+      "group": 4,
+      "seed": 222,
+      "strict": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "dfa": [
+        "q_0",
+        "q_2"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_23_F/4.json.gz"
+    },
+    {
+      "task_id": "challenge_train_23_F",
+      "group": 5,
+      "seed": 223,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_23_F/5.json.gz"
+    },
+    {
+      "task_id": "challenge_train_23_F",
+      "group": 6,
+      "seed": 224,
+      "strict": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 0,
+      "raw": "groups/challenge_train_23_F/6.json.gz"
+    },
+    {
+      "task_id": "challenge_train_24_F",
+      "group": 4,
+      "seed": 230,
+      "strict": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "dfa": [
+        "q_0"
+      ],
+      "anchors": 4,
+      "raw": "groups/challenge_train_24_F/4.json.gz"
+    }
+  ]
+}

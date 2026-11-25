@@ -12,7 +12,7 @@ from probe import frozen_inputs
 from run_grpo_credit_v2 import execute
 
 
-def schedule(tasks):
+def schedule(tasks, steps=25):
     """Closest feasible family mix subject to all hard limits; prefer broad task exposure."""
     targets={"A":10,"B":6,"C":4,"D":3,"EF":2}
     rng=random.Random(42)
@@ -29,7 +29,7 @@ def schedule(tasks):
                 continue
             updated={}
             for (n,long),(cost,counts) in states.items():
-                for k in range(min(3,25-n)+1):
+                for k in range(min(3,steps-n)+1):
                     key=(n+k,long+k*int(len(t["expected_tools"])>=4))
                     val=(cost+k*k,counts+[(i,k)])
                     if key not in updated or val[0]<updated[key][0]:
@@ -41,16 +41,16 @@ def schedule(tasks):
         more={}
         for (n,long),(cost,counts) in totals.items():
             for (m,l),(rep,alloc) in choices[family].items():
-                if n+m>25:
+                if n+m>steps:
                     continue
                 key=(n+m,long+l)
                 val=(cost+1000*abs(m-ideal)+rep,counts+alloc)
                 if key not in more or val[0]<more[key][0]:
                     more[key]=val
         totals=more
-    feasible=[v for (n,l),v in totals.items() if n==25 and l>=13]
+    feasible=[v for (n,l),v in totals.items() if n==steps and 2*l>=steps]
     if not feasible:
-        raise ValueError("Cannot construct a schedule with >=13 long groups and <=3 uses/task")
+        raise ValueError("Cannot fill the schedule with >=50% long groups and <=3 uses/task")
     _,counts=min(feasible)
     order=[pool[i] for i,k in counts for _ in range(k)]
     rng.shuffle(order)

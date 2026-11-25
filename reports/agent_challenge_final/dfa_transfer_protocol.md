@@ -20,3 +20,7 @@
 单方法训练入口为 `scripts/agent_challenge_final/dfa_transfer.py`，接收 `--probe --output --base --adapter --snapshot`。加 `--smoke` 执行四步，加 `--freeze-only` 只冻结数据。配对工具使用 `paired.py RUN_DIR dev --dfa-only` 或对应的 sealed_test 命令。
 
 CPU 验证覆盖无效组整组掩码、原始标签保留、冻结后的 Smoke 输入不可变，以及既有 Native Agent 回归。完整套件 1093 项通过、6 项跳过、704 个子测试通过，11 条已有警告，耗时 180.05 秒。
+
+## 正式步数修订
+
+初始 Pilot 计划 25 步。23 道候选完成筛查后有 8 道入选；最后一道 08_B 已经超过全题允许的截断量，无法成为第 9 道。用户选择正式跑 **24 步，每题恰好 3 次**，保留全部筛选标准。24 个组中 12 个来自至少四次工具调用的任务。2026-11-25 21:39 启动，Pilot 从原始 SFT v2 初始化。最后一个候选的余下 Probe 按原 Seed 收齐。原四种方法共同消融的 25 步预算不变，本次单独实验使用 24 步。

@@ -28,7 +28,13 @@ def main(args):
     else:
         training=json.loads((adapter.parent/"training.json").read_bytes())
         cfg=json.loads((adapter.parent/"config.json").read_bytes())
-        if identity!=training["adapter_sha256"] or cfg["experiment"]!=args.policy or cfg["steps"]!=(4 if args.smoke_e2 else 25):
+        planned_steps=4 if args.smoke_e2 else 25
+        if cfg.get("protocol")=="single_method_DFA_transfer" and not args.smoke_e2:
+            plan_file=adapter.parents[2]/"pilot_inputs.json"
+            if sha256_file(plan_file)!=cfg["frozen_inputs_sha256"]:
+                raise ValueError("Pilot schedule differs from its recorded input")
+            planned_steps=len(json.loads(plan_file.read_bytes())["plan"])
+        if identity!=training["adapter_sha256"] or cfg["experiment"]!=args.policy or cfg["steps"]!=planned_steps:
             raise ValueError("Pilot checkpoint identity mismatch")
     if args.split=="sealed_test" or args.split.startswith("production_"):
         frozen=json.loads(args.dev_freeze.read_bytes())

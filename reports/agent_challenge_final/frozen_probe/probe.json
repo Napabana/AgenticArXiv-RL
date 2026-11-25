@@ -1,0 +1,283 @@
+{
+  "decision": "NO_GO",
+  "conditions": {
+    "selected": false,
+    "families": true,
+    "family_balance": true,
+    "strict_mixed": false,
+    "long_tasks": false,
+    "dependencies": false,
+    "dfa_coverage": true,
+    "anchor_coverage": false,
+    "valid": false,
+    "leakage": true
+  },
+  "totals": {
+    "mixed": 15,
+    "dfa": 104,
+    "anchor": 15,
+    "valid": 176,
+    "decisions": 3124,
+    "dfa_decisions": 482,
+    "anchor_decisions": 62,
+    "nonzero_effective_tokens": 38057,
+    "truncated": 201
+  },
+  "groups": 192,
+  "selected": [
+    "challenge_train_09_B",
+    "challenge_train_19_D",
+    "challenge_train_20_E",
+    "challenge_train_21_E",
+    "challenge_train_23_F"
+  ],
+  "families": {
+    "B": 1,
+    "D": 1,
+    "E": 2,
+    "F": 1
+  },
+  "tasks": {
+    "challenge_train_01_A": {
+      "mixed": 2,
+      "dfa": 7,
+      "anchor": 2,
+      "valid": 8,
+      "truncated": 15,
+      "eligible": false,
+      "strict_success": 4,
+      "num_episodes": 32
+    },
+    "challenge_train_02_A": {
+      "mixed": 0,
+      "dfa": 0,
+      "anchor": 0,
+      "valid": 8,
+      "truncated": 5,
+      "eligible": false,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_03_A": {
+      "mixed": 1,
+      "dfa": 2,
+      "anchor": 1,
+      "valid": 8,
+      "truncated": 10,
+      "eligible": false,
+      "strict_success": 1,
+      "num_episodes": 32
+    },
+    "challenge_train_04_A": {
+      "mixed": 4,
+      "dfa": 5,
+      "anchor": 4,
+      "valid": 7,
+      "truncated": 25,
+      "eligible": false,
+      "strict_success": 5,
+      "num_episodes": 32
+    },
+    "challenge_train_05_A": {
+      "mixed": 0,
+      "dfa": 1,
+      "anchor": 0,
+      "valid": 8,
+      "truncated": 2,
+      "eligible": false,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_06_A": {
+      "mixed": 0,
+      "dfa": 6,
+      "anchor": 0,
+      "valid": 6,
+      "truncated": 15,
+      "eligible": false,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_07_B": {
+      "mixed": 0,
+      "dfa": 7,
+      "anchor": 0,
+      "valid": 7,
+      "truncated": 12,
+      "eligible": false,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_08_B": {
+      "mixed": 0,
+      "dfa": 7,
+      "anchor": 0,
+      "valid": 8,
+      "truncated": 10,
+      "eligible": false,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_09_B": {
+      "mixed": 0,
+      "dfa": 7,
+      "anchor": 0,
+      "valid": 8,
+      "truncated": 3,
+      "eligible": true,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_10_B": {
+      "mixed": 1,
+      "dfa": 5,
+      "anchor": 1,
+      "valid": 5,
+      "truncated": 7,
+      "eligible": false,
+      "strict_success": 7,
+      "num_episodes": 32
+    },
+    "challenge_train_11_B": {
+      "mixed": 0,
+      "dfa": 4,
+      "anchor": 0,
+      "valid": 7,
+      "truncated": 4,
+      "eligible": false,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_12_B": {
+      "mixed": 2,
+      "dfa": 7,
+      "anchor": 2,
+      "valid": 7,
+      "truncated": 2,
+      "eligible": false,
+      "strict_success": 2,
+      "num_episodes": 32
+    },
+    "challenge_train_13_C": {
+      "mixed": 0,
+      "dfa": 6,
+      "anchor": 0,
+      "valid": 7,
+      "truncated": 10,
+      "eligible": false,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_14_C": {
+      "mixed": 0,
+      "dfa": 3,
+      "anchor": 0,
+      "valid": 8,
+      "truncated": 20,
+      "eligible": false,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_15_C": {
+      "mixed": 0,
+      "dfa": 1,
+      "anchor": 0,
+      "valid": 7,
+      "truncated": 11,
+      "eligible": false,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_16_C": {
+      "mixed": 0,
+      "dfa": 4,
+      "anchor": 0,
+      "valid": 5,
+      "truncated": 11,
+      "eligible": false,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_17_D": {
+      "mixed": 2,
+      "dfa": 7,
+      "anchor": 2,
+      "valid": 7,
+      "truncated": 10,
+      "eligible": false,
+      "strict_success": 2,
+      "num_episodes": 32
+    },
+    "challenge_train_18_D": {
+      "mixed": 0,
+      "dfa": 1,
+      "anchor": 0,
+      "valid": 8,
+      "truncated": 8,
+      "eligible": false,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_19_D": {
+      "mixed": 1,
+      "dfa": 2,
+      "anchor": 1,
+      "valid": 8,
+      "truncated": 7,
+      "eligible": true,
+      "strict_success": 1,
+      "num_episodes": 32
+    },
+    "challenge_train_20_E": {
+      "mixed": 0,
+      "dfa": 7,
+      "anchor": 0,
+      "valid": 8,
+      "truncated": 5,
+      "eligible": true,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_21_E": {
+      "mixed": 0,
+      "dfa": 7,
+      "anchor": 0,
+      "valid": 8,
+      "truncated": 2,
+      "eligible": true,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_22_E": {
+      "mixed": 0,
+      "dfa": 0,
+      "anchor": 0,
+      "valid": 8,
+      "truncated": 0,
+      "eligible": false,
+      "strict_success": 0,
+      "num_episodes": 32
+    },
+    "challenge_train_23_F": {
+      "mixed": 1,
+      "dfa": 7,
+      "anchor": 1,
+      "valid": 8,
+      "truncated": 5,
+      "eligible": true,
+      "strict_success": 1,
+      "num_episodes": 32
+    },
+    "challenge_train_24_F": {
+      "mixed": 1,
+      "dfa": 1,
+      "anchor": 1,
+      "valid": 7,
+      "truncated": 2,
+      "eligible": false,
+      "strict_success": 1,
+      "num_episodes": 32
+    }
+  },
+  "manifest_sha256": "54402c0a697f4e74c2e0144265c467a81469b6decea110ccd14d48fee943bf0a"
+}

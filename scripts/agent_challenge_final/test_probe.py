@@ -49,6 +49,12 @@ def test_gate_and_schedule():
     assert Counter("EF" if r["stratum"] in "EF" else r["stratum"] for r in plan)=={"A":10,"B":6,"C":4,"D":3,"EF":2}
     ids={t["id"] for t in tasks if len(t["expected_tools"])>=4}
     assert sum(p["task_id"] in ids for p in plan)>=13
+    eight=[t for t in tasks if t["id"] in {
+        "challenge_train_09_B","challenge_train_10_B","challenge_train_11_B","challenge_train_12_B",
+        "challenge_train_19_D","challenge_train_20_E","challenge_train_21_E","challenge_train_23_F"}]
+    shortened=schedule(eight,steps=24)
+    assert len(shortened)==24 and set(Counter(p["task_id"] for p in shortened).values())=={3}
+    assert sum(p["task_id"] in ids for p in shortened)==12
 
 
 def test_paired_bootstrap_preserves_task_clusters_and_invalid_pairs():

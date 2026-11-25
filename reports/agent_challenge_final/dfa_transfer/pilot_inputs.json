@@ -1,0 +1,843 @@
+{
+  "experiment": "E2",
+  "protocol": "single_method_DFA_transfer",
+  "manifest_sha256": "54402c0a697f4e74c2e0144265c467a81469b6decea110ccd14d48fee943bf0a",
+  "selection": "at least two valid independent DFA contrasts; <=25% truncated episodes in valid groups",
+  "exclude_invalid_groups": true,
+  "completed_tasks": 23,
+  "eligible": [
+    "challenge_train_09_B",
+    "challenge_train_10_B",
+    "challenge_train_11_B",
+    "challenge_train_12_B",
+    "challenge_train_19_D",
+    "challenge_train_20_E",
+    "challenge_train_21_E",
+    "challenge_train_23_F"
+  ],
+  "evidence": {
+    "challenge_train_01_A": {
+      "files": [
+        "206eee560f32475186fc6d54bb31811f47c9293947c7f93a652daf7aa5e48b44",
+        "c5967ff086c975e70e66d5c666296390f74261a68ea9893d2356985ccd1fa20e",
+        "9af3bfded1f62d720b188796febe3ff28aaeec4ea3381bb8b800ee0a801eee6d",
+        "808c2451cf2356623ef39d708f54d1c3cded120122836350101568b075d3fd19",
+        "93ce1567e50408941fc59246342b8019611193c3ad4aab9b8daeea38e27c2909",
+        "c63ee3ebea8838e0939b6d2b62843470dd4c37dc5dc87dd6f1125e9d982d7d2e",
+        "5ee161a3b87e1b96faaf491aa7b7598d4ef00719d9c3028d1f378986217126a9",
+        "0725c5c8328e4abc82d18bfc2e23f8f832a00cd2f6f54dc58478d892c6a4554e"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "truncated": 15,
+      "eligible": false
+    },
+    "challenge_train_02_A": {
+      "files": [
+        "68c7724d113a289b803598ee8a3afe36fb58f84ad12c2094ba8f7d0db9859614",
+        "95ec6dfd3e6e93563d309ca787b4a50af90ae2963123fe1b9e3aa6f087287b99",
+        "d18a1379cd443f33e10a01e9978f949469cdb6172e9b91487f751491beb01557",
+        "b6bceaaf5b43023c5c75598dcee8c04ff30ae839799664f4854f45df13082a5e",
+        "ddf57b8d8498be720f10c52e6fe5d875886259ca824522ee61dd9ebd88d41dc0",
+        "8e6b1ba1937639705ca93c8a91c6d560a2a177eeb3c7a82eb6d61beee3408b64",
+        "d81b582a29c5cec0e3b4fe4161d15ddc67f1cd512627f74c39ef82ced50d7647",
+        "2bffeec72df207828dceeeb0ec490e2c7bff2a92a524dd145f8578c4afbbb489"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [],
+      "truncated": 5,
+      "eligible": false
+    },
+    "challenge_train_03_A": {
+      "files": [
+        "bd595a61dfc7b91e9b7ab2062e0d10438d3b105fed5df882d6237986b7a8a1fc",
+        "43fd6d3f947cb67499c4cef47ef9117b55abcc0b3feaa1d58d2f97b6c38d4d2a",
+        "4eeb56dc49fd1b9f90a371dd868696d92d67adf693a268bfa5a4f76122fd2e52",
+        "2f88ff5a9a118ef23a41af758b531179d89ce464896f2c11bfc32c05a5ce7536",
+        "95d41fd8b9b7173b42d804b74be476b1a3515bedb0eaec73c73187da649b7032",
+        "5ad2cee9ce455d2d1b9978b397fb9f331a6ec4b98d938708ed9fa37f087902c9",
+        "54f603d9b519e921c4a82c359833724d15f27d8a34c822b490cf51558d093a74",
+        "0dba381cd3eba74f3c252c6988fd75cfbbd0a7bd277f9c760feae477ab0e7f37"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        0,
+        7
+      ],
+      "truncated": 10,
+      "eligible": false
+    },
+    "challenge_train_04_A": {
+      "files": [
+        "75745a95762bc6c4972264d7b4368bebb14f9d4c84b88c374a1d344d9e57f8b7",
+        "5aa571d1ddc7b713147faa131b35e366cb3dcc5b6b5fc7f2a4e2c36a286b0a52",
+        "c6821cc7c833d1fe817008f2c6f937a5b8bb16dfe14113b7b867bc7bced5c6bc",
+        "522626d7429d599ede0f5790ad69850637486a869072a77c5943bf1e8bbec26d",
+        "a8ff254fa9c48a38b75e84e6da156b0eeefc0b65254225ac89781c94fd720f2c",
+        "f4997a001766821aa6ab06622ea9a977b6ae8efe89de2fe4b44278c6bfa9216a",
+        "5b24a2d1a94a9eeaedb34c5c8f7fb5cbf922ca28e01c0fc5e62ca8fb3f0e805b",
+        "b15cc9a9c3cce3b371f9eaa8a9e2957f46b230115d48220450b24ccce1955c26"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        1,
+        2,
+        4,
+        5,
+        7
+      ],
+      "truncated": 22,
+      "eligible": false
+    },
+    "challenge_train_05_A": {
+      "files": [
+        "2215543e14915d32d1bd1f52f3cd49ae41b3e2cbd56a7a9b136ae9658c39a320",
+        "41bbd8061689695d206340e9595598968961ba80ee0d043bab5ab5122a1666f6",
+        "69a3dec45d023d949416a0436e01ab771a7ce468530749e74533018b31039074",
+        "2c4e54ed03b88b71fbff29f67699a9f9c25fe2e2f6ec41fbb276438a9d2287e1",
+        "e12bdc6dd5c4619479992abd690c919d4e956faee342b703f691fa797a23f510",
+        "3d0e77e06861aa444762838683be768f523d0770c526e96f90e0f95045043076",
+        "c9acc72b72d3ed5a19efde9531baf293de59eacb40435cd595e2c135ed784f32",
+        "a8970d55bf5df2f0e845e4f9bc0bf177c49f28ad0a00ed22f20f0322e692d386"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        4
+      ],
+      "truncated": 2,
+      "eligible": false
+    },
+    "challenge_train_06_A": {
+      "files": [
+        "55547d8a40646abfad592dda5f7fd076c718573213843131462189c5f3e79e99",
+        "a5c9035ca4acd8db5f12ad3e1cc3977f3352d77ca771cc6dde2630b8137fbdae",
+        "b3b02830625140c41719ebb230f7c2d2824b85b79ad8483963df2f3cc1735b24",
+        "5d59b059a775c7173b5b06fde66b56473b2bd72ce54e3bc40ef20d8413921e81",
+        "d64023cbab0807ad169ec1650849b57075edece4a5ae14d1a73f6959d0afb8d9",
+        "66ca37b78a925d0d88fa7718ba2d3a3090a2c3a6958cbb4dace973bc35272a78",
+        "06a9e0f8714360e4e9285096e8c79617dc4144973254224658186e5a530e81b2",
+        "60f766b2055e13e53cd0ebdc5191022004fc573973155463f15aa1852395ba81"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        7
+      ],
+      "dfa_groups": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        7
+      ],
+      "truncated": 13,
+      "eligible": false
+    },
+    "challenge_train_07_B": {
+      "files": [
+        "7765b85f4b851cda6301cf4254d1041aaaf7ab66512a3fcd8e213ff087856267",
+        "8678d9413669f69a00ec0c8e51a65772abfe1b6d25b8db5e9f9887d6d778e602",
+        "d2283ad958bbf8b891e3538e07c01ca41055ba411a08378d2182e6e33dfe8d3b",
+        "f26ad1dea8c38bf953879c3526e68872245b1bb8df6246f223f713b405f40508",
+        "976488f19fc387f593d00d5484e40c2529cfea669387793e4b2d8e4bde16793b",
+        "5cf38d06a33d4a2dd07c7caa731ce0e6a3dd3b0725b08dfe9e782c2471119657",
+        "96bad76c314d03738b396fc2a42211ba8af502a8903b4d8cce8c3c06650a5e8d",
+        "b4d233bd9c771d9758b6bfde361a1b01209ec0b5989313536f603a73d24a30e8"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7
+      ],
+      "dfa_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7
+      ],
+      "truncated": 10,
+      "eligible": false
+    },
+    "challenge_train_09_B": {
+      "files": [
+        "f5d655e538778e1117e6a166c8ab8eaa605f98f02d4f8dfaaf549cc0d0596319",
+        "43d8c9a74aaf8a5874cfd40c15bafb931b8336031a05d0199cff6e952edbbfda",
+        "91f12ea7041120ab21f3febc54611684e91fde3f50b6274db596b9a6fd08a133",
+        "81721c2ca241bb2dc67e53973d040a2938348a201fe0ef085bc2a8a76a11d9f5",
+        "9aa967a970ed5f01cece36c846f2a924aa75546ac189a178392ed73d6ca02f89",
+        "644a34f807a756d56ed8a50ec4970a9fa8f57478181b1984ee039dd82099be98",
+        "b30dab5bae0ec618f75171f0775080f21f80bf52e321ff8cda073e7a53b6db22",
+        "bc0d357d2403db7095b61d1de28a6f72cd3035377d31077401d548708a76bc41"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "truncated": 3,
+      "eligible": true
+    },
+    "challenge_train_10_B": {
+      "files": [
+        "e372a31ae8a74c5a5cfe40881b32193b31fb3feaf9f0db7f75edb611fbf8e85b",
+        "3fc71ecdf1aad85f15f4536f2d8c6f523681fcc8d2711a74a3d9929cc11c7127",
+        "1031defeb8a771116ba70e3639f9c02be86fc5907acfb9f2078f2f8de77e7337",
+        "afbc6e62484224a091e192c3dbc43e55397465399b87bbd7c6feaba8b1f4997f",
+        "49833fb3cb61d34c8b62f64fe51bb9c56a1aa536cdb115bf2bb68b81e57b643f",
+        "296ab4cc94ce37b6d468bfc03ac9d39ea57bef116cae05b41fdfb8d91e0c7b20",
+        "89a6274c5549adce2051a4527352d3f1e932bc17a68f313d698324a97237a4f6",
+        "b026534febfbabd6aaf46101e5134ae4eec4c1448f4d245ccbe013abdeafbce2"
+      ],
+      "valid_groups": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "truncated": 5,
+      "eligible": true
+    },
+    "challenge_train_11_B": {
+      "files": [
+        "e4f0074cdbd0d9f06f95219af0c1de7c6a71c86a8aa6293f47191afd785a4b98",
+        "ec3256ebb0ac99d1b44138d78e6e9d241a1fb4fd4c9291bbf93ed1cf73db9783",
+        "17a6232e9d0130128c4ccb9a1f3f27c5c83e754b66a054969ccd16b63b10ac8c",
+        "d4312aca477ecc701b12b70461dd355ce718c2ae3758c43ae53d2f57611da219",
+        "a8aabd4f5a64f111889bd6a32c0a7864952f187b1dc6ac3a3101d129faae317e",
+        "21f8bbb79b9b23e086e722fcda90dbb55565c53051c14f37eaf570bab251363f",
+        "725f83c05a2123a7b7aa4746e1c0b0d4090f0f05297b1cd41dc35b591b5dd058",
+        "cc7ff7fb69a1cdc3bab36025f084ba012215cf486095bac778a577fbec7c04fb"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        1,
+        4,
+        5,
+        7
+      ],
+      "truncated": 3,
+      "eligible": true
+    },
+    "challenge_train_12_B": {
+      "files": [
+        "79f4c4bcbd3011d006d1b052f3d0921e5d3ba876a853846fc3537211428510bd",
+        "b97429633b0fb76f386cf9b3286f4a951c91c19f5b8f2f65e987844ed84d5ea6",
+        "47da4bba41c4323c6f20aaf8e4ec5cdf25fd336e8a72ae5f0d9c9225d079c87c",
+        "4aaccebdd33e27755b4286b436a5cef4341e858963e798dedf3383010a91fbca",
+        "a14baaf5cb91d8f82dab93390ec59eb7f3655b5037617a70b0ff4634ee0021c7",
+        "ce00012193b98838762489a6a10ea630eeb345c048497d31dddf8c3786133451",
+        "b66a6c2d914e672fcd5688859e1d61e2d22171312990c6e9cbe4ce430f05e553",
+        "face46b7f354805f1fbf505b242caaa729a653a4fd082390bafb9b6e2caf26dd"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "truncated": 2,
+      "eligible": true
+    },
+    "challenge_train_13_C": {
+      "files": [
+        "d208f80d5b3aaa36d346f678c4d89daef610818c19ffb60cdac6ea003fdbc98f",
+        "2ef30abb4e9096710b6ed3c0d0bb7fda68b3b3312882d8adb44fe66aba7df0f0",
+        "b981365a16567f28fbadb67711b6783ebe7aedca992dc01e529d4b803a94d427",
+        "f5ed4241daf6a1957a87acd40e87fe55259552ee6c38ca4acdf484b6c3d1f897",
+        "c5af19a89092562c880edc963c9f0cc0c586e5cec9826efefbb8ad00e5a0f2c0",
+        "79ea326ac7850a4bfaa7f234273f007f12e5be97fe7e67779f67001cd7698d6f",
+        "ad00f12df39cb88a3ad4aa47c993165902d15129befa011a0b20dcbcd016b31f",
+        "dca473b4f3e3fb4de5dfc73972f9be7a89f639a7f2a7b6e5c456b9403da5b8a0"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6
+      ],
+      "truncated": 10,
+      "eligible": false
+    },
+    "challenge_train_14_C": {
+      "files": [
+        "3684496301c11842283c4b016d648bcedf3f1cdc4eaa7afdd08a2ecaa07712e4",
+        "42b7bbac36e9170ebe9f36fbd12c844d67ff5365bd9585bf811d0b3d5fb2b981",
+        "9d3b98f84eae14e2abd89111b17bbdad354a444c75e4362cdf20b40de4686265",
+        "44beb7558270976bc3074d35451206eea4bce3f3cd192c00f97f536d03d714b6",
+        "4ea15f4d13c89e0899e69013ae1f389f0ad4b6d248e04d8d6063ed845fc9babb",
+        "f0513059f7c9127b9f33a43bb0bed88d841aacaeb05cff47bc88b0ad2770d07f",
+        "84dff969322a00673edcbd6244313d52f74dff5635283cb005cf7fde3d99d8a3",
+        "f524217871f97fc1f0149a7e3b48a21cc79dc0202a45370cf68483a04f8bbed9"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        0,
+        3,
+        7
+      ],
+      "truncated": 20,
+      "eligible": false
+    },
+    "challenge_train_15_C": {
+      "files": [
+        "d8e6aa0d4ed70af024b013bcc508687c060e3214e6a5cdabe709bab77b1b07b4",
+        "68a7d56b215a39746b4251406f332f62af390a36c3d69894d653704b7a9af30b",
+        "e47f2662147758e2381d18273e7218e2db04ba45fc846e4d241894e6f65bf5cb",
+        "c4538fff7f335add942c393acb435213e9f258902e4d1f02031e02322a658af1",
+        "7634a48d947a5ed3c077739d7ce4e233b919a3c24080a708a184a276af9d3e33",
+        "a9e899ed6b890308f3dd4317221c43d2adecee97120bb9def0a35fd339b1cc7b",
+        "e0a8739b71ff338fc777a4dcb17f6a70933ed5f092485f8add815e5ba6546094",
+        "ec695b0fa664750bbba0a7b999270bf270c8c0c0d273aa271efd87e7b5fb44aa"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "dfa_groups": [
+        3
+      ],
+      "truncated": 11,
+      "eligible": false
+    },
+    "challenge_train_16_C": {
+      "files": [
+        "9fa9e96f92aaa175331c8973072b5be23eafc733532083da1a5a1b5bc298e6b7",
+        "87d41994872bd76b892a8933d7672ecaea458c4eba9316033d92d7dfe1bd7111",
+        "b6c8b1fce7015388b37be96a6899c2f71cc4524f5abac790809c003741072768",
+        "cc91c0f826e18813823c36a31f43f54924e5f390f1b69dddf0e46582a5fb82cb",
+        "2a3325b0a3ab3e43ea8c7813c44720844f04aef7fb44e0fab376172bb371e7a1",
+        "2cf1eecf4c32d1065edd64819f17288df6302deeca7b3a3c6b318de8d77fb05b",
+        "89fbc6a43251814d73e422c401d63030ca4b14c66fa787775da1faf09d483657",
+        "f44fe75c1faf1c58ae4faf8acbdb28502e37a7793d6191c6720c778187516879"
+      ],
+      "valid_groups": [
+        2,
+        3,
+        4,
+        5,
+        7
+      ],
+      "dfa_groups": [
+        2,
+        3,
+        5,
+        7
+      ],
+      "truncated": 8,
+      "eligible": false
+    },
+    "challenge_train_17_D": {
+      "files": [
+        "e12d889ebf73d612d8011197f1af5482b61ff57b021558be06e24be25edc17a6",
+        "e2a25fd48ac70b1d6ff9d71a9f6c67dade9e22d38df1b1ec2ae50ebe195eafe3",
+        "b5f969fa57fe6f43fc95104fa6613a8aade72a6966b0af3374ae3d9fb5a3264b",
+        "0a55c739a8ae4ef7264e9d0663bce2fbfeb445bae7166e26840f14f3dcdbb66a",
+        "496795f38b554d5047a4fda6799df93b78935e3ebdc591c683e177157b78121b",
+        "bbeee62ea23888bc36e0c793f57fc0748cf53681d26eb1fcd5358d6f8d83a179",
+        "fb1a418a887283daef3b87fbe833d872889bcf8aea16efa8e66dd6865e6162ca",
+        "d78507a969552c0af3522b7fb9be5a8bc97d9e4d9a61c885032de0f39945f345"
+      ],
+      "valid_groups": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "truncated": 9,
+      "eligible": false
+    },
+    "challenge_train_18_D": {
+      "files": [
+        "66a4b0b3097b86f0e3b783ff1a731939fe898ca043954fd72b19471c431ae962",
+        "dd88fd7d377e6dbf721120e256fd5c62b255c87a124abaf3ef12870ee5e45f87",
+        "784f12e87ebb7dd7b9e8feb3b1c6752b384fcc2d0528c9998de66a308e1bfecf",
+        "1151aa3483a4f2eb050efdd8378b29e6b97639913f385a11c8c4cbf02d60787d",
+        "67bf8181b5e8928f082377e069540f207bae97c3ee403bee14fb53dc49a5ddd0",
+        "6d979189ac066950940522625127d6104650e0fcef1424ec2ae9b278598ff593",
+        "1e1ac82201a2b0730216c4b80ed228785d679c3f4c654e05d90442c846cd78f8",
+        "4728ac870f4957147adab7473699cffd4659401bdefa8321420ea33216c36218"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        6
+      ],
+      "truncated": 8,
+      "eligible": false
+    },
+    "challenge_train_19_D": {
+      "files": [
+        "6a1526d89dbc19b7b3c627efc73d382e47f173dd4e6eefcb38734ae9c76cfcb9",
+        "8cf5a45072bbf60526ee41c6737205c23ff070b0a75243e12db7132ec4f520a8",
+        "4ec9ab0aca420ee5952bb011e03a19c126842d5d61e6bc93934e01a2a60ba5ba",
+        "2cc622199ab8589699fd0a64aef76506a8c2a4e68a48df6cb9686b25dc4ce2cf",
+        "c16d4374c3d3c030e70598405052e2c2e74cb9c9ea1254eece45c32d98360912",
+        "a729b38ba76e10ecb3007fafc7e85bea7d1cad4e0dae710b71456ab5982f773b",
+        "b124adc720b95278e0cdaa911d17a42363d34ceb632ad473d9aff8dd9629752a",
+        "4da516a9692ad62a8eb78946a29c5f05520119566fa82b143ae2c5b3201c5dad"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        1,
+        5
+      ],
+      "truncated": 7,
+      "eligible": true
+    },
+    "challenge_train_20_E": {
+      "files": [
+        "c9192b7469bafe9ebfdce4889b2035622facf817713f88769fac20335d1ace23",
+        "c7b556c67b55c3c9cd5295d6a3702d0327a487e64fe2d23cf28e5a8352c7055b",
+        "8a9daf546588b1986c15f8859557decc2d259fa8e4f5b3aa134a9daae7b045bb",
+        "cbb5ca54222b928484830a640e5f8757ede392efc294d8d90c238daa82e3f049",
+        "9f5eab097e9acb972b7a18fbffd752025e280d68d4492fdb3d75114ac7045475",
+        "bb19ded39cf259a6881ba7374cc427a87eb4c693ddf9e04220193585c59a5bd2",
+        "d36e4048dbb5f7a4f34e2870859ef0209b6c6b14bd39be24f4bffb9c00787a27",
+        "c51f85df3d172f438c9d5356a2f2112d710adf41f809526e96829098aa8acdb5"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "truncated": 5,
+      "eligible": true
+    },
+    "challenge_train_21_E": {
+      "files": [
+        "fb80aabc9ec9a47dc8ac6caa8656372dad67517cf881c424bc0f05bf41505fcd",
+        "f70e8bb5eb1bd650ddd2b3fc2f79f89cc34083a7d9c118afae229b55d11b3784",
+        "4ffd6962510162cc3916ac8841b96c20b7854faf777e55b318b5badc6c65aad8",
+        "ca05a48745943fdead4d7631a9ee4d8ec5bab7ceb48d0b5d004a3ad251af375b",
+        "af2bfcfb770b8e28f84fa3caec349ffb760d20011995a64386feec44deb646bc",
+        "25762af383a15ab896a9084a6a35bc6c617eaaf822454db66ab360c1163f0614",
+        "496c5c32f01c3d64446f117c2db35b8b8bc496e181517201f6821d82882e02b7",
+        "9e7a88d32a543ad353bea3f72efd4b8100dc91c58b7bb77cb883ea6af593ca9a"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "truncated": 2,
+      "eligible": true
+    },
+    "challenge_train_22_E": {
+      "files": [
+        "796e51566878aa511a5e64f45a1199d7fb3b823d528efa340e28d0791b5eb13e",
+        "06f6d79a7acd3c467b360713099660d52e38a7a946e4b52acc0ca4f1b67b40b0",
+        "e5cb91ce27b02e745cb7d8cea8987d130d18243de98beb975dbaf235adfa21ff",
+        "11f7299a23ebf963ebac9843eb1fc15134e76eb978a9ae98873f4b9c71ec4641",
+        "17092f4206d1231f9210ff5b5bacafceda1746bd18ad807067de0466053e0a52",
+        "dc30579f36c8d29e7118de480dfa8b9ee686ff998745faa1c97a17073b9a5106",
+        "46ff5707ba3d1044cd3189b8b2875b461ec33bdf5d3d217502300413afeb725c",
+        "b99deacc2b084462417987e3d3de5709e7b2859425d6ad7dd59154530df3e9ec"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [],
+      "truncated": 0,
+      "eligible": false
+    },
+    "challenge_train_23_F": {
+      "files": [
+        "5a9951efed807d363a59d07388b12f549596e21fffd1958d2c5a0c332906e29c",
+        "d2626974ce611f32e29cd8d98fee779b5a148d59cbfeb8420a602f4225bfddff",
+        "e46838258bae82cc44dc23d5a36de032e5323f618f66a2ff2aca4632a923572c",
+        "c785a9cb5094c6da991c2dbcc46f267dfd2bd4814a6c1048b222bc0e590fd250",
+        "fbfbd1fb65c958eb7cac881eca90abf9c755d72d8725697688e319b973e9ce40",
+        "43b4da97d80a47c502fbc12181ae8e121b268ae0799144916d846c8a6ca990cd",
+        "8110da612627b101c1ad87221cd70e1aac46fce8638bdc14a082d8c8755b12eb",
+        "95484cc6989b6ac350fed98aea1f910c7667a0b83c18f3d1e50bdfcdb48d228a"
+      ],
+      "valid_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "truncated": 5,
+      "eligible": true
+    },
+    "challenge_train_24_F": {
+      "files": [
+        "e1f4ee15e2cd88fb29126903b6b1e1c187e52467a5c835dc94843573487d9c6c",
+        "87596fb07e54b99ae40e217b0b9959cee66e89ab461f47fe67388c2b4669c81f",
+        "0c5ba82a6f60e8867a59bea211ca71cde3209f2a0a33a79601d12b1b5be3da59",
+        "165ff63db8b793619396f045de7ec64a7a125acb3f7ec2da8ec704884bab3c5f",
+        "4ff069216b9da0cfc265bf4a4c5146fc15d9cc46b6790d3ed064da00036bd250",
+        "2517696dd86e324432ec417a369434258868f2f4168d79d4281d084aebbad05d",
+        "ca342dfbbe9f2f378c2425f4654a64ec0916b2f1522effb007a6978701967bc8",
+        "169e0c85674fe347df96226d3e8f5e36b12ec27ce14ba1de762eaa2ea95dd22d"
+      ],
+      "valid_groups": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "dfa_groups": [
+        4
+      ],
+      "truncated": 2,
+      "eligible": false
+    }
+  },
+  "plan": [
+    {
+      "group_id": 0,
+      "task_id": "challenge_train_23_F",
+      "prompt": "challenge_train_23_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 1,
+      "task_id": "challenge_train_19_D",
+      "prompt": "challenge_train_19_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 2,
+      "task_id": "challenge_train_10_B",
+      "prompt": "challenge_train_10_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 3,
+      "task_id": "challenge_train_09_B",
+      "prompt": "challenge_train_09_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 4,
+      "task_id": "challenge_train_11_B",
+      "prompt": "challenge_train_11_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 5,
+      "task_id": "challenge_train_09_B",
+      "prompt": "challenge_train_09_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 6,
+      "task_id": "challenge_train_11_B",
+      "prompt": "challenge_train_11_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 7,
+      "task_id": "challenge_train_19_D",
+      "prompt": "challenge_train_19_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 8,
+      "task_id": "challenge_train_10_B",
+      "prompt": "challenge_train_10_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 9,
+      "task_id": "challenge_train_21_E",
+      "prompt": "challenge_train_21_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 10,
+      "task_id": "challenge_train_10_B",
+      "prompt": "challenge_train_10_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 11,
+      "task_id": "challenge_train_09_B",
+      "prompt": "challenge_train_09_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 12,
+      "task_id": "challenge_train_23_F",
+      "prompt": "challenge_train_23_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 13,
+      "task_id": "challenge_train_20_E",
+      "prompt": "challenge_train_20_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 14,
+      "task_id": "challenge_train_21_E",
+      "prompt": "challenge_train_21_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 15,
+      "task_id": "challenge_train_12_B",
+      "prompt": "challenge_train_12_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 16,
+      "task_id": "challenge_train_12_B",
+      "prompt": "challenge_train_12_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 17,
+      "task_id": "challenge_train_19_D",
+      "prompt": "challenge_train_19_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 18,
+      "task_id": "challenge_train_23_F",
+      "prompt": "challenge_train_23_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 19,
+      "task_id": "challenge_train_12_B",
+      "prompt": "challenge_train_12_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 20,
+      "task_id": "challenge_train_21_E",
+      "prompt": "challenge_train_21_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 21,
+      "task_id": "challenge_train_20_E",
+      "prompt": "challenge_train_20_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 22,
+      "task_id": "challenge_train_11_B",
+      "prompt": "challenge_train_11_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 23,
+      "task_id": "challenge_train_20_E",
+      "prompt": "challenge_train_20_E",
+      "stratum": "E"
+    }
+  ]
+}
