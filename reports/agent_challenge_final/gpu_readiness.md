@@ -11,9 +11,13 @@
 
 原环境 TRL 1.17.1，历史默认损失归一化为 dapo。冻结最新 SFT v2 的实际提示词、工具 Schema、Chat Template 和 Tokenizer，详见 asset_identity.json。CPU 回归运行 test_grpo_credit_v2.py 和 test_native_grpo_rollout.py，46 项通过。所有 44 道 Gold 任务重复回放，243 个决策对齐。全部数据文件和审计文件 SHA 见 data/agent_challenge_final/manifest.json。
 
-从部署仓库目录执行：
-
 新门槛、原始与有效信号区分、固定计划以及原 Credit/Rollout 回归合计 48 项通过（7 条已有 Pydantic 弃用提示）。4090 长任务首个 G=4 实测为 29.8 秒，CUDA 峰值分配 5.47 GiB。四条采样的 completion 长度为 203、211、212、211，此结果仅验证初始推理链路。双进程可按前后半池分别传入 `--partition front` 和 `--partition back`，原任务序号决定 Seed，两半写各自的任务目录。两半完成后用 `analyze_probe.py` 汇总。
+
+单进程复现命令如下。双进程复现入口为 `scripts/agent_challenge_final/run_probe_parallel.sh`。
+
+增加逐题聚类与环境无效配对的统计回归后，相同 CPU 测试命令共 49 项通过、7 条已有弃用提示。
+
+随后 `challenge_train_04_A` 第 4 组（组编号从 0 开始）采到 Strict 成功且 completion 长度为 2610 的真实轨迹，超过旧上限 1792。前 16 组已观察到 3131-token 的 max-turn 轨迹，保留其终止状态。推理可执行性与完整 25-step 训练的峰值显存分别记录。
 
 ```bash
 export PYTHONPATH=AgenticArxiv:scripts HF_HUB_OFFLINE=1 STORE_BACKEND=memory OMP_NUM_THREADS=1

@@ -7,6 +7,7 @@ from pathlib import Path
 
 from audit_snapshot import DATA,REPORT,write
 from audit_tasks import lines
+from build_tasks import jsonl
 from generate_parametric_sft_data import sha256_file
 from probe import signals,summarize
 
@@ -49,6 +50,10 @@ def analyze(directory):
     if existing.exists() and json.loads(existing.read_bytes())!=result:
         raise ValueError("Aggregate differs from independently reconstructed probe")
     write(existing,result)
+    eligible=set(result["selected"])
+    jsonl(directory/"train_eligible.jsonl",[t for t in tasks if t["id"] in eligible])
+    if result["decision"]=="GO":
+        jsonl(directory/"train_selected.jsonl",[t for t in tasks if t["id"] in eligible])
     write(directory/"analysis.json",dict(first_errors=errors,termination=rollouts,per_task=detail,signal_evidence=evidence))
     write(directory/"group_sha256.json",files)
     return result

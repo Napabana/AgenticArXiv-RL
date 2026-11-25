@@ -5,6 +5,7 @@ from audit_tasks import lines
 from audit_snapshot import DATA
 from probe import signals,summarize
 from train import schedule
+from paired import summarize as summarize_pairs
 
 
 def test_same_action_or_equal_return_is_not_anchor_signal():
@@ -48,3 +49,15 @@ def test_gate_and_schedule():
     assert Counter("EF" if r["stratum"] in "EF" else r["stratum"] for r in plan)=={"A":10,"B":6,"C":4,"D":3,"EF":2}
     ids={t["id"] for t in tasks if len(t["expected_tools"])>=4}
     assert sum(p["task_id"] in ids for p in plan)>=13
+
+
+def test_paired_bootstrap_preserves_task_clusters_and_invalid_pairs():
+    tasks={"a":{"family":"A","difficulty":"L2"},"b":{"family":"B","difficulty":"L3"}}
+    def trial(strict,invalid=False):
+        return dict(strict=strict,invalid=invalid,outcomes={"strict":(int(strict),1)})
+    old={(key,i):trial(False) for key in tasks for i in range(3)}
+    new={(key,i):trial(key=="a",key=="b" and i==2) for key in tasks for i in range(3)}
+    stats=summarize_pairs(old,new,tasks)
+    assert stats["trials"]==6 and stats["strict"]==3 and stats["valid_paired_net"]==3
+    assert stats["environment_invalid_pairs"]==[("b",2)]
+    assert stats["valid_pair_cluster_bootstrap_95"]==[0,1]

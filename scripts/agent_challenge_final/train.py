@@ -3,10 +3,9 @@ import argparse
 import json
 import os
 import random
-from collections import Counter
 from pathlib import Path
 
-from audit_snapshot import DATA, REPORT, write
+from audit_snapshot import DATA, write
 from audit_tasks import lines
 from generate_parametric_sft_data import sha256_file
 from probe import frozen_inputs
