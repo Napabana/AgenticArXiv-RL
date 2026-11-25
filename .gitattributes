@@ -17,3 +17,7 @@ data/sft/native_sft_v2/* text eol=lf
 scripts/run_native_sft_v2.sh text eol=lf
 reports/native_sft_v2/*.json text eol=lf
 reports/native_sft_v2/*.jsonl text eol=lf
+data/agent_challenge_final/*.json* text eol=lf
+reports/agent_challenge_final/*.json* text eol=lf
+reports/agent_challenge_final/*.gz binary
+scripts/agent_challenge_final/*.sh text eol=lf

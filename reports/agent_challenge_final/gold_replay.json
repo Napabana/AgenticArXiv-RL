@@ -1,0 +1,2250 @@
+{
+  "accepted": 44,
+  "attempted": 44,
+  "records": [
+    {
+      "id": "challenge_train_01_A",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "2",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "2",
+            "style": "structured",
+            "max_words": 120
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14530v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "4c399ef01d2ab9809225d2a1380d3e7039e975873ecde9bb58ccb43d48ba2bdf",
+      "completion_tokens": 1266,
+      "tool_tokens": 975,
+      "longest_turn": 145,
+      "steps": 4
+    },
+    {
+      "id": "challenge_train_02_A",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "4",
+            "figure_no": 1,
+            "question": "trend"
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "3645ea748842d88f9f82d9e931df254a29d77ce18908cfb25ce8ac5c1e0e1a51",
+      "completion_tokens": 1371,
+      "tool_tokens": 1156,
+      "longest_turn": 81,
+      "steps": 4
+    },
+    {
+      "id": "challenge_train_03_A",
+      "actions": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 4,
+            "aspect": "AI",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "4"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14530v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "6e85bb8d293ce5cae0ba0706e5f6876c0cc10bdc00dba941f831c67a1359a6e4",
+      "completion_tokens": 1594,
+      "tool_tokens": 1363,
+      "longest_turn": 70,
+      "steps": 5
+    },
+    {
+      "id": "challenge_train_04_A",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "2",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "4",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "4",
+            "style": "structured",
+            "max_words": 120
+          }
+        }
+      ],
+      "state_checks": [],
+      "strict": 1,
+      "canonical_observation_sha256": "1cf7fdeb3b3ce32aecf4607547282ba50591db0f2bb848f82e753fba298fcb94",
+      "completion_tokens": 2230,
+      "tool_tokens": 1875,
+      "longest_turn": 170,
+      "steps": 5
+    },
+    {
+      "id": "challenge_train_05_A",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false,
+            "service": "bing",
+            "threads": 4,
+            "keep_dual": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2608.14530v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "c3e1739d28cd725c57ec2f7f8e86359649a968ff9a5c02d56debb72b88e4e27f",
+      "completion_tokens": 586,
+      "tool_tokens": 379,
+      "longest_turn": 84,
+      "steps": 4
+    },
+    {
+      "id": "challenge_train_06_A",
+      "actions": [
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "2",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "2",
+            "style": "structured",
+            "max_words": 120
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "4",
+            "figure_no": 1,
+            "question": "trend"
+          }
+        }
+      ],
+      "state_checks": [],
+      "strict": 1,
+      "canonical_observation_sha256": "6bb383b9e69cb85056f05d9e66849b44c8448d5a0fc2710f3bd845b781b98f0d",
+      "completion_tokens": 2078,
+      "tool_tokens": 1688,
+      "longest_turn": 192,
+      "steps": 5
+    },
+    {
+      "id": "challenge_train_07_B",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "4",
+            "section": "abstract"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14530v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "be8d357e4098bdb991f3bfe2d02396b6234f6e90b474587872fdb2d9517f302a",
+      "completion_tokens": 1495,
+      "tool_tokens": 1241,
+      "longest_turn": 106,
+      "steps": 5
+    },
+    {
+      "id": "challenge_train_08_B",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "4",
+            "section": "abstract"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14530v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "6ddb7d1b27897d6f64d6c14d00c6ed5d9603a1f2d9846ba5de70f6faa0117aa3",
+      "completion_tokens": 1491,
+      "tool_tokens": 1271,
+      "longest_turn": 100,
+      "steps": 4
+    },
+    {
+      "id": "challenge_train_09_B",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "4",
+            "section": "abstract"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14530v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "fba0fb920aef01037f00b0aec34f1b22e21b6d9e6f081048e415f6d60b637244",
+      "completion_tokens": 1497,
+      "tool_tokens": 1271,
+      "longest_turn": 106,
+      "steps": 4
+    },
+    {
+      "id": "challenge_train_10_B",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "4",
+            "section": "abstract"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14530v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "2dcf376563b90a14788a801a81e2ea8118c54777d6c8ec3465075ae52bc4aef5",
+      "completion_tokens": 1493,
+      "tool_tokens": 1301,
+      "longest_turn": 100,
+      "steps": 3
+    },
+    {
+      "id": "challenge_train_11_B",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": true
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "4",
+            "style": "structured",
+            "max_words": 120
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "363290e815b7858ed8da37c9be828bf37367111b64298bb8e7024b11782cb7d2",
+      "completion_tokens": 930,
+      "tool_tokens": 685,
+      "longest_turn": 98,
+      "steps": 4
+    },
+    {
+      "id": "challenge_train_12_B",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "2",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14530v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "6d1fddc9ca87148203c24cbab7acbdbe2b74c41a6bc8f3629eb5edaf35fb3b21",
+      "completion_tokens": 933,
+      "tool_tokens": 743,
+      "longest_turn": 98,
+      "steps": 3
+    },
+    {
+      "id": "challenge_train_13_C",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 1,
+            "aspect": "CL",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "1",
+            "force": false
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 4,
+            "aspect": "AI",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14530v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "26f4987968a6f416dec9ce59b2f95210bf1fec5fe43021531419169483a1521d",
+      "completion_tokens": 908,
+      "tool_tokens": 641,
+      "longest_turn": 70,
+      "steps": 5
+    },
+    {
+      "id": "challenge_train_14_C",
+      "actions": [
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "4",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 1,
+            "aspect": "CL",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 4,
+            "aspect": "AI",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "4",
+            "style": "structured",
+            "max_words": 120
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18533v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "a1f696b390d2a4d3d1f3025de5e8a5361d1fccd62d5e22fc7fe5f9d5af809e04",
+      "completion_tokens": 1935,
+      "tool_tokens": 1533,
+      "longest_turn": 144,
+      "steps": 5
+    },
+    {
+      "id": "challenge_train_15_C",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 1,
+            "aspect": "CL",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 4,
+            "aspect": "AI",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18533v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2608.14530v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "b4ec708bf74c5e02903c756761e05506ee49da8d222cbf83c31c5ade5e2f5907",
+      "completion_tokens": 1225,
+      "tool_tokens": 876,
+      "longest_turn": 72,
+      "steps": 7
+    },
+    {
+      "id": "challenge_train_16_C",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 1,
+            "aspect": "CL",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "1",
+            "force": false
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 4,
+            "aspect": "AI",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "2",
+            "section": "abstract"
+          }
+        }
+      ],
+      "state_checks": [],
+      "strict": 1,
+      "canonical_observation_sha256": "19aef336d5ea06bb69714ad498764b11f1cf3f68472cbef0a00ded91dea673c6",
+      "completion_tokens": 1951,
+      "tool_tokens": 1613,
+      "longest_turn": 76,
+      "steps": 6
+    },
+    {
+      "id": "challenge_train_17_D",
+      "actions": [
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "2",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "4",
+            "figure_no": 1,
+            "question": "trend"
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "2",
+            "style": "structured",
+            "max_words": 120
+          }
+        }
+      ],
+      "state_checks": [],
+      "strict": 1,
+      "canonical_observation_sha256": "650f77033bebde9738ce888d3cf60cea1978b7972d02e446af6ae32578914061",
+      "completion_tokens": 1961,
+      "tool_tokens": 1599,
+      "longest_turn": 192,
+      "steps": 4
+    },
+    {
+      "id": "challenge_train_18_D",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "4",
+            "figure_no": 1,
+            "question": "axes"
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "4",
+            "section": "abstract"
+          }
+        }
+      ],
+      "state_checks": [],
+      "strict": 1,
+      "canonical_observation_sha256": "1ee41782b7ec84fa904514473083410195a762658e327a9c29949bbcf3f0ed49",
+      "completion_tokens": 2194,
+      "tool_tokens": 1926,
+      "longest_turn": 123,
+      "steps": 4
+    },
+    {
+      "id": "challenge_train_19_D",
+      "actions": [
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "4",
+            "figure_no": 1,
+            "question": "trend"
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "4",
+            "style": "structured",
+            "max_words": 120
+          }
+        }
+      ],
+      "state_checks": [],
+      "strict": 1,
+      "canonical_observation_sha256": "aed3861294033c76bb58fd9c6631269adbd47bf8eeacbbe3687ca45381af1f86",
+      "completion_tokens": 1403,
+      "tool_tokens": 1132,
+      "longest_turn": 139,
+      "steps": 3
+    },
+    {
+      "id": "challenge_train_20_E",
+      "actions": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 4,
+            "aspect": "AI",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false,
+            "service": "bing",
+            "threads": 4,
+            "keep_dual": true
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14530v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "7f20452136b2b4f43ad41eee512d7eb579915619ea9e4ae8ea2fdb7a43de2698",
+      "completion_tokens": 892,
+      "tool_tokens": 618,
+      "longest_turn": 80,
+      "steps": 5
+    },
+    {
+      "id": "challenge_train_21_E",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": true
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false,
+            "service": "bing",
+            "threads": 4,
+            "keep_dual": true
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14530v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "e62257ee01b1744364e11bf2c1529c1e87aa2b3fadd62fbdb06a74500a573edf",
+      "completion_tokens": 626,
+      "tool_tokens": 410,
+      "longest_turn": 80,
+      "steps": 4
+    },
+    {
+      "id": "challenge_train_22_E",
+      "actions": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 4,
+            "aspect": "AI",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": true
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "4",
+            "section": "abstract"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "272fd76ba5b1b7012bb533efd8de0abcca8a2cb2d5206a8fe61caf9e79854e2b",
+      "completion_tokens": 1660,
+      "tool_tokens": 1421,
+      "longest_turn": 76,
+      "steps": 4
+    },
+    {
+      "id": "challenge_train_23_F",
+      "actions": [
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false,
+            "service": "bing",
+            "threads": 4,
+            "keep_dual": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "4",
+            "section": "abstract"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "fe9a4f7c097cffa67b25bbb036912b56cb80889fbbe271d3b143dd1eb7f37d08",
+      "completion_tokens": 1397,
+      "tool_tokens": 1179,
+      "longest_turn": 112,
+      "steps": 3
+    },
+    {
+      "id": "challenge_train_24_F",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "get_translated_content",
+          "args": {
+            "ref": "4",
+            "page": 2
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "4",
+            "style": "structured",
+            "max_words": 120
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18553v1",
+          "pdf_ready": true,
+          "translated_ready": true
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "0cef95518a54cf586ba8b6e050091dcefa7ea671e42c939272e47c16bb64fa67",
+      "completion_tokens": 1955,
+      "tool_tokens": 1571,
+      "longest_turn": 265,
+      "steps": 3
+    },
+    {
+      "id": "challenge_dev_01_A",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "2",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "1",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "1",
+            "style": "structured",
+            "max_words": 120
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14546v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "5be78d08996a140f3781bba69e70434dd77312c1ec13edd6e81e3e7eb10a815c",
+      "completion_tokens": 1296,
+      "tool_tokens": 964,
+      "longest_turn": 158,
+      "steps": 5
+    },
+    {
+      "id": "challenge_dev_02_A",
+      "actions": [
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "1",
+            "figure_no": 1,
+            "question": "axes"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14543v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "f40b3eaee053848f139e822a33d14c85f87c26f9c9e427be23199c987d60adc3",
+      "completion_tokens": 1798,
+      "tool_tokens": 1580,
+      "longest_turn": 84,
+      "steps": 4
+    },
+    {
+      "id": "challenge_dev_03_B",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14543v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2608.14546v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "8cd40ffb7d16305586b2828ce0c9d26f24271afa30899100a1003d72426e7806",
+      "completion_tokens": 1735,
+      "tool_tokens": 1565,
+      "longest_turn": 60,
+      "steps": 4
+    },
+    {
+      "id": "challenge_dev_04_B",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14543v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2608.14546v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "1ce9fd24a5c864253a0776a581af0f44df7cfbb9c6ed68c99eabaaa5155fcb50",
+      "completion_tokens": 1737,
+      "tool_tokens": 1595,
+      "longest_turn": 60,
+      "steps": 3
+    },
+    {
+      "id": "challenge_dev_05_C",
+      "actions": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 1,
+            "aspect": "RO",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "1",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "1",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 2,
+            "aspect": "CV",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14546v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "60779b6f345a08fb869e3993d9aaad425b6513dc055957f7d35bb5a8fc19d7c0",
+      "completion_tokens": 2243,
+      "tool_tokens": 1931,
+      "longest_turn": 79,
+      "steps": 5
+    },
+    {
+      "id": "challenge_dev_06_D",
+      "actions": [
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "1",
+            "figure_no": 1,
+            "question": "trend"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "2",
+            "style": "structured",
+            "max_words": 120
+          }
+        }
+      ],
+      "state_checks": [],
+      "strict": 1,
+      "canonical_observation_sha256": "ca94b61e7c02cff2902eae252e4932424c0052de5f70705402d52c765575cb92",
+      "completion_tokens": 2024,
+      "tool_tokens": 1689,
+      "longest_turn": 175,
+      "steps": 4
+    },
+    {
+      "id": "challenge_dev_07_E",
+      "actions": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 2,
+            "aspect": "CV",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": true
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "1",
+            "force": true
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "2",
+            "section": "abstract"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14546v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "fda9d571ed21972b380bdbcb32148c7dc70aaaa4a7dcc794cca01adb2920f9b9",
+      "completion_tokens": 1148,
+      "tool_tokens": 851,
+      "longest_turn": 94,
+      "steps": 5
+    },
+    {
+      "id": "challenge_dev_08_F",
+      "actions": [
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": "1",
+            "force": false,
+            "service": "bing",
+            "threads": 4,
+            "keep_dual": false
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2608.14543v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "8a7eff252da731e22fbe91af09021acd7ecd453380aa5cc8f71e9956169bf7ee",
+      "completion_tokens": 477,
+      "tool_tokens": 321,
+      "longest_turn": 60,
+      "steps": 3
+    },
+    {
+      "id": "challenge_sealed_test_01_A",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "1",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "1",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "1",
+            "figure_no": 1,
+            "question": "trend"
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18559v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "1dca931c5dfa9a77f60cfbe99d86a3e2fb42e5c6b71ea526987b8d86bcd4310b",
+      "completion_tokens": 3191,
+      "tool_tokens": 2852,
+      "longest_turn": 167,
+      "steps": 5
+    },
+    {
+      "id": "challenge_sealed_test_02_A",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "4",
+            "style": "structured",
+            "max_words": 120
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "1",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "1"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18563v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "456474bc11085df3bc4853ec51115bea233a960a38b61425a2a111b341fac87f",
+      "completion_tokens": 2067,
+      "tool_tokens": 1709,
+      "longest_turn": 194,
+      "steps": 5
+    },
+    {
+      "id": "challenge_sealed_test_03_B",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "1",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "4",
+            "style": "structured",
+            "max_words": 120
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18563v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2611.18559v1",
+          "pdf_ready": false,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "9e5f8ce0adfc85c75bc7abed30864fedaf456ec9869650bcb06a3609c801b9f1",
+      "completion_tokens": 2757,
+      "tool_tokens": 2334,
+      "longest_turn": 250,
+      "steps": 5
+    },
+    {
+      "id": "challenge_sealed_test_04_B",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "1",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "4",
+            "style": "structured",
+            "max_words": 120
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18563v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2611.18559v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "099d84e3b9e4a4ceca63d715c1736c514c27fc5a0ef9f44e901446bb3f43f53b",
+      "completion_tokens": 2759,
+      "tool_tokens": 2364,
+      "longest_turn": 250,
+      "steps": 4
+    },
+    {
+      "id": "challenge_sealed_test_05_C",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "1",
+            "force": false
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 2,
+            "aspect": "CL",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 4,
+            "aspect": "LG",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "1"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18527v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "1802ed558306e20d17c0300e6380e169e569ae2b67c6a141891c2afb84230fd0",
+      "completion_tokens": 1925,
+      "tool_tokens": 1624,
+      "longest_turn": 70,
+      "steps": 6
+    },
+    {
+      "id": "challenge_sealed_test_06_C",
+      "actions": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 2,
+            "aspect": "CL",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "2",
+            "style": "structured",
+            "max_words": 120
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 4,
+            "aspect": "LG",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "4",
+            "figure_no": 1,
+            "question": "axes"
+          }
+        }
+      ],
+      "state_checks": [],
+      "strict": 1,
+      "canonical_observation_sha256": "802385aa3e4702a8e4570c76b802c9bd677ab9edd5db3fbd3edf409ea2ffb141",
+      "completion_tokens": 3024,
+      "tool_tokens": 2512,
+      "longest_turn": 212,
+      "steps": 6
+    },
+    {
+      "id": "challenge_sealed_test_07_C",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 2,
+            "aspect": "CL",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "2",
+            "force": false
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "2"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "2",
+            "figure_no": 1,
+            "question": "trend"
+          }
+        },
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 4,
+            "aspect": "LG",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18559v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "d2fa90806f99610973aa8cd2ad7e9d10a42761209a5b87d526bcf091c3a1e979",
+      "completion_tokens": 1731,
+      "tool_tokens": 1335,
+      "longest_turn": 94,
+      "steps": 7
+    },
+    {
+      "id": "challenge_sealed_test_08_D",
+      "actions": [
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "4",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "1",
+            "figure_no": 1,
+            "question": "axes"
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "4",
+            "style": "structured",
+            "max_words": 120
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18563v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "b9c9c4209e7a35d5397cb4fece984478bf7d19ebe0a09a3b3b8ced966756bb0d",
+      "completion_tokens": 2555,
+      "tool_tokens": 2026,
+      "longest_turn": 332,
+      "steps": 5
+    },
+    {
+      "id": "challenge_sealed_test_09_D",
+      "actions": [
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "1",
+            "force": false
+          }
+        },
+        {
+          "name": "summarize_paper",
+          "args": {
+            "ref": "1",
+            "style": "structured",
+            "max_words": 120
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "4",
+            "figure_no": 1,
+            "question": "axes"
+          }
+        }
+      ],
+      "state_checks": [],
+      "strict": 1,
+      "canonical_observation_sha256": "7d5aa3f89d4dd466d7ab2955e25e052f49fd2bbe5a8a1dd38cbedaff28a8ce88",
+      "completion_tokens": 2533,
+      "tool_tokens": 2181,
+      "longest_turn": 164,
+      "steps": 5
+    },
+    {
+      "id": "challenge_sealed_test_10_E",
+      "actions": [
+        {
+          "name": "get_recently_submitted_cs_papers",
+          "args": {
+            "max_results": 4,
+            "aspect": "LG",
+            "days": 30,
+            "output_path": null,
+            "save_to_file": false
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": true
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "translate_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": false,
+            "service": "bing",
+            "threads": 4,
+            "keep_dual": true
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "1",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "1",
+            "section": "abstract"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18559v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "2b3c770bbe00caff517ad89a6027adc8c5bcf1fcf4b94631d17dad0721214737",
+      "completion_tokens": 2559,
+      "tool_tokens": 2211,
+      "longest_turn": 104,
+      "steps": 6
+    },
+    {
+      "id": "challenge_sealed_test_11_E",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "4",
+            "force": true
+          }
+        },
+        {
+          "name": "get_paper_content",
+          "args": {
+            "ref": "4",
+            "section": "abstract"
+          }
+        },
+        {
+          "name": "download_arxiv_pdf",
+          "args": {
+            "ref": "1",
+            "force": false
+          }
+        },
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18559v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        },
+        {
+          "paper_id": "2611.18563v1",
+          "pdf_ready": true,
+          "translated_ready": false
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "2d40d38c45e35f5004b2fd0d2cce6935d169daedb660f0022a65218fffaa29db",
+      "completion_tokens": 1115,
+      "tool_tokens": 856,
+      "longest_turn": 99,
+      "steps": 5
+    },
+    {
+      "id": "challenge_sealed_test_12_F",
+      "actions": [
+        {
+          "name": "get_paper_cache_status",
+          "args": {
+            "ref": "1"
+          }
+        },
+        {
+          "name": "get_translated_content",
+          "args": {
+            "ref": "1",
+            "page": 2
+          }
+        },
+        {
+          "name": "extract_paper_figures",
+          "args": {
+            "ref": "4"
+          }
+        },
+        {
+          "name": "analyze_figure",
+          "args": {
+            "ref": "4",
+            "figure_no": 1,
+            "question": "axes"
+          }
+        }
+      ],
+      "state_checks": [
+        {
+          "paper_id": "2611.18563v1",
+          "pdf_ready": true,
+          "translated_ready": true
+        }
+      ],
+      "strict": 1,
+      "canonical_observation_sha256": "9de8d6d0b44ff931866495a7db6a1ba7c0e35370e059d92b3f2dcdeedf3fed1c",
+      "completion_tokens": 3837,
+      "tool_tokens": 3357,
+      "longest_turn": 335,
+      "steps": 4
+    }
+  ],
+  "excluded": []
+}

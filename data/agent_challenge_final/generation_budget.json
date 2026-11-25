@@ -1,0 +1,8 @@
+{
+  "max_turns": 9,
+  "max_new_tokens_per_turn": 704,
+  "max_completion_length": 4605,
+  "gold_max": 3837,
+  "gold_p95": 3024,
+  "observation_tokens_max": 3357
+}

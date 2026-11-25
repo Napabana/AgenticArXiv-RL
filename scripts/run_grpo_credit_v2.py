@@ -38,20 +38,26 @@ def pinned():
     return split
 
 
-def execute(args):
+def execute(args, *, challenge=None):
     import torch
     from datasets import Dataset
     from transformers import TrainerCallback
     from trl import GRPOConfig
     from rl.credit_v2_trainer import StrictGroupReward, CreditV2Trainer
 
-    split = pinned()
-    args.tasks = TRAIN
-    _, tokenizer, rollout, runtime = verify(args, gpu=not args.dry_run)
+    steps = 4 if args.smoke else 25
+    if challenge is None:
+        split = pinned()
+        args.tasks = TRAIN
+        _, tokenizer, rollout, runtime = verify(args, gpu=not args.dry_run)
+        plan = schedule(split["tasks"], steps)
+        identity = dict(train_sha256=TRAIN_SHA,dev_sha256=SPLIT_SHA,base_manifest_sha256=BASE_MANIFEST_SHA)
+    else:
+        split, tokenizer, rollout, runtime, plan, identity = challenge
+        if len(plan) != steps:
+            raise ValueError("Challenge schedule length mismatch")
     rollout.audit_alignment = True
     rollout.audit_tokenizer = tokenizer
-    steps = 4 if args.smoke else 25
-    plan = schedule(split["tasks"], steps)
     config = {
         "experiment": args.experiment,
         "outcome": "benchmark_strict_01",
@@ -65,15 +71,13 @@ def execute(args):
         "per_device_train_batch_size": 1,
         "gradient_accumulation_steps": 4,
         "bf16": True,
-        "max_completion_length": 1792,
-        "max_new_tokens_per_turn": 704,
-        "max_turns": 5,
+        "max_completion_length": split["max_completion_length"],
+        "max_new_tokens_per_turn": split["max_new_tokens_per_turn"],
+        "max_turns": split["max_turns"],
         "scale_rewards": "group",
         "dynamic_sampling": False,
         "plan": plan,
-        "train_sha256": TRAIN_SHA,
-        "dev_sha256": SPLIT_SHA,
-        "base_manifest_sha256": BASE_MANIFEST_SHA,
+        **identity,
         **{k: v for k, v in split.items() if k.endswith("_sha256") and k != "source_git_sha"},
     }
     if args.dry_run:
@@ -99,9 +103,10 @@ def execute(args):
     reward = StrictGroupReward(tasks, rollout, args.experiment, plan, directory)
 
     def generate(prompts, trainer):
+        limits = split if challenge is None else {**split,"max_turns":tasks[prompts[0]]["max_iterations"]}
         batch = run_rollout(
             rollout,
-            split,
+            limits,
             tokenizer,
             trainer.accelerator.unwrap_model(trainer.model),
             [tasks[key] for key in prompts],
@@ -135,7 +140,8 @@ def execute(args):
         temperature=1.0,
         scale_rewards="group",
         shuffle_dataset=False,
-        max_completion_length=1792,
+        max_completion_length=split["max_completion_length"],
+        **({"loss_type":"dapo"} if challenge is not None else {}),
         mask_truncated_completions=False,
         bf16=True,
         gradient_checkpointing=True,

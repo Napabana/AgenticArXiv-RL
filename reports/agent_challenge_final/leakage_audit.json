@@ -1,0 +1,67 @@
+{
+  "hard_conflicts": [],
+  "partial_matches": [],
+  "aggregate_shared_components": {
+    "candidates_v2/paper_overlap": 173,
+    "candidates_v2/setup": 85,
+    "candidates_v2/terminal": 1364,
+    "dev/paper_overlap": 27,
+    "dev/setup": 8,
+    "dev/terminal": 123,
+    "production/setup": 250,
+    "production/terminal": 3564,
+    "sealed_test/paper_overlap": 65,
+    "sealed_test/setup": 12,
+    "sealed_test/terminal": 65,
+    "sft_v2/paper_overlap": 414,
+    "sft_v2/setup": 540,
+    "sft_v2/terminal": 7524,
+    "train/paper_overlap": 251,
+    "train/setup": 60,
+    "train/terminal": 750,
+    "train_v1/paper_overlap": 45,
+    "train_v1/setup": 25,
+    "train_v1/terminal": 308,
+    "train_v2/paper_overlap": 113,
+    "train_v2/setup": 40,
+    "train_v2/terminal": 704
+  },
+  "sources": {
+    "sft_v2": 223,
+    "production": 86,
+    "candidates_v2": 33,
+    "train_v1": 9,
+    "train_v2": 18
+  },
+  "target_papers": {
+    "train": [
+      "2608.14530v1",
+      "2611.18533v1",
+      "2611.18553v1"
+    ],
+    "dev": [
+      "2608.14543v1",
+      "2608.14546v1",
+      "2611.18562v1"
+    ],
+    "sealed_test": [
+      "2611.18527v1",
+      "2611.18559v1",
+      "2611.18563v1"
+    ]
+  },
+  "target_overlap": {
+    "train/dev": [],
+    "train/sealed_test": [],
+    "dev/sealed_test": []
+  },
+  "visible_list_overlap": {
+    "train/dev": [],
+    "train/sealed_test": [
+      "2611.18533v1"
+    ],
+    "dev/sealed_test": [
+      "2611.18562v1"
+    ]
+  }
+}

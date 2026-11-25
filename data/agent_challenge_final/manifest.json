@@ -1,0 +1,34 @@
+{
+  "status": "CPU_PASS",
+  "inputs": {
+    "dev.jsonl": "125fb28bfc62920c633b80cb00cb794ca96a8f87ae5afbf7fcb33c50160e9dfd",
+    "generation_budget.json": "0d1a1246db8c3a5a68c58d9ee1bb5de4b53f9023e40da48f1a17f5a1f4f4f342",
+    "sealed_test.jsonl": "413011d68c948688f3d935c0712c73c3528803b0e447dba4ac966ae9e0eea327",
+    "snapshot_inventory.json": "4d0e3df4390402b5964ea91920aad8419f3f81b351cbfd2ab6d2639d2ccf6288",
+    "task_catalog.jsonl": "5008d6222eefe5e23b0ea4cc8bcbb4b1536750fcbcf40dc3e5687c58c8171acf",
+    "train_candidates.jsonl": "e9ad62fdd0401bb6cf27aab89119e2b9ffc8e088f2568b5d62b3c7125434cd82"
+  },
+  "gold_sha256": "33cd9b970ead7912fe47db822035052c089ed6b60f4fb6fd62ed22ff37157c71",
+  "asset_sha256": "c9429cd59ac60b5f9f36d5910669bbe61efed647c55e2ed0f91da5d638af23ba",
+  "leakage_sha256": "7c0940e80a46ba175d45348efadffa8713d2fdf4c29d12262a2ef0496fa30711",
+  "counts": {
+    "train": 24,
+    "dev": 8,
+    "sealed_test": 12
+  },
+  "family": {
+    "A": 10,
+    "B": 10,
+    "C": 8,
+    "D": 6,
+    "E": 6,
+    "F": 4
+  },
+  "difficulty": {
+    "L2": 15,
+    "L3": 22,
+    "L1": 7
+  },
+  "train_four_or_more": 19,
+  "train_multi_goal": 24
+}
