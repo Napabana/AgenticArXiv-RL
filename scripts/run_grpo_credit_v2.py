@@ -100,7 +100,8 @@ def execute(args, *, challenge=None):
         write_json(directory / "config.json", config)
     write_json(directory / "runtime.json", runtime)
     tasks = {t["id"]: t for t in split["tasks"]}
-    reward = StrictGroupReward(tasks, rollout, args.experiment, plan, directory)
+    reward = StrictGroupReward(tasks, rollout, args.experiment, plan, directory,
+                               exclude_invalid_groups=bool(identity.get("exclude_invalid_groups")))
 
     def generate(prompts, trainer):
         limits = split if challenge is None else {**split,"max_turns":tasks[prompts[0]]["max_iterations"]}

@@ -12,10 +12,11 @@ from rl.reward import RewardCalculator
 
 
 class StrictGroupReward:
-    def __init__(self, tasks, rollout, mode, plan, directory):
+    def __init__(self, tasks, rollout, mode, plan, directory, *, exclude_invalid_groups=False):
         self.tasks, self.rollout, self.mode = tasks, rollout, mode
         self.plan, self.directory = plan, Path(directory)
         self.pending = None
+        self.exclude_invalid_groups = exclude_invalid_groups
         self.legacy = RewardCalculator(curriculum_steps=0)
         self.__name__ = "strict_outcome"
 
@@ -31,6 +32,11 @@ class StrictGroupReward:
             raise ValueError(f"TRL prompt group disagrees with fixed plan at step {step}")
         task = self.tasks[expected["task_id"]]
         rows = credits(prepare(task, trajectory_results, self.rollout), self.mode)
+        if self.exclude_invalid_groups and any(r["strict_success"] is None for r in rows):
+            for row in rows:
+                for d in row["decisions"]:
+                    d.update(policy_mask=False, advantage=0.0, effective_local=0.0, local=0.0,
+                             episode_contribution=0.0, local_contribution=0.0)
         scores = [r["strict_success"] for r in rows]
         self.pending = (expected, trajectory_results, rows)
         return [float(s) if s is not None else 0.0 for s in scores]
@@ -89,6 +95,7 @@ class CreditV2Trainer(GRPOTrainer):
             **plan,
             mode=reward.mode,
             optimizer_step=plan["group_id"] + 1,
+            excluded_invalid_group=bool(reward.exclude_invalid_groups and invalid_count),
             rows=decisions,
             trajectories=samples,
             strict_outcomes=[r["strict_success"] for r in decisions],
@@ -105,6 +112,6 @@ class CreditV2Trainer(GRPOTrainer):
         temp = path.with_suffix(".tmp")
         temp.write_text(json.dumps(report, ensure_ascii=False, allow_nan=False), encoding="utf8")
         temp.replace(path)
-        if invalid_count >= 2:
+        if invalid_count >= 2 and not reward.exclude_invalid_groups:
             raise RuntimeError(f"Infrastructure invalidated {invalid_count}/4 rollouts; see {path}")
         return output

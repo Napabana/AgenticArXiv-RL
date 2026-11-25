@@ -98,22 +98,22 @@ def summarize(base,rows,tasks):
                 outcomes={k:[counts[k],denoms[k]] for k in counts})
 
 
-def run(root,split):
+def run(root,split,methods=POLICIES):
     tasks={t["id"]:t for t in lines(DATA/(split+".jsonl"))}
     adapters={}; policies={}; paired={}
-    for p in POLICIES:
+    for p in methods:
         policies[p],receipt=read_policy(root,p,split,tasks)
         adapters[p]=receipt["adapter_sha256"]
         paired[p]=summarize(policies["SFT"],policies[p],tasks)
     write(root/(split+"_paired.json"),paired)
     if split=="dev":
-        common=[key for key in policies["SFT"] if all(not policies[p][key]["invalid"] for p in POLICIES)]
+        common=[key for key in policies["SFT"] if all(not policies[p][key]["invalid"] for p in methods)]
         if not common:
             raise ValueError("No commonly verifiable Dev trial")
         # Ties use fewer credit components, then preregistered E1/E2/E3/E4 order.
-        winner=max(POLICIES[1:],key=lambda p:sum(policies[p][key]["strict"] for key in common))
+        winner=max(methods[1:],key=lambda p:sum(policies[p][key]["strict"] for key in common))
         frozen=dict(winner=winner,adapters=adapters,manifest_sha256=sha256_file(DATA/"manifest.json"),
-                    common_valid_trials=len(common),paired_sha256=sha256_file(root/"dev_paired.json"),tiebreak="E1 E2 E3 E4")
+                    common_valid_trials=len(common),paired_sha256=sha256_file(root/"dev_paired.json"),tiebreak=" ".join(methods[1:]))
         path=root/"dev_freeze.json"
         if path.exists() and json.loads(path.read_bytes())!=frozen:
             raise ValueError("An incompatible Dev selection was already frozen")
@@ -124,5 +124,6 @@ if __name__=="__main__":
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument("root",type=Path)
     p.add_argument("split",choices=["dev","sealed_test"])
+    p.add_argument("--dfa-only",action="store_true")
     a=p.parse_args()
-    run(a.root,a.split)
+    run(a.root,a.split,("SFT","E2") if a.dfa_only else POLICIES)

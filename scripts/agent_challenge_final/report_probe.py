@@ -66,6 +66,17 @@ def report(path,output):
     body+=["","## 信号与运行","","| 信号 | 全部采样组 | 环境有效组 |","|---|---|---|"]
     for k,title in (("mixed","Strict 混合"),("dfa","同 DFA 状态的正确动作与首错"),("anchor","同真实 Anchor 的不同动作与不同回报")):
         body.append(f"| {title} | {rate(b[k],n)} | {rate(b[k],valid)} |")
+    body+=["","## 排除环境无效组后的敏感性分析","",
+           f"保留全部原始记录，仅从分析分母排除 {n-valid} 个环境无效组。剩余 {valid} 组中 Strict 混合为 {rate(b['mixed'],valid)}，与原定 30% 门槛对照。DFA 非零决策覆盖为 {rate(b['dfa_decisions'],dec)}，Anchor 非零决策覆盖为 {rate(b['anchor_decisions'],dec)}。这两项覆盖率原本就只在有效组计算。",
+           "", "下表保留原定的组内对照次数与截断比例，只放宽整题环境异常排除条件。各题有效组数会不同，表中记录实际曝光量。原设计的 Go 决议单列保留。","",
+           "| 题目 | 保留组数 | Strict 混合组 | DFA 对照组 | 截断轨迹 | 按有效组重算可入选 |","|---|---:|---:|---:|---:|---|"]
+    for tid in tasks:
+        kept=[g["signals"] for g in groups if g["task_id"]==tid and g["signals"]["valid"]]
+        mix=sum(g["mixed"] for g in kept)
+        dfa=sum(g["dfa"] for g in kept)
+        trunc=sum(g["truncated"] for g in kept)
+        eligible=len(kept)>0 and max(mix,dfa)>=2 and trunc<=len(kept)
+        body.append(f"| {tid} | {len(kept)} | {mix} | {dfa} | {trunc} | {'是' if eligible else '否'} |")
     failures_only=sum(g["signals"]["strict"]==[0,0,0,0] for g in groups)
     dfa_only=sum(g["signals"]["strict"]==[0,0,0,0] and g["signals"]["dfa"] for g in groups)
     ceiling=sum(g["signals"]["strict"]==[1,1,1,1] for g in groups)
