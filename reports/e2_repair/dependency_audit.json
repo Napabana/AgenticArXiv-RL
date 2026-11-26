@@ -1,0 +1,1059 @@
+{
+  "tasks": [
+    {
+      "task": "repair_train_01_A",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_02_A",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_03_A",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_04_A",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        2,
+        3,
+        4,
+        0,
+        1
+      ],
+      "alternate": true,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_05_A",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_06_A",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_07_B",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_08_B",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_09_B",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_10_B",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_11_B",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_12_B",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_13_C",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_14_C",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_15_C",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_16_C",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_17_D",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_18_D",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_19_D",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_20_E",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_21_E",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_22_E",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_23_F",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_train_24_F",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_dev_01_A",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        2,
+        3,
+        4,
+        0,
+        1
+      ],
+      "alternate": true,
+      "strict": 1
+    },
+    {
+      "task": "repair_dev_02_A",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_dev_03_B",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_dev_04_B",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_dev_05_C",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_dev_06_D",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_dev_07_E",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_dev_08_F",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_final_holdout_01_A",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "alternate": true,
+      "strict": 1
+    },
+    {
+      "task": "repair_final_holdout_02_A",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        2,
+        3,
+        4,
+        0,
+        1
+      ],
+      "alternate": true,
+      "strict": 1
+    },
+    {
+      "task": "repair_final_holdout_03_B",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        2,
+        3,
+        4,
+        0,
+        1
+      ],
+      "alternate": true,
+      "strict": 1
+    },
+    {
+      "task": "repair_final_holdout_04_B",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        2,
+        3,
+        4,
+        0,
+        1
+      ],
+      "alternate": true,
+      "strict": 1
+    },
+    {
+      "task": "repair_final_holdout_05_C",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_final_holdout_06_C",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_final_holdout_07_D",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "alternate": true,
+      "strict": 1
+    },
+    {
+      "task": "repair_final_holdout_08_D",
+      "edges": [
+        [],
+        [],
+        [
+          1
+        ],
+        []
+      ],
+      "real_replayed_order": [
+        3,
+        1,
+        2,
+        0
+      ],
+      "alternate": true,
+      "strict": 1
+    },
+    {
+      "task": "repair_final_holdout_09_E",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "alternate": true,
+      "strict": 1
+    },
+    {
+      "task": "repair_final_holdout_10_E",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_final_holdout_11_F",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    },
+    {
+      "task": "repair_final_holdout_12_F",
+      "edges": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "real_replayed_order": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "alternate": false,
+      "strict": 1
+    }
+  ],
+  "environment_control": {
+    "attempted": "AI ref1 method",
+    "tool_issue": "snapshot_coverage_error",
+    "outcomes": [
+      null,
+      0,
+      0,
+      0
+    ],
+    "group_active_tokens": 0
+  }
+}

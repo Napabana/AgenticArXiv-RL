@@ -1,0 +1,18 @@
+{
+  "project": {
+    "tests": 1818,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 6,
+    "seconds": 167.448,
+    "junit_sha256": "8a5062a22d36497be7c877469f3b1a22af029b00c212cbff5f0594584f728942"
+  },
+  "challenge_and_guards": {
+    "tests": 46,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "seconds": 30.011,
+    "junit_sha256": "9778abf2d86cc0e89c820c3fcd19508335bac63f0c7f2bbc2a38bc62228d5ad1"
+  }
+}

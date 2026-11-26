@@ -24,3 +24,6 @@ reports/agent_challenge_final/**/*.json text eol=lf
 reports/agent_challenge_final/**/*.jsonl text eol=lf
 reports/agent_challenge_final/**/*.gz binary
 scripts/agent_challenge_final/*.sh text eol=lf
+data/e2_repair/*.json* text eol=lf
+reports/e2_repair/*.json* text eol=lf
+reports/e2_repair/*.gz binary

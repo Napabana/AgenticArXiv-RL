@@ -1,0 +1,24 @@
+{
+  "probe": {
+    "uncut": 567,
+    "total_before_tool_feedback": 63,
+    "max_turns": 80,
+    "per_turn_generation": 22,
+    "max_turns_with_verified_repeat": 35,
+    "total_during_generation": 1
+  },
+  "dfa-transfer": {
+    "uncut": 81,
+    "total_before_tool_feedback": 2,
+    "max_turns": 6,
+    "per_turn_generation": 2,
+    "max_turns_with_verified_repeat": 5
+  },
+  "dfa-all24": {
+    "per_turn_generation": 7,
+    "max_turns_with_verified_repeat": 5,
+    "uncut": 67,
+    "max_turns": 12,
+    "total_before_tool_feedback": 5
+  }
+}

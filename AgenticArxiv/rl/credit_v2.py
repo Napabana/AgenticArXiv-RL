@@ -27,11 +27,15 @@ def prepare(task, samples, rollout):
         for index, sample in enumerate(samples):
             row = transitions(task, sample)
             anchors = []
+            guard_states = []
             invalid = sample.get("alignment_error")
             if row["strict_success"] is not None and not invalid:
                 # A broken native message contract is infrastructure, not a policy failure.
                 try:
-                    anchors = fingerprints(rollout, task, sample, Path(temp) / str(index))
+                    if task.get("repair_credit"):
+                        anchors = fingerprints(rollout, task, sample, Path(temp) / str(index), guard_states=guard_states)
+                    else:
+                        anchors = fingerprints(rollout, task, sample, Path(temp) / str(index))
                 except ValueError as exc:
                     invalid = str(exc)
             if invalid:
@@ -40,6 +44,8 @@ def prepare(task, samples, rollout):
                 sample.get("termination_reason") if row["strict_success"] is None else None
             )
             for i, d in enumerate(row["decisions"]):
+                if guard_states and not invalid:
+                    d["guard_state"] = guard_states[i]
                 d["anchor"] = (
                     digest([task["id"], d["automaton_state_before"], anchors[i]]) if anchors else None
                 )

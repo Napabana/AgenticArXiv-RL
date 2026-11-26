@@ -83,7 +83,7 @@ def environment(agent):
     )
 
 
-def fingerprints(rollout, task, sample, root):
+def fingerprints(rollout, task, sample, root, *, guard_states=None):
     """Replay recorded actions (no model inference), rejecting mismatched evidence.
 
     Assistant tokenization comes from the actual sampled IDs. Tool feedback is the frozen
@@ -114,7 +114,11 @@ def fingerprints(rollout, task, sample, root):
     context = digest([visible, ep.tools])
     states = []
     for i, (turn, span, step) in enumerate(zip(raw, spans, sample["history"], strict=True)):
-        states.append(digest([context, environment(ep.agent)]))
+        env_state = environment(ep.agent)
+        states.append(digest([context, env_state]))
+        if guard_states is not None:
+            from rl.repair_credit import guard_state
+            guard_states.append(guard_state(ep.agent, env_state, step))
         if i + 1 == len(raw):
             break
         if not ep.add_text(turn):

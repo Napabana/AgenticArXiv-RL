@@ -151,7 +151,7 @@ def execute(args, *, challenge=None):
         logging_steps=1,
         report_to="none",
         save_strategy="steps",
-        save_steps=4 if args.smoke else 5,
+        save_steps=4 if args.smoke else identity.get("checkpoint_interval", 5),
         logging_nan_inf_filter=False,
     )
     trainer = CreditV2Trainer(

@@ -1,0 +1,133 @@
+{
+  "probe": {
+    "groups": 192,
+    "valid": 176,
+    "local_groups": 151,
+    "nonzero_tokens": 85704,
+    "identical_task_local_groups": 110
+  },
+  "dfa-transfer": {
+    "groups": 24,
+    "valid": 22,
+    "local_groups": 21,
+    "nonzero_tokens": 10457,
+    "identical_task_local_groups": 18
+  },
+  "dfa-all24": {
+    "groups": 24,
+    "valid": 22,
+    "local_groups": 20,
+    "nonzero_tokens": 8709,
+    "identical_task_local_groups": 13
+  },
+  "diagnostic_flags": {
+    "probe/reference_argument": {
+      "observed": 452,
+      "old_negative": 161,
+      "new_negative": 220,
+      "in_excluded_group": 24
+    },
+    "probe/tool_parse": {
+      "observed": 519,
+      "old_negative": 84,
+      "new_negative": 425,
+      "in_excluded_group": 26
+    },
+    "probe/repeat": {
+      "observed": 205,
+      "old_negative": 0,
+      "new_negative": 150,
+      "in_excluded_group": 12
+    },
+    "probe/pending": {
+      "observed": 60,
+      "old_negative": 4,
+      "new_negative": 48,
+      "in_excluded_group": 2
+    },
+    "probe/early_finish": {
+      "observed": 15,
+      "old_negative": 7,
+      "new_negative": 5,
+      "in_excluded_group": 3
+    },
+    "probe/second_cache": {
+      "observed": 25,
+      "old_negative": 9,
+      "new_negative": 17,
+      "in_excluded_group": 3
+    },
+    "dfa-transfer/reference_argument": {
+      "observed": 27,
+      "old_negative": 16,
+      "new_negative": 19,
+      "in_excluded_group": 1
+    },
+    "dfa-transfer/pending": {
+      "observed": 10,
+      "old_negative": 2,
+      "new_negative": 10,
+      "in_excluded_group": 0
+    },
+    "dfa-transfer/tool_parse": {
+      "observed": 43,
+      "old_negative": 10,
+      "new_negative": 33,
+      "in_excluded_group": 0
+    },
+    "dfa-transfer/repeat": {
+      "observed": 21,
+      "old_negative": 0,
+      "new_negative": 9,
+      "in_excluded_group": 0
+    },
+    "dfa-transfer/early_finish": {
+      "observed": 8,
+      "old_negative": 2,
+      "new_negative": 2,
+      "in_excluded_group": 1
+    },
+    "dfa-transfer/second_cache": {
+      "observed": 7,
+      "old_negative": 3,
+      "new_negative": 3,
+      "in_excluded_group": 1
+    },
+    "dfa-all24/reference_argument": {
+      "observed": 53,
+      "old_negative": 20,
+      "new_negative": 25,
+      "in_excluded_group": 3
+    },
+    "dfa-all24/tool_parse": {
+      "observed": 45,
+      "old_negative": 5,
+      "new_negative": 28,
+      "in_excluded_group": 4
+    },
+    "dfa-all24/repeat": {
+      "observed": 19,
+      "old_negative": 0,
+      "new_negative": 6,
+      "in_excluded_group": 0
+    },
+    "dfa-all24/early_finish": {
+      "observed": 4,
+      "old_negative": 2,
+      "new_negative": 2,
+      "in_excluded_group": 0
+    },
+    "dfa-all24/pending": {
+      "observed": 7,
+      "old_negative": 0,
+      "new_negative": 7,
+      "in_excluded_group": 0
+    },
+    "dfa-all24/second_cache": {
+      "observed": 3,
+      "old_negative": 3,
+      "new_negative": 3,
+      "in_excluded_group": 0
+    }
+  }
+}

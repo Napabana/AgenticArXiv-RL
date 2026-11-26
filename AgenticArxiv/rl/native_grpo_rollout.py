@@ -130,6 +130,7 @@ class NativeEpisode:
     raw_turns: list[str] = field(default_factory=list)
     stop: str = ""
     audit_alignment: bool = False
+    budget_limit: str | None = None
 
     def add_text(self, text: str) -> bool:
         """Validate a single policy turn and append real tool feedback if needed."""
@@ -204,6 +205,7 @@ class NativeEpisode:
             "assistant_tokens": sum(self.mask), "termination_reason": self.stop,
             "clipped": self.stop == "token_budget", "reached_max_turns": self.stop == "max_turns",
             "environment_invalid": self.stop in {"environment_invalid", "setup_failure"},
+            "budget_limit": self.budget_limit,
         }
 
 
@@ -286,13 +288,16 @@ class NativeRollout:
                             episode.raw_turns.append(text)
                             episode.messages.append({"role": "assistant", "content": text, "truncated": True})
                             episode.stop = "token_budget"
+                            episode.budget_limit = "completion" if len(episode.completion_ids) >= max_completion_length else "turn_tokens"
                         elif episode.add_text(text):
                             if turn + 1 == max_turns:
                                 episode.stop = "max_turns"
+                                episode.budget_limit = "turn_count"
                             else:
                                 feedback = self.feedback_ids(tokenizer, episode)
                                 if len(episode.completion_ids) + len(feedback) >= max_completion_length:
                                     episode.stop = "token_budget"
+                                    episode.budget_limit = "feedback"
                                 else:
                                     episode.append_tokens(feedback, assistant=False)
             return {

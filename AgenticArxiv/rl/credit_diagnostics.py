@@ -33,8 +33,11 @@ def rate(n, d):
 
 def reference_error(task, sample):
     """Independent Benchmark prefix check. The synthetic FINISH exists only in this oracle."""
-    expected = task["expected_tools"]
     history = sample["history"]
+    if task.get("requires_steps") is not None:
+        from benchmark.dependency_order import ordered_task
+        task = ordered_task(task, history)
+    expected = task["expected_tools"]
     for i, step in enumerate(history):
         if step["action"] == "FORCE_STOP" and (sample.get("clipped") or sample.get("reached_max_turns")):
             return None
@@ -114,7 +117,7 @@ class Diagnostics:
                     stats["nonzero_local_tokens"] += tokens * int(d["effective_local"] != 0)
                 active = (mode in ("E2", "E4") and d["dfa_reason"] == "signal") or (
                     mode in ("E3", "E4") and d["anchor_reason"] == "signal"
-                )
+                ) or bool(d.get("guard_adv"))
                 eligible = row["strict_success"] is not None and label != "truncated"
                 if eligible:
                     self.count("anchor_coverage", d["anchor_reason"] == "signal")

@@ -114,6 +114,9 @@ def extract_metrics(
 ) -> TaskMetrics:
     """从 agent.run() 返回值提取 TaskMetrics"""
     history = result.get("history", [])
+    if task_def.get("requires_steps") is not None:
+        from benchmark.dependency_order import ordered_task
+        task_def = ordered_task(task_def, history)
     timing = result.get("timing", {})
     token_usage = result.get("token_usage", {})
     routing = result.get("routing") or {}

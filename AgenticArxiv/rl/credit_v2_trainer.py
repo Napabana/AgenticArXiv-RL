@@ -31,15 +31,25 @@ class StrictGroupReward:
         ):
             raise ValueError(f"TRL prompt group disagrees with fixed plan at step {step}")
         task = self.tasks[expected["task_id"]]
-        rows = credits(prepare(task, trajectory_results, self.rollout), self.mode)
-        if self.exclude_invalid_groups and any(r["strict_success"] is None for r in rows):
+        prepared = prepare(task, trajectory_results, self.rollout)
+        if task.get("repair_credit"):
+            from rl.repair_credit import repaired_credits
+            if self.mode != "E2":
+                raise ValueError("Repair protocol requires E2")
+            rows = repaired_credits(task, trajectory_results, prepared)
+        else:
+            rows = credits(prepared, self.mode)
+        if self.exclude_invalid_groups and any(r["strict_success"] is None and not r.get("budget_censored") for r in rows):
             for row in rows:
                 for d in row["decisions"]:
                     d.update(policy_mask=False, advantage=0.0, effective_local=0.0, local=0.0,
                              episode_contribution=0.0, local_contribution=0.0)
         scores = [r["strict_success"] for r in rows]
         self.pending = (expected, trajectory_results, rows)
-        return [float(s) if s is not None else 0.0 for s in scores]
+        observed = [s for s in scores if s is not None]
+        # TRL requires a transport value. The repair loss uses verified per-token advantages below.
+        fill = sum(observed)/len(observed) if task.get("repair_credit") and observed else 0.0
+        return [float(s) if s is not None else fill for s in scores]
 
 
 class CreditV2Trainer(GRPOTrainer):
@@ -74,7 +84,7 @@ class CreditV2Trainer(GRPOTrainer):
                 or tools[i, :n].tolist() != sample["tool_mask"]
             ):
                 raise ValueError("TRL row order, completion padding or tool mask differs from sampled IDs")
-            if row["strict_success"] is None:
+            if row["strict_success"] is None and not row.get("budget_censored"):
                 continue
             a, p = token_rows(sample, row)
             advantage[i, :n] = advantage.new_tensor(a)
@@ -86,7 +96,7 @@ class CreditV2Trainer(GRPOTrainer):
                 raise ValueError("strict episode normalization differs from TRL")
             if any(d["transition_label"] == "first_error" and d["local"] > 1e-7 for d in row["decisions"]):
                 raise RuntimeError("positive active local credit on a verified first error")
-        invalid_count = sum(r["strict_success"] is None for r in decisions)
+        invalid_count = sum(r["strict_success"] is None and not r.get("budget_censored") for r in decisions)
         output["advantages"] = advantage
         output["tool_mask"] = active
         if "num_items_in_batch" in output:

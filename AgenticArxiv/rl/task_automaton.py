@@ -13,6 +13,9 @@ from rl.step_credit import _tool_step_matches, canonical_action_key, gold_items
 
 def transitions(task, sample):
     history = sample["history"]
+    if task.get("requires_steps") is not None:
+        from benchmark.dependency_order import ordered_task
+        task = ordered_task(task, history)
     invalid = sample.get("environment_invalid") or any(
         s.get("observation") == "missing tool response"
         or (
@@ -87,6 +90,15 @@ def transitions(task, sample):
                 verified_prefix_length=prefix,
             )
         )
+        if "gold_node_order" in task:
+            # Equal prefix lengths may correspond to different completed subgoals.
+            prior = decisions[-2]["verified_prefix_length"] if len(decisions)>1 else 0
+            if before.startswith("q_") and before[2:].isdigit():
+                decisions[-1]["automaton_state_before"] = "dag:" + ",".join(
+                    map(str, sorted(task["gold_node_order"][:prior])))
+            if state.startswith("q_") and state[2:].isdigit():
+                decisions[-1]["automaton_state_after"] = "dag:" + ",".join(
+                    map(str, sorted(task["gold_node_order"][:prefix])))
     if invalid:
         state = "q_environment_invalid"
     elif truncated and state not in ("q_error", "q_accept"):

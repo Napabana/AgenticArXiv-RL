@@ -24,12 +24,20 @@ OLD = ROOT / "reports/native_grpo_20261123"
 
 def summarize_run(directory, tasks, mode, plan):
     diag = Diagnostics()
+    excluded = []
     for p in plan:
         g = load_json(directory / "groups" / f"group_{p['group_id']:03d}.json")
         if any(g[k] != p[k] for k in p) or g["mode"] != mode:
             raise ValueError("Wrong group or stale resumed training data")
-        diag.add(tasks[p["task_id"]], g["trajectories"], g["rows"], mode)
-    return diag.report()
+        task=tasks[p["task_id"]]
+        if task.get("repair_credit") and g.get("excluded_invalid_group"):
+            excluded.append(p["group_id"])
+            continue
+        diag.add(task, g["trajectories"], g["rows"], mode)
+    report=diag.report()
+    if any(t.get("repair_credit") for t in tasks.values()):
+        report.update(sampled_groups=len(plan),excluded_environment_groups=excluded)
+    return report
 
 
 def archive_groups(run, phase):

@@ -72,12 +72,12 @@ RECIPES = {
 ]}
 
 
-def build():
+def build(profiles=PROFILES, catalog=RECIPES):
     inv=json.loads((DATA/"snapshot_inventory.json").read_bytes())
     pools={row["args"]["aspect"]:row["ordered_ids"] for row in inv["search_pools"][RECENT]}
     result=[]
-    for split, recipes in RECIPES.items():
-        main,i,j,alternate,k=PROFILES[split]
+    for split, recipes in catalog.items():
+        main,i,j,alternate,k=profiles[split]
         ids={"A":pools[main][i-1],"B":pools[main][j-1],"Z":pools[alternate][k-1]}
         limit=max(i,j)
         for number,(family,setup,steps,text) in enumerate(recipes,1):
