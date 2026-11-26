@@ -30,7 +30,7 @@ job() {
     local phase=$1 policy=$2 split=${3:-dev}
     run "$phase" --policy "$policy" --split "$split" >>"$out/matched-$phase-$policy-$split.log" 2>&1
 }
-parallel_limit=3
+parallel_limit=4
 batch() {
     local phase=$1
     shift
@@ -70,11 +70,10 @@ batch() {
 }
 batch dev 72 dev 25 dev 48 dev
 run freeze
-batch final_holdout 72 dev SFT dev 25 dev
-batch production 72 dev 72 iid_test 72 ood_test
-batch final_holdout GRPO25 dev 48 dev
+batch final_holdout 72 dev SFT dev GRPO25 dev 25 dev 48 dev
+# Reuse the archived SFT production trials; benchmark all four RL adapters.
 for split in dev iid_test ood_test; do
-    batch production 25 "$split" 48 "$split"
+    batch production 72 "$split" GRPO25 "$split" 25 "$split" 48 "$split"
 done
-for policy in 25 48 72; do echo 0 >"$out/production/$policy/status"; done
+for policy in GRPO25 25 48 72; do echo 0 >"$out/production/$policy/status"; done
 echo 0 >"$out/matched_evaluations_complete"

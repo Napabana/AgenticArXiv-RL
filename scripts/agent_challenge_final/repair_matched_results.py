@@ -75,15 +75,23 @@ def production(out, weights, policies, receipt):
     for split, old in baseline["splits"].items():
         sft = {(r["id"],r["trial"]):r["v2"] for r in old["trials"]}
         row = {"SFT":dict(strict=sum(sft.values()), total=len(sft))}
-        for p in map(str,policies):
+        observed = {}
+        for p in ["GRPO25", *map(str,policies)]:
             folder = out/"production"/p
             _, latest, files = paired(folder,split,set(sft),out/"train"/("checkpoint-"+p))
             identity = read(folder/split/"identity.json")
             if identity != dict(freeze=receipt, adapter=weights[p], trace=files["trace_sha256"]):
                 raise ValueError("Production trace mismatch")
+            observed[p] = latest
             row[p] = dict(strict=sum(latest.values()), total=len(latest),
                           fail_to_pass=[k for k in sft if latest[k] and not sft[k]],
                           pass_to_fail=[k for k in sft if sft[k] and not latest[k]])
+        grpo = observed["GRPO25"]
+        for p in map(str,policies):
+            latest = observed[p]
+            row[p]["against_grpo25"] = dict(paired=len(grpo),
+                fail_to_pass=[k for k in grpo if latest[k] and not grpo[k]],
+                pass_to_fail=[k for k in grpo if grpo[k] and not latest[k]])
         splits[split] = row
     return splits
 
@@ -102,7 +110,8 @@ def run(out):
     for split in ("dev","final_holdout"):
         policies = {p:trials(out/split/p,sha,receipt,split) for p,sha in adapters.items()}
         comparisons = {f"SFT -> {p}":compare(policies["SFT"],data) for p,data in policies.items() if p!="SFT"}
-        comparisons["GRPO25 -> 25"] = compare(policies["GRPO25"],policies["25"])
+        for step in protocol["dapo_steps"]:
+            comparisons[f"GRPO25 -> {step}"] = compare(policies["GRPO25"],policies[str(step)])
         result[split] = dict(summaries={p:summarize(data) for p,data in policies.items()},comparisons=comparisons)
     result["training"] = training(out)
     result["production"] = production(out,adapters,protocol["production_dapo"],receipt)
