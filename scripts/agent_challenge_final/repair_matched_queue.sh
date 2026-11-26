@@ -45,15 +45,17 @@ pair() {
         job "$phase" "$policy" "$split" || return 1
     done
 }
-pair dev 25 48
 job dev 72
+pair dev 25 48
 run freeze
+pair final_holdout 72 SFT
+for split in dev iid_test ood_test; do
+    job production 72 "$split"
+done
 pair final_holdout GRPO25 25
-pair final_holdout SFT 48
-job final_holdout 72
+job final_holdout 48
 for split in dev iid_test ood_test; do
     pair production 25 48 "$split"
-    job production 72 "$split"
 done
 for policy in 25 48 72; do echo 0 >"$out/production/$policy/status"; done
 echo 0 >"$out/matched_evaluations_complete"
