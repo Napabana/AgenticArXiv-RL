@@ -1,0 +1,42 @@
+{
+  "implementations": {
+    "causal_conv1d_fn": "causal_conv1d.causal_conv1d_interface.causal_conv1d_fn",
+    "causal_conv1d_update": "causal_conv1d.causal_conv1d_interface.causal_conv1d_update",
+    "torch_chunk_gated_delta_rule": "fla.ops.gated_delta_rule.chunk.chunk_gated_delta_rule",
+    "torch_recurrent_gated_delta_rule": "fla.ops.gated_delta_rule.fused_recurrent.fused_recurrent_gated_delta_rule"
+  },
+  "relative_l2": {
+    "causal_conv1d_fn": [
+      0.0030458257533609867,
+      0.003632031846791506,
+      0.001978514948859811
+    ],
+    "torch_chunk_gated_delta_rule": [
+      0.004607202019542456,
+      0.005083992145955563,
+      0.005316413473337889,
+      0.005425047129392624,
+      0.0024215609300881624,
+      0.004472167696803808
+    ],
+    "causal_conv1d_update": [
+      0.0014958290848881006,
+      0.0
+    ],
+    "torch_recurrent_gated_delta_rule": [
+      0.0,
+      0.0
+    ]
+  },
+  "device": "NVIDIA GeForce RTX 4090",
+  "versions": {
+    "torch": "2.8.0",
+    "triton": "3.4.0",
+    "transformers": "5.22.2",
+    "trl": "1.17.1",
+    "causal-conv1d": "1.7.0",
+    "fla-core": "0.4.2",
+    "flash-linear-attention": "0.4.2",
+    "einops": "0.8.2"
+  }
+}
