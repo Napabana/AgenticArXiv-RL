@@ -30,32 +30,51 @@ job() {
     local phase=$1 policy=$2 split=${3:-dev}
     run "$phase" --policy "$policy" --split "$split" >>"$out/matched-$phase-$policy-$split.log" 2>&1
 }
-pair() {
-    local phase=$1 a=$2 b=$3 split=${4:-dev} failed=()
-    job "$phase" "$a" "$split" & local x=$!
-    job "$phase" "$b" "$split" & local y=$!
-    wait "$x" || failed+=("$a")
-    wait "$y" || failed+=("$b")
-    for policy in "${failed[@]}"; do
-        local log="$out/matched-$phase-$policy-$split.log"
-        grep -Eqi 'outofmemoryerror|CUDA out of memory' "$log" || return 1
-        if [[ $phase == production && -d "$out/production/$policy/$split" && ! -e "$out/production/$policy/$split/identity.json" ]]; then
-            mv "$out/production/$policy/$split" "$out/production/$policy/$split-oom-$(date +%s)"
-        fi
-        job "$phase" "$policy" "$split" || return 1
+parallel_limit=3
+batch() {
+    local phase=$1
+    shift
+    local policy split log index had_oom
+    local -a policies splits pids offsets
+    while (( $# )); do
+        policies=() splits=() pids=() offsets=()
+        while (( $# && ${#pids[@]} < parallel_limit )); do
+            policy=$1 split=$2
+            shift 2
+            log="$out/matched-$phase-$policy-$split.log"
+            touch "$log"
+            offsets+=("$(stat -c %s "$log")")
+            policies+=("$policy") splits+=("$split")
+            job "$phase" "$policy" "$split" & pids+=("$!")
+        done
+        echo "$(date -Is) $phase policies=${policies[*]} splits=${splits[*]} concurrency=${#pids[@]}"
+        local -a failed=()
+        for index in "${!pids[@]}"; do
+            wait "${pids[index]}" || failed+=("$index")
+        done
+        had_oom=0
+        for index in "${failed[@]}"; do
+            policy=${policies[index]} split=${splits[index]}
+            log="$out/matched-$phase-$policy-$split.log"
+            if ! tail -c "+$((offsets[index]+1))" "$log" | grep -Ei 'OutOfMemoryError|CUDA out of memory' >/dev/null; then
+                return 1
+            fi
+            had_oom=1
+            if [[ $phase == production && -d "$out/production/$policy/$split" && ! -e "$out/production/$policy/$split/identity.json" ]]; then
+                mv "$out/production/$policy/$split" "$out/production/$policy/$split-oom-$(date +%s)"
+            fi
+            job "$phase" "$policy" "$split" || return 1
+        done
+        if (( had_oom && parallel_limit > 1 )); then parallel_limit=$((parallel_limit-1)); fi
     done
 }
-job dev 72
-pair dev 25 48
+batch dev 72 dev 25 dev 48 dev
 run freeze
-pair final_holdout 72 SFT
+batch final_holdout 72 dev SFT dev 25 dev
+batch production 72 dev 72 iid_test 72 ood_test
+batch final_holdout GRPO25 dev 48 dev
 for split in dev iid_test ood_test; do
-    job production 72 "$split"
-done
-pair final_holdout GRPO25 25
-job final_holdout 48
-for split in dev iid_test ood_test; do
-    pair production 25 48 "$split"
+    batch production 25 "$split" 48 "$split"
 done
 for policy in 25 48 72; do echo 0 >"$out/production/$policy/status"; done
 echo 0 >"$out/matched_evaluations_complete"
