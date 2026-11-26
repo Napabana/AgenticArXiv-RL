@@ -1,0 +1,72 @@
+{
+  "split": "dev",
+  "freeze": "9463c4d16daa4787571341b8f15b851b935c51cec6746747f94dedcd1e2bc0d2",
+  "adapters": {
+    "SFT": "f0c33a4d32a175bcaf1e83c55231a0108a84859cb748c318db49988a52f7911f",
+    "72": "ab886151b0c71438befa0e8dae9dd13df5e91692e23dc94a218104c8ecb7fe41"
+  },
+  "summaries": {
+    "SFT": {
+      "trials": 24,
+      "scorable": 21,
+      "strict": 3,
+      "env_invalid": 3,
+      "censored": 0,
+      "truncated": 0,
+      "prefix": 28,
+      "subgoals": 54,
+      "required": 84,
+      "all_subgoals": 6,
+      "decisions": 109,
+      "guards": {
+        "repeat": 4,
+        "reference": 8,
+        "tool_parse": 1
+      },
+      "reference_accuracy": 0.42698412698412697
+    },
+    "72": {
+      "trials": 24,
+      "scorable": 22,
+      "strict": 5,
+      "env_invalid": 2,
+      "censored": 0,
+      "truncated": 2,
+      "prefix": 33,
+      "subgoals": 57,
+      "required": 89,
+      "all_subgoals": 8,
+      "decisions": 114,
+      "guards": {
+        "repeat": 1,
+        "reference": 4,
+        "tool_parse": 1,
+        "pending": 2
+      },
+      "reference_accuracy": 0.5265151515151515
+    }
+  },
+  "comparison": {
+    "paired": 20,
+    "fail_to_pass": [
+      [
+        "repair_dev_02_A",
+        0
+      ],
+      [
+        "repair_dev_03_B",
+        0
+      ]
+    ],
+    "pass_to_fail": [],
+    "common_prefix": [
+      25,
+      30
+    ],
+    "common_subgoals": [
+      51,
+      54
+    ],
+    "common_required": 79
+  }
+}
