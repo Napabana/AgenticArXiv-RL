@@ -12,11 +12,12 @@ from repair_data import RDATA
 from repair_run import read, checked
 
 
-def trials(folder, adapter, receipt):
+def trials(folder, adapter, receipt, split="dev"):
     summary=read(folder/"summary.json")
     if summary["adapter"]!=adapter or summary["freeze"]!=receipt:
         raise ValueError(f"Stale adapter/freeze in {folder}")
-    expected={(t["id"],j):73000+3*i+j for i,t in enumerate(lines(RDATA/"dev.jsonl")) for j in range(3)}
+    seed_start={"dev":73000,"final_holdout":85000}[split]
+    expected={(t["id"],j):seed_start+3*i+j for i,t in enumerate(lines(RDATA/(split+".jsonl"))) for j in range(3)}
     result={}
     for r in summary["details"]:
         key=(r["task"],r["trial"])
@@ -26,7 +27,7 @@ def trials(folder, adapter, receipt):
                 or raw["seed"]!=expected[key]):
             raise ValueError(f"Unpaired raw trial: {path}")
         result[key]=r
-    if result.keys()!=expected.keys():raise ValueError("Incomplete Dev")
+    if result.keys()!=expected.keys():raise ValueError(f"Incomplete {split}")
     return result
 
 
