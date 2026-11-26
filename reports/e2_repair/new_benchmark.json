@@ -1,0 +1,515 @@
+{
+  "dev": {
+    "summaries": {
+      "SFT": {
+        "trials": 24,
+        "scorable": 21,
+        "strict": 3,
+        "env_invalid": 3,
+        "censored": 0,
+        "truncated": 0,
+        "prefix": 28,
+        "subgoals": 54,
+        "required": 84,
+        "all_subgoals": 6,
+        "decisions": 109,
+        "guards": {
+          "repeat": 4,
+          "reference": 8,
+          "tool_parse": 1
+        },
+        "reference_accuracy": 0.42698412698412697
+      },
+      "GRPO25": {
+        "trials": 24,
+        "scorable": 21,
+        "strict": 3,
+        "env_invalid": 3,
+        "censored": 0,
+        "truncated": 0,
+        "prefix": 22,
+        "subgoals": 53,
+        "required": 84,
+        "all_subgoals": 7,
+        "decisions": 110,
+        "guards": {
+          "repeat": 5,
+          "tool_parse": 2,
+          "reference": 1
+        },
+        "reference_accuracy": 0.34285714285714286
+      },
+      "25": {
+        "trials": 24,
+        "scorable": 22,
+        "strict": 4,
+        "env_invalid": 2,
+        "censored": 0,
+        "truncated": 2,
+        "prefix": 29,
+        "subgoals": 55,
+        "required": 89,
+        "all_subgoals": 7,
+        "decisions": 123,
+        "guards": {
+          "tool_parse": 2,
+          "reference": 9,
+          "repeat": 4
+        },
+        "reference_accuracy": 0.4477272727272727
+      },
+      "48": {
+        "trials": 24,
+        "scorable": 22,
+        "strict": 5,
+        "env_invalid": 2,
+        "censored": 0,
+        "truncated": 2,
+        "prefix": 37,
+        "subgoals": 60,
+        "required": 89,
+        "all_subgoals": 7,
+        "decisions": 118,
+        "guards": {
+          "repeat": 3,
+          "tool_parse": 3,
+          "reference": 2,
+          "pending": 2
+        },
+        "reference_accuracy": 0.556060606060606
+      },
+      "72": {
+        "trials": 24,
+        "scorable": 22,
+        "strict": 5,
+        "env_invalid": 2,
+        "censored": 0,
+        "truncated": 2,
+        "prefix": 33,
+        "subgoals": 57,
+        "required": 89,
+        "all_subgoals": 8,
+        "decisions": 114,
+        "guards": {
+          "repeat": 1,
+          "reference": 4,
+          "tool_parse": 1,
+          "pending": 2
+        },
+        "reference_accuracy": 0.5265151515151515
+      }
+    },
+    "comparisons": {
+      "SFT -> 25": {
+        "paired": 21,
+        "fail_to_pass": [
+          [
+            "repair_dev_02_A",
+            0
+          ]
+        ],
+        "pass_to_fail": [],
+        "common_prefix": [
+          28,
+          29
+        ],
+        "common_subgoals": [
+          54,
+          54
+        ],
+        "common_required": 84
+      },
+      "SFT -> 48": {
+        "paired": 20,
+        "fail_to_pass": [
+          [
+            "repair_dev_02_A",
+            0
+          ],
+          [
+            "repair_dev_03_B",
+            0
+          ],
+          [
+            "repair_dev_03_B",
+            2
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_dev_06_D",
+            1
+          ]
+        ],
+        "common_prefix": [
+          28,
+          34
+        ],
+        "common_subgoals": [
+          52,
+          55
+        ],
+        "common_required": 79
+      },
+      "SFT -> 72": {
+        "paired": 20,
+        "fail_to_pass": [
+          [
+            "repair_dev_02_A",
+            0
+          ],
+          [
+            "repair_dev_03_B",
+            0
+          ]
+        ],
+        "pass_to_fail": [],
+        "common_prefix": [
+          25,
+          30
+        ],
+        "common_subgoals": [
+          51,
+          54
+        ],
+        "common_required": 79
+      },
+      "GRPO25 -> 25": {
+        "paired": 20,
+        "fail_to_pass": [
+          [
+            "repair_dev_02_A",
+            0
+          ]
+        ],
+        "pass_to_fail": [],
+        "common_prefix": [
+          20,
+          27
+        ],
+        "common_subgoals": [
+          50,
+          50
+        ],
+        "common_required": 79
+      },
+      "GRPO25 -> 48": {
+        "paired": 20,
+        "fail_to_pass": [
+          [
+            "repair_dev_02_A",
+            0
+          ],
+          [
+            "repair_dev_03_B",
+            0
+          ],
+          [
+            "repair_dev_03_B",
+            2
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_dev_06_D",
+            1
+          ]
+        ],
+        "common_prefix": [
+          22,
+          37
+        ],
+        "common_subgoals": [
+          52,
+          56
+        ],
+        "common_required": 79
+      },
+      "GRPO25 -> 72": {
+        "paired": 20,
+        "fail_to_pass": [
+          [
+            "repair_dev_02_A",
+            0
+          ],
+          [
+            "repair_dev_03_B",
+            0
+          ]
+        ],
+        "pass_to_fail": [],
+        "common_prefix": [
+          20,
+          33
+        ],
+        "common_subgoals": [
+          51,
+          55
+        ],
+        "common_required": 79
+      }
+    }
+  },
+  "final_holdout": {
+    "summaries": {
+      "SFT": {
+        "trials": 36,
+        "scorable": 33,
+        "strict": 1,
+        "env_invalid": 3,
+        "censored": 0,
+        "truncated": 3,
+        "prefix": 47,
+        "subgoals": 74,
+        "required": 146,
+        "all_subgoals": 4,
+        "decisions": 162,
+        "guards": {
+          "tool_parse": 7,
+          "repeat": 9,
+          "reference": 7
+        },
+        "reference_accuracy": 0.43383838383838386
+      },
+      "GRPO25": {
+        "trials": 36,
+        "scorable": 30,
+        "strict": 2,
+        "env_invalid": 5,
+        "censored": 1,
+        "truncated": 7,
+        "prefix": 41,
+        "subgoals": 69,
+        "required": 138,
+        "all_subgoals": 3,
+        "decisions": 166,
+        "guards": {
+          "tool_parse": 4,
+          "repeat": 16,
+          "reference": 14,
+          "pending": 8
+        },
+        "reference_accuracy": 0.39139784946236555
+      },
+      "25": {
+        "trials": 36,
+        "scorable": 36,
+        "strict": 2,
+        "env_invalid": 0,
+        "censored": 0,
+        "truncated": 6,
+        "prefix": 58,
+        "subgoals": 89,
+        "required": 159,
+        "all_subgoals": 6,
+        "decisions": 190,
+        "guards": {
+          "reference": 8,
+          "tool_parse": 9,
+          "repeat": 4,
+          "pending": 1
+        },
+        "reference_accuracy": 0.4550925925925926
+      },
+      "48": {
+        "trials": 36,
+        "scorable": 32,
+        "strict": 2,
+        "env_invalid": 4,
+        "censored": 0,
+        "truncated": 3,
+        "prefix": 54,
+        "subgoals": 78,
+        "required": 141,
+        "all_subgoals": 4,
+        "decisions": 160,
+        "guards": {
+          "reference": 10,
+          "tool_parse": 7,
+          "repeat": 7,
+          "pending": 1
+        },
+        "reference_accuracy": 0.46979166666666666
+      },
+      "72": {
+        "trials": 36,
+        "scorable": 36,
+        "strict": 3,
+        "env_invalid": 0,
+        "censored": 0,
+        "truncated": 4,
+        "prefix": 55,
+        "subgoals": 84,
+        "required": 159,
+        "all_subgoals": 6,
+        "decisions": 181,
+        "guards": {
+          "reference": 16,
+          "tool_parse": 7,
+          "repeat": 9
+        },
+        "reference_accuracy": 0.43333333333333335
+      }
+    },
+    "comparisons": {
+      "SFT -> 25": {
+        "paired": 33,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_10_E",
+            1
+          ],
+          [
+            "repair_final_holdout_10_E",
+            2
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_final_holdout_11_F",
+            1
+          ]
+        ],
+        "common_prefix": [
+          47,
+          55
+        ],
+        "common_subgoals": [
+          74,
+          84
+        ],
+        "common_required": 146
+      },
+      "SFT -> 48": {
+        "paired": 30,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_10_E",
+            2
+          ]
+        ],
+        "pass_to_fail": [],
+        "common_prefix": [
+          43,
+          49
+        ],
+        "common_subgoals": [
+          64,
+          73
+        ],
+        "common_required": 133
+      },
+      "SFT -> 72": {
+        "paired": 33,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_10_E",
+            2
+          ],
+          [
+            "repair_final_holdout_11_F",
+            0
+          ]
+        ],
+        "pass_to_fail": [],
+        "common_prefix": [
+          47,
+          52
+        ],
+        "common_subgoals": [
+          74,
+          81
+        ],
+        "common_required": 146
+      },
+      "GRPO25 -> 25": {
+        "paired": 30,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_10_E",
+            2
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_final_holdout_04_B",
+            2
+          ]
+        ],
+        "common_prefix": [
+          40,
+          47
+        ],
+        "common_subgoals": [
+          68,
+          74
+        ],
+        "common_required": 134
+      },
+      "GRPO25 -> 48": {
+        "paired": 28,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_10_E",
+            2
+          ],
+          [
+            "repair_final_holdout_11_F",
+            1
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_final_holdout_04_B",
+            2
+          ],
+          [
+            "repair_final_holdout_10_E",
+            1
+          ]
+        ],
+        "common_prefix": [
+          39,
+          47
+        ],
+        "common_subgoals": [
+          63,
+          70
+        ],
+        "common_required": 124
+      },
+      "GRPO25 -> 72": {
+        "paired": 30,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_10_E",
+            2
+          ],
+          [
+            "repair_final_holdout_11_F",
+            1
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_final_holdout_04_B",
+            2
+          ],
+          [
+            "repair_final_holdout_10_E",
+            1
+          ]
+        ],
+        "common_prefix": [
+          40,
+          42
+        ],
+        "common_subgoals": [
+          68,
+          67
+        ],
+        "common_required": 134
+      }
+    }
+  }
+}
