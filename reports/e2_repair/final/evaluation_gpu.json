@@ -1,0 +1,50 @@
+[
+  {
+    "window_start": "2026-11-26T18:16:49",
+    "window_end": "2026-11-26T18:47:36",
+    "work": "dev policies=72 25 48 splits=dev dev dev concurrency=3",
+    "peak_device_mib": 15514,
+    "median_device_mib": 14814.0,
+    "samples": 366
+  },
+  {
+    "window_start": "2026-11-26T18:47:36",
+    "window_end": "2026-11-26T19:38:01",
+    "work": "final_holdout policies=72 SFT GRPO25 25 splits=dev dev dev dev concurrency=4",
+    "peak_device_mib": 20938,
+    "median_device_mib": 19858.0,
+    "samples": 600
+  },
+  {
+    "window_start": "2026-11-26T19:38:01",
+    "window_end": "2026-11-26T20:23:20",
+    "work": "final_holdout policies=48 splits=dev concurrency=1",
+    "peak_device_mib": 5328,
+    "median_device_mib": 5328,
+    "samples": 539
+  },
+  {
+    "window_start": "2026-11-26T20:23:20",
+    "window_end": "2026-11-26T20:28:52",
+    "work": "production policies=72 GRPO25 25 48 splits=dev dev dev dev concurrency=4",
+    "peak_device_mib": 18274,
+    "median_device_mib": 18194.0,
+    "samples": 66
+  },
+  {
+    "window_start": "2026-11-26T20:28:52",
+    "window_end": "2026-11-26T20:51:14",
+    "work": "production policies=72 GRPO25 25 48 splits=iid_test iid_test iid_test iid_test concurrency=4",
+    "peak_device_mib": 18834,
+    "median_device_mib": 18674.0,
+    "samples": 266
+  },
+  {
+    "window_start": "2026-11-26T20:51:14",
+    "window_end": "2026-11-26T20:57:25.585000",
+    "work": "production policies=72 GRPO25 25 48 splits=ood_test ood_test ood_test ood_test concurrency=4",
+    "peak_device_mib": 18434,
+    "median_device_mib": 18354,
+    "samples": 73
+  }
+]

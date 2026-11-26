@@ -1,0 +1,475 @@
+{
+  "experiment": "E2",
+  "outcome": "benchmark_strict_01",
+  "steps": 72,
+  "lambda": 0.5,
+  "seed": 42,
+  "G": 4,
+  "temperature": 1.0,
+  "lr": 5e-06,
+  "kl_beta": 0.04,
+  "per_device_train_batch_size": 1,
+  "gradient_accumulation_steps": 4,
+  "bf16": true,
+  "max_completion_length": 31232,
+  "max_new_tokens_per_turn": 1536,
+  "max_turns": 16,
+  "scale_rewards": "group",
+  "dynamic_sampling": false,
+  "plan": [
+    {
+      "group_id": 0,
+      "task_id": "repair_train_16_C",
+      "prompt": "repair_train_16_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 1,
+      "task_id": "repair_train_06_A",
+      "prompt": "repair_train_06_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 2,
+      "task_id": "repair_train_19_D",
+      "prompt": "repair_train_19_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 3,
+      "task_id": "repair_train_24_F",
+      "prompt": "repair_train_24_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 4,
+      "task_id": "repair_train_14_C",
+      "prompt": "repair_train_14_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 5,
+      "task_id": "repair_train_11_B",
+      "prompt": "repair_train_11_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 6,
+      "task_id": "repair_train_18_D",
+      "prompt": "repair_train_18_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 7,
+      "task_id": "repair_train_12_B",
+      "prompt": "repair_train_12_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 8,
+      "task_id": "repair_train_15_C",
+      "prompt": "repair_train_15_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 9,
+      "task_id": "repair_train_17_D",
+      "prompt": "repair_train_17_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 10,
+      "task_id": "repair_train_02_A",
+      "prompt": "repair_train_02_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 11,
+      "task_id": "repair_train_13_C",
+      "prompt": "repair_train_13_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 12,
+      "task_id": "repair_train_22_E",
+      "prompt": "repair_train_22_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 13,
+      "task_id": "repair_train_07_B",
+      "prompt": "repair_train_07_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 14,
+      "task_id": "repair_train_10_B",
+      "prompt": "repair_train_10_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 15,
+      "task_id": "repair_train_03_A",
+      "prompt": "repair_train_03_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 16,
+      "task_id": "repair_train_23_F",
+      "prompt": "repair_train_23_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 17,
+      "task_id": "repair_train_05_A",
+      "prompt": "repair_train_05_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 18,
+      "task_id": "repair_train_20_E",
+      "prompt": "repair_train_20_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 19,
+      "task_id": "repair_train_08_B",
+      "prompt": "repair_train_08_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 20,
+      "task_id": "repair_train_09_B",
+      "prompt": "repair_train_09_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 21,
+      "task_id": "repair_train_01_A",
+      "prompt": "repair_train_01_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 22,
+      "task_id": "repair_train_04_A",
+      "prompt": "repair_train_04_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 23,
+      "task_id": "repair_train_21_E",
+      "prompt": "repair_train_21_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 24,
+      "task_id": "repair_train_10_B",
+      "prompt": "repair_train_10_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 25,
+      "task_id": "repair_train_24_F",
+      "prompt": "repair_train_24_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 26,
+      "task_id": "repair_train_08_B",
+      "prompt": "repair_train_08_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 27,
+      "task_id": "repair_train_04_A",
+      "prompt": "repair_train_04_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 28,
+      "task_id": "repair_train_22_E",
+      "prompt": "repair_train_22_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 29,
+      "task_id": "repair_train_03_A",
+      "prompt": "repair_train_03_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 30,
+      "task_id": "repair_train_17_D",
+      "prompt": "repair_train_17_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 31,
+      "task_id": "repair_train_18_D",
+      "prompt": "repair_train_18_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 32,
+      "task_id": "repair_train_20_E",
+      "prompt": "repair_train_20_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 33,
+      "task_id": "repair_train_12_B",
+      "prompt": "repair_train_12_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 34,
+      "task_id": "repair_train_16_C",
+      "prompt": "repair_train_16_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 35,
+      "task_id": "repair_train_15_C",
+      "prompt": "repair_train_15_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 36,
+      "task_id": "repair_train_02_A",
+      "prompt": "repair_train_02_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 37,
+      "task_id": "repair_train_21_E",
+      "prompt": "repair_train_21_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 38,
+      "task_id": "repair_train_13_C",
+      "prompt": "repair_train_13_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 39,
+      "task_id": "repair_train_07_B",
+      "prompt": "repair_train_07_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 40,
+      "task_id": "repair_train_05_A",
+      "prompt": "repair_train_05_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 41,
+      "task_id": "repair_train_23_F",
+      "prompt": "repair_train_23_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 42,
+      "task_id": "repair_train_11_B",
+      "prompt": "repair_train_11_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 43,
+      "task_id": "repair_train_14_C",
+      "prompt": "repair_train_14_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 44,
+      "task_id": "repair_train_06_A",
+      "prompt": "repair_train_06_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 45,
+      "task_id": "repair_train_01_A",
+      "prompt": "repair_train_01_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 46,
+      "task_id": "repair_train_09_B",
+      "prompt": "repair_train_09_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 47,
+      "task_id": "repair_train_19_D",
+      "prompt": "repair_train_19_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 48,
+      "task_id": "repair_train_01_A",
+      "prompt": "repair_train_01_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 49,
+      "task_id": "repair_train_19_D",
+      "prompt": "repair_train_19_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 50,
+      "task_id": "repair_train_06_A",
+      "prompt": "repair_train_06_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 51,
+      "task_id": "repair_train_09_B",
+      "prompt": "repair_train_09_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 52,
+      "task_id": "repair_train_08_B",
+      "prompt": "repair_train_08_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 53,
+      "task_id": "repair_train_21_E",
+      "prompt": "repair_train_21_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 54,
+      "task_id": "repair_train_17_D",
+      "prompt": "repair_train_17_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 55,
+      "task_id": "repair_train_22_E",
+      "prompt": "repair_train_22_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 56,
+      "task_id": "repair_train_15_C",
+      "prompt": "repair_train_15_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 57,
+      "task_id": "repair_train_14_C",
+      "prompt": "repair_train_14_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 58,
+      "task_id": "repair_train_16_C",
+      "prompt": "repair_train_16_C",
+      "stratum": "C"
+    },
+    {
+      "group_id": 59,
+      "task_id": "repair_train_05_A",
+      "prompt": "repair_train_05_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 60,
+      "task_id": "repair_train_24_F",
+      "prompt": "repair_train_24_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 61,
+      "task_id": "repair_train_04_A",
+      "prompt": "repair_train_04_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 62,
+      "task_id": "repair_train_11_B",
+      "prompt": "repair_train_11_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 63,
+      "task_id": "repair_train_02_A",
+      "prompt": "repair_train_02_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 64,
+      "task_id": "repair_train_23_F",
+      "prompt": "repair_train_23_F",
+      "stratum": "F"
+    },
+    {
+      "group_id": 65,
+      "task_id": "repair_train_07_B",
+      "prompt": "repair_train_07_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 66,
+      "task_id": "repair_train_12_B",
+      "prompt": "repair_train_12_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 67,
+      "task_id": "repair_train_20_E",
+      "prompt": "repair_train_20_E",
+      "stratum": "E"
+    },
+    {
+      "group_id": 68,
+      "task_id": "repair_train_10_B",
+      "prompt": "repair_train_10_B",
+      "stratum": "B"
+    },
+    {
+      "group_id": 69,
+      "task_id": "repair_train_18_D",
+      "prompt": "repair_train_18_D",
+      "stratum": "D"
+    },
+    {
+      "group_id": 70,
+      "task_id": "repair_train_03_A",
+      "prompt": "repair_train_03_A",
+      "stratum": "A"
+    },
+    {
+      "group_id": 71,
+      "task_id": "repair_train_13_C",
+      "prompt": "repair_train_13_C",
+      "stratum": "C"
+    }
+  ],
+  "protocol": "E2-repair72-matched25",
+  "checkpoint_interval": 72,
+  "checkpoint_steps": [
+    25,
+    48,
+    72
+  ],
+  "exclude_invalid_groups": true,
+  "loss_type": "dapo",
+  "frozen_inputs_sha256": "9463c4d16daa4787571341b8f15b851b935c51cec6746747f94dedcd1e2bc0d2",
+  "train_sha256": "2a8636065a3c870b331bb214dced8816fe4156950f4e59af11811d78f8079eaf",
+  "snapshot_sha256": "d97035db326ca11935e882fd2aca7fe932e9e76cf1bc8a21078be7bec1ae8794",
+  "tokenizer_sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+  "chat_template_sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+  "system_prompt_sha256": "31674f2183d642a9035ecf8360c138135c5ef4645904017eadf4ec7bdf4abf05",
+  "tools_sha256": "01ed14f7f8a041ca9752475c1bf1513996c375c5a32cadf2514089fb04401ae0",
+  "adapter_sha256": "f0c33a4d32a175bcaf1e83c55231a0108a84859cb748c318db49988a52f7911f",
+  "data_sha256": "8763ff0ef7c19bf748d3d036d3730e8f30c44709161df614302a7a5df5bb3dfd",
+  "data_manifest_sha256": "b8aa518f3f8aba708029bb1525b43d63372840a5bb785bf0fdde1439faf10751",
+  "default_module_prompt_sha256": "0e0f184420b26a013b5b22df0a29b624b6ea237403d012db73e80668c6eedfd2",
+  "visible_setup_function_sha256": "e57092c1a2a8717c88bcbb8b13c80657147b36b8ed97412f63b7bb5235966d58",
+  "native_setup_function_sha256": "a5080e364eceeeef60b2b74307b1a3e124e6b54b16b1f8607074b4f501d8324e"
+}

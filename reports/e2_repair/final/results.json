@@ -1,0 +1,2786 @@
+{
+  "adapters": {
+    "SFT": "f0c33a4d32a175bcaf1e83c55231a0108a84859cb748c318db49988a52f7911f",
+    "GRPO25": "db70af86b5485f322153b8910cf94e0d02e7096f38f1ad1c9e6fd5ac8938f9f6",
+    "25": "79f1dad4e651eab7891937c1c8d05faffef24bfbeeea94c23b43dc6889bfc101",
+    "48": "fc54b80b0510934aff45233f650afdd45b4523a3ac110133f4537c9433ef0056",
+    "72": "ab886151b0c71438befa0e8dae9dd13df5e91692e23dc94a218104c8ecb7fe41"
+  },
+  "freeze": "9463c4d16daa4787571341b8f15b851b935c51cec6746747f94dedcd1e2bc0d2",
+  "dev": {
+    "summaries": {
+      "SFT": {
+        "trials": 24,
+        "scorable": 21,
+        "strict": 3,
+        "env_invalid": 3,
+        "censored": 0,
+        "truncated": 0,
+        "prefix": 28,
+        "subgoals": 54,
+        "required": 84,
+        "all_subgoals": 6,
+        "decisions": 109,
+        "guards": {
+          "repeat": 4,
+          "reference": 8,
+          "tool_parse": 1
+        },
+        "reference_accuracy": 0.42698412698412697
+      },
+      "GRPO25": {
+        "trials": 24,
+        "scorable": 21,
+        "strict": 3,
+        "env_invalid": 3,
+        "censored": 0,
+        "truncated": 0,
+        "prefix": 22,
+        "subgoals": 53,
+        "required": 84,
+        "all_subgoals": 7,
+        "decisions": 110,
+        "guards": {
+          "repeat": 5,
+          "tool_parse": 2,
+          "reference": 1
+        },
+        "reference_accuracy": 0.34285714285714286
+      },
+      "25": {
+        "trials": 24,
+        "scorable": 22,
+        "strict": 4,
+        "env_invalid": 2,
+        "censored": 0,
+        "truncated": 2,
+        "prefix": 29,
+        "subgoals": 55,
+        "required": 89,
+        "all_subgoals": 7,
+        "decisions": 123,
+        "guards": {
+          "tool_parse": 2,
+          "reference": 9,
+          "repeat": 4
+        },
+        "reference_accuracy": 0.4477272727272727
+      },
+      "48": {
+        "trials": 24,
+        "scorable": 22,
+        "strict": 5,
+        "env_invalid": 2,
+        "censored": 0,
+        "truncated": 2,
+        "prefix": 37,
+        "subgoals": 60,
+        "required": 89,
+        "all_subgoals": 7,
+        "decisions": 118,
+        "guards": {
+          "repeat": 3,
+          "tool_parse": 3,
+          "reference": 2,
+          "pending": 2
+        },
+        "reference_accuracy": 0.556060606060606
+      },
+      "72": {
+        "trials": 24,
+        "scorable": 22,
+        "strict": 5,
+        "env_invalid": 2,
+        "censored": 0,
+        "truncated": 2,
+        "prefix": 33,
+        "subgoals": 57,
+        "required": 89,
+        "all_subgoals": 8,
+        "decisions": 114,
+        "guards": {
+          "repeat": 1,
+          "reference": 4,
+          "tool_parse": 1,
+          "pending": 2
+        },
+        "reference_accuracy": 0.5265151515151515
+      }
+    },
+    "comparisons": {
+      "SFT -> GRPO25": {
+        "paired": 20,
+        "fail_to_pass": [],
+        "pass_to_fail": [],
+        "common_prefix": [
+          26,
+          20
+        ],
+        "common_subgoals": [
+          50,
+          50
+        ],
+        "common_required": 79
+      },
+      "SFT -> 25": {
+        "paired": 21,
+        "fail_to_pass": [
+          [
+            "repair_dev_02_A",
+            0
+          ]
+        ],
+        "pass_to_fail": [],
+        "common_prefix": [
+          28,
+          29
+        ],
+        "common_subgoals": [
+          54,
+          54
+        ],
+        "common_required": 84
+      },
+      "SFT -> 48": {
+        "paired": 20,
+        "fail_to_pass": [
+          [
+            "repair_dev_02_A",
+            0
+          ],
+          [
+            "repair_dev_03_B",
+            0
+          ],
+          [
+            "repair_dev_03_B",
+            2
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_dev_06_D",
+            1
+          ]
+        ],
+        "common_prefix": [
+          28,
+          34
+        ],
+        "common_subgoals": [
+          52,
+          55
+        ],
+        "common_required": 79
+      },
+      "SFT -> 72": {
+        "paired": 20,
+        "fail_to_pass": [
+          [
+            "repair_dev_02_A",
+            0
+          ],
+          [
+            "repair_dev_03_B",
+            0
+          ]
+        ],
+        "pass_to_fail": [],
+        "common_prefix": [
+          25,
+          30
+        ],
+        "common_subgoals": [
+          51,
+          54
+        ],
+        "common_required": 79
+      },
+      "GRPO25 -> 25": {
+        "paired": 20,
+        "fail_to_pass": [
+          [
+            "repair_dev_02_A",
+            0
+          ]
+        ],
+        "pass_to_fail": [],
+        "common_prefix": [
+          20,
+          27
+        ],
+        "common_subgoals": [
+          50,
+          50
+        ],
+        "common_required": 79
+      },
+      "GRPO25 -> 48": {
+        "paired": 20,
+        "fail_to_pass": [
+          [
+            "repair_dev_02_A",
+            0
+          ],
+          [
+            "repair_dev_03_B",
+            0
+          ],
+          [
+            "repair_dev_03_B",
+            2
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_dev_06_D",
+            1
+          ]
+        ],
+        "common_prefix": [
+          22,
+          37
+        ],
+        "common_subgoals": [
+          52,
+          56
+        ],
+        "common_required": 79
+      },
+      "GRPO25 -> 72": {
+        "paired": 20,
+        "fail_to_pass": [
+          [
+            "repair_dev_02_A",
+            0
+          ],
+          [
+            "repair_dev_03_B",
+            0
+          ]
+        ],
+        "pass_to_fail": [],
+        "common_prefix": [
+          20,
+          33
+        ],
+        "common_subgoals": [
+          51,
+          55
+        ],
+        "common_required": 79
+      }
+    }
+  },
+  "final_holdout": {
+    "summaries": {
+      "SFT": {
+        "trials": 36,
+        "scorable": 33,
+        "strict": 1,
+        "env_invalid": 3,
+        "censored": 0,
+        "truncated": 3,
+        "prefix": 47,
+        "subgoals": 74,
+        "required": 146,
+        "all_subgoals": 4,
+        "decisions": 162,
+        "guards": {
+          "tool_parse": 7,
+          "repeat": 9,
+          "reference": 7
+        },
+        "reference_accuracy": 0.43383838383838386
+      },
+      "GRPO25": {
+        "trials": 36,
+        "scorable": 30,
+        "strict": 2,
+        "env_invalid": 5,
+        "censored": 1,
+        "truncated": 7,
+        "prefix": 41,
+        "subgoals": 69,
+        "required": 138,
+        "all_subgoals": 3,
+        "decisions": 166,
+        "guards": {
+          "tool_parse": 4,
+          "repeat": 16,
+          "reference": 14,
+          "pending": 8
+        },
+        "reference_accuracy": 0.39139784946236555
+      },
+      "25": {
+        "trials": 36,
+        "scorable": 36,
+        "strict": 2,
+        "env_invalid": 0,
+        "censored": 0,
+        "truncated": 6,
+        "prefix": 58,
+        "subgoals": 89,
+        "required": 159,
+        "all_subgoals": 6,
+        "decisions": 190,
+        "guards": {
+          "reference": 8,
+          "tool_parse": 9,
+          "repeat": 4,
+          "pending": 1
+        },
+        "reference_accuracy": 0.4550925925925926
+      },
+      "48": {
+        "trials": 36,
+        "scorable": 32,
+        "strict": 2,
+        "env_invalid": 4,
+        "censored": 0,
+        "truncated": 3,
+        "prefix": 54,
+        "subgoals": 78,
+        "required": 141,
+        "all_subgoals": 4,
+        "decisions": 160,
+        "guards": {
+          "reference": 10,
+          "tool_parse": 7,
+          "repeat": 7,
+          "pending": 1
+        },
+        "reference_accuracy": 0.46979166666666666
+      },
+      "72": {
+        "trials": 36,
+        "scorable": 36,
+        "strict": 3,
+        "env_invalid": 0,
+        "censored": 0,
+        "truncated": 4,
+        "prefix": 55,
+        "subgoals": 84,
+        "required": 159,
+        "all_subgoals": 6,
+        "decisions": 181,
+        "guards": {
+          "reference": 16,
+          "tool_parse": 7,
+          "repeat": 9
+        },
+        "reference_accuracy": 0.43333333333333335
+      }
+    },
+    "comparisons": {
+      "SFT -> GRPO25": {
+        "paired": 27,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_04_B",
+            2
+          ],
+          [
+            "repair_final_holdout_10_E",
+            1
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_final_holdout_11_F",
+            1
+          ]
+        ],
+        "common_prefix": [
+          37,
+          36
+        ],
+        "common_subgoals": [
+          60,
+          61
+        ],
+        "common_required": 121
+      },
+      "SFT -> 25": {
+        "paired": 33,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_10_E",
+            1
+          ],
+          [
+            "repair_final_holdout_10_E",
+            2
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_final_holdout_11_F",
+            1
+          ]
+        ],
+        "common_prefix": [
+          47,
+          55
+        ],
+        "common_subgoals": [
+          74,
+          84
+        ],
+        "common_required": 146
+      },
+      "SFT -> 48": {
+        "paired": 30,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_10_E",
+            2
+          ]
+        ],
+        "pass_to_fail": [],
+        "common_prefix": [
+          43,
+          49
+        ],
+        "common_subgoals": [
+          64,
+          73
+        ],
+        "common_required": 133
+      },
+      "SFT -> 72": {
+        "paired": 33,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_10_E",
+            2
+          ],
+          [
+            "repair_final_holdout_11_F",
+            0
+          ]
+        ],
+        "pass_to_fail": [],
+        "common_prefix": [
+          47,
+          52
+        ],
+        "common_subgoals": [
+          74,
+          81
+        ],
+        "common_required": 146
+      },
+      "GRPO25 -> 25": {
+        "paired": 30,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_10_E",
+            2
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_final_holdout_04_B",
+            2
+          ]
+        ],
+        "common_prefix": [
+          40,
+          47
+        ],
+        "common_subgoals": [
+          68,
+          74
+        ],
+        "common_required": 134
+      },
+      "GRPO25 -> 48": {
+        "paired": 28,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_10_E",
+            2
+          ],
+          [
+            "repair_final_holdout_11_F",
+            1
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_final_holdout_04_B",
+            2
+          ],
+          [
+            "repair_final_holdout_10_E",
+            1
+          ]
+        ],
+        "common_prefix": [
+          39,
+          47
+        ],
+        "common_subgoals": [
+          63,
+          70
+        ],
+        "common_required": 124
+      },
+      "GRPO25 -> 72": {
+        "paired": 30,
+        "fail_to_pass": [
+          [
+            "repair_final_holdout_10_E",
+            2
+          ],
+          [
+            "repair_final_holdout_11_F",
+            1
+          ]
+        ],
+        "pass_to_fail": [
+          [
+            "repair_final_holdout_04_B",
+            2
+          ],
+          [
+            "repair_final_holdout_10_E",
+            1
+          ]
+        ],
+        "common_prefix": [
+          40,
+          42
+        ],
+        "common_subgoals": [
+          68,
+          67
+        ],
+        "common_required": 134
+      }
+    }
+  },
+  "training": {
+    "seconds": 10364.227811214048,
+    "peak_bytes": 24645418496,
+    "training_loss": 0.13447265060038185,
+    "steps": [
+      {
+        "step": 1,
+        "task": "repair_train_16_C",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 3,
+        "metrics": {
+          "kl": 0.00014178969740896719,
+          "grad_norm": 0.38506925106048584,
+          "loss": 0.473490834236145,
+          "reward": 0.0,
+          "learning_rate": 5e-06,
+          "step_time": 281.4419308520155
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 52,
+          "effective_local_positive": 52,
+          "local_contribution_positive": 52,
+          "advantage_positive": 52,
+          "effective_local_negative": 1226,
+          "local_contribution_negative": 1226,
+          "advantage_negative": 1226,
+          "raw_dfa_adv_negative": 158
+        }
+      },
+      {
+        "step": 2,
+        "task": "repair_train_06_A",
+        "excluded": true,
+        "strict": [
+          0,
+          0,
+          null,
+          0
+        ],
+        "truncated": 1,
+        "metrics": {
+          "kl": 0.0,
+          "grad_norm": 0.0,
+          "loss": 0.0,
+          "reward": 0.0,
+          "learning_rate": 4.930555555555556e-06,
+          "step_time": 76.32712373882532
+        },
+        "tokens": {}
+      },
+      {
+        "step": 3,
+        "task": "repair_train_19_D",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 2,
+        "metrics": {
+          "kl": 0.00011522827207954833,
+          "grad_norm": 0.1984398514032364,
+          "loss": 0.37016749382019043,
+          "reward": 0.0,
+          "learning_rate": 4.861111111111111e-06,
+          "step_time": 145.53018770413473
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 283,
+          "effective_local_positive": 283,
+          "local_contribution_positive": 283,
+          "advantage_positive": 283,
+          "effective_local_negative": 1479,
+          "local_contribution_negative": 1479,
+          "advantage_negative": 1479,
+          "raw_dfa_adv_negative": 73
+        }
+      },
+      {
+        "step": 4,
+        "task": "repair_train_24_F",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0002987462667078944,
+          "grad_norm": 1.2587224245071411,
+          "loss": -0.05795293301343918,
+          "reward": 0.25,
+          "learning_rate": 4.791666666666668e-06,
+          "step_time": 59.24183448718395
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 237,
+          "effective_local_negative": 237,
+          "local_contribution_negative": 237,
+          "advantage_negative": 237,
+          "advantage_positive": 236,
+          "raw_dfa_adv_positive": 77,
+          "effective_local_positive": 77,
+          "local_contribution_positive": 77
+        }
+      },
+      {
+        "step": 5,
+        "task": "repair_train_14_C",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 3,
+        "metrics": {
+          "kl": 0.0005418019190983614,
+          "grad_norm": 0.09365090727806091,
+          "loss": 0.27875223755836487,
+          "reward": 0.0,
+          "learning_rate": 4.722222222222222e-06,
+          "step_time": 354.6318567501148
+        },
+        "tokens": {
+          "effective_local_negative": 742,
+          "local_contribution_negative": 742,
+          "advantage_negative": 742
+        }
+      },
+      {
+        "step": 6,
+        "task": "repair_train_11_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.000507433545863023,
+          "grad_norm": 1.3265303373336792,
+          "loss": 0.413409948348999,
+          "reward": 0.0,
+          "learning_rate": 4.652777777777779e-06,
+          "step_time": 90.70854953397065
+        },
+        "tokens": {
+          "effective_local_negative": 344,
+          "local_contribution_negative": 344,
+          "advantage_negative": 344
+        }
+      },
+      {
+        "step": 7,
+        "task": "repair_train_18_D",
+        "excluded": false,
+        "strict": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0004663337385863997,
+          "grad_norm": 0.7930566668510437,
+          "loss": -0.2232140749692917,
+          "reward": 0.75,
+          "learning_rate": 4.583333333333333e-06,
+          "step_time": 82.84020594588947
+        },
+        "tokens": {
+          "advantage_positive": 1044,
+          "raw_dfa_adv_positive": 222,
+          "effective_local_positive": 222,
+          "local_contribution_positive": 222,
+          "raw_dfa_adv_negative": 23,
+          "effective_local_negative": 23,
+          "local_contribution_negative": 23,
+          "advantage_negative": 23
+        }
+      },
+      {
+        "step": 8,
+        "task": "repair_train_12_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.01737986147054471,
+          "grad_norm": 1.704365849494934,
+          "loss": -0.16451919078826904,
+          "reward": 0.25,
+          "learning_rate": 4.5138888888888895e-06,
+          "step_time": 58.569519941927865
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 104,
+          "effective_local_negative": 179,
+          "local_contribution_negative": 179,
+          "advantage_negative": 179,
+          "raw_dfa_adv_positive": 155,
+          "effective_local_positive": 155,
+          "local_contribution_positive": 155,
+          "advantage_positive": 243
+        }
+      },
+      {
+        "step": 9,
+        "task": "repair_train_15_C",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 3,
+        "metrics": {
+          "kl": 0.001137773565005773,
+          "grad_norm": 0.21949373185634613,
+          "loss": 0.5719799995422363,
+          "reward": 0.0,
+          "learning_rate": 4.444444444444444e-06,
+          "step_time": 358.6880683799973
+        },
+        "tokens": {
+          "effective_local_negative": 2314,
+          "local_contribution_negative": 2314,
+          "advantage_negative": 2314
+        }
+      },
+      {
+        "step": 10,
+        "task": "repair_train_17_D",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          null,
+          0
+        ],
+        "truncated": 2,
+        "metrics": {
+          "kl": 0.001293457331485115,
+          "grad_norm": 0.9110447764396667,
+          "loss": 0.09335292875766754,
+          "reward": 0.0,
+          "learning_rate": 4.3750000000000005e-06,
+          "step_time": 249.32239062106237
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 150,
+          "effective_local_negative": 150,
+          "local_contribution_negative": 150,
+          "advantage_negative": 150,
+          "raw_dfa_adv_positive": 125,
+          "effective_local_positive": 125,
+          "local_contribution_positive": 125,
+          "advantage_positive": 125
+        }
+      },
+      {
+        "step": 11,
+        "task": "repair_train_02_A",
+        "excluded": false,
+        "strict": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0008019145607249811,
+          "grad_norm": 0.910685122013092,
+          "loss": -0.21808379888534546,
+          "reward": 0.5,
+          "learning_rate": 4.305555555555556e-06,
+          "step_time": 90.73305420100223
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 136,
+          "effective_local_negative": 136,
+          "local_contribution_negative": 136,
+          "advantage_negative": 136,
+          "advantage_positive": 634,
+          "raw_dfa_adv_positive": 120,
+          "effective_local_positive": 120,
+          "local_contribution_positive": 120
+        }
+      },
+      {
+        "step": 12,
+        "task": "repair_train_13_C",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0027284767129458487,
+          "grad_norm": 0.6020166277885437,
+          "loss": 0.11907751858234406,
+          "reward": 0.0,
+          "learning_rate": 4.236111111111111e-06,
+          "step_time": 119.46975701290648
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 214,
+          "effective_local_negative": 383,
+          "local_contribution_negative": 383,
+          "advantage_negative": 383,
+          "raw_dfa_adv_positive": 296,
+          "effective_local_positive": 296,
+          "local_contribution_positive": 296,
+          "advantage_positive": 296
+        }
+      },
+      {
+        "step": 13,
+        "task": "repair_train_22_E",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.000683255486364942,
+          "grad_norm": 0.47496968507766724,
+          "loss": 0.04488980025053024,
+          "reward": 0.0,
+          "learning_rate": 4.166666666666667e-06,
+          "step_time": 111.0107424800517
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 278,
+          "effective_local_positive": 278,
+          "local_contribution_positive": 278,
+          "advantage_positive": 278,
+          "raw_dfa_adv_negative": 95,
+          "effective_local_negative": 170,
+          "local_contribution_negative": 170,
+          "advantage_negative": 170
+        }
+      },
+      {
+        "step": 14,
+        "task": "repair_train_07_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 1,
+        "metrics": {
+          "kl": 0.0030189682147465646,
+          "grad_norm": 0.3409057855606079,
+          "loss": 0.3518877327442169,
+          "reward": 0.0,
+          "learning_rate": 4.097222222222222e-06,
+          "step_time": 194.05822064576205
+        },
+        "tokens": {
+          "effective_local_negative": 365,
+          "local_contribution_negative": 365,
+          "advantage_negative": 365
+        }
+      },
+      {
+        "step": 15,
+        "task": "repair_train_10_B",
+        "excluded": false,
+        "strict": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0010060672939289361,
+          "grad_norm": 0.761260986328125,
+          "loss": 0.144797682762146,
+          "reward": 0.25,
+          "learning_rate": 4.027777777777779e-06,
+          "step_time": 117.08976190700196
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 270,
+          "effective_local_negative": 464,
+          "local_contribution_negative": 464,
+          "advantage_negative": 464,
+          "advantage_positive": 262,
+          "raw_dfa_adv_positive": 92,
+          "effective_local_positive": 92,
+          "local_contribution_positive": 92
+        }
+      },
+      {
+        "step": 16,
+        "task": "repair_train_03_A",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.000690942774326686,
+          "grad_norm": 0.49340686202049255,
+          "loss": 0.038032934069633484,
+          "reward": 0.0,
+          "learning_rate": 3.958333333333333e-06,
+          "step_time": 98.05387999000959
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 244,
+          "effective_local_negative": 319,
+          "local_contribution_negative": 319,
+          "advantage_negative": 319,
+          "raw_dfa_adv_positive": 250,
+          "effective_local_positive": 250,
+          "local_contribution_positive": 250,
+          "advantage_positive": 250
+        }
+      },
+      {
+        "step": 17,
+        "task": "repair_train_23_F",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.002274659927934408,
+          "grad_norm": 0.4925750494003296,
+          "loss": 0.2138592004776001,
+          "reward": 0.0,
+          "learning_rate": 3.88888888888889e-06,
+          "step_time": 60.19637420307845
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 270,
+          "effective_local_negative": 424,
+          "local_contribution_negative": 424,
+          "advantage_negative": 424,
+          "raw_dfa_adv_positive": 90,
+          "effective_local_positive": 90,
+          "local_contribution_positive": 90,
+          "advantage_positive": 90
+        }
+      },
+      {
+        "step": 18,
+        "task": "repair_train_05_A",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0012393442850680003,
+          "grad_norm": 0.39420437812805176,
+          "loss": 0.2562122642993927,
+          "reward": 0.0,
+          "learning_rate": 3.819444444444444e-06,
+          "step_time": 94.2075787729118
+        },
+        "tokens": {
+          "effective_local_negative": 150,
+          "local_contribution_negative": 150,
+          "advantage_negative": 150
+        }
+      },
+      {
+        "step": 19,
+        "task": "repair_train_20_E",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.001087263495719526,
+          "grad_norm": 0.5657535791397095,
+          "loss": 0.07687608152627945,
+          "reward": 0.0,
+          "learning_rate": 3.7500000000000005e-06,
+          "step_time": 111.97345521207899
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 222,
+          "effective_local_negative": 331,
+          "local_contribution_negative": 331,
+          "advantage_negative": 331,
+          "raw_dfa_adv_positive": 352,
+          "effective_local_positive": 352,
+          "local_contribution_positive": 352,
+          "advantage_positive": 352
+        }
+      },
+      {
+        "step": 20,
+        "task": "repair_train_08_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0024571985995862633,
+          "grad_norm": 1.0543001890182495,
+          "loss": 0.4095006585121155,
+          "reward": 0.0,
+          "learning_rate": 3.680555555555556e-06,
+          "step_time": 75.90509545593522
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 63,
+          "effective_local_positive": 63,
+          "local_contribution_positive": 63,
+          "advantage_positive": 63,
+          "effective_local_negative": 449,
+          "local_contribution_negative": 449,
+          "advantage_negative": 449,
+          "raw_dfa_adv_negative": 224
+        }
+      },
+      {
+        "step": 21,
+        "task": "repair_train_09_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0019955890020355582,
+          "grad_norm": 0.8854864239692688,
+          "loss": 0.24822241067886353,
+          "reward": 0.0,
+          "learning_rate": 3.6111111111111115e-06,
+          "step_time": 130.16333410015795
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 127,
+          "effective_local_positive": 127,
+          "local_contribution_positive": 127,
+          "advantage_positive": 127,
+          "raw_dfa_adv_negative": 40,
+          "effective_local_negative": 223,
+          "local_contribution_negative": 223,
+          "advantage_negative": 223
+        }
+      },
+      {
+        "step": 22,
+        "task": "repair_train_01_A",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 1,
+        "metrics": {
+          "kl": 0.011281605227850378,
+          "grad_norm": 0.9199804067611694,
+          "loss": 0.2492581605911255,
+          "reward": 0.0,
+          "learning_rate": 3.5416666666666673e-06,
+          "step_time": 179.75693783699535
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 88,
+          "effective_local_negative": 223,
+          "local_contribution_negative": 223,
+          "advantage_negative": 223,
+          "raw_dfa_adv_positive": 104,
+          "effective_local_positive": 104,
+          "local_contribution_positive": 104,
+          "advantage_positive": 104
+        }
+      },
+      {
+        "step": 23,
+        "task": "repair_train_04_A",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 1,
+        "metrics": {
+          "kl": 0.0012543251359602436,
+          "grad_norm": 0.880605161190033,
+          "loss": 0.231721892952919,
+          "reward": 0.0,
+          "learning_rate": 3.4722222222222224e-06,
+          "step_time": 206.0386681240052
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 52,
+          "effective_local_positive": 52,
+          "local_contribution_positive": 52,
+          "advantage_positive": 52,
+          "effective_local_negative": 458,
+          "local_contribution_negative": 458,
+          "advantage_negative": 458,
+          "raw_dfa_adv_negative": 159
+        }
+      },
+      {
+        "step": 24,
+        "task": "repair_train_21_E",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0021500457951333374,
+          "grad_norm": 0.3875885605812073,
+          "loss": -0.0014135632663965225,
+          "reward": 0.0,
+          "learning_rate": 3.4027777777777783e-06,
+          "step_time": 61.10476925910916
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 159,
+          "effective_local_positive": 159,
+          "local_contribution_positive": 159,
+          "advantage_positive": 159,
+          "raw_dfa_adv_negative": 52,
+          "effective_local_negative": 52,
+          "local_contribution_negative": 52,
+          "advantage_negative": 52
+        }
+      },
+      {
+        "step": 25,
+        "task": "repair_train_10_B",
+        "excluded": true,
+        "strict": [
+          0,
+          1,
+          1,
+          null
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0,
+          "grad_norm": 0.0,
+          "loss": 0.0,
+          "reward": 0.6666666865348816,
+          "learning_rate": 3.3333333333333333e-06,
+          "step_time": 103.40742547495756
+        },
+        "tokens": {}
+      },
+      {
+        "step": 26,
+        "task": "repair_train_24_F",
+        "excluded": false,
+        "strict": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.002692476351512596,
+          "grad_norm": 0.021395808085799217,
+          "loss": 0.0001095667903427966,
+          "reward": 1.0,
+          "learning_rate": 3.2638888888888892e-06,
+          "step_time": 60.64311509090476
+        },
+        "tokens": {}
+      },
+      {
+        "step": 27,
+        "task": "repair_train_08_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.006565151561517268,
+          "grad_norm": 0.6496159434318542,
+          "loss": 0.14214694499969482,
+          "reward": 0.0,
+          "learning_rate": 3.1944444444444443e-06,
+          "step_time": 125.84826322400477
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 175,
+          "effective_local_negative": 259,
+          "local_contribution_negative": 259,
+          "advantage_negative": 259,
+          "raw_dfa_adv_positive": 152,
+          "effective_local_positive": 152,
+          "local_contribution_positive": 152,
+          "advantage_positive": 152
+        }
+      },
+      {
+        "step": 28,
+        "task": "repair_train_04_A",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 1,
+        "metrics": {
+          "kl": 0.004494547261856496,
+          "grad_norm": 0.4701935350894928,
+          "loss": 0.3191618025302887,
+          "reward": 0.0,
+          "learning_rate": 3.125e-06,
+          "step_time": 260.34021373989526
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 365,
+          "effective_local_positive": 365,
+          "local_contribution_positive": 365,
+          "advantage_positive": 365,
+          "raw_dfa_adv_negative": 192,
+          "effective_local_negative": 592,
+          "local_contribution_negative": 592,
+          "advantage_negative": 592
+        }
+      },
+      {
+        "step": 29,
+        "task": "repair_train_22_E",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0019333584564265038,
+          "grad_norm": 0.9666686058044434,
+          "loss": 0.2054005265235901,
+          "reward": 0.0,
+          "learning_rate": 3.055555555555556e-06,
+          "step_time": 81.29118545283563
+        },
+        "tokens": {
+          "effective_local_negative": 230,
+          "local_contribution_negative": 230,
+          "advantage_negative": 230
+        }
+      },
+      {
+        "step": 30,
+        "task": "repair_train_03_A",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.004064849337737542,
+          "grad_norm": 0.9581781029701233,
+          "loss": 0.03894501179456711,
+          "reward": 0.0,
+          "learning_rate": 2.986111111111111e-06,
+          "step_time": 109.72866923001129
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 242,
+          "effective_local_positive": 242,
+          "local_contribution_positive": 242,
+          "advantage_positive": 242,
+          "raw_dfa_adv_negative": 242,
+          "effective_local_negative": 242,
+          "local_contribution_negative": 242,
+          "advantage_negative": 242
+        }
+      },
+      {
+        "step": 31,
+        "task": "repair_train_17_D",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 2,
+        "metrics": {
+          "kl": 0.002507153680198826,
+          "grad_norm": 0.7370806336402893,
+          "loss": 0.2627069354057312,
+          "reward": 0.0,
+          "learning_rate": 2.916666666666667e-06,
+          "step_time": 123.70714557322208
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 204,
+          "effective_local_negative": 297,
+          "local_contribution_negative": 297,
+          "advantage_negative": 297,
+          "raw_dfa_adv_positive": 53,
+          "effective_local_positive": 53,
+          "local_contribution_positive": 53,
+          "advantage_positive": 53
+        }
+      },
+      {
+        "step": 32,
+        "task": "repair_train_18_D",
+        "excluded": false,
+        "strict": [
+          1,
+          null,
+          0,
+          0
+        ],
+        "truncated": 2,
+        "metrics": {
+          "kl": 0.0009186775569105521,
+          "grad_norm": 0.9469126462936401,
+          "loss": -0.12278075516223907,
+          "reward": 0.3333333432674408,
+          "learning_rate": 2.8472222222222224e-06,
+          "step_time": 243.49467643001117
+        },
+        "tokens": {
+          "advantage_positive": 545,
+          "raw_dfa_adv_positive": 376,
+          "effective_local_positive": 376,
+          "local_contribution_positive": 376,
+          "raw_dfa_adv_negative": 180,
+          "effective_local_negative": 180,
+          "local_contribution_negative": 180,
+          "advantage_negative": 180
+        }
+      },
+      {
+        "step": 33,
+        "task": "repair_train_20_E",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0035346192016731948,
+          "grad_norm": 0.663712739944458,
+          "loss": 0.09814444929361343,
+          "reward": 0.0,
+          "learning_rate": 2.7777777777777783e-06,
+          "step_time": 95.58350693900138
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 251,
+          "effective_local_positive": 251,
+          "local_contribution_positive": 251,
+          "advantage_positive": 251,
+          "raw_dfa_adv_negative": 185,
+          "effective_local_negative": 416,
+          "local_contribution_negative": 416,
+          "advantage_negative": 416
+        }
+      },
+      {
+        "step": 34,
+        "task": "repair_train_12_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.008654372417367995,
+          "grad_norm": 1.1298339366912842,
+          "loss": -0.0652390867471695,
+          "reward": 0.25,
+          "learning_rate": 2.7083333333333334e-06,
+          "step_time": 56.57197973213624
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 223,
+          "effective_local_negative": 223,
+          "local_contribution_negative": 223,
+          "advantage_negative": 223,
+          "advantage_positive": 225,
+          "raw_dfa_adv_positive": 74,
+          "effective_local_positive": 74,
+          "local_contribution_positive": 74
+        }
+      },
+      {
+        "step": 35,
+        "task": "repair_train_16_C",
+        "excluded": true,
+        "strict": [
+          0,
+          0,
+          0,
+          null
+        ],
+        "truncated": 2,
+        "metrics": {
+          "kl": 0.0,
+          "grad_norm": 0.0,
+          "loss": 0.0,
+          "reward": 0.0,
+          "learning_rate": 2.6388888888888893e-06,
+          "step_time": 354.8844439679524
+        },
+        "tokens": {}
+      },
+      {
+        "step": 36,
+        "task": "repair_train_15_C",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 2,
+        "metrics": {
+          "kl": 0.0007332471757308667,
+          "grad_norm": 0.1369544118642807,
+          "loss": 0.411871075630188,
+          "reward": 0.0,
+          "learning_rate": 2.5694444444444443e-06,
+          "step_time": 388.1592067788588
+        },
+        "tokens": {
+          "effective_local_negative": 4456,
+          "local_contribution_negative": 4456,
+          "advantage_negative": 4456
+        }
+      },
+      {
+        "step": 37,
+        "task": "repair_train_02_A",
+        "excluded": false,
+        "strict": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0035852519795298576,
+          "grad_norm": 0.03056400641798973,
+          "loss": 0.00014008587459102273,
+          "reward": 1.0,
+          "learning_rate": 2.5e-06,
+          "step_time": 73.80303537112195
+        },
+        "tokens": {}
+      },
+      {
+        "step": 38,
+        "task": "repair_train_21_E",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.010007402714109048,
+          "grad_norm": 0.2564833164215088,
+          "loss": -0.005603954195976257,
+          "reward": 0.0,
+          "learning_rate": 2.4305555555555557e-06,
+          "step_time": 61.94387429708149
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 169,
+          "effective_local_positive": 169,
+          "local_contribution_positive": 169,
+          "advantage_positive": 169,
+          "raw_dfa_adv_negative": 52,
+          "effective_local_negative": 52,
+          "local_contribution_negative": 52,
+          "advantage_negative": 52
+        }
+      },
+      {
+        "step": 39,
+        "task": "repair_train_13_C",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 1,
+        "metrics": {
+          "kl": 0.0058719602529890835,
+          "grad_norm": 0.5569292902946472,
+          "loss": 0.39219123125076294,
+          "reward": 0.0,
+          "learning_rate": 2.361111111111111e-06,
+          "step_time": 246.5054195590783
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 224,
+          "effective_local_positive": 224,
+          "local_contribution_positive": 224,
+          "advantage_positive": 224,
+          "effective_local_negative": 870,
+          "local_contribution_negative": 870,
+          "advantage_negative": 870,
+          "raw_dfa_adv_negative": 142
+        }
+      },
+      {
+        "step": 40,
+        "task": "repair_train_07_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.007249133719597012,
+          "grad_norm": 0.8921748399734497,
+          "loss": 0.44589492678642273,
+          "reward": 0.0,
+          "learning_rate": 2.2916666666666666e-06,
+          "step_time": 182.1886354740709
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 118,
+          "effective_local_positive": 118,
+          "local_contribution_positive": 118,
+          "advantage_positive": 118,
+          "effective_local_negative": 510,
+          "local_contribution_negative": 510,
+          "advantage_negative": 510,
+          "raw_dfa_adv_negative": 46
+        }
+      },
+      {
+        "step": 41,
+        "task": "repair_train_05_A",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0016018440767311404,
+          "grad_norm": 0.046143848448991776,
+          "loss": 6.767630111426115e-05,
+          "reward": 0.0,
+          "learning_rate": 2.222222222222222e-06,
+          "step_time": 77.90231671300717
+        },
+        "tokens": {}
+      },
+      {
+        "step": 42,
+        "task": "repair_train_23_F",
+        "excluded": false,
+        "strict": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.005311601154971868,
+          "grad_norm": 0.973530650138855,
+          "loss": -0.045752815902233124,
+          "reward": 0.25,
+          "learning_rate": 2.152777777777778e-06,
+          "step_time": 93.75446853903122
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 271,
+          "effective_local_positive": 271,
+          "local_contribution_positive": 271,
+          "advantage_positive": 428,
+          "raw_dfa_adv_negative": 279,
+          "effective_local_negative": 376,
+          "local_contribution_negative": 376,
+          "advantage_negative": 376
+        }
+      },
+      {
+        "step": 43,
+        "task": "repair_train_11_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0076476436806842685,
+          "grad_norm": 0.9581670165061951,
+          "loss": 0.19935958087444305,
+          "reward": 0.0,
+          "learning_rate": 2.0833333333333334e-06,
+          "step_time": 93.94449147710111
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 183,
+          "effective_local_negative": 333,
+          "local_contribution_negative": 333,
+          "advantage_negative": 333,
+          "raw_dfa_adv_positive": 35,
+          "effective_local_positive": 35,
+          "local_contribution_positive": 35,
+          "advantage_positive": 35
+        }
+      },
+      {
+        "step": 44,
+        "task": "repair_train_14_C",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 2,
+        "metrics": {
+          "kl": 0.006934437682502903,
+          "grad_norm": 0.4968700706958771,
+          "loss": 0.6379386186599731,
+          "reward": 0.0,
+          "learning_rate": 2.0138888888888893e-06,
+          "step_time": 332.1923202390317
+        },
+        "tokens": {
+          "effective_local_negative": 1236,
+          "local_contribution_negative": 1236,
+          "advantage_negative": 1236
+        }
+      },
+      {
+        "step": 45,
+        "task": "repair_train_06_A",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 3,
+        "metrics": {
+          "kl": 0.0006440011347876862,
+          "grad_norm": 0.026971766725182533,
+          "loss": 0.027581308037042618,
+          "reward": 0.0,
+          "learning_rate": 1.944444444444445e-06,
+          "step_time": 281.5387219338445
+        },
+        "tokens": {
+          "effective_local_negative": 129,
+          "local_contribution_negative": 129,
+          "advantage_negative": 129
+        }
+      },
+      {
+        "step": 46,
+        "task": "repair_train_01_A",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.009189671138301492,
+          "grad_norm": 1.1818184852600098,
+          "loss": -0.26516619324684143,
+          "reward": 0.25,
+          "learning_rate": 1.8750000000000003e-06,
+          "step_time": 73.07362861500587
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 349,
+          "effective_local_positive": 349,
+          "local_contribution_positive": 349,
+          "advantage_positive": 506,
+          "raw_dfa_adv_negative": 157,
+          "effective_local_negative": 234,
+          "local_contribution_negative": 234,
+          "advantage_negative": 234
+        }
+      },
+      {
+        "step": 47,
+        "task": "repair_train_09_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0019031950141652487,
+          "grad_norm": 0.2714686691761017,
+          "loss": 0.11094871163368225,
+          "reward": 0.0,
+          "learning_rate": 1.8055555555555557e-06,
+          "step_time": 97.43855239404365
+        },
+        "tokens": {
+          "effective_local_negative": 76,
+          "local_contribution_negative": 76,
+          "advantage_negative": 76
+        }
+      },
+      {
+        "step": 48,
+        "task": "repair_train_19_D",
+        "excluded": false,
+        "strict": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "truncated": 1,
+        "metrics": {
+          "kl": 0.0025907084809659864,
+          "grad_norm": 0.9629067778587341,
+          "loss": -0.11016720533370972,
+          "reward": 0.25,
+          "learning_rate": 1.7361111111111112e-06,
+          "step_time": 144.80853930988815
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 218,
+          "effective_local_positive": 218,
+          "local_contribution_positive": 218,
+          "advantage_positive": 620,
+          "raw_dfa_adv_negative": 185,
+          "effective_local_negative": 452,
+          "local_contribution_negative": 452,
+          "advantage_negative": 452
+        }
+      },
+      {
+        "step": 49,
+        "task": "repair_train_01_A",
+        "excluded": false,
+        "strict": [
+          1,
+          0,
+          0,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.026699406909756362,
+          "grad_norm": 1.0393054485321045,
+          "loss": -0.09169770032167435,
+          "reward": 0.5,
+          "learning_rate": 1.6666666666666667e-06,
+          "step_time": 73.04553920496255
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 307,
+          "effective_local_positive": 307,
+          "local_contribution_positive": 307,
+          "advantage_positive": 666,
+          "raw_dfa_adv_negative": 130,
+          "effective_local_negative": 267,
+          "local_contribution_negative": 267,
+          "advantage_negative": 267
+        }
+      },
+      {
+        "step": 50,
+        "task": "repair_train_19_D",
+        "excluded": false,
+        "strict": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.005469833093229681,
+          "grad_norm": 1.2277677059173584,
+          "loss": -0.05504812300205231,
+          "reward": 0.25,
+          "learning_rate": 1.5972222222222221e-06,
+          "step_time": 75.38795016624499
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 281,
+          "effective_local_negative": 281,
+          "local_contribution_negative": 281,
+          "advantage_negative": 281,
+          "advantage_positive": 225,
+          "raw_dfa_adv_positive": 90,
+          "effective_local_positive": 90,
+          "local_contribution_positive": 90
+        }
+      },
+      {
+        "step": 51,
+        "task": "repair_train_06_A",
+        "excluded": false,
+        "strict": [
+          null,
+          0,
+          0,
+          0
+        ],
+        "truncated": 4,
+        "metrics": {
+          "kl": 0.0009308608205174096,
+          "grad_norm": 0.01795164868235588,
+          "loss": 3.9804399420972914e-05,
+          "reward": 0.0,
+          "learning_rate": 1.527777777777778e-06,
+          "step_time": 177.25756013207138
+        },
+        "tokens": {}
+      },
+      {
+        "step": 52,
+        "task": "repair_train_09_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0015742075629532337,
+          "grad_norm": 0.016213279217481613,
+          "loss": 6.283391121542081e-05,
+          "reward": 0.0,
+          "learning_rate": 1.4583333333333335e-06,
+          "step_time": 74.0249271838693
+        },
+        "tokens": {}
+      },
+      {
+        "step": 53,
+        "task": "repair_train_08_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.005967498174868524,
+          "grad_norm": 0.8764093518257141,
+          "loss": 0.2776692509651184,
+          "reward": 0.0,
+          "learning_rate": 1.3888888888888892e-06,
+          "step_time": 131.82035148784053
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 189,
+          "effective_local_positive": 189,
+          "local_contribution_positive": 189,
+          "advantage_positive": 189,
+          "effective_local_negative": 363,
+          "local_contribution_negative": 363,
+          "advantage_negative": 363,
+          "raw_dfa_adv_negative": 75
+        }
+      },
+      {
+        "step": 54,
+        "task": "repair_train_21_E",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.005826250009704381,
+          "grad_norm": 1.1057947874069214,
+          "loss": 0.17793677747249603,
+          "reward": 0.0,
+          "learning_rate": 1.3194444444444446e-06,
+          "step_time": 77.3025064469548
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 51,
+          "effective_local_negative": 221,
+          "local_contribution_negative": 221,
+          "advantage_negative": 221,
+          "raw_dfa_adv_positive": 159,
+          "effective_local_positive": 159,
+          "local_contribution_positive": 159,
+          "advantage_positive": 159
+        }
+      },
+      {
+        "step": 55,
+        "task": "repair_train_17_D",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 3,
+        "metrics": {
+          "kl": 0.0018633654981385916,
+          "grad_norm": 0.3900492489337921,
+          "loss": 0.3206973969936371,
+          "reward": 0.0,
+          "learning_rate": 1.25e-06,
+          "step_time": 250.59365412092302
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 74,
+          "effective_local_negative": 470,
+          "local_contribution_negative": 470,
+          "advantage_negative": 470,
+          "raw_dfa_adv_positive": 190,
+          "effective_local_positive": 190,
+          "local_contribution_positive": 190,
+          "advantage_positive": 190
+        }
+      },
+      {
+        "step": 56,
+        "task": "repair_train_22_E",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0010945603680738714,
+          "grad_norm": 0.4443857967853546,
+          "loss": 0.08845596760511398,
+          "reward": 0.0,
+          "learning_rate": 1.1805555555555556e-06,
+          "step_time": 99.91833983594552
+        },
+        "tokens": {
+          "effective_local_negative": 89,
+          "local_contribution_negative": 89,
+          "advantage_negative": 89
+        }
+      },
+      {
+        "step": 57,
+        "task": "repair_train_15_C",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 1,
+        "metrics": {
+          "kl": 0.0007126876766960777,
+          "grad_norm": 0.41912922263145447,
+          "loss": 0.38282549381256104,
+          "reward": 0.0,
+          "learning_rate": 1.111111111111111e-06,
+          "step_time": 315.656154853059
+        },
+        "tokens": {
+          "effective_local_negative": 836,
+          "local_contribution_negative": 836,
+          "advantage_negative": 836
+        }
+      },
+      {
+        "step": 58,
+        "task": "repair_train_14_C",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 2,
+        "metrics": {
+          "kl": 0.0016176150820683688,
+          "grad_norm": 0.21182243525981903,
+          "loss": 0.5668773651123047,
+          "reward": 0.0,
+          "learning_rate": 1.0416666666666667e-06,
+          "step_time": 229.81589914101642
+        },
+        "tokens": {
+          "effective_local_negative": 2435,
+          "local_contribution_negative": 2435,
+          "advantage_negative": 2435
+        }
+      },
+      {
+        "step": 59,
+        "task": "repair_train_16_C",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.011660073301754892,
+          "grad_norm": 0.4101356565952301,
+          "loss": 0.21110887825489044,
+          "reward": 0.0,
+          "learning_rate": 9.722222222222224e-07,
+          "step_time": 137.68952249607537
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 233,
+          "effective_local_positive": 233,
+          "local_contribution_positive": 233,
+          "advantage_positive": 233,
+          "effective_local_negative": 606,
+          "local_contribution_negative": 606,
+          "advantage_negative": 606,
+          "raw_dfa_adv_negative": 230
+        }
+      },
+      {
+        "step": 60,
+        "task": "repair_train_05_A",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.0001568733400745259,
+          "grad_norm": 0.004507012665271759,
+          "loss": 5.826163487654412e-06,
+          "reward": 0.0,
+          "learning_rate": 9.027777777777779e-07,
+          "step_time": 77.51274233404547
+        },
+        "tokens": {}
+      },
+      {
+        "step": 61,
+        "task": "repair_train_24_F",
+        "excluded": false,
+        "strict": [
+          1,
+          0,
+          1,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.003800373728154227,
+          "grad_norm": 0.754597544670105,
+          "loss": -0.08884689956903458,
+          "reward": 0.75,
+          "learning_rate": 8.333333333333333e-07,
+          "step_time": 65.88112922105938
+        },
+        "tokens": {
+          "advantage_positive": 782,
+          "raw_dfa_adv_positive": 223,
+          "effective_local_positive": 223,
+          "local_contribution_positive": 223,
+          "raw_dfa_adv_negative": 73,
+          "effective_local_negative": 147,
+          "local_contribution_negative": 147,
+          "advantage_negative": 147
+        }
+      },
+      {
+        "step": 62,
+        "task": "repair_train_04_A",
+        "excluded": true,
+        "strict": [
+          0,
+          0,
+          1,
+          null
+        ],
+        "truncated": 2,
+        "metrics": {
+          "kl": 0.0,
+          "grad_norm": 0.0,
+          "loss": 0.0,
+          "reward": 0.3333333432674408,
+          "learning_rate": 7.63888888888889e-07,
+          "step_time": 298.6320247389376
+        },
+        "tokens": {}
+      },
+      {
+        "step": 63,
+        "task": "repair_train_11_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 1,
+        "metrics": {
+          "kl": 0.038803766132332385,
+          "grad_norm": 0.9840616583824158,
+          "loss": 0.5719865560531616,
+          "reward": 0.0,
+          "learning_rate": 6.944444444444446e-07,
+          "step_time": 147.22072842193302
+        },
+        "tokens": {
+          "effective_local_negative": 512,
+          "local_contribution_negative": 512,
+          "advantage_negative": 512
+        }
+      },
+      {
+        "step": 64,
+        "task": "repair_train_02_A",
+        "excluded": false,
+        "strict": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.005117844149935991,
+          "grad_norm": 0.037427399307489395,
+          "loss": 0.00020275711722206324,
+          "reward": 1.0,
+          "learning_rate": 6.25e-07,
+          "step_time": 77.53633146907669
+        },
+        "tokens": {}
+      },
+      {
+        "step": 65,
+        "task": "repair_train_23_F",
+        "excluded": false,
+        "strict": [
+          1,
+          0,
+          0,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.008199811854865402,
+          "grad_norm": 0.8885044455528259,
+          "loss": -0.14071154594421387,
+          "reward": 0.5,
+          "learning_rate": 5.555555555555555e-07,
+          "step_time": 64.17842923093121
+        },
+        "tokens": {
+          "advantage_positive": 647,
+          "raw_dfa_adv_positive": 152,
+          "effective_local_positive": 152,
+          "local_contribution_positive": 152,
+          "raw_dfa_adv_negative": 157,
+          "effective_local_negative": 157,
+          "local_contribution_negative": 157,
+          "advantage_negative": 157
+        }
+      },
+      {
+        "step": 66,
+        "task": "repair_train_07_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.019244626571889967,
+          "grad_norm": 0.8991578221321106,
+          "loss": 0.263378381729126,
+          "reward": 0.0,
+          "learning_rate": 4.861111111111112e-07,
+          "step_time": 122.83655280410312
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 195,
+          "effective_local_positive": 195,
+          "local_contribution_positive": 195,
+          "advantage_positive": 195,
+          "effective_local_negative": 430,
+          "local_contribution_negative": 430,
+          "advantage_negative": 430,
+          "raw_dfa_adv_negative": 179
+        }
+      },
+      {
+        "step": 67,
+        "task": "repair_train_12_B",
+        "excluded": false,
+        "strict": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.00575727695832029,
+          "grad_norm": 0.02278064377605915,
+          "loss": 0.00021957849094178528,
+          "reward": 1.0,
+          "learning_rate": 4.1666666666666667e-07,
+          "step_time": 61.231679715099744
+        },
+        "tokens": {}
+      },
+      {
+        "step": 68,
+        "task": "repair_train_20_E",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.007752051380521152,
+          "grad_norm": 0.3693819046020508,
+          "loss": 0.1056157648563385,
+          "reward": 0.0,
+          "learning_rate": 3.472222222222223e-07,
+          "step_time": 95.10336265002843
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 325,
+          "effective_local_negative": 445,
+          "local_contribution_negative": 445,
+          "advantage_negative": 445,
+          "raw_dfa_adv_positive": 71,
+          "effective_local_positive": 71,
+          "local_contribution_positive": 71,
+          "advantage_positive": 71
+        }
+      },
+      {
+        "step": 69,
+        "task": "repair_train_10_B",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.009946800186298788,
+          "grad_norm": 0.9012081623077393,
+          "loss": 0.30011337995529175,
+          "reward": 0.0,
+          "learning_rate": 2.7777777777777776e-07,
+          "step_time": 130.9447596038226
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 138,
+          "effective_local_negative": 373,
+          "local_contribution_negative": 373,
+          "advantage_negative": 373,
+          "raw_dfa_adv_positive": 132,
+          "effective_local_positive": 132,
+          "local_contribution_positive": 132,
+          "advantage_positive": 132
+        }
+      },
+      {
+        "step": 70,
+        "task": "repair_train_18_D",
+        "excluded": false,
+        "strict": [
+          0,
+          1,
+          1,
+          1
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.009142553579295054,
+          "grad_norm": 0.4960665702819824,
+          "loss": -0.2225738763809204,
+          "reward": 0.75,
+          "learning_rate": 2.0833333333333333e-07,
+          "step_time": 103.79251338518225
+        },
+        "tokens": {
+          "raw_dfa_adv_negative": 52,
+          "effective_local_negative": 52,
+          "local_contribution_negative": 52,
+          "advantage_negative": 52,
+          "raw_dfa_adv_positive": 149,
+          "effective_local_positive": 149,
+          "local_contribution_positive": 149,
+          "advantage_positive": 1921
+        }
+      },
+      {
+        "step": 71,
+        "task": "repair_train_03_A",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.00834790081717074,
+          "grad_norm": 0.43964335322380066,
+          "loss": 0.08718232810497284,
+          "reward": 0.0,
+          "learning_rate": 1.3888888888888888e-07,
+          "step_time": 119.45168366492726
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 471,
+          "effective_local_positive": 471,
+          "local_contribution_positive": 471,
+          "advantage_positive": 471,
+          "raw_dfa_adv_negative": 241,
+          "effective_local_negative": 387,
+          "local_contribution_negative": 387,
+          "advantage_negative": 387
+        }
+      },
+      {
+        "step": 72,
+        "task": "repair_train_13_C",
+        "excluded": false,
+        "strict": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "truncated": 0,
+        "metrics": {
+          "kl": 0.007666127756237984,
+          "grad_norm": 0.6610681414604187,
+          "loss": 0.3283259868621826,
+          "reward": 0.0,
+          "learning_rate": 6.944444444444444e-08,
+          "step_time": 170.95848161785398
+        },
+        "tokens": {
+          "raw_dfa_adv_positive": 226,
+          "effective_local_positive": 226,
+          "local_contribution_positive": 226,
+          "advantage_positive": 226,
+          "effective_local_negative": 703,
+          "local_contribution_negative": 703,
+          "advantage_negative": 703,
+          "raw_dfa_adv_negative": 184
+        }
+      }
+    ]
+  },
+  "production": {
+    "dev": {
+      "SFT": {
+        "strict": 18,
+        "total": 24
+      },
+      "GRPO25": {
+        "strict": 18,
+        "total": 24,
+        "fail_to_pass": [],
+        "pass_to_fail": []
+      },
+      "25": {
+        "strict": 18,
+        "total": 24,
+        "fail_to_pass": [],
+        "pass_to_fail": [],
+        "against_grpo25": {
+          "paired": 24,
+          "fail_to_pass": [],
+          "pass_to_fail": []
+        }
+      },
+      "48": {
+        "strict": 18,
+        "total": 24,
+        "fail_to_pass": [],
+        "pass_to_fail": [],
+        "against_grpo25": {
+          "paired": 24,
+          "fail_to_pass": [],
+          "pass_to_fail": []
+        }
+      },
+      "72": {
+        "strict": 18,
+        "total": 24,
+        "fail_to_pass": [],
+        "pass_to_fail": [],
+        "against_grpo25": {
+          "paired": 24,
+          "fail_to_pass": [],
+          "pass_to_fail": []
+        }
+      }
+    },
+    "iid_test": {
+      "SFT": {
+        "strict": 53,
+        "total": 57
+      },
+      "GRPO25": {
+        "strict": 48,
+        "total": 57,
+        "fail_to_pass": [],
+        "pass_to_fail": [
+          [
+            "constraint_translate_only",
+            0
+          ],
+          [
+            "constraint_translate_only",
+            1
+          ],
+          [
+            "search_kw_rag",
+            0
+          ],
+          [
+            "search_kw_rag",
+            1
+          ],
+          [
+            "search_kw_rag",
+            2
+          ]
+        ]
+      },
+      "25": {
+        "strict": 54,
+        "total": 57,
+        "fail_to_pass": [
+          [
+            "constraint_translate_only",
+            2
+          ]
+        ],
+        "pass_to_fail": [],
+        "against_grpo25": {
+          "paired": 57,
+          "fail_to_pass": [
+            [
+              "constraint_translate_only",
+              2
+            ],
+            [
+              "search_kw_rag",
+              2
+            ],
+            [
+              "constraint_translate_only",
+              1
+            ],
+            [
+              "search_kw_rag",
+              1
+            ],
+            [
+              "constraint_translate_only",
+              0
+            ],
+            [
+              "search_kw_rag",
+              0
+            ]
+          ],
+          "pass_to_fail": []
+        }
+      },
+      "48": {
+        "strict": 52,
+        "total": 57,
+        "fail_to_pass": [],
+        "pass_to_fail": [
+          [
+            "search_kw_rag",
+            1
+          ]
+        ],
+        "against_grpo25": {
+          "paired": 57,
+          "fail_to_pass": [
+            [
+              "search_kw_rag",
+              2
+            ],
+            [
+              "constraint_translate_only",
+              1
+            ],
+            [
+              "constraint_translate_only",
+              0
+            ],
+            [
+              "search_kw_rag",
+              0
+            ]
+          ],
+          "pass_to_fail": []
+        }
+      },
+      "72": {
+        "strict": 52,
+        "total": 57,
+        "fail_to_pass": [],
+        "pass_to_fail": [
+          [
+            "search_kw_rag",
+            1
+          ]
+        ],
+        "against_grpo25": {
+          "paired": 57,
+          "fail_to_pass": [
+            [
+              "search_kw_rag",
+              2
+            ],
+            [
+              "constraint_translate_only",
+              1
+            ],
+            [
+              "constraint_translate_only",
+              0
+            ],
+            [
+              "search_kw_rag",
+              0
+            ]
+          ],
+          "pass_to_fail": []
+        }
+      }
+    },
+    "ood_test": {
+      "SFT": {
+        "strict": 12,
+        "total": 12
+      },
+      "GRPO25": {
+        "strict": 12,
+        "total": 12,
+        "fail_to_pass": [],
+        "pass_to_fail": []
+      },
+      "25": {
+        "strict": 12,
+        "total": 12,
+        "fail_to_pass": [],
+        "pass_to_fail": [],
+        "against_grpo25": {
+          "paired": 12,
+          "fail_to_pass": [],
+          "pass_to_fail": []
+        }
+      },
+      "48": {
+        "strict": 12,
+        "total": 12,
+        "fail_to_pass": [],
+        "pass_to_fail": [],
+        "against_grpo25": {
+          "paired": 12,
+          "fail_to_pass": [],
+          "pass_to_fail": []
+        }
+      },
+      "72": {
+        "strict": 12,
+        "total": 12,
+        "fail_to_pass": [],
+        "pass_to_fail": [],
+        "against_grpo25": {
+          "paired": 12,
+          "fail_to_pass": [],
+          "pass_to_fail": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "raw_file": "e2-repair-matched-results.tgz",
+  "raw_bytes": 12689608,
+  "raw_sha256": "2ebd510f5063fd412ff103bfbe1043f8b14483cc0737e6e3f1395d59e2e4bd22",
+  "parts": {
+    "e2-repair-matched-results.tgz": "2ebd510f5063fd412ff103bfbe1043f8b14483cc0737e6e3f1395d59e2e4bd22"
+  },
+  "adapters": {
+    "SFT": "f0c33a4d32a175bcaf1e83c55231a0108a84859cb748c318db49988a52f7911f",
+    "GRPO25": "db70af86b5485f322153b8910cf94e0d02e7096f38f1ad1c9e6fd5ac8938f9f6",
+    "25": "79f1dad4e651eab7891937c1c8d05faffef24bfbeeea94c23b43dc6889bfc101",
+    "48": "fc54b80b0510934aff45233f650afdd45b4523a3ac110133f4537c9433ef0056",
+    "72": "ab886151b0c71438befa0e8dae9dd13df5e91692e23dc94a218104c8ecb7fe41"
+  }
+}
