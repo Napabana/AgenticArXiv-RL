@@ -17,4 +17,6 @@
 
 引用 guard 触发减少，同时轨迹级 reference_score 下降。由于策略会走不同的动作路径，触发次数与完整轨迹的引用得分测量不同的行为。表中局部指标分别在各模型的 21 条有效轨迹上统计。两个模型在 repair_dev_05_C 和 repair_dev_07_E 的试次 0 都遇到环境无效。SFT v2 另在 repair_dev_01_A 的试次 0 无效，GRPO-25 另在 repair_dev_07_E 的试次 2 无效，因此严格成功的交叉对照共有 20 对。
 
+把两边都限制在同样的 20 个可评分试次时，子目标覆盖都是 50/79，正确前缀从 26/79 降到 20/79，重复调用都是 4 次。少掉的 6 个正确前缀步分别来自 repair_dev_01_A（1 步）、repair_dev_02_A（3 步）和 repair_dev_08_F（2 步）。子目标数在 repair_dev_02_A 和 repair_dev_06_D 分别增加 2 和 3，在 repair_dev_01_A、repair_dev_07_E 和 repair_dev_08_F 分别减少 1、2 和 2。共同可评分试次上发生了局部行为变化，净子目标增量为零。
+
 原始归档 fast25-paired-dev.tgz 含 48 条轨迹、逐试次摘要、权重清单、日志和配对汇总，SHA-256 为 `7f53c8c4721b5400196cacc99bee23f1af7f5fd8c87fccc148ab7dd8d72f2ec4`。
