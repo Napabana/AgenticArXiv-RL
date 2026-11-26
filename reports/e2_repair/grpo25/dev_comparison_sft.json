@@ -1,0 +1,45 @@
+{
+  "freeze": "9463c4d16daa4787571341b8f15b851b935c51cec6746747f94dedcd1e2bc0d2",
+  "grpo_sha": "db70af86b5485f322153b8910cf94e0d02e7096f38f1ad1c9e6fd5ac8938f9f6",
+  "summaries": {
+    "SFT": {
+      "strict": 3,
+      "scorable": 21,
+      "trials": 24,
+      "env_invalid": 3,
+      "truncated": 0,
+      "censored": 0,
+      "prefix": 28,
+      "subgoals": 54,
+      "required": 84,
+      "guards": {
+        "repeat": 4,
+        "reference": 8,
+        "tool_parse": 1
+      }
+    },
+    "GRPO25": {
+      "strict": 3,
+      "scorable": 21,
+      "trials": 24,
+      "env_invalid": 3,
+      "truncated": 0,
+      "censored": 0,
+      "prefix": 22,
+      "subgoals": 53,
+      "required": 84,
+      "guards": {
+        "repeat": 5,
+        "tool_parse": 2,
+        "reference": 1
+      }
+    }
+  },
+  "comparisons": {
+    "SFT -> GRPO25": {
+      "paired": 20,
+      "fail_to_pass": [],
+      "pass_to_fail": []
+    }
+  }
+}
