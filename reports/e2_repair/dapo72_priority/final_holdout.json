@@ -1,0 +1,71 @@
+{
+  "split": "final_holdout",
+  "freeze": "9463c4d16daa4787571341b8f15b851b935c51cec6746747f94dedcd1e2bc0d2",
+  "adapters": {
+    "SFT": "f0c33a4d32a175bcaf1e83c55231a0108a84859cb748c318db49988a52f7911f",
+    "72": "ab886151b0c71438befa0e8dae9dd13df5e91692e23dc94a218104c8ecb7fe41"
+  },
+  "summaries": {
+    "SFT": {
+      "trials": 36,
+      "scorable": 33,
+      "strict": 1,
+      "env_invalid": 3,
+      "censored": 0,
+      "truncated": 3,
+      "prefix": 47,
+      "subgoals": 74,
+      "required": 146,
+      "all_subgoals": 4,
+      "decisions": 162,
+      "guards": {
+        "tool_parse": 7,
+        "repeat": 9,
+        "reference": 7
+      },
+      "reference_accuracy": 0.43383838383838386
+    },
+    "72": {
+      "trials": 36,
+      "scorable": 36,
+      "strict": 3,
+      "env_invalid": 0,
+      "censored": 0,
+      "truncated": 4,
+      "prefix": 55,
+      "subgoals": 84,
+      "required": 159,
+      "all_subgoals": 6,
+      "decisions": 181,
+      "guards": {
+        "reference": 16,
+        "tool_parse": 7,
+        "repeat": 9
+      },
+      "reference_accuracy": 0.43333333333333335
+    }
+  },
+  "comparison": {
+    "paired": 33,
+    "fail_to_pass": [
+      [
+        "repair_final_holdout_10_E",
+        2
+      ],
+      [
+        "repair_final_holdout_11_F",
+        0
+      ]
+    ],
+    "pass_to_fail": [],
+    "common_prefix": [
+      47,
+      52
+    ],
+    "common_subgoals": [
+      74,
+      81
+    ],
+    "common_required": 146
+  }
+}
