@@ -11,17 +11,17 @@ from repair_compare25 import trials
 from repair_matched_results import compare, summarize
 from repair_run import checked, read, evaluation_freeze
 
-BASE_SHA = "928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d"
+from repair_base_benchmark import WEIGHTS
 
 
-def new_benchmark(root, prior, freeze, weights):
+def new_benchmark(root, prior, freeze, weights, kind):
     result = {}
     for split in ("dev", "final_holdout"):
-        folder = root/split/"Base"
+        folder = root/split/kind
         base = trials(folder,None,freeze,split)
         for task, trial in base:
             raw = json.loads(gzip.decompress((folder/f"{task}.{trial}.json.gz").read_bytes()))
-            if raw["base_sha256"] != BASE_SHA:
+            if raw["base_sha256"] != WEIGHTS[kind]:
                 raise ValueError("Incorrect Base weight")
         models = {p:trials(prior/split/p,h,freeze,split) for p,h in weights.items()}
         result[split] = dict(base=summarize(base),
@@ -30,16 +30,16 @@ def new_benchmark(root, prior, freeze, weights):
     return result
 
 
-def old_benchmark(root, prior, freeze, weights, sft_run):
+def old_benchmark(root, prior, freeze, weights, sft_run, kind):
     old = read(ROOT/"reports/native_sft_v2/paired_evaluation.json")
     if old["v2_sha256"] != weights["SFT"]:
         raise ValueError("SFT baseline identity mismatch")
     result = {}
     for split, data in old["splits"].items():
         sft = {(r["id"],r["trial"]):r["v2"] for r in data["trials"]}
-        proto, base, files = paired(root/"production/Base",split,set(sft),None)
+        proto, base, files = paired(root/"production"/kind,split,set(sft),None)
         base_protocol = proto["native_protocol"]
-        if read(root/"production/Base"/split/"identity.json") != dict(adapter=None,base_sha256=BASE_SHA,
+        if read(root/"production"/kind/split/"identity.json") != dict(adapter=None,base_sha256=WEIGHTS[kind],
                 freeze=freeze,trace=files["trace_sha256"]):
             raise ValueError("Production Base identity mismatch")
         models = {}
@@ -64,20 +64,21 @@ def old_benchmark(root, prior, freeze, weights, sft_run):
     return result
 
 
-def main(root,prior,sft_run):
+def main(root,prior,sft_run,kind):
     freeze = checked()
     weights = read(prior/"checkpoints.json")
     if weights["freeze"]!=freeze or read(prior/"evaluation_freeze.json")!=evaluation_freeze(prior,freeze,weights):
         raise ValueError("Previous evaluation freeze changed")
-    result = dict(base_sha256=BASE_SHA,adapter=None,freeze=freeze,reference_adapters=weights["adapters"],
-                  challenge=new_benchmark(root,prior,freeze,weights["adapters"]),
-                  production=old_benchmark(root,prior,freeze,weights["adapters"],sft_run))
+    result = dict(model_kind=kind,base_sha256=WEIGHTS[kind],adapter=None,freeze=freeze,reference_adapters=weights["adapters"],
+                  challenge=new_benchmark(root,prior,freeze,weights["adapters"],kind),
+                  production=old_benchmark(root,prior,freeze,weights["adapters"],sft_run,kind))
     write(root/"comparison.json",result)
 
 
 if __name__=="__main__":
     p=argparse.ArgumentParser()
+    p.add_argument("--model-kind",choices=WEIGHTS,default="Base")
     for name in ("output","prior","sft-run"):
         p.add_argument("--"+name,type=Path,required=True)
     a=p.parse_args()
-    main(a.output.resolve(),a.prior.resolve(),a.sft_run.resolve())
+    main(a.output.resolve(),a.prior.resolve(),a.sft_run.resolve(),a.model_kind)

@@ -3,6 +3,7 @@ import argparse
 from collections import Counter
 from functools import partial
 import gzip
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -28,6 +29,8 @@ from rl.task_automaton import transitions
 import run_native_grpo
 
 WEIGHT_FILE = "model.safetensors-00001-of-00001.safetensors"
+WEIGHTS = {"Base":"928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d",
+           "Qwen2B":"aa33250c4fc64891ddfaba3a314fd9542ea371843c387178b425fbcc5ed680b1"}
 PRODUCTION = ("dev", "iid_test", "ood_test")
 
 
@@ -60,7 +63,7 @@ def challenge(args, tokenizer, native, receipt, weights):
     if getattr(model, "peft_config", None):
         raise ValueError("Expected unadapted Base")
     cfg = read(RDATA/"budget.json")
-    output = args.output/args.split/"Base"
+    output = args.output/args.split/args.model_kind
     seed_start = {"dev":73000, "final_holdout":85000}[args.split]
     details = []
     for i, task in enumerate(lines(RDATA/(args.split+".jsonl"))):
@@ -87,7 +90,7 @@ def challenge(args, tokenizer, native, receipt, weights):
 
 def production(args, receipt, weights, assets):
     from benchmark import run_benchmark
-    output = args.output/"production"/"Base"/args.split
+    output = args.output/"production"/args.model_kind/args.split
     output.mkdir(parents=True,exist_ok=False)
     os.environ["TOOL_ROUTER"] = "policy"
     os.environ.pop("AA_EVAL_GREEDY",None)
@@ -114,6 +117,8 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("suite",choices=("production","challenge"))
     p.add_argument("split",choices=(*PRODUCTION,"final_holdout"))
+    p.add_argument("--model-kind",choices=WEIGHTS,default="Base")
+    p.add_argument("--reference-base",type=Path,help="Verified SFT/RL backbone used to audit the frozen protocol")
     for name in ("base","reference-adapter","snapshot","output"):
         p.add_argument("--"+name,type=Path,required=True)
     a = p.parse_args()
@@ -128,10 +133,21 @@ def main():
         # Verify the exact published reference assets and activate its native prompt.
         # The reference adapter is only hashed here. Neither inference path loads it.
         a.adapter = a.reference_adapter
-        tok, native, assets = frozen_inputs(a)
+        from argparse import Namespace
+        reference = Namespace(base=a.reference_base or a.base, adapter=a.reference_adapter, snapshot=a.snapshot)
+        tok, native, assets = frozen_inputs(reference)
+        if a.model_kind == "Qwen2B":
+            from transformers import AutoTokenizer
+            tok = AutoTokenizer.from_pretrained(a.base, local_files_only=True)
+            if hashlib.sha256(tok.chat_template.encode()).hexdigest() != assets["chat_template_sha256"]:
+                raise ValueError("Official 2B chat template differs from frozen Native protocol")
+            native.audit_tokenizer = tok
         weights = sha256_file(a.base/WEIGHT_FILE)
-        if weights != "928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d":
-            raise ValueError("Base weight mismatch")
+        if weights != WEIGHTS[a.model_kind]:
+            raise ValueError(f"Weight mismatch for {a.model_kind}")
+        write(a.output/f"model-{a.suite}-{a.split}.json", dict(model=a.model_kind,weights=weights,
+              tokenizer=sha256_file(a.base/"tokenizer.json"),chat_template=hashlib.sha256(tok.chat_template.encode()).hexdigest(),
+              system_prompt=assets["system_prompt_sha256"],tools=assets["tools_sha256"],adapter=None,freeze=receipt))
         if a.suite=="production":
             production(a,receipt,weights,assets)
         else:

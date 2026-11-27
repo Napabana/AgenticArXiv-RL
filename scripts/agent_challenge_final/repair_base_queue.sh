@@ -10,12 +10,23 @@ trap 'echo "$?" >"$BASE_OUT/queue.exit"' EXIT
 export PYTHONPATH="scripts/agent_challenge_final:AgenticArxiv:scripts"
 export HF_HUB_OFFLINE=1 STORE_BACKEND=memory OMP_NUM_THREADS=1 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 unset VLM_ADAPTER_PATH AA_EVAL_GREEDY
+kind=${BASE_KIND:-Base}
 run() {
+    if [[ -n ${AFTER_BASE_OUT:-} ]]; then
+        local marker="$AFTER_BASE_OUT/$2/Base/summary.json"
+        if [[ $1 == production ]]; then
+            marker="$AFTER_BASE_OUT/production/Base/$2/identity.json"
+            if [[ $2 == dev ]]; then marker="$AFTER_BASE_OUT/production/Base/ood_test/identity.json"; fi
+        fi
+        while [[ ! -s $marker && ! -s "$AFTER_BASE_OUT/queue.exit" ]]; do sleep 5; done
+        test -s "$marker" || return 1
+    fi
     "$BASE_PYTHON" -u "$runner" "$1" "$2" --base "$BASE_MODEL" --reference-adapter "$SFT_REFERENCE" \
+        --model-kind "$kind" --reference-base "${REFERENCE_BASE_MODEL:-$BASE_MODEL}" \
         --snapshot data/mock_arxiv_snapshot.json --output "$BASE_OUT" >>"$BASE_OUT/$1-$2.log" 2>&1
 }
 retry() {
-    local suite=$1 split=$2 output="$BASE_OUT/production/Base/$2"
+    local suite=$1 split=$2 output="$BASE_OUT/production/$kind/$2"
     grep -Eqi 'OutOfMemoryError|CUDA out of memory' "$BASE_OUT/$suite-$split.log" || return 1
     if [[ $suite == production && -d "$output" && ! -f "$output/identity.json" ]]; then
         mv "$output" "$output.oom-$(date +%s)"
@@ -35,7 +46,7 @@ failed=()
 for i in 0 1 2 3; do wait "${pids[i]}" || failed+=("$i"); done
 for i in "${failed[@]}"; do
     if [[ $i == 3 ]]; then
-        if [[ ! -f "$BASE_OUT/production/Base/dev/identity.json" ]]; then
+        if [[ ! -f "$BASE_OUT/production/$kind/dev/identity.json" ]]; then
             retry production dev
             run production ood_test
         else
@@ -45,6 +56,6 @@ for i in "${failed[@]}"; do
         retry "${suites[i]}" "${splits[i]}"
     fi
 done
-for s in dev iid_test ood_test; do test -s "$BASE_OUT/production/Base/$s/identity.json"; done
-for s in dev final_holdout; do test -s "$BASE_OUT/$s/Base/summary.json"; done
-echo 0 >"$BASE_OUT/production/Base/status"
+for s in dev iid_test ood_test; do test -s "$BASE_OUT/production/$kind/$s/identity.json"; done
+for s in dev final_holdout; do test -s "$BASE_OUT/$s/$kind/summary.json"; done
+echo 0 >"$BASE_OUT/production/$kind/status"
