@@ -1,0 +1,9 @@
+{
+  "archive": "base-raw.tgz",
+  "sha256": "b7b8f454d5e52819b8f9bfa58b5b1229198c3998afc342cabfb55a95c8a81090",
+  "files": 92,
+  "new_base_trials": 153,
+  "archived_challenge_scores_replayed": 300,
+  "matching_scores": 300,
+  "sampled_peak_device_mib": 20494
+}

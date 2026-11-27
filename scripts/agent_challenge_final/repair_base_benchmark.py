@@ -128,7 +128,9 @@ def main():
     a.output.mkdir(parents=True,exist_ok=True)
     os.environ.pop("VLM_ADAPTER_PATH",None)
     os.environ.update(HF_HUB_OFFLINE="1",STORE_BACKEND="memory",OMP_NUM_THREADS="1")
-    with FileLock(str(a.output/f".{a.suite}-{a.split}.lock"),timeout=0):
+    # A freed GPU slot can bring a challenge split forward. A queued worker then
+    # waits for its peer and verifies the saved trials using the ordinary resume path.
+    with FileLock(str(a.output/f".{a.suite}-{a.split}.lock"),timeout=-1 if a.suite=="challenge" else 0):
         receipt = checked()
         # Verify the exact published reference assets and activate its native prompt.
         # The reference adapter is only hashed here. Neither inference path loads it.
