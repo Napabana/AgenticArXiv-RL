@@ -1,0 +1,22 @@
+{
+  "freeze": "9463c4d16daa4787571341b8f15b851b935c51cec6746747f94dedcd1e2bc0d2",
+  "models": {
+    "Base": {
+      "file": "base-raw.tgz",
+      "sha256": "b7b8f454d5e52819b8f9bfa58b5b1229198c3998afc342cabfb55a95c8a81090",
+      "base_sha256": "928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d",
+      "adapter": null,
+      "trials": 153,
+      "peak_device_memory_sampled_mib": 20494
+    },
+    "Qwen2B": {
+      "file": "official2b-raw.tgz",
+      "sha256": "db3a8618755a9d44818152b998e4db8ea17346030f5716bc7fd4ae044f959d56",
+      "base_sha256": "aa33250c4fc64891ddfaba3a314fd9542ea371843c387178b425fbcc5ed680b1",
+      "adapter": null,
+      "trials": 153,
+      "peak_device_memory_sampled_mib": 20494
+    }
+  },
+  "total_new_trials": 306
+}
